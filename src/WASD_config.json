@@ -1,0 +1,35 @@
+{
+    "file_settings":{
+        "file_path":"..."
+    },
+    "power_settings":{
+        "toggle_on_powers":[
+            "combat jumping",
+            "super speed",
+            "sprint",
+            "some shield"
+        ],
+        "toggle_off_powers":[
+            "black dwarf",
+            "dark nova"
+        ],
+        "rotate_auto_powers":[
+            "hasten",
+            "inner inspiration"
+        ]
+    },
+    "generaeted_macro_settings":{
+        "macro_toggle_on_settings":{
+            "macro_name":"Toggle On WASD Binds",
+            "macro_image":""
+        },
+        "macro_toggle_off_settings":{
+            "macro_name":"Toggle Off WASD Binds",
+            "macro_image":""
+        }
+    },
+    "misc_settings":{
+        "include_space_bar":true,
+        "enable_silent_binds":true
+    }   
+}
