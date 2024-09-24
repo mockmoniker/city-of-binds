@@ -1,12 +1,12 @@
 from copy import deepcopy
-from typing import Union, Callable
+from typing import Callable
 from CityOfBinds.slashcommands import SlashCommands
 
 class Bind:
     MAX_BIND_LENGTH = 255
 
     ### Initialization
-    def __init__(self, trigger: str, slash_commands: Union[str, list[str]]):
+    def __init__(self, trigger: str, slash_commands: str | list[str]):
         """Initialize the bind with a trigger and slash command list."""
         self.trigger: str = ""
         self.slash_commands: list[str] = []
@@ -38,7 +38,7 @@ class Bind:
         """Helper function to set the slash command."""
         self.slash_commands = [slash_command]
 
-    def set_slash_commands(self, slash_commands: Union[str, list[str]]):
+    def set_slash_commands(self, slash_commands: str | list[str]):
         """Set the slash commands of the bind. Ensure the total bind string does not exceed max character length."""
         if isinstance(slash_commands, str):
             self.set_slash_command(slash_commands)
@@ -60,7 +60,7 @@ class Bind:
         """Helper function to add a slash command."""
         self.slash_commands.append(slash_command)
 
-    def add_slash_commands(self, slash_commands: Union[str, list[str]]):
+    def add_slash_commands(self, slash_commands: str | list[str]):
         """Add a list of commands to the bind. Ensure the total bind string does not exceed max character length."""
         if isinstance(slash_commands, str):
             self.add_slash_command(slash_commands)
@@ -95,7 +95,7 @@ class Bind:
         return f"{self.get_trigger()} \"{'$$'.join(slash_commands)}\""
     
     ### Error Checking/Validation
-    def _check_potential_action(self, potential_action: Callable[['Bind', Union[str, list[str]]], None], potential_action_args: Union[str, list[str]]):
+    def _check_potential_action(self, potential_action: Callable[['Bind', str | list[str]], None], potential_action_args: str | list[str]):
         """Helper function to perform the potential action on a copy of the current object."""
         potential_bind = self.copy()
         potential_action(potential_bind, potential_action_args)
@@ -120,9 +120,9 @@ class WASDBind(Bind):
     ### Initialization
     def __init__(self, 
                  trigger: str, 
-                 slash_commands: Union[str, list[str]] = [], 
-                 toggle_off_powers: Union[str, list[str]] = [], 
-                 toggle_on_powers: Union[str, list[str]] = [], 
+                 slash_commands: str | list[str] = [], 
+                 toggle_off_powers: str | list[str] = [], 
+                 toggle_on_powers: str | list[str] = [], 
                  auto_power: str = ""):
         """Initialize the WASD bind with a trigger and a default movement slash command."""
         self.toggle_off_powers: list[str] = []
@@ -161,7 +161,7 @@ class WASDBind(Bind):
         """Helper function to set the toggle off power."""
         self.toggle_off_powers = [toggle_off_power]
 
-    def set_toggle_off_powers(self, toggle_off_powers: Union[str, list[str]]):
+    def set_toggle_off_powers(self, toggle_off_powers: str | list[str]):
         """Helper function to set the toggle off list."""
         if isinstance(toggle_off_powers, str):
             self.set_toggle_off_power(toggle_off_powers)
@@ -182,7 +182,7 @@ class WASDBind(Bind):
         """Helper function to set the toggle on power."""
         self.toggle_on_powers = [toggle_on_power]
 
-    def set_toggle_on_powers(self, toggle_on_powers: Union[str, list[str]]):
+    def set_toggle_on_powers(self, toggle_on_powers: str | list[str]):
         """Set the toggle on list. Ensure the total bind string does not exceed max character length."""
         if isinstance(toggle_on_powers, str):
             self.set_toggle_on_power(toggle_on_powers)
@@ -213,7 +213,7 @@ class WASDBind(Bind):
         """Helper function to add a power to the toggle off powers list."""
         self.toggle_off_powers.append(power)
 
-    def add_toggle_off_powers(self, powers: Union[str, list[str]]):
+    def add_toggle_off_powers(self, powers: str | list[str]):
         """Add a list of poewrs to the toggle off powers list. Ensure the total bind string does not exceed max character length."""
         if isinstance(powers, str):
             self.add_toggle_off_power(powers)
@@ -234,7 +234,7 @@ class WASDBind(Bind):
         """Helper function to add a power to the toggle on powers list."""
         self.toggle_on_powers.append(power)
 
-    def add_toggle_on_powers(self, powers: Union[str, list[str]]):
+    def add_toggle_on_powers(self, powers: str | list[str]):
         """Add a list of powers to the toggle on powers list. Ensure the total bind string does not exceed max character length."""
         if isinstance(powers, str):
             self.add_toggle_on_power(powers)
