@@ -1,3 +1,3 @@
-from .binds import Bind, WASDBind
+from .binds import Bind, ToggleBind, WASDBind
 
-__all__ = ["Bind", "WASDBind"]
+__all__ = ["Bind", "ToggleBind", "WASDBind"]
