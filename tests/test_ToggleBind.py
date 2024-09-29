@@ -22,3 +22,8 @@ class TestBindInitializaiton:
     def test_init_should_set_trigger_given_valid_trigger(self, valid_trigger_input, expected_trigger_output):
         bind = ToggleBind(trigger=valid_trigger_input, slash_commands=["command"])
         assert bind.trigger == expected_trigger_output
+
+    @pytest.mark.parametrize("invalid_trigger_input", invalid_triggers)
+    def test_init_should_raise_value_error_given_invalid_trigger(self, invalid_trigger_input):
+        with pytest.raises(ValueError):
+            bind = ToggleBind(trigger=invalid_trigger_input, slash_commands=["command"])
