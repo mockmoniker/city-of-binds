@@ -1,4 +1,4 @@
-from bind import Bind
+from CityOfBinds.binds import Bind
 
 class BindFile:
     def __init__(self, filename: str = "bind.txt", comment_banner: str = ""):

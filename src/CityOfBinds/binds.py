@@ -53,16 +53,16 @@ class Bind:
     def _throw_error_on_invalid_trigger(self, trigger: str):
         """Helper function to validate the trigger."""
         if not trigger:
-            raise ValueError("Error: The trigger is empty.")
+            raise ValueError("Error: Trigger cannot be empty.")
         if " " in trigger:
-            raise ValueError(f"Error: Invalid trigger '{trigger}'. Triggers cannot contain spaces.")
+            raise ValueError(f"Error: Invalid trigger '{trigger}'. Trigger cannot contain spaces.")
         
     def _throw_error_on_invalid_slash_commands(self, slash_commands: list[str]):
         """Helper function to validate the slash commands."""
         if not slash_commands:
-            raise ValueError("Error: No Slash Commands")
-        if not all(command for command in slash_commands):
-            raise ValueError("Error: Empty Slash Command")
+            raise ValueError("Error: Slash Commands list cannot be empty.")
+        if not all(slash_commands):
+                raise ValueError("Error: Slash Commands list cannot contain empty commands.")
 
     def is_over_bind_length(self, bind: 'Bind') -> bool:
         """Helper function to ensure the total bind string does not exceed max character length."""

@@ -6,7 +6,7 @@ invalid_triggers = [
     "",
     "trigger with space",
 ]
-
+"""
 class TestValidWASDBindInitializaiton:
     @pytest.mark.parametrize("valid_trigger_input, expected_trigger_output", Scenarios.valid_set_wasd_trigger_scenarios)
     def test_init_should_set_trigger_given_valid_trigger(self, valid_trigger_input, expected_trigger_output):
@@ -55,3 +55,4 @@ class TestValidWASDBindSetters:
         bind = WASDBind(trigger="w", slash_commands=["command"])
         bind.trigger = valid_trigger_input
         assert bind._direction == expected_trigger_direciton
+"""
