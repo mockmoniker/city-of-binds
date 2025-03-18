@@ -22,6 +22,7 @@ class TestToggleBindParameters(TestBindParameters):
         ("power with number 0", "power with number 0"),
     ]
 
+    # ({invalid powers}, {expected error message})
     test_init_should_raise_value_error_given_invalid_toggle_off_powers_parameters = [
         ([], "Slash Commands list cannot be empty"),
         ([""], "Slash Commands list cannot contain empty commands"),
@@ -33,6 +34,7 @@ class TestToggleBindParameters(TestBindParameters):
     # re-use toggle_off test cases
     test_init_should_raise_value_error_given_invalid_toggle_on_powers_parameters = test_init_should_raise_value_error_given_invalid_toggle_off_powers_parameters
 
+    # ({invalid power}, {expected error message})
     test_init_should_raise_value_error_given_invalid_auto_power_parameters = [
         ("", "Slash Commands list cannot be empty")
     ]
