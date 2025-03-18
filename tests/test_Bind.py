@@ -7,7 +7,7 @@ class TestValidBindInitializaiton:
     default_trigger = "t"
     default_slash_commands = ["command"]
 
-    @pytest.mark.parametrize("valid_trigger_input, expected_trigger_output", BindScenarios.valid_set_trigger_scenarios)
+    @pytest.mark.parametrize("valid_trigger_input, expected_trigger_output", BindScenarios.valid_trigger_scenarios)
     def test_init_should_set_trigger_given_valid_trigger(self, valid_trigger_input, expected_trigger_output):
         bind = self.bind_under_test(trigger=valid_trigger_input, slash_commands=self.default_slash_commands)
         assert bind.trigger == expected_trigger_output
@@ -22,7 +22,7 @@ class TestInvalidBindInitialization:
     default_trigger = "t"
     default_slash_commands = ["command"]
 
-    @pytest.mark.parametrize("invalid_trigger_input, expected_error_message", BindScenarios.invalid_set_trigger_scenarios)
+    @pytest.mark.parametrize("invalid_trigger_input, expected_error_message", BindScenarios.invalid_trigger_scenarios)
     def test_init_should_raise_value_error_given_invalid_trigger(self, invalid_trigger_input, expected_error_message):
         with pytest.raises(ValueError, match=f".*{expected_error_message}.*"):
             bind = self.bind_under_test(trigger=invalid_trigger_input, slash_commands=self.default_slash_commands)
@@ -37,7 +37,7 @@ class TestValidBindSetters:
     default_trigger = "t"
     default_slash_commands = ["command"]
 
-    @pytest.mark.parametrize("valid_trigger_input, expected_trigger_output", BindScenarios.valid_set_trigger_scenarios)
+    @pytest.mark.parametrize("valid_trigger_input, expected_trigger_output", BindScenarios.valid_trigger_scenarios)
     def test_set_trigger_should_set_trigger_given_valid_trigger(self, valid_trigger_input, expected_trigger_output):
         bind = self.bind_under_test(trigger=self.default_trigger, slash_commands=self.default_slash_commands)
         bind.trigger = valid_trigger_input
@@ -54,7 +54,7 @@ class TestInvalidBindSetters:
     default_trigger = "t"
     default_slash_commands = ["command"]
 
-    @pytest.mark.parametrize("invalid_trigger_input, expected_error_message", BindScenarios.invalid_set_trigger_scenarios)
+    @pytest.mark.parametrize("invalid_trigger_input, expected_error_message", BindScenarios.invalid_trigger_scenarios)
     def test_set_trigger_should_raise_value_error_given_invalid_trigger(self, invalid_trigger_input, expected_error_message):
         bind = self.bind_under_test(trigger=self.default_trigger, slash_commands=self.default_slash_commands)
         with pytest.raises(ValueError, match=f".*{expected_error_message}.*"):
@@ -68,8 +68,6 @@ class TestInvalidBindSetters:
 
 class TestBindStrings:
     bind_under_test = Bind
-    default_trigger = "t"
-    default_slash_commands = ["command"]
 
     @pytest.mark.parametrize("valid_trigger_input, valid_slash_commands_input, expected_bind_string_output", BindScenarios.valid_bind_string_scenarios)
     def test_bind_string_should_return_correct_string_given_valid_input(self, valid_trigger_input, valid_slash_commands_input, expected_bind_string_output):
