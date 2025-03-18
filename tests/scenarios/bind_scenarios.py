@@ -1,4 +1,4 @@
-class Scenarios:
+class BindScenarios:
 
     valid_set_trigger_scenarios = [
         ("T", "T"),
@@ -9,32 +9,6 @@ class Scenarios:
         ("shift+t", "SHIFT+T"),
         ("SHIFT+SPACE", "SHIFT+SPACE"),
         ("shift+space", "SHIFT+SPACE"),
-    ]
-
-    valid_set_wasd_trigger_scenarios = [
-        ("w", "W"),
-        ("a", "A"),
-        ("s", "S"),
-        ("d", "D"),
-        ("space", "SPACE"),
-        ("W", "W"),
-        ("A", "A"),
-        ("S", "S"),
-        ("D", "D"),
-        ("SPACE", "SPACE")
-    ]
-
-    valid_set_wasd_direction_scenarios = [
-        ("w", "+forward"),
-        ("a", "+left"),
-        ("s", "+backward"),
-        ("d", "+right"),
-        ("space", "+up"),
-        ("W", "+forward"),
-        ("A", "+left"),
-        ("S", "+backward"),
-        ("D", "+right"),
-        ("SPACE", "+up")
     ]
 
     valid_set_slash_commands_scenarios = [

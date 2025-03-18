@@ -20,7 +20,7 @@ class Bind:
     
     @trigger.setter
     def trigger(self, trigger: str):
-        self._throw_error_on_invalid_trigger(trigger)
+        self._throw_error_on_invalid_trigger(trigger = trigger)
         self._trigger = trigger.upper()
     
     @property
