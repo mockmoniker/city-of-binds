@@ -1,6 +1,8 @@
 class BindScenarios:
 
-    valid_set_trigger_scenarios = [
+    ### Valid Scenarios
+    # {valid trigger, expected trigger}
+    valid_trigger_scenarios = [
         ("T", "T"),
         ("t", "T"),
         ("SPACE", "SPACE"),
@@ -11,6 +13,7 @@ class BindScenarios:
         ("shift+space", "SHIFT+SPACE"),
     ]
 
+    # {valid slash commands, expected slash commands}
     valid_set_slash_commands_scenarios = [
         (["command"], ["command"]),
         (["command with spaces"], ["command with spaces"]),
@@ -45,7 +48,7 @@ class BindScenarios:
         ("shift+t", ["command with spaces", "command2 with spaces", "command3 with spaces"], "SHIFT+T \"command with spaces$$command2 with spaces$$command3 with spaces\""),
     ]
 
-    invalid_set_trigger_scenarios = [
+    invalid_trigger_scenarios = [
         ("", "Trigger cannot be empty"),
         ("trigger with space", "Trigger cannot contain spaces"),
     ]
