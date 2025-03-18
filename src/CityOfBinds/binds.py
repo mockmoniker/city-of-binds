@@ -153,7 +153,6 @@ class ToggleBind(Bind):
         super()._throw_error_on_invalid_slash_commands(combined_slash_commands)
 
 class WASDBind(ToggleBind):
-    ALLOWED_WASD_TRIGGERS = ["W", "A", "S", "D", "SPACE"]
     WASD_TRIGGER_MAP = {
         "W": "+forward",
         "A": "+left",
@@ -250,5 +249,5 @@ class WASDBind(ToggleBind):
     def _throw_error_on_invalid_trigger(self, trigger: str):
         """Helper function to check if the trigger is valid."""
         super()._throw_error_on_invalid_trigger(trigger)
-        if trigger.upper() not in self.ALLOWED_WASD_TRIGGERS:
-            raise ValueError(f"Error: Invalid WASD trigger '{trigger}'. Allowed triggers are {self.ALLOWED_WASD_TRIGGERS}.")
+        if trigger.upper() not in self.WASD_TRIGGER_MAP:
+            raise ValueError(f"Error: Invalid WASD trigger '{trigger}'. Allowed triggers are {self.WASD_TRIGGER_MAP.keys}.")
