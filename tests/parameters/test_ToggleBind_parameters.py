@@ -1,4 +1,4 @@
-from test_Bind_parameters import TestBindParameters
+from parameters.test_Bind_parameters import TestBindParameters
 
 class TestToggleBindParameters(TestBindParameters):
 

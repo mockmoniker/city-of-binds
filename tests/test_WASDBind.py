@@ -3,8 +3,6 @@ import test_ToggleBind
 from CityOfBinds import WASDBind
 from parameters.test_WASDBind_parameters import TestWASDBindParameters
 
-bind_under_test = WASDBind
-
 class TestValidWASDBindInitializaiton(test_ToggleBind.TestValidToggleBindInitializaiton):
     bind_under_test = WASDBind
     default_trigger = "w"
