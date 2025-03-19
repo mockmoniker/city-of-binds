@@ -40,20 +40,23 @@ class BindFile:
 
     def write_to_file(self, path: str = ""):
         """Write all the binds to the file."""
-        with open(path + self.filename, 'w') as file:
-            file.write(self.build_message_string())
+        with open(path + "/" + self.filename, 'w') as file:
+            file.write(self._build_message_string())
             for bind in self._binds:
                 file.write(bind.bind_string + "\n")
 
     def _build_message_string(self) -> str:
         """Helper function to build a message string from the binds."""
         if self.comment_banner:
-            return f"#\n# {self.comment_banner}\n#"
+            return f"#\n# {self.comment_banner}\n#\n"
         return ""
 
     ### Error Checking/Validation
     def _throw_error_on_invalid_filename(self, filename: str):
-        return
+        if not filename:
+            raise ValueError("Filename cannot be empty")
+        if not filename.endswith(".txt"):
+            raise ValueError("Filename must end with .txt")
 
     def _throw_error_on_invalid_binds(self, binds: list[Bind]):
         return 
