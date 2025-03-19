@@ -21,5 +21,3 @@ class TestBindFileParameters:
         ([Bind(trigger="W", slash_commands=["/command2", "/command3"])], [Bind(trigger="W", slash_commands=["/command2", "/command3"])]),
         ([Bind(trigger="A", slash_commands=["/command4"]), Bind(trigger="S", slash_commands=["/command5"])], [Bind(trigger="A", slash_commands=["/command4"]), Bind(trigger="S", slash_commands=["/command5"])]),
     ]
-
-    test_
