@@ -48,7 +48,7 @@ class Bind:
         if slash_commands is None:
             slash_commands = self.slash_commands
         return f"{self.trigger} \"{'$$'.join(slash_commands)}\""
-    
+
     ### Error Checking/Validation
     def _throw_error_on_invalid_trigger(self, trigger: str):
         """Helper function to validate the trigger."""

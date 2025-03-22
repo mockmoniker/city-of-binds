@@ -40,7 +40,7 @@ class BindFile:
 
     def write_to_file(self, path: str = ""):
         """Write all the binds to the file."""
-        with open(path + "/" + self.filename, 'w') as file:
+        with open(path / self.filename, 'w') as file:
             file.write(self._build_message_string())
             for bind in self._binds:
                 file.write(bind.bind_string + "\n")
