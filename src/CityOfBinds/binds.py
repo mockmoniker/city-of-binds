@@ -48,7 +48,7 @@ class Bind:
         if slash_commands is None:
             slash_commands = self.slash_commands
         return f"{self.trigger} \"{'$$'.join(slash_commands)}\""
-    
+
     ### Error Checking/Validation
     def _throw_error_on_invalid_trigger(self, trigger: str):
         """Helper function to validate the trigger."""
@@ -67,6 +67,21 @@ class Bind:
     def is_over_bind_length(self, bind: 'Bind') -> bool:
         """Helper function to ensure the total bind string does not exceed max character length."""
         return len(bind.bind_string) > self.MAX_BIND_LENGTH
+    
+    ### Overrides
+    def __repr__(self) -> str:
+        """Override the default representation."""
+        return f"Bind(trigger={self.trigger}, slash_commands={self.slash_commands})"
+    
+    def __str__(self) -> str:
+        """Override the default string representation."""
+        return self.bind_string
+
+    def __eq__(self, other):
+        """Override the default equality operator."""
+        if not isinstance(other, Bind):
+            return False
+        return self.bind_string == other.bind_string
 
 class ToggleBind(Bind):
     def __init__(self, trigger: str, 
