@@ -31,41 +31,37 @@ class TestValidBindFileInitialization:
 class TestValidFileCreation:
     bindfile_under_test = BindFile
 
-    def test_write_to_file_should_create_file(self, tmp_path):
+    def test_publish_file_should_create_file(self, tmp_path):
         # arrange
         bindfile = self.bindfile_under_test(filename='bindfile.txt')
         epxected_file = tmp_path / 'bindfile.txt'
         # act
-        bindfile.write_to_file(path=tmp_path)
+        bindfile.publish_file(path=tmp_path)
         # assert
         assert epxected_file.exists()
 
-    def test_write_to_file_should_write_bind_to_file(self, tmp_path):
+    def test_publish_file_should_write_bind_to_file(self, tmp_path):
         # arrange
         bindfile = self.bindfile_under_test(filename='bindfile.txt', comment_banner='This is a comment', binds=[Bind(trigger='Q', slash_commands=['powexectoggleon dark nova'])])
         expected_content = (
-            '#\n'
-            '# This is a comment\n'
-            '#\n'
+            '##### This is a comment #####\n'
             'Q "powexectoggleon dark nova"\n')
         # act
-        bindfile.write_to_file(path=tmp_path)
+        bindfile.publish_file(path=tmp_path)
         # assert
         with open(tmp_path / 'bindfile.txt', 'r') as file:
             content = file.read()
             assert content == expected_content
 
-    def test_write_to_file_should_write_multiple_binds_to_file(self, tmp_path):
+    def test_publish_file_should_write_multiple_binds_to_file(self, tmp_path):
         # arrange
         bindfile = self.bindfile_under_test(filename='bindfile.txt', comment_banner='This is a comment', binds=[Bind(trigger='Q', slash_commands=['powexectoggleon dark nova']), Bind(trigger='E', slash_commands=['powexectoggleon black dwarf'])])
         expected_content = (
-            '#\n'
-            '# This is a comment\n'
-            '#\n'
+            '##### This is a comment #####\n'
             'Q "powexectoggleon dark nova"\n'
             'E "powexectoggleon black dwarf"\n')
         # act
-        bindfile.write_to_file(path=tmp_path)
+        bindfile.publish_file(path=tmp_path)
         # assert
         with open(tmp_path / 'bindfile.txt', 'r') as file:
             content = file.read()
