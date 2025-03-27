@@ -17,7 +17,7 @@ class RotatingBind():
         self._bind_list = bind_list
 
     ### Methods
-    def publish_bind_rotation_files(self, path: str = '', file_prefix: str = ''):
+    def publish_rotating_bind_files(self, path: str = '', file_prefix: str = ''):
         """Write all the binds to the file."""
         file_count = len(self._bind_list)
         index_width = len(str(file_count - 1))  # Calculate the number of digits in the highest index
