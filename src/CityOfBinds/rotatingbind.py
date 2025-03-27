@@ -1,5 +1,6 @@
 from CityOfBinds.binds import Bind
 from CityOfBinds.bindfile import BindFile
+from CityOfBinds.slashcommands import SlashCommands
 
 class RotatingBind():
     def __init__(self, bind_list: list[Bind]):
@@ -27,7 +28,7 @@ class RotatingBind():
             formatted_file_index = str(file_index).zfill(index_width)  # Format with leading zeroes
             formatted_next_file_index = str(next_file_index).zfill(index_width)  # Format next index
 
-            bind.slash_commands += f"{BIND_LOAD_FILE} {path}{file_prefix}{formatted_next_file_index}.txt"
+            bind.slash_commands += f"{SlashCommands.BIND_LOAD_FILE} {path}{file_prefix}{formatted_next_file_index}.txt"
             bind_file = BindFile(filename=f"{file_prefix}{formatted_file_index}.txt", binds=[bind])
             bind_file.write_to_file(path=path)
 
