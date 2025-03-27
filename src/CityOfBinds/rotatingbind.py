@@ -1,57 +1,31 @@
 from CityOfBinds.binds import Bind
 from CityOfBinds.bindfile import BindFile
 
-class RotatingBind(Bind):
-    def __init__(self, trigger: str, slash_commands_rotations: list[list[str]], rotation_prefix: str = ""):
-        self._rotation_prefix = rotation_prefix
-        self._slash_commands_rotations = slash_commands_rotations
-
-        super().__init__(trigger = trigger, slash_commands=["nop"])
-
-        self.rotation_prefix = rotation_prefix
-        self.slash_commands_rotations = slash_commands_rotations
+class RotatingBind():
+    def __init__(self, bind_list: list[Bind]):
+        self._bind_list = bind_list
+        self.bind_list = bind_list
 
     ### Properties
     @property
-    def slash_commands(self) -> list[str]:
-        self._throw_error_on_unsupported_slash_commands()
+    def bind_list(self) -> list[Bind]:
+        return self._bind_list
     
-    @slash_commands.setter
-    def slash_commands(self, slash_commands: list[str]):
-        self._throw_error_on_unsupported_slash_commands()
+    @bind_list.setter
+    def bind_list(self, bind_list: list[Bind]):
+        self._throw_error_on_invalid_bind_list(bind_list)
+        self._bind_list = bind_list
 
-    @property
-    def rotation_prefix(self) -> str:
-        return self._rotation_prefix
-    
-    @rotation_prefix.setter
-    def rotation_prefix(self, rotation_prefix: str):
-        self._throw_error_on_invalid_prefix(rotation_prefix)
-        self._rotation_prefix = rotation_prefix
-
-    @property
-    def slash_commands_rotations(self) -> list[list[str]]:
-        return self._slash_commands_rotations
-    
-    @slash_commands_rotations.setter
-    def slash_commands_rotations(self, slash_commands_rotations: list[list[str]]):
-        self._throw_error_on_invalid_slash_commands_rotations(slash_commands_rotations)
-        self._slash_commands_rotations = slash_commands_rotations
-
-    @property
-    def bind_string(self) -> list[str]:
-        return [self._build_bind_string(slash_commands) for slash_commands in self._slash_commands_rotations]
+    ### Methods
+    def publish_bind_rotation_files(self, path: str = '', file_prefix: str = ''):
+        """Write all the binds to the file."""
+        for file_index, bind in enumerate(self._bind_list):
+            next_file_index = (file_index + 1) % len(self._bind_list)
+            bind.slash_commands += f"{BIND_LOAD_FILE} {path}{file_prefix}{next_file_index}.txt"
+            bind_file = BindFile(filename=f"{file_prefix}{file_index}.txt", binds=[bind])
+            bind_file.write_to_file(path=path)
 
     ### Error Checking/Validation
-    def _throw_error_on_unsupported_slash_commands(self):
-        raise ValueError('RotatingBind does not support \'slash_commands\'. Use \'slash_commands_rotations\' instead.')
-    
-    def _throw_error_on_invalid_prefix(self, rotation_prefix: str):
-        if " " in rotation_prefix:
-            raise ValueError(f"Error: Invalid rotation prefix '{rotation_prefix}'. Rotation prefix cannot contain spaces.")
-
-    def _throw_error_on_invalid_slash_commands_rotations(self, slash_commands_rotations: list[list[str]]):
-        if not slash_commands_rotations:
-            raise ValueError("Error: Slash Commands Rotations list cannot be empty.")
-        for slash_commands in slash_commands_rotations:
-            super()._throw_error_on_invalid_slash_commands(slash_commands)
+    def _throw_error_on_invalid_bind_list(self, bind_list: list[Bind]):
+        if not bind_list:
+            raise ValueError("Bind list cannot be empty")
