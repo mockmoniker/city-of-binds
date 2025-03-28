@@ -39,5 +39,3 @@ class TestRotatingBindFileCreation:
         # assert
         assert expected_file1.exists()
         assert expected_file2.exists()
-
-
