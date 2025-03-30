@@ -81,21 +81,3 @@ class RandomWalk:
             rw_bind_files[rw_bind_file].write_to_file(path="src/CityOfBinds/ex")
 
 
-
-
-def read_costumes_from_csv(file_path: str) -> list[str]:
-    """Read costumes from a CSV file."""
-    costumes = []
-    with open(file_path, 'r') as file:
-        reader = csv.reader(file)
-        for row in reader:
-            costumes.extend(row)
-    return costumes
-
-# Example usage
-#costumes = ["nemesis", "longbow", "arachnos", "warrior", "shivan", "vanguard", "skulls", "hellions"]
-costumes = read_costumes_from_csv("src/CityOfBinds/costumes.csv")
-bind_folder = "D:/CoH/b/ms/rw/"
-rw_graph = generate_random_walk_graph(costumes)
-
-
