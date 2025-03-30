@@ -69,7 +69,7 @@ class RandomWalk:
             rw_bind_files[i] = BindFile(filename=f"{self.file_prefix}{i}.txt", comment_banner=f"{self.bind_banner} {i}", binds=[])
 
         # Display the edges with their associated powers
-        for u, v, data in rw_graph.edges(data=True):
+        for u, v, data in self._rw_graph.edges(data=True):
             rw_bind_files[u].binds.append(WASDBind(trigger="W", slash_commands=[f"{data['slash_command']}", f'bindloadfile {path}{self.file_prefix}{v}.txt'])) # TODO: fix path
             #print(f"{u} -> {v} [Power: {data['power']}]")
 
