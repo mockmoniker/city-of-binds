@@ -1,5 +1,6 @@
 from copy import deepcopy
 from CityOfBinds.slashcommands import SlashCommands
+from CityOfBinds.trigger import Trigger
 
 class Bind:
     MAX_BIND_LENGTH = 255
@@ -7,22 +8,22 @@ class Bind:
     ### Initialization
     def __init__(self, trigger: str, slash_commands: list[str]):
         """Initialize the bind with a trigger and slash command list."""
-        self._trigger = trigger
+        trigger_object = Trigger(trigger)
+        self._trigger = trigger_object
         self._slash_commands = slash_commands
 
-        self.trigger = trigger
+        #self.trigger = trigger_object
         self.slash_commands = slash_commands
 
     ### Properties
     @property
     def trigger(self) -> str:
-        return self._trigger
+        return self._trigger.trigger_string
     
     @trigger.setter
-    def trigger(self, trigger: str):
-        self._throw_error_on_invalid_trigger(trigger = trigger)
-        self._trigger = trigger.upper()
-    
+    def trigger(self, trigger_string: str):
+        self._trigger = Trigger(trigger_string)
+
     @property
     def slash_commands(self) -> list[str]:
         return self._slash_commands
@@ -36,6 +37,15 @@ class Bind:
     def bind_string(self) -> str:
         return self._build_bind_string()
     
+    ### Methods
+    def set_trigger_modifier(self, modifier: str):
+        """Set the trigger modifier."""
+        self._trigger.trigger_modifier = modifier
+
+    def clear_trigger_modifier(self):
+        """Clear the trigger modifier."""
+        self._trigger.clear_modifier()
+
     ### Copy
     def copy(self) -> 'Bind':
         """Return a copy of the bind."""
@@ -48,21 +58,24 @@ class Bind:
         if slash_commands is None:
             slash_commands = self.slash_commands
         return f"{self.trigger} \"{'$$'.join(slash_commands)}\""
+    
+    def _is_modified_trigger(self, trigger: str) -> bool:
+        """Helper function to determine if the trigger contains a modifier."""
+        trigger_parts = trigger.split('+')
+        return len(trigger_parts) == 2
 
     ### Error Checking/Validation
-    def _throw_error_on_invalid_trigger(self, trigger: str):
-        """Helper function to validate the trigger."""
-        if not trigger:
-            raise ValueError("Error: Trigger cannot be empty.")
-        if " " in trigger:
-            raise ValueError(f"Error: Invalid trigger '{trigger}'. Trigger cannot contain spaces.")
-        
     def _throw_error_on_invalid_slash_commands(self, slash_commands: list[str]):
         """Helper function to validate the slash commands."""
         if not slash_commands:
-            raise ValueError("Error: Slash Commands list cannot be empty.")
+            raise ValueError("Invalid slash commands. Slash Commands list cannot be empty.")
         if not all(slash_commands):
-                raise ValueError("Error: Slash Commands list cannot contain empty commands.")
+            raise ValueError("Invalid slash commands. Slash Commands list cannot contain empty commands.")
+
+    def _throw_error_on_invalid_trigger_modifier(self, trigger_modifier: str):
+        """Helper function to validate the trigger modifier."""
+        if trigger_modifier not in self.VALID_TRIGGER_MODIFIERS:
+            raise ValueError(f"Error: Invalid trigger modifier '{trigger_modifier}'. Valid modifiers are {self.VALID_TRIGGER_MODIFIERS}.")
 
     def is_over_bind_length(self, bind: 'Bind') -> bool:
         """Helper function to ensure the total bind string does not exceed max character length."""
@@ -195,12 +208,12 @@ class WASDBind(ToggleBind):
     ### Properties
     @property
     def trigger(self) -> str:
-        return self._trigger
+        return super().trigger
     
     @trigger.setter
     def trigger(self, trigger: str):
-        self._throw_error_on_invalid_trigger(trigger)
-        self._trigger = trigger.upper()
+        self._throw_error_on_invalid_wasd_trigger(trigger)
+        super().trigger = trigger
         self._direction = self._get_wasd_direction(trigger)
 
     @property
@@ -237,6 +250,11 @@ class WASDBind(ToggleBind):
     def _get_wasd_direction(self, trigger: str) -> str:
         """Helper function to get the WASD direction for the trigger."""
         return self.WASD_TRIGGER_MAP[trigger.upper()]
+    
+    def _throw_error_on_invalid_wasd_trigger(self, trigger: str):
+        """Helper function to validate the WASD trigger."""
+        if trigger not in self.WASD_TRIGGER_MAP:
+            raise ValueError(f"Invalid WASD trigger '{trigger}'. Allowed triggers are {list(self.WASD_TRIGGER_MAP.keys())}.")
 
     ### Error Checking/Validation
     def _throw_error_on_invalid_slash_commands(self, 

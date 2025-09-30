@@ -1,38 +1,21 @@
 import pytest
-from CityOfBinds import Bind, ToggleBind, WASDBind
-from parameters.test_binds_parameters import TestBindParameters, TestToggleBindParameters, TestWASDBindParameters
+from CityOfBinds import Trigger, Bind, ToggleBind, WASDBind
 
 ### Bind Tests
 
-class TestValidBindInitializaiton:
+class TestValidBindInitialization:
     bind_under_test = Bind
 
-    def test_init_should_set_trigger_given_valid_trigger(self):
-        # arrange
-        valid_trigger = 'W'
-        valid_slash_commands = ['powexectoggleon sprint']
-        # act
-        bind = self.bind_under_test(trigger=valid_trigger, slash_commands=valid_slash_commands)
-        # assert
-        assert bind.trigger == valid_trigger
-
-    def test_init_should_set_capitalized_trigger_given_valid_lowercase_trigger(self):
-        # arrange
-        valid_trigger = 'w'
-        valid_slash_commands = ['powexectoggleon sprint']
-        # act
-        bind = self.bind_under_test(trigger=valid_trigger, slash_commands=valid_slash_commands)
-        # assert
-        assert bind.trigger == valid_trigger.upper()
-
-    def test_init_should_set_trigger_given_valid_trigger_with_modifiers(self):
+    def test_init_should_set_internal_trigger_object_given_valid_trigger(self):
         # arrange
         valid_trigger = 'SHIFT+W'
-        valid_slash_commands = ['powexectoggleon super speed']
+        valid_slash_commands = ['powexectoggleon sprint']
         # act
         bind = self.bind_under_test(trigger=valid_trigger, slash_commands=valid_slash_commands)
         # assert
-        assert bind.trigger == valid_trigger
+        assert isinstance(bind._trigger, Trigger)
+        assert bind._trigger.trigger_key == 'W'
+        assert bind._trigger.trigger_modifier == 'SHIFT'
 
     def test_init_should_set_slash_commands_given_valid_slash_commands(self):
         # arrange
@@ -43,61 +26,52 @@ class TestValidBindInitializaiton:
         # assert
         assert bind.slash_commands == valid_slash_commands
 
+    def test_init_should_set_lowercase_slash_commands_given_valid_uppercase_slash_commands(self):
+        # arrange
+        valid_trigger = 'W'
+        uppercase_slash_commands = ['POWEXECTOGGLEON SPRINT', 'POWEXECTOGLONE SUPER SPEED']
+        expected_slash_commands = ['powexectoggleon sprint', 'powexectoggleon super speed']
+        # act
+        bind = self.bind_under_test(trigger=valid_trigger, slash_commands=uppercase_slash_commands)
+        # assert
+        assert bind.slash_commands == expected_slash_commands
+
 class TestInvalidBindInitialization:
     bind_under_test = Bind
-
-    def test_init_should_raise_value_error_given_empty_trigger(self):
-        # arrange
-        invalid_trigger = ''
-        valid_slash_commands = ['powexectoggleon sprint']
-        # act and assert
-        with pytest.raises(ValueError, match='.*Trigger cannot be empty.*'):
-            bind = self.bind_under_test(trigger=invalid_trigger, slash_commands=valid_slash_commands)
-
-    def test_init_should_raise_value_error_given_trigger_with_spaces(self):
-        # arrange
-        invalid_trigger = 'SHIFT W'
-        valid_slash_commands = ['powexectoggleon sprint']
-        # act and assert
-        with pytest.raises(ValueError, match='.*Trigger cannot contain spaces.*'):
-            bind = self.bind_under_test(trigger=invalid_trigger, slash_commands=valid_slash_commands)
 
     def test_init_should_raise_value_error_given_empty_slash_commands(self):
         # arrange
         valid_trigger = 'W'
         invalid_slash_commands = []
-        # act and assert
-        with pytest.raises(ValueError, match='.*Slash Commands list cannot be empty.*'):
+        # act
+        with pytest.raises(ValueError) as excinfo:
             bind = self.bind_under_test(trigger=valid_trigger, slash_commands=invalid_slash_commands)
+        #  assert
+        assert "Slash Commands list cannot be empty." in str(excinfo.value)
 
     def test_init_should_raise_value_error_given_empty_slash_command(self):
         # arrange
         valid_trigger = 'W'
         invalid_slash_commands = ['powexectoggleon sprint', '']
-        # act and assert
-        with pytest.raises(ValueError, match='.*Slash Commands list cannot contain empty commands.*'):
+        # act 
+        with pytest.raises(ValueError) as excinfo:
             bind = self.bind_under_test(trigger=valid_trigger, slash_commands=invalid_slash_commands)
+        # assert
+        assert "Slash Commands list cannot contain empty commands." in str(excinfo.value)
 
 class TestValidBindSetters:
     bind_under_test = Bind
 
-    def test_set_trigger_should_set_trigger_given_valid_trigger(self):
+    def test_trigger_setter_should_set_internal_trigger_object_given_valid_trigger(self):
         # arrange
-        bind = self.bind_under_test(trigger='A', slash_commands=['powexectoggleon sprint'])
-        new_valid_trigger = 'D'
+        bind = self.bind_under_test(trigger='W', slash_commands=['powexectoggleon sprint'])
+        new_valid_trigger = 'SHIFT+S'
         # act
         bind.trigger = new_valid_trigger
         # assert
-        assert bind.trigger == new_valid_trigger
-
-    def test_set_trigger_should_set_capitalized_trigger_given_valid_lowercase_trigger(self):
-        # arrange
-        bind = self.bind_under_test(trigger='A', slash_commands=['powexectoggleon sprint'])
-        new_valid_trigger = 'w'
-        # act
-        bind.trigger = new_valid_trigger
-        # assert
-        assert bind.trigger == new_valid_trigger.upper()
+        assert isinstance(bind._trigger, Trigger)
+        assert bind._trigger.trigger_key == 'S'
+        assert bind._trigger.trigger_modifier == 'SHIFT'
 
     def test_set_slash_commands_should_set_slash_commands_given_valid_slash_commands(self):
         # arrange
@@ -110,22 +84,6 @@ class TestValidBindSetters:
 
 class TestInvalidBindSetters:
     bind_under_test = Bind
-
-    def test_set_trigger_should_raise_value_error_given_empty_trigger(self):
-        # arrange
-        bind = self.bind_under_test(trigger='W', slash_commands=['powexectoggleon sprint'])
-        invalid_trigger = ''
-        # act and assert
-        with pytest.raises(ValueError, match='.*Trigger cannot be empty.*'):
-            bind.trigger = invalid_trigger
-
-    def test_set_trigger_should_raise_value_error_given_trigger_with_spaces(self):
-        # arrange
-        bind = self.bind_under_test(trigger='W', slash_commands=['powexectoggleon sprint'])
-        invalid_trigger = 'SHIFT W'
-        # act and assert
-        with pytest.raises(ValueError, match='.*Trigger cannot contain spaces.*'):
-            bind.trigger = invalid_trigger
 
     def test_set_slash_commands_should_raise_value_error_given_empty_slash_commands(self):
         # arrange
@@ -168,7 +126,7 @@ class TestBindStrings:
 
 ### ToggleBind Tests
 
-class TestValidToggleBindInitializaiton(TestValidBindInitializaiton):
+class TestValidToggleBindInitializaiton(TestValidBindInitialization):
     bind_under_test = ToggleBind
 
     def test_init_should_set_toggle_off_powers_given_valid_powers(self):
@@ -384,22 +342,7 @@ class TestToggleBindStrings(TestBindStrings):
 class TestValidWASDBindInitializaiton(TestValidToggleBindInitializaiton):
     bind_under_test = WASDBind
 
-    @pytest.mark.parametrize('valid_trigger_parameter, expected_direction_parameter', [
-                             ("W", '+forward'),
-                             ("A", '+left'),
-                             ("S", '+backward'),
-                             ("D", '+right'),
-                             ("SPACE", '+up')])
-    def test_init_should_set_direction_given_valid_trigger(self, valid_trigger_parameter, expected_direction_parameter):
-        # arrange
-        valid_trigger = valid_trigger_parameter
-        valid_slash_commands = ['powexectoggleon dark nova']
-        # act
-        bind = self.bind_under_test(trigger=valid_trigger, slash_commands=valid_slash_commands)
-        # assert
-        assert bind._direction == expected_direction_parameter
-
-    def test_init_should_set_movement_powers_given_valid_movement_powers(self):
+    def test_init_should_set_movement_powers_given_valid_powers(self):
         # arrange
         valid_trigger = 'W'
         valid_movement_powers = ['sprint', 'super speed']
@@ -407,18 +350,3 @@ class TestValidWASDBindInitializaiton(TestValidToggleBindInitializaiton):
         bind = self.bind_under_test(trigger=valid_trigger, movement_powers=valid_movement_powers)
         # assert
         assert bind.movement_powers == valid_movement_powers
-
-class TestValidWASDBindSetters(TestValidToggleBindSetters):
-    bind_under_test = WASDBind
-
-    @pytest.mark.parametrize('valid_trigger_input, expected_trigger_output', TestWASDBindParameters.test_set_trigger_should_set_trigger_given_valid_trigger_parameters)
-    def test_set_trigger_should_set_trigger_given_valid_trigger(self, valid_trigger_input, expected_trigger_output):
-        bind = self.bind_under_test(trigger=self.default_trigger, slash_commands=self.default_slash_commands)
-        bind.trigger = valid_trigger_input
-        assert bind.trigger == expected_trigger_output
-
-    @pytest.mark.parametrize('valid_trigger_input, expected_trigger_direciton', TestWASDBindParameters.test_set_trigger_should_set_direction_given_valid_trigger_parameters)
-    def test_set_trigger_should_set_direction_given_valid_trigger(self, valid_trigger_input, expected_trigger_direciton):
-        bind = self.bind_under_test(trigger=self.default_trigger, slash_commands=self.default_slash_commands)
-        bind.trigger = valid_trigger_input
-        assert bind._direction == expected_trigger_direciton

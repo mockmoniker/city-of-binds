@@ -47,6 +47,11 @@ class RotatingBind():
             bind_file = BindFile(filename=f"{file_prefix}{formatted_file_index}.txt", binds=[bind])
             bind_file.write_to_file(path=path)
 
+    def override_trigger(self, trigger: str):
+        """Override the trigger for all binds in the rotating bind."""
+        for bind in self._bind_list:
+            bind.trigger = trigger
+
     ### Error Checking/Validation
     def _throw_error_on_invalid_bind_list(self, bind_list: list[Bind]):
         if not bind_list:
