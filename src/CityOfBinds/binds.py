@@ -40,7 +40,7 @@ class Bind:
     ### Methods
     def set_trigger_modifier(self, modifier: str):
         """Set the trigger modifier."""
-        self._trigger.trigger_modifier = modifier
+        self._trigger.modifier = modifier
 
     def clear_trigger_modifier(self):
         """Clear the trigger modifier."""
@@ -71,11 +71,6 @@ class Bind:
             raise ValueError("Invalid slash commands. Slash Commands list cannot be empty.")
         if not all(slash_commands):
             raise ValueError("Invalid slash commands. Slash Commands list cannot contain empty commands.")
-
-    def _throw_error_on_invalid_trigger_modifier(self, trigger_modifier: str):
-        """Helper function to validate the trigger modifier."""
-        if trigger_modifier not in self.VALID_TRIGGER_MODIFIERS:
-            raise ValueError(f"Error: Invalid trigger modifier '{trigger_modifier}'. Valid modifiers are {self.VALID_TRIGGER_MODIFIERS}.")
 
     def is_over_bind_length(self, bind: 'Bind') -> bool:
         """Helper function to ensure the total bind string does not exceed max character length."""

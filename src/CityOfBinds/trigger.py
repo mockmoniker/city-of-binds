@@ -1,13 +1,12 @@
 import re
 
 class Trigger:
-    VALID_TRIGGER_MODIFIERS = [
-        "",
+    VALID_MODIFIERS = [
         "SHIFT",
         "ALT",
         "CONTROL", "CTRL",
     ]
-    VALID_TRIGGER_KEYS = [
+    VALID_KEYS = [
         "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
         "ESC", "ESCAPE",
         "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12",
@@ -119,92 +118,105 @@ class Trigger:
     ### Initialization
     def __init__(self, trigger_string: str):
         """Initialize the trigger with a key and optional modifier."""
-        uppercase_trigger_string = trigger_string.upper()
-        self._throw_error_on_invalid_trigger_string_format(uppercase_trigger_string)
-        trigger_key, trigger_modifier = self._get_trigger_components_from_string(uppercase_trigger_string)
-
-        self._trigger_key = trigger_key
-        self._trigger_modifier = trigger_modifier
-
-        self.trigger_key = trigger_key
-        self.trigger_modifier = trigger_modifier
+        self._trigger_string = trigger_string
+        self.trigger_string = trigger_string 
 
     ### Properties
     @property
-    def trigger_key(self):
-        return self._trigger_key
-    
-    @trigger_key.setter
-    def trigger_key(self, trigger_key: str):
-        trigger_key = trigger_key.upper()
-        self._throw_error_on_invalid_trigger_key(trigger_key)
-        self._trigger_key = trigger_key
-
-    @property
-    def trigger_modifier(self):
-        return self._trigger_modifier
-
-    @trigger_modifier.setter
-    def trigger_modifier(self, trigger_modifier: str):
-        trigger_modifier = trigger_modifier.upper()
-        self._throw_error_on_invalid_trigger_modifier(trigger_modifier)
-        self._trigger_modifier = trigger_modifier
-
-    @property
     def trigger_string(self) -> str:
-        return self._build_trigger_string()
+        return self._trigger_string
+
+    @trigger_string.setter
+    def trigger_string(self, trigger_string: str):
+        trigger_string = trigger_string.upper()
+        self._throw_error_on_invalid_trigger_string(trigger_string)
+        self._trigger_string = trigger_string
+
+    @property
+    def key(self):
+        return self._get_key_from_trigger_string(trigger_string=self.trigger_string)
+    
+    @key.setter
+    def key(self, key: str):
+        key = key.upper()
+        self._throw_error_on_invalid_key(key)
+        if self.modifier:
+            self._trigger_string = f"{self.modifier}+{key}"
+        else:
+            self._trigger_string = key
+
+    @property
+    def modifier(self):
+        return self._get_modifier_from_trigger_string(trigger_string=self.trigger_string)
+
+    @modifier.setter
+    def modifier(self, modifier: str):
+        modifier = modifier.upper()
+        if modifier:
+            self._throw_error_on_invalid_modifier(modifier)
+            self._trigger_string = f"{modifier}+{self.key}"
+        else:
+            self._trigger_string = self.key
 
     ### Methods
     def clear_modifier(self):
-        self._trigger_modifier = ""
+        self._trigger_string = self.key
 
     ### Helpers
-    def _build_trigger_string(self) -> str:
-        """Build the trigger string from the key and modifier."""
-        if self.trigger_modifier:
-            return f"{self.trigger_modifier}+{self.trigger_key}"
-        return self.trigger_key
-    
-    def _get_trigger_components_from_string(self, trigger_string: str) -> tuple[str, str]:
-        """Helper function to split a trigger string into its key and modifier components."""
+    def _get_key_from_trigger_string(self, trigger_string: str) -> str:
+        """Helper function to extract the key from a trigger string."""
         trigger_components = trigger_string.split('+')
-        if len(trigger_components) == 1:
-            return trigger_components[0], ""
-        elif len(trigger_components) == 2:
-            return trigger_components[1], trigger_components[0]
+        return trigger_components[-1]
+
+    def _get_modifier_from_trigger_string(self, trigger_string: str) -> str:
+        """Helper function to extract the modifier from a trigger string."""
+        trigger_components = trigger_string.split('+')
+        if len(trigger_components) == 2:
+            return trigger_components[0]
+        return ""
 
     ### Error Checking/Validation
+    def _throw_error_on_invalid_trigger_string(self, trigger_string: str):
+        """Helper function to validate the overall trigger string format."""
+        self._throw_error_on_invalid_trigger_string_format(trigger_string)
+
+        key = self._get_key_from_trigger_string(trigger_string)
+        self._throw_error_on_invalid_key(key=key)
+
+        modifier = self._get_modifier_from_trigger_string(trigger_string)
+        self._throw_error_on_invalid_modifier(modifier=modifier)
+
     def _throw_error_on_invalid_trigger_string_format(self, trigger_string: str):
         """Helper function to validate the overall trigger string format."""
         trigger_pattern = r"^(\w+\+)?\w+$" # pattern to match "[modifier+]<key>"
         if not re.match(trigger_pattern, trigger_string):
             raise ValueError(f"Invalid trigger format '{trigger_string}'. Format should be \"[modifier+]<key>\" where modifier is optional.")
 
-    def _throw_error_on_invalid_trigger_key(self, trigger_key: str):
-        if not trigger_key:
+    def _throw_error_on_invalid_key(self, key: str):
+        if not key:
             raise ValueError("Invalid trigger key. Trigger key cannot be empty.")
-        if ' ' in trigger_key:
-            raise ValueError(f"Invalid trigger key '{trigger_key}'. Trigger key cannot contain spaces.")
-        if trigger_key not in self.VALID_TRIGGER_KEYS:
-            raise ValueError(f"Invalid trigger key '{trigger_key}'. Please see https://homecoming.wiki/wiki/List_of_Key_Names for list of valid trigger keys.")
+        if ' ' in key:
+            raise ValueError(f"Invalid trigger key '{key}'. Trigger key cannot contain spaces.")
+        if key not in self.VALID_KEYS:
+            raise ValueError(f"Invalid trigger key '{key}'. Please see https://homecoming.wiki/wiki/List_of_Key_Names for list of valid trigger keys.")
         
-    def _throw_error_on_invalid_trigger_modifier(self, trigger_modifier: str):
-        if ' ' in trigger_modifier:
-            raise ValueError(f"Invalid trigger modifier '{trigger_modifier}'. Trigger modifier cannot contain spaces.")
-        if trigger_modifier and trigger_modifier not in self.VALID_TRIGGER_MODIFIERS:
-            raise ValueError(f"Invalid trigger modifier '{trigger_modifier}'. Please see https://homecoming.wiki/wiki/List_of_Key_Names for list of valid trigger modifiers.")
+    def _throw_error_on_invalid_modifier(self, modifier: str):
+        if ' ' in modifier:
+            raise ValueError(f"Invalid trigger modifier '{modifier}'. Trigger modifier cannot contain spaces.")
+        if modifier and modifier not in self.VALID_MODIFIERS:
+            raise ValueError(f"Invalid trigger modifier '{modifier}'. Please see https://homecoming.wiki/wiki/List_of_Key_Names for list of valid trigger modifiers.")
         
     ### Overrides
     def __repr__(self):
         """Override the default representation."""
-        return f"Trigger(trigger_key='{self.trigger_key}', trigger_modifier='{self.trigger_modifier}')"
+        return f"Trigger(key='{self.key}', modifier='{self.modifier}')"
     
     def __str__(self):
         """Override the default string representation."""
-        return self.build_trigger_string()
+        return self.trigger_string
     
     def __eq__(self, other):
         """Override the default equality operator."""
         if not isinstance(other, Trigger):
             return False
-        return self.build_trigger_string() == other.build_trigger_string()
+        return self.trigger_string == other.trigger_string

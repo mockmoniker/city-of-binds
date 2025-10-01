@@ -14,8 +14,8 @@ class TestValidBindInitialization:
         bind = self.bind_under_test(trigger=valid_trigger, slash_commands=valid_slash_commands)
         # assert
         assert isinstance(bind._trigger, Trigger)
-        assert bind._trigger.trigger_key == 'W'
-        assert bind._trigger.trigger_modifier == 'SHIFT'
+        assert bind._trigger.key == 'W'
+        assert bind._trigger.modifier == 'SHIFT'
 
     def test_init_should_set_slash_commands_given_valid_slash_commands(self):
         # arrange
@@ -70,8 +70,8 @@ class TestValidBindSetters:
         bind.trigger = new_valid_trigger
         # assert
         assert isinstance(bind._trigger, Trigger)
-        assert bind._trigger.trigger_key == 'S'
-        assert bind._trigger.trigger_modifier == 'SHIFT'
+        assert bind._trigger.key == 'S'
+        assert bind._trigger.modifier == 'SHIFT'
 
     def test_set_slash_commands_should_set_slash_commands_given_valid_slash_commands(self):
         # arrange

@@ -4,49 +4,49 @@ from CityOfBinds import Trigger
 class TestValidTriggerInitialization:
     trigger_under_test = Trigger
 
-    def test_init_should_set_trigger_key_given_valid_trigger_key(self):
+    def test_init_should_set_key_given_valid_key(self):
         # arrange
-        valid_trigger_key = 'W'
+        valid_key = 'W'
         # act
-        trigger = self.trigger_under_test(trigger_string=valid_trigger_key)
+        trigger = self.trigger_under_test(trigger_string=valid_key)
         # assert
-        assert trigger.trigger_key == valid_trigger_key
+        assert trigger.key == 'W'
 
-    def test_init_should_set_trigger_modifier_to_empty_string_given_trigger_key_only(self):
+    def test_init_should_set_modifier_to_empty_string_given_key_only(self):
         # arrange
-        valid_trigger_key = 'W'
+        valid_key = 'W'
         # act
-        trigger = self.trigger_under_test(trigger_string=valid_trigger_key)
+        trigger = self.trigger_under_test(trigger_string=valid_key)
         # assert
-        assert trigger.trigger_modifier == ''
+        assert trigger.modifier == ''
 
-    def test_init_should_set_capital_trigger_key_given_lowercase_trigger_key(self):
+    def test_init_should_set_capital_key_given_lowercase_key(self):
         # arrange
-        lowercase_trigger_key = 'w'
+        lowercase_key = 'w'
         # act
-        trigger = self.trigger_under_test(trigger_string=lowercase_trigger_key)
+        trigger = self.trigger_under_test(trigger_string=lowercase_key)
         # assert
-        assert trigger.trigger_key == 'W'
+        assert trigger.key == 'W'
 
-    def test_init_should_set_modifier_given_valid_trigger_key_and_modifier(self):
+    def test_init_should_set_modifier_given_valid_key_and_modifier(self):
         # arrange
-        valid_trigger_key = "W"
-        valid_trigger_modifier = "SHIFT"
-        valid_trigger_string = f"{valid_trigger_modifier}+{valid_trigger_key}"
+        valid_key = "W"
+        valid_modifier = "SHIFT"
+        valid_trigger_string = f"{valid_modifier}+{valid_key}"
         # act
         trigger = self.trigger_under_test(trigger_string=valid_trigger_string)
         # assert
-        assert trigger.trigger_modifier == "SHIFT"
+        assert trigger.modifier == "SHIFT"
 
-    def test_init_should_set_capital_trigger_modifier_given_lowercase_trigger_modifier(self):
+    def test_init_should_set_capital_modifier_given_lowercase_modifier(self):
         # arrange
-        valid_trigger_key = "w"
-        lowercase_trigger_modifier = "shift"
-        valid_trigger_string = f"{lowercase_trigger_modifier}+{valid_trigger_key}"
+        valid_key = "w"
+        lowercase_modifier = "shift"
+        valid_trigger_string = f"{lowercase_modifier}+{valid_key}"
         # act
         trigger = self.trigger_under_test(trigger_string=valid_trigger_string)
         # assert
-        assert trigger.trigger_modifier == "SHIFT"
+        assert trigger.modifier == "SHIFT"
 
 class TestInvalidTriggerInitialization:
     trigger_under_test = Trigger
@@ -108,110 +108,109 @@ class TestInvalidTriggerInitialization:
 class TestValidTriggerSetters:
     trigger_under_test = Trigger
 
-    def test_trigger_key_setter_should_set_trigger_key_given_valid_trigger_key(self):
+    def test_key_setter_should_set_key_given_valid_key(self):
         # arrange
         trigger = self.trigger_under_test(trigger_string="W")
-        valid_trigger_key = "A"
+        valid_key = "A"
         # act
-        trigger.trigger_key = valid_trigger_key
+        trigger.key = valid_key
         # assert
-        assert trigger.trigger_key == valid_trigger_key
-        assert trigger.trigger_modifier == ''
+        assert trigger.key == valid_key
+        assert trigger.modifier == ''
 
-    def test_trigger_key_setter_should_set_capital_trigger_key_given_lowercase_trigger_key(self):
+    def test_key_setter_should_set_capital_key_given_lowercase_key(self):
         # arrange
         trigger = self.trigger_under_test(trigger_string="W")
-        lowercase_trigger_key = "a"
+        lowercase_key = "a"
         # act
-        trigger.trigger_key = lowercase_trigger_key
+        trigger.key = lowercase_key
         # assert
-        assert trigger.trigger_key == "A"
-        assert trigger.trigger_modifier == ''
+        assert trigger.key == "A"
 
-    def test_trigger_modifier_setter_should_set_trigger_modifier_given_valid_trigger_modifier(self):
+    def test_modifier_setter_should_set_modifier_given_valid_modifier(self):
         # arrange
         trigger = self.trigger_under_test(trigger_string="SHIFT+W")
-        valid_trigger_modifier = "CTRL"
+        valid_modifier = "CTRL"
         # act
-        trigger.trigger_modifier = valid_trigger_modifier
+        trigger.modifier = valid_modifier
         # assert
-        assert trigger.trigger_modifier == valid_trigger_modifier
+        assert trigger.modifier == valid_modifier
 
-    def test_trigger_modifier_setter_should_set_capital_trigger_modifier_given_lowercase_trigger_modifier(self):
+    def test_modifier_setter_should_set_capital_modifier_given_lowercase_modifier(self):
         # arrange
         trigger = self.trigger_under_test(trigger_string="SHIFT+W")
-        lowercase_trigger_modifier = "ctrl"
+        lowercase_modifier = "ctrl"
         # act
-        trigger.trigger_modifier = lowercase_trigger_modifier
+        trigger.modifier = lowercase_modifier
         # assert
-        assert trigger.trigger_modifier == "CTRL"
+        assert trigger.modifier == "CTRL"
 
-    def test_trigger_modifier_setter_should_set_trigger_modifier_to_empty_string_given_empty_string(self):
+    def test_modifier_setter_should_set_modifier_to_empty_string_given_empty_string(self):
         # arrange
         trigger = self.trigger_under_test(trigger_string="CTRL+W")
-        valid_trigger_modifier = ''
+        valid_modifier = ''
         # act
-        trigger.trigger_modifier = valid_trigger_modifier
+        trigger.modifier = valid_modifier
         # assert
-        assert trigger.trigger_modifier == valid_trigger_modifier
+        assert trigger.modifier == valid_modifier
 
 class TestInvalidTriggerSetters:
     trigger_under_test = Trigger
 
-    def test_trigger_key_setter_should_raise_value_error_given_empty_trigger_key(self):
+    def test_key_setter_should_raise_value_error_given_empty_key(self):
         # arrange
         trigger = self.trigger_under_test(trigger_string="W")
-        invalid_trigger_key = ''
+        invalid_key = ''
         # act
         with pytest.raises(ValueError) as excinfo:
-            trigger.trigger_key = invalid_trigger_key
+            trigger.key = invalid_key
         # assert
         assert "Trigger key cannot be empty." in str(excinfo.value)
 
-    def test_trigger_key_setter_should_raise_value_error_given_trigger_key_with_spaces(self):
+    def test_key_setter_should_raise_value_error_given_key_with_spaces(self):
         # arrange
         trigger = self.trigger_under_test(trigger_string="W")
-        invalid_trigger_key = 'LEFT CLICK'
+        invalid_key = 'LEFT CLICK'
         # act
         with pytest.raises(ValueError) as excinfo:
-            trigger.trigger_key = invalid_trigger_key
+            trigger.key = invalid_key
         # assert
         assert "Trigger key cannot contain spaces." in str(excinfo.value)
 
-    def test_trigger_key_setter_should_raise_value_error_given_invalid_trigger_key(self):
+    def test_key_setter_should_raise_value_error_given_invalid_key(self):
         # arrange
         trigger = self.trigger_under_test(trigger_string="W")
-        invalid_trigger_key = 'WW'
+        invalid_key = 'WW'
         # act
         with pytest.raises(ValueError) as excinfo:
-            trigger.trigger_key = invalid_trigger_key
+            trigger.key = invalid_key
         # assert
         assert "for list of valid trigger keys." in str(excinfo.value)
 
-    def test_trigger_modifier_setter_should_raise_value_error_given_trigger_modifier_with_spaces(self):
+    def test_modifier_setter_should_raise_value_error_given_modifier_with_spaces(self):
         # arrange
         trigger = self.trigger_under_test(trigger_string="W")
-        invalid_trigger_modifier = 'LEFT SHIFT'
+        invalid_modifier = 'LEFT SHIFT'
         # act
         with pytest.raises(ValueError) as excinfo:
-            trigger.trigger_modifier = invalid_trigger_modifier
+            trigger.modifier = invalid_modifier
         # assert
         assert "Trigger modifier cannot contain spaces." in str(excinfo.value)
 
-    def test_trigger_modifier_setter_should_raise_value_error_given_invalid_trigger_modifier(self):
+    def test_modifier_setter_should_raise_value_error_given_invalid_modifier(self):
         # arrange
         trigger = self.trigger_under_test(trigger_string="W")
-        invalid_trigger_modifier = 'CTRLL'
+        invalid_modifier = 'CTRLL'
         # act
         with pytest.raises(ValueError) as excinfo:
-            trigger.trigger_modifier = invalid_trigger_modifier
+            trigger.modifier = invalid_modifier
         # assert
         assert "Invalid trigger modifier" in str(excinfo.value)
 
 class TestTriggerStringProperty:
     trigger_under_test = Trigger
 
-    def test_trigger_string_property_should_return_trigger_string_given_trigger_key_only(self):
+    def test_trigger_string_property_should_return_trigger_string_given_key_only(self):
         # arrange
         trigger = self.trigger_under_test(trigger_string="W")
         expected_trigger_string = "W"
@@ -220,7 +219,7 @@ class TestTriggerStringProperty:
         # assert
         assert trigger_string == expected_trigger_string
 
-    def test_trigger_string_property_should_return_trigger_string_given_trigger_key_and_modifier(self):
+    def test_trigger_string_property_should_return_trigger_string_given_key_and_modifier(self):
         # arrange
         trigger = self.trigger_under_test(trigger_string="SHIFT+W")
         expected_trigger_string = "SHIFT+W"
@@ -232,11 +231,11 @@ class TestTriggerStringProperty:
 class TestTriggerMethods:
     trigger_under_test = Trigger
 
-    def test_clear_modifier_should_set_trigger_modifier_to_empty_string(self):
+    def test_clear_modifier_should_set_modifier_to_empty_string(self):
         # arrange
         trigger = self.trigger_under_test(trigger_string="SHIFT+W")
         # act
         trigger.clear_modifier()
         # assert
-        assert trigger.trigger_modifier == ''
-        assert trigger.trigger_key == 'W'
+        assert trigger.modifier == ''
+        assert trigger.key == 'W'
