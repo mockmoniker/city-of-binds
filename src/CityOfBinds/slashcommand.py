@@ -1,7 +1,7 @@
 import re
 
-class Action:
-    VALID_SLASH_COMMANDS = [
+class SlashCommand:
+    VALID_COMMANDS = [
         "ac",
         "afk",
         "ah",
@@ -605,79 +605,95 @@ class Action:
     ]
 
     ### Initialization
-    def __init__ (self, action_string: str):
-        """Initialize the action with a string."""
-        self._action_string = action_string
-        self.action_string = action_string
+    def __init__ (self, slash_command_string: str):
+        """Initialize the slash command with a string."""
+        self._slash_command_string = None
+        self.slash_command_string = slash_command_string
 
     ### Properties
     @property
-    def action_string(self) -> str:
-        return self._action_string
+    def slash_command_string(self) -> str:
+        return self._slash_command_string
     
-    @action_string.setter
-    def action_string(self, action_string: str):
-        action_string = self._lowercase_first_word(string=action_string)
-        self._throw_error_on_invalid_action_string(action_string=action_string)
-        self._action_string = action_string
+    @slash_command_string.setter
+    def slash_command_string(self, slash_command_string: str):
+        formatted_slash_command_string = self._lowercase_first_word(string=slash_command_string)
+        self._throw_error_on_invalid_slash_command_string(slash_command_string=formatted_slash_command_string)
+        self._slash_command_string = formatted_slash_command_string
 
     @property
-    def slash_command(self) -> str:
-        return self._get_slash_command_from_action_string(action_string=self.action_string)
+    def command(self) -> str:
+        return self._get_slash_command_from_slash_command_string(slash_command_string=self.slash_command_string)
     
-    @slash_command.setter
-    def slash_command(self, slash_command_string: str):
-        slash_command_string = slash_command_string.lower()
-        self._throw_error_on_invalid_slash_command(slash_command=slash_command_string)
+    @command.setter
+    def command(self, command_string: str):
+        formatted_command_string = command_string.lower()
+        self._throw_error_on_invalid_slash_command(slash_command=formatted_command_string)
         if self.args:
-            self._action_string = f"{slash_command_string} {self.args}"
+            self._slash_command_string = f"{formatted_command_string} {self.args}"
         else:
-            self._action_string = slash_command_string
+            self._slash_command_string = formatted_command_string
 
     @property
     def args(self) -> str:
-        return self._get_args_from_action_string(self.action_string)
+        return self._get_args_from_slash_command_string(self.slash_command_string)
     
     @args.setter
     def args(self, args: str):
         if args:
-            self._action_string = f"{self.slash_command} {args}"
+            self._slash_command_string = f"{self.command} {args}"
         else:
-            self._action_string = self.slash_command
+            self._slash_command_string = self.command
 
     ### Methods
     def _lowercase_first_word(self, string: str) -> str:
-        """Helper function to lowercase the first word of the action string."""
+        """Helper function to lowercase the first word of the slash command string."""
         first_word, space, rest = string.partition(' ')
         return first_word.lower() + space + rest
 
-    def _get_slash_command_from_action_string(self, action_string: str) -> str:
-        """Helper function to extract the slash command from the action string."""
-        return action_string.split(' ')[0]
+    def _get_slash_command_from_slash_command_string(self, slash_command_string: str) -> str:
+        """Helper function to extract the slash command from the slash command string."""
+        return slash_command_string.split(' ')[0]
     
-    def _get_args_from_action_string(self, action_string: str) -> str:
-        """Helper function to extract the args from the action string."""
-        args = action_string.split(' ')[1:]
+    def _get_args_from_slash_command_string(self, slash_command_string: str) -> str:
+        """Helper function to extract the args from the slash command string."""
+        args = slash_command_string.split(' ')[1:]
         return ' '.join(args) if args else ''
 
     ### Error Checking/Validation
-    def _throw_error_on_invalid_action_string(self, action_string: str):
-        """Helper function to validate the overall action string format."""
-        self._throw_error_on_invalid_action_string_format(action_string)
+    def _throw_error_on_invalid_slash_command_string(self, slash_command_string: str):
+        """Helper function to validate the overall slash command string format."""
+        self._throw_error_on_invalid_slash_command_string_format(slash_command_string=slash_command_string)
 
-        slash_command = self._get_slash_command_from_action_string(action_string)
+        slash_command = self._get_slash_command_from_slash_command_string(slash_command_string=slash_command_string)
         self._throw_error_on_invalid_slash_command(slash_command=slash_command)
 
         # no check on args needed, args can be anything
 
-    def _throw_error_on_invalid_action_string_format(self, action_string: str):
-        """Helper function to validate the overall action string format."""
-        action_pattern = r"^\w+(\s.+)*$" # pattern to match "<slash_command> [args...]"
-        if not re.match(action_pattern, action_string):
-            raise ValueError(f"Invalid action format '{action_string}'. Format should be \"<slash_command> [args...]\"")
+    def _throw_error_on_invalid_slash_command_string_format(self, slash_command_string: str):
+        """Helper function to validate the overall slash command string format."""
+        slash_command_pattern = r"^\w+(\s\w+)*$" # pattern to match "<slash_command> [args...]"
+        if not re.match(slash_command_pattern, slash_command_string):
+            raise ValueError(f"Invalid slash command format '{slash_command_string}'. Format should be \"<slash_command> [args...]\"")
         
     def _throw_error_on_invalid_slash_command(self, slash_command: str):
-        """Helper function to validate the slash command portion of the action string."""
+        """Helper function to validate the slash command portion of the slash command string."""
         minimal_slash_command = slash_command.replace('_', '')
-        if minimal_slash_command not in self.VALID_SLASH_COMMANDS:
+        if minimal_slash_command not in self.VALID_COMMANDS:
             raise ValueError(f"Unknown slash command '{slash_command}'. Please see https://homecoming.wiki/wiki/List_of_Slash_Commands for a list of valid slash commands.")
+
+    ### Overrides
+    def __repr__(self):
+        if self.args:
+            return f"SlashCommand(command='{self.command}', args='{self.args}')"
+        else:
+            return f"SlashCommand(command='{self.command}')"
+        
+    def __str__(self):
+        return self.slash_command_string
+    
+    def __eq__(self, other):
+        if not isinstance(other, SlashCommand):
+            return False
+        return self.slash_command_string == other.slash_command_string
+    

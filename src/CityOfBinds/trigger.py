@@ -128,9 +128,9 @@ class Trigger:
 
     @trigger_string.setter
     def trigger_string(self, trigger_string: str):
-        trigger_string = trigger_string.upper()
-        self._throw_error_on_invalid_trigger_string(trigger_string)
-        self._trigger_string = trigger_string
+        formatted_trigger_string = trigger_string.upper()
+        self._throw_error_on_invalid_trigger_string(trigger_string=formatted_trigger_string)
+        self._trigger_string = formatted_trigger_string
 
     @property
     def key(self):
@@ -151,14 +151,17 @@ class Trigger:
 
     @modifier.setter
     def modifier(self, modifier: str):
-        modifier = modifier.upper()
         if modifier:
-            self._throw_error_on_invalid_modifier(modifier)
-            self._trigger_string = f"{modifier}+{self.key}"
+            formatted_modifier = modifier.upper()
+            self._throw_error_on_invalid_modifier(formatted_modifier)
+            self._trigger_string = f"{formatted_modifier}+{self.key}"
         else:
             self._trigger_string = self.key
 
     ### Methods
+    def has_modifier(self) -> bool:
+        return bool(self.modifier)
+
     def clear_modifier(self):
         self._trigger_string = self.key
 
@@ -198,8 +201,11 @@ class Trigger:
         if ' ' in key:
             raise ValueError(f"Invalid trigger key '{key}'. Trigger key cannot contain spaces.")
         if key not in self.VALID_KEYS:
-            raise ValueError(f"Invalid trigger key '{key}'. Please see https://homecoming.wiki/wiki/List_of_Key_Names for list of valid trigger keys.")
-        
+            self._throw_invalid_key_error(key)
+
+    def _throw_invalid_key_error(self, key: str):
+        raise ValueError(f"Invalid trigger key '{key}'. Please see https://homecoming.wiki/wiki/List_of_Key_Names for list of valid trigger keys.")
+
     def _throw_error_on_invalid_modifier(self, modifier: str):
         if ' ' in modifier:
             raise ValueError(f"Invalid trigger modifier '{modifier}'. Trigger modifier cannot contain spaces.")
@@ -209,8 +215,11 @@ class Trigger:
     ### Overrides
     def __repr__(self):
         """Override the default representation."""
-        return f"Trigger(key='{self.key}', modifier='{self.modifier}')"
-    
+        if self.modifier:
+            return f"Trigger(key='{self.key}', modifier='{self.modifier}')"
+        else:
+            return f"Trigger(key='{self.key}')"
+
     def __str__(self):
         """Override the default string representation."""
         return self.trigger_string
@@ -220,3 +229,9 @@ class Trigger:
         if not isinstance(other, Trigger):
             return False
         return self.trigger_string == other.trigger_string
+
+class WASDTrigger(Trigger):
+    VALID_KEYS = ['W', 'A', 'S', 'D', 'SPACE']
+
+    def _throw_invalid_key_error(self, key: str):
+        raise ValueError(f"Invalid WASD trigger key '{key}'. Valid WASD keys are: {', '.join(self.VALID_KEYS)}")

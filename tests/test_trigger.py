@@ -1,5 +1,5 @@
 import pytest
-from CityOfBinds import Trigger
+from CityOfBinds import Trigger, WASDTrigger
 
 class TestValidTriggerInitialization:
     trigger_under_test = Trigger
@@ -14,9 +14,9 @@ class TestValidTriggerInitialization:
 
     def test_init_should_set_modifier_to_empty_string_given_key_only(self):
         # arrange
-        valid_key = 'W'
+        key_only = 'W'
         # act
-        trigger = self.trigger_under_test(trigger_string=valid_key)
+        trigger = self.trigger_under_test(trigger_string=key_only)
         # assert
         assert trigger.modifier == ''
 
@@ -30,21 +30,17 @@ class TestValidTriggerInitialization:
 
     def test_init_should_set_modifier_given_valid_key_and_modifier(self):
         # arrange
-        valid_key = "W"
-        valid_modifier = "SHIFT"
-        valid_trigger_string = f"{valid_modifier}+{valid_key}"
+        key_and_modifier = 'SHIFT+W'
         # act
-        trigger = self.trigger_under_test(trigger_string=valid_trigger_string)
+        trigger = self.trigger_under_test(trigger_string=key_and_modifier)
         # assert
         assert trigger.modifier == "SHIFT"
 
     def test_init_should_set_capital_modifier_given_lowercase_modifier(self):
         # arrange
-        valid_key = "w"
-        lowercase_modifier = "shift"
-        valid_trigger_string = f"{lowercase_modifier}+{valid_key}"
+        lowercase_modifier = 'shift+W'
         # act
-        trigger = self.trigger_under_test(trigger_string=valid_trigger_string)
+        trigger = self.trigger_under_test(trigger_string=lowercase_modifier)
         # assert
         assert trigger.modifier == "SHIFT"
 
@@ -53,55 +49,55 @@ class TestInvalidTriggerInitialization:
 
     def test_init_should_raise_value_error_given_empty_trigger_string(self):
         # arrange
-        invalid_trigger_string = ''
+        empty_trigger_string = ''
         # act
         with pytest.raises(ValueError) as excinfo:
-            self.trigger_under_test(trigger_string=invalid_trigger_string)
+            self.trigger_under_test(trigger_string=empty_trigger_string)
         # assert
         assert "Invalid trigger format" in str(excinfo.value)
 
     def test_init_should_raise_value_error_given_trigger_string_with_spaces(self):
         # arrange
-        invalid_trigger_string = 'SHIFT + W'
+        trigger_string_with_spaces = 'SHIFT + W'
         # act
         with pytest.raises(ValueError) as excinfo:
-            self.trigger_under_test(trigger_string=invalid_trigger_string)
+            self.trigger_under_test(trigger_string=trigger_string_with_spaces)
         # assert
         assert "Invalid trigger format" in str(excinfo.value)
 
     def test_init_should_raise_value_error_given_trigger_string_with_multiple_modifiers(self):
         # arrange
-        invalid_trigger_string = 'CTRL+SHIFT+W'
+        trigger_string_with_multiple_modifiers = 'CTRL+SHIFT+W'
         # act
         with pytest.raises(ValueError) as excinfo:
-            self.trigger_under_test(trigger_string=invalid_trigger_string)
+            self.trigger_under_test(trigger_string=trigger_string_with_multiple_modifiers)
         # assert
         assert "Invalid trigger format" in str(excinfo.value)
 
     def test_init_should_raise_value_error_given_trigger_string_with_empty_modifier(self):
         # arrange
-        invalid_trigger_string = '+W'
+        trigger_string_with_empty_modifier = '+W'
         # act
         with pytest.raises(ValueError) as excinfo:
-            self.trigger_under_test(trigger_string=invalid_trigger_string)
+            self.trigger_under_test(trigger_string=trigger_string_with_empty_modifier)
         # assert
         assert "Invalid trigger format" in str(excinfo.value)
 
     def test_init_should_raise_value_error_given_trigger_string_with_empty_key(self):
         # arrange
-        invalid_trigger_string = 'SHIFT+'
+        trigger_string_with_empty_key = 'SHIFT+'
         # act
         with pytest.raises(ValueError) as excinfo:
-            self.trigger_under_test(trigger_string=invalid_trigger_string)
+            self.trigger_under_test(trigger_string=trigger_string_with_empty_key)
         # assert
         assert "Invalid trigger format" in str(excinfo.value)
 
     def test_init_should_raise_value_error_given_trigger_string_with_multiple_plus_signs(self):
         # arrange
-        invalid_trigger_string = 'SHIFT++W'
+        trigger_string_with_multiple_plus_signs = 'SHIFT++W'
         # act
         with pytest.raises(ValueError) as excinfo:
-            self.trigger_under_test(trigger_string=invalid_trigger_string)
+            self.trigger_under_test(trigger_string=trigger_string_with_multiple_plus_signs)
         # assert
         assert "Invalid trigger format" in str(excinfo.value)
 
