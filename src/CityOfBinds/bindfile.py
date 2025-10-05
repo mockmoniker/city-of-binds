@@ -1,15 +1,16 @@
 from CityOfBinds.binds import Bind
+from CityOfBinds.commentbanner import CommentBanner
 
 class BindFile:
-    def __init__(self, filename: str, comment_banner: str = "", binds: list[Bind] = []):
+    def __init__(self, filename: str, binds: list[Bind] = [], comment_banner_text: str = ""):
         """Initialize the bind file with a filename."""
-        self._filename = filename
-        self._comment_banner = comment_banner
-        self._binds = binds
+        self._filename = None
+        self._binds = None
+        self._comment_banner = None
 
         self.filename = filename
-        self.comment_banner = comment_banner
         self.binds = binds
+        self.comment_banner = comment_banner_text
 
     ### Properties
     @property
@@ -23,11 +24,11 @@ class BindFile:
 
     @property
     def comment_banner(self) -> str:
-        return self._comment_banner
+        return self._comment_banner.comment_banner_string
 
     @comment_banner.setter
     def comment_banner(self, comment_banner: str):
-        self._comment_banner = comment_banner
+        self._comment_banner = CommentBanner(comment_banner)
 
     @property
     def binds(self) -> list[Bind]:
@@ -48,6 +49,9 @@ class BindFile:
     def _build_message_string(self) -> str:
         """Helper function to build a message string from the binds."""
         if self.comment_banner:
+            comment_banner_lines = [comment_banner_line.strip() for comment_banner_line in self.comment_banner.split('\n')]
+            max_line_length = max(len(line) for line in comment_banner_lines)
+            border = '-' * (max_line_length + 4)
             return f"#\n# {self.comment_banner}\n#\n"
         return ""
 
@@ -56,10 +60,7 @@ class BindFile:
         if not filename:
             raise ValueError("Filename cannot be empty")
         if not filename.endswith(".txt"):
-            raise ValueError("Filename must end with .txt")
-
-    def _throw_error_on_invalid_binds(self, binds: list[Bind]):
-        return 
+            raise ValueError(f"Invalid filename {filename}. Filename must end with .txt")
 
     def __repr__(self):
         """Optional: Represent the BindFile with its filename and binds."""
