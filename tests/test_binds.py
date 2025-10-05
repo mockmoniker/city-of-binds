@@ -332,7 +332,6 @@ class TestWASDBindBindStringProperty(TestToggleBindBindStringProperty):
         # assert
         assert correctly_formatted_bind_string == 'W "+forward$$powexectoggleon super speed"'
 
-    
     def test_bind_string_should_return_correctly_formatted_bind_string_given_single_toggle_off_power(self):
         # arrange
         bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_off_powers_list=['dark nova'])
@@ -392,16 +391,3 @@ class TestWASDBindBindStringProperty(TestToggleBindBindStringProperty):
 
         # assert
         assert correctly_formatted_bind_string == 'W "+forward$$powexectoggleoff dark nova$$powexectoggleoff black dwarf$$powexectoggleon sprint$$powexectoggleon super speed$$powexecauto hasten"'
-
-
-
-
-
-
-
-
-
-
-
-
-
