@@ -313,6 +313,18 @@ class TestWASDBindInitialization(TestToggleBindInitialization):
         # assert
         assert bind.movement_powers == valid_movement_powers
 
+class TestWASDBindTriggerProperty(TestToggleBindTriggerProperty):
+    BIND_UNDER_TEST = WASDBind
+
+class TestWASDBindTriggerKeyProperty(TestToggleBindTriggerKeyProperty):
+    BIND_UNDER_TEST = WASDBind
+
+class TestWASDBindTriggerModifierProperty(TestToggleBindTriggerModifierProperty):
+    BIND_UNDER_TEST = WASDBind
+
+class TestWASDBindSlashCommandsProperty(TestToggleBindSlashCommandsProperty):
+    BIND_UNDER_TEST = WASDBind
+
 class TestWASDBindBindStringProperty(TestToggleBindBindStringProperty):
     BIND_UNDER_TEST = WASDBind
 
