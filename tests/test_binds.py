@@ -1,380 +1,407 @@
 import pytest
-from CityOfBinds import SlashCommand, Trigger, Bind, ToggleBind, WASDBind
+from CityOfBinds import SlashCommand, Trigger, Power, Bind, ToggleBind, WASDBind
 
 ### Bind Tests
 
-class TestValidBindInitialization:
-    bind_under_test = Bind
+class TestBindInitialization:
+    BIND_UNDER_TEST = Bind
+    VALID_TRIGGER = 'W'
 
-    def test_init_should_create_trigger_object_given_valid_trigger_string(self):
+    def test_init_should_create_and_set_trigger_object_given_valid_trigger_string(self):
         # arrange
-        valid_trigger = 'W'
-        valid_slash_commands = ['powexectoggleon sprint']
+        valid_trigger_string = 'SHIFT+SPACE'
+
         # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, slash_commands_list=valid_slash_commands)
+        bind = self.BIND_UNDER_TEST(trigger_string=valid_trigger_string)
+
         # assert
         assert isinstance(bind._trigger, Trigger)
-
-    def test_init_should_set_trigger_object_trigger_string_given_valid_trigger_string(self):
-        # arrange
-        valid_trigger = 'SHIFT+W'
-        valid_slash_commands = ['powexectoggleon sprint']
-        # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, slash_commands_list=valid_slash_commands)
-        # assert
-        assert bind._trigger.trigger_string == "SHIFT+W"
-
-    def test_init_should_create_slash_command_objects_given_valid_slash_commands_list(self):
-        # arrange
-        valid_trigger = 'W'
-        valid_slash_commands = ['powexectoggleon sprint', 'powexectoggleon super speed']
-        # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, slash_commands_list=valid_slash_commands)
-        # assert
-        assert all(isinstance(slash_command, SlashCommand) for slash_command in bind._slash_commands)
-
-    def test_init_should_set_action_objects_action_string_given_valid_slash_commands_list(self):
-        # arrange
-        valid_trigger = 'W'
-        valid_slash_commands = ['powexectoggleon sprint', 'powexectoggleon super speed']
-        # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, slash_commands_list=valid_slash_commands)
-        # assert
-        assert [slash_command.slash_command_string for slash_command in bind._slash_commands] == ['powexectoggleon sprint', 'powexectoggleon super speed']
-
-class TestInvalidBindInitialization:
-    bind_under_test = Bind
-
-    def test_init_should_raise_value_error_given_empty_slash_commands(self):
-        # arrange
-        valid_trigger = 'W'
-        invalid_slash_commands = []
-        # act
-        with pytest.raises(ValueError) as excinfo:
-            bind = self.bind_under_test(trigger_string=valid_trigger, slash_commands_list=invalid_slash_commands)
-        #  assert
-        assert "Bind must contain one or more slash commands." in str(excinfo.value)
-
-class TestValidBindSetters:
-    bind_under_test = Bind
-
-    def test_trigger_setter_should_set_internal_trigger_object_given_valid_trigger(self):
-        # arrange
-        bind = self.bind_under_test(trigger_string='W', slash_commands_list=['powexectoggleon sprint'])
-        new_valid_trigger = 'SHIFT+S'
-        # act
-        bind.trigger = new_valid_trigger
-        # assert
-        assert isinstance(bind._trigger, Trigger)
-        assert bind._trigger.key == 'S'
+        assert bind._trigger.key == 'SPACE'
         assert bind._trigger.modifier == 'SHIFT'
 
-    def test_set_slash_commands_should_set_slash_commands_given_valid_slash_commands(self):
+    def test_init_should_create_and_set_slash_command_objects_given_valid_slash_commands_list(self):
         # arrange
-        bind = self.bind_under_test(trigger_string='W', slash_commands_list=['powexectoggleon sprint', 'powexectoggleon super speed'])
-        new_valid_slash_commands = ['powexectoggleon athletic run']
+        valid_slash_commands_list = ['+forward', 'powexectoggleon super speed']
+
         # act
-        bind.slash_commands = new_valid_slash_commands
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER, slash_commands_list=valid_slash_commands_list)
+
         # assert
-        assert bind.slash_commands == new_valid_slash_commands
+        assert all(isinstance(slash_command, SlashCommand) for slash_command in bind._slash_commands)
+        assert [slash_command.slash_command_string for slash_command in bind._slash_commands] == ['+forward', 'powexectoggleon super speed']
+        assert bind._slash_commands[0].prefix == '+'
+        assert bind._slash_commands[0].command == 'forward'
+        assert bind._slash_commands[1].command == 'powexectoggleon'
+        assert bind._slash_commands[1].args == 'super speed'
 
-class TestInvalidBindSetters:
-    bind_under_test = Bind
+class TestBindTriggerProperty:
+    BIND_UNDER_TEST = Bind
+    VALID_TRIGGER = 'W'
 
-    def test_set_slash_commands_should_raise_value_error_given_empty_slash_commands(self):
+    def test_trigger_getter_should_return_trigger_string(self):
         # arrange
-        bind = self.bind_under_test(trigger_string='W', slash_commands_list=['powexectoggleon sprint'])
-        invalid_slash_commands = []
-        # act and assert
-        with pytest.raises(ValueError, match='.*Bind must contain one or more slash commands.*'):
-            bind.slash_commands = invalid_slash_commands
+        bind = self.BIND_UNDER_TEST(trigger_string="SHIFT+SPACE")
 
-class TestBindStringProperty:
-    bind_under_test = Bind
-
-    def test_bind_string_should_return_correct_string_given_single_valid_slash_command(self):
-        # arrange
-        valid_trigger = 'Q'
-        valid_slash_commands = ['powexectoggleon dark nova']
         # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, slash_commands_list=valid_slash_commands)
-        # assert
-        assert bind.bind_string == 'Q "powexectoggleon dark nova"'
+        trigger = bind.trigger
 
-    def test_bind_string_should_return_correct_string_given_multiple_valid_slash_commands(self):
-        # arrange
-        valid_trigger = 'Q'
-        valid_slash_commands = ['powexectoggleoff black dwarf', 'powexectoggleon dark nova']
-        # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, slash_commands_list=valid_slash_commands)
         # assert
-        assert bind.bind_string == 'Q "powexectoggleoff black dwarf$$powexectoggleon dark nova"'
+        assert trigger == 'SHIFT+SPACE'
+
+    def test_trigger_setter_should_set_trigger_given_new_valid_trigger_string(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER)
+        new_valid_trigger_string = 'SHIFT+SPACE'
+
+        # act
+        bind.trigger = new_valid_trigger_string
+
+        # assert
+        assert bind.trigger == 'SHIFT+SPACE'
+
+class TestBindTriggerKeyProperty:
+    BIND_UNDER_TEST = Bind
+    VALID_TRIGGER = 'W'
+
+    def test_trigger_key_getter_should_return_trigger_key(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string="SHIFT+SPACE")
+
+        # act
+        trigger_key = bind.trigger_key
+
+        # assert
+        assert trigger_key == 'SPACE'
+
+    def test_trigger_key_setter_should_set_trigger_key_given_new_valid_key(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER)
+        new_valid_key = 'SPACE'
+
+        # act
+        bind.trigger_key = new_valid_key
+
+        # assert
+        assert bind.trigger_key == 'SPACE'
+
+class TestBindTriggerModifierProperty:
+    BIND_UNDER_TEST = Bind
+    VALID_TRIGGER = 'W'
+
+    def test_trigger_modifier_getter_should_return_trigger_modifier(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string="SHIFT+SPACE")
+
+        # act
+        trigger_modifier = bind.trigger_modifier
+
+        # assert
+        assert trigger_modifier == 'SHIFT'
+
+    def test_trigger_modifier_setter_should_set_trigger_modifier_given_new_valid_modifier(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER)
+        new_valid_modifier = 'SHIFT'
+
+        # act
+        bind.trigger_modifier = new_valid_modifier
+
+        # assert
+        assert bind.trigger_modifier == 'SHIFT'
+
+class TestBindSlashCommandsProperty:
+    BIND_UNDER_TEST = Bind
+    VALID_TRIGGER = 'W'
+
+    def test_slash_commands_getter_should_return_list_of_slash_command_strings(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER, slash_commands_list=['+forward', 'powexectoggleon super speed'])
+
+        # act
+        list_of_slash_commands_strings = bind.slash_commands
+
+        # assert
+        assert list_of_slash_commands_strings == ['+forward', 'powexectoggleon super speed']
+
+    def test_slash_commands_setter_should_set_slash_commands_given_new_valid_slash_commands_list(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER)
+
+        # act
+        bind.slash_commands = ['+forward', 'powexectoggleon super speed']
+
+        # assert
+        assert bind.slash_commands == ['+forward', 'powexectoggleon super speed']
+
+class TestBindBindStringProperty:
+    BIND_UNDER_TEST = Bind
+
+    def test_bind_string_should_return_correctly_formatted_bind_string_with_single_command(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string='W', slash_commands_list=['+forward'])
+        # act
+        correctly_formatted_bind_string_with_single_command = bind.bind_string
+        # assert
+        assert correctly_formatted_bind_string_with_single_command == 'W "+forward"'
+
+    def test_bind_string_should_return_correctly_formatted_bind_string_with_multiple_commands(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string='W', slash_commands_list=['+forward', 'powexectoggleon super speed'])
+        # act
+        correctly_formatted_bind_string = bind.bind_string
+        # assert
+        assert correctly_formatted_bind_string == 'W "+forward$$powexectoggleon super speed"'
+
+class TestBindBindLengthProperty:
+    BIND_UNDER_TEST = Bind
+
+    def test_bind_length_should_return_length_of_formatted_bind_string(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string='Q', slash_commands_list=['powexectoggleoff black dwarf', 'powexectoggleon dark nova'])
+        # act
+        bind_length = bind.bind_length
+        # assert
+        assert bind_length == len('Q "powexectoggleoff black dwarf$$powexectoggleon dark nova"')
+
+class TestBindValidateMethod:
+    BIND_UNDER_TEST = Bind
+    VALID_BIND_TRIGGER = 'W'
+    VALID_SLASH_COMMAND_LIST = ['+forward', 'powexectoggleon super speed']
+
+    def test_validate_should_pass_given_valid_bind(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_BIND_TRIGGER, slash_commands_list=self.VALID_SLASH_COMMAND_LIST)
+
+        # act / assert
+        bind.validate()  # should not raise an exception
+
+    def test_validate_should_raise_value_error_given_bind_with_no_slash_commands(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_BIND_TRIGGER, slash_commands_list=[])
+
+        # act
+        with pytest.raises(ValueError) as excinfo:
+            bind.validate()
+
+        # assert
+        assert "Bind must contain one or more slash commands." in str(excinfo.value)
+
+    def test_validate_should_raise_value_error_given_bind_length_exceeding_maximum_length(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_BIND_TRIGGER, slash_commands_list=[f"l {'A'*250}"]) # 256 characters long
+
+        # act
+        with pytest.raises(ValueError) as excinfo:
+            bind.validate()
+
+        # assert
+        assert "Bind exceeds maximum length of 255 characters." in str(excinfo.value)
 
 ### ToggleBind Tests
 
-class TestValidToggleBindInitializaiton(TestValidBindInitialization):
-    bind_under_test = ToggleBind
+class TestToggleBindInitialization(TestBindInitialization):
+    BIND_UNDER_TEST = ToggleBind
 
-    def test_init_should_set_toggle_off_powers_given_valid_powers(self):
+    def test_init_should_create_and_set_power_objects_given_valid_toggle_off_powers_list(self):
         # arrange
-        valid_trigger = 'W'
-        valid_powers = ['dark nova', 'black dwarf']
-        # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, toggle_off_powers=valid_powers)
-        # assert
-        assert bind.toggle_off_powers == valid_powers
-
-    def test_init_should_set_toggle_on_powers_given_valid_powers(self):
-        # arrange
-        valid_trigger = 'W'
-        valid_powers = ['super speed', 'super jump']
-        # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, toggle_on_powers=valid_powers)
-        # assert
-        assert bind.toggle_on_powers == valid_powers
-
-    def test_init_should_set_auto_power_given_valid_power(self):
-        # arrange
-        valid_trigger = 'W'
-        valid_power = 'hasten'
-        # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, auto_power=valid_power)
-        # assert
-        assert bind.auto_power == valid_power
-
-class TestInvalidToggleBindInitialization(TestInvalidBindInitialization):
-    bind_under_test = ToggleBind
-
-    def test_init_should_raise_value_error_given_empty_toggle_off_powers(self):
-        # arrange
-        valid_trigger = 'W'
-        invalid_powers = []
-        # act and assert
-        with pytest.raises(ValueError, match='.*Slash Commands list cannot be empty.*'):
-            bind = self.bind_under_test(trigger_string=valid_trigger, toggle_off_powers=invalid_powers)
-
-    def test_init_should_raise_value_error_given_empty_toggle_off_power(self):
-        # arrange
-        valid_trigger = 'W'
-        invalid_powers = ['dark nova', '']
-        # act and assert
-        with pytest.raises(ValueError, match='.*Slash Commands list cannot contain empty commands.*'):
-            bind = self.bind_under_test(trigger_string=valid_trigger, toggle_off_powers=invalid_powers)
-
-    def test_init_should_raise_value_error_given_empty_toggle_on_powers(self):
-        # arrange
-        valid_trigger = 'W'
-        invalid_powers = []
-        # act and assert
-        with pytest.raises(ValueError, match='.*Slash Commands list cannot be empty.*'):
-            bind = self.bind_under_test(trigger_string=valid_trigger, toggle_on_powers=invalid_powers)
-
-    def test_init_should_raise_value_error_given_empty_toggle_on_power(self):
-        # arrange
-        valid_trigger = 'W'
-        invalid_powers = ['dark nova', '']
-        # act and assert
-        with pytest.raises(ValueError, match='.*Slash Commands list cannot contain empty commands.*'):
-            bind = self.bind_under_test(trigger_string=valid_trigger, toggle_on_powers=invalid_powers)
-
-    def test_init_should_raise_value_error_given_empty_auto_power(self):
-        # arrange
-        valid_trigger = 'W'
-        invalid_power = ''
-        # act and assert
-        with pytest.raises(ValueError, match='.*Slash Commands list cannot be empty.*'):
-            bind = self.bind_under_test(trigger_string=valid_trigger, auto_power=invalid_power)
-
-class TestValidToggleBindSetters(TestValidBindSetters):
-    bind_under_test = ToggleBind
-
-    def test_set_toggle_off_powers_should_set_toggle_off_powers_given_valid_powers(self):
-        # arrange
-        bind = self.bind_under_test(trigger_string='W', toggle_off_powers=['dark nova'])
-        new_valid_powers = ['black dwarf']
-        # act
-        bind.toggle_off_powers = new_valid_powers
-        # assert
-        assert bind.toggle_off_powers == new_valid_powers
-
-    def test_set_toggle_on_powers_should_set_toggle_on_powers_given_valid_powers(self):
-        # arrange
-        bind = self.bind_under_test(trigger_string='W', toggle_on_powers=['dark nova'])
-        new_valid_powers = ['black dwarf']
-        # act
-        bind.toggle_on_powers = new_valid_powers
-        # assert
-        assert bind.toggle_on_powers == new_valid_powers
-
-    def test_set_auto_power_should_set_auto_power_given_valid_power(self):
-        # arrange
-        bind = self.bind_under_test(trigger_string='W', auto_power='hasten')
-        new_valid_power = 'inner inspiration'
-        # act
-        bind.auto_power = new_valid_power
-        # assert
-        assert bind.auto_power == new_valid_power
-
-class TestInvalidToggleBindSetters(TestInvalidBindSetters):
-    bind_under_test = ToggleBind
-
-    def test_set_toggle_off_powers_should_raise_value_error_given_empty_toggle_off_powers(self):
-        # arrange
-        bind = self.bind_under_test(trigger_string='W', toggle_off_powers=['dark nova'])
-        invalid_powers = []
-        # act and assert
-        with pytest.raises(ValueError, match='.*Slash Commands list cannot be empty.*'):
-            bind.toggle_off_powers = invalid_powers
-
-    def test_set_toggle_off_powers_should_raise_value_error_given_empty_toggle_off_power(self):
-        # arrange
-        bind = self.bind_under_test(trigger_string='W', toggle_off_powers=['dark nova'])
-        invalid_powers = ['black dwarf', '']
-        # act and assert
-        with pytest.raises(ValueError, match='.*Slash Commands list cannot contain empty commands.*'):
-            bind.toggle_off_powers = invalid_powers
-
-    def test_set_toggle_on_powers_should_raise_value_error_given_empty_toggle_on_powers(self):
-        # arrange
-        bind = self.bind_under_test(trigger_string='W', toggle_on_powers=['dark nova'])
-        invalid_powers = []
-        # act and assert
-        with pytest.raises(ValueError, match='.*Slash Commands list cannot be empty.*'):
-            bind.toggle_on_powers = invalid_powers
-
-    def test_set_toggle_on_powers_should_raise_value_error_given_empty_toggle_on_power(self):
-        # arrange
-        bind = self.bind_under_test(trigger_string='W', toggle_on_powers=['dark nova'])
-        invalid_powers = ['black dwarf', '']
-        # act and assert
-        with pytest.raises(ValueError, match='.*Slash Commands list cannot contain empty commands.*'):
-            bind.toggle_on_powers = invalid_powers
-
-    def test_set_auto_power_should_raise_value_error_given_empty_auto_power(self):
-        # arrange
-        bind = self.bind_under_test(trigger_string='W', auto_power='hasten')
-        invalid_power = ''
-        # act and assert
-        with pytest.raises(ValueError, match='.*Slash Commands list cannot be empty.*'):
-            bind.auto_power = invalid_power
-
-class TestToggleBindStringProperty(TestBindStringProperty):
-    bind_under_test = ToggleBind
-
-    def test_bind_string_should_return_correct_string_given_valid_toggle_off_power(self):
-        # arrange
-        valid_trigger = 'W'
-        valid_toggle_off_power = ['dark nova']
+        valid_toggle_off_powers_list = ['dark nova', 'black dwarf']
 
         # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, toggle_off_powers_list=valid_toggle_off_power)
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER, toggle_off_powers_list=valid_toggle_off_powers_list)
 
         # assert
-        assert bind.bind_string == 'W "powexectoggleoff dark nova"'
-
-    def test_bind_string_should_return_correct_string_given_valid_toggle_off_powers(self):
+        assert all(isinstance(power, Power) for power in bind._toggle_off_powers)
+        assert [power.power_string for power in bind._toggle_off_powers] == ['dark nova', 'black dwarf']
+    
+    def test_init_should_create_and_set_power_objects_given_valid_toggle_on_powers_list(self):
         # arrange
-        valid_trigger = 'W'
-        valid_toggle_off_powers = ['dark nova', 'black dwarf']
+        valid_toggle_on_powers_list = ['sprint', 'super jump']
 
         # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, toggle_off_powers_list=valid_toggle_off_powers)
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER, toggle_on_powers_list=valid_toggle_on_powers_list)
 
         # assert
-        assert bind.bind_string == 'W "powexectoggleoff dark nova$$powexectoggleoff black dwarf"'
+        assert all(isinstance(power, Power) for power in bind._toggle_on_powers)
+        assert [power.power_string for power in bind._toggle_on_powers] == ['sprint', 'super jump']
 
-    def test_bind_string_should_return_correct_string_given_valid_toggle_on_power(self):
+class TestToggleBindTriggerProperty(TestBindTriggerProperty):
+    BIND_UNDER_TEST = ToggleBind
+
+class TestToggleBindTriggerKeyProperty(TestBindTriggerKeyProperty):
+    BIND_UNDER_TEST = ToggleBind
+
+class TestToggleBindTriggerModifierProperty(TestBindTriggerModifierProperty):
+    BIND_UNDER_TEST = ToggleBind
+
+class TestToggleBindSlashCommandsProperty(TestBindSlashCommandsProperty):
+    BIND_UNDER_TEST = ToggleBind
+
+class TestToggleBindBindStringProperty(TestBindBindStringProperty):
+    BIND_UNDER_TEST = ToggleBind
+
+    def test_bind_string_should_return_correctly_formatted_bind_string_given_single_toggle_off_power(self):
         # arrange
-        valid_trigger = 'SPACE'
-        valid_toggle_on_power = ['combat jumping']
+        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_off_powers_list=['dark nova'])
+
         # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, toggle_on_powers_list=valid_toggle_on_power)
-        # assert
-        assert bind.bind_string == 'SPACE "powexectoggleon combat jumping"'
+        correctly_formatted_bind_string = bind.bind_string
 
-    def test_bind_string_should_return_correct_string_given_valid_toggle_on_powers(self):
+        # assert
+        assert correctly_formatted_bind_string == 'W "powexectoggleoff dark nova"'
+
+    def test_bind_string_should_return_correctly_formatted_bind_string_given_multiple_toggle_off_powers(self):
         # arrange
-        valid_trigger = 'SPACE'
-        valid_toggle_on_powers = ['combat jumping', 'super jump']
+        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_off_powers_list=['dark nova', 'black dwarf'])
+
+        # act
+        correctly_formatted_bind_string = bind.bind_string
+
+        # assert
+        assert correctly_formatted_bind_string == 'W "powexectoggleoff dark nova$$powexectoggleoff black dwarf"'
+
+    def test_bind_string_should_return_correctly_formatted_bind_string_given_single_toggle_on_power(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_on_powers_list=['sprint'])
+
+        # act
+        correctly_formatted_bind_string = bind.bind_string
+
+        # assert
+        assert correctly_formatted_bind_string == 'W "powexectoggleon sprint"'
+
+    def test_bind_string_should_return_correctly_formatted_bind_string_given_multiple_toggle_on_powers(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_on_powers_list=['sprint', 'super speed'])
+
+        # act
+        correctly_formatted_bind_string = bind.bind_string
+
+        # assert
+        assert correctly_formatted_bind_string == 'W "powexectoggleon sprint$$powexectoggleon super speed"'
+
+    def test_bind_string_should_return_correctly_formatted_bind_string_given_auto_power(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string='W', auto_power_string='hasten')
+
+        # act
+        correctly_formatted_bind_string = bind.bind_string
+
+        # assert
+        assert correctly_formatted_bind_string == 'W "powexecauto hasten"'
+
+    def test_bind_string_should_return_correctly_formatted_bind_string_given_all_defined_powers(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_off_powers_list=['dark nova', 'black dwarf'], toggle_on_powers_list=['sprint', 'super speed'], auto_power_string='hasten')
         
         # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, toggle_on_powers_list=valid_toggle_on_powers)
+        correctly_formatted_bind_string = bind.bind_string
 
         # assert
-        assert bind.bind_string == 'SPACE "powexectoggleon combat jumping$$powexectoggleon super jump"'
-
-    def test_bind_string_should_return_correct_string_given_valid_auto_power(self):
-        # arrange
-        valid_trigger = 'W'
-        valid_auto_power = 'hasten'
-
-        # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, auto_power_string=valid_auto_power)
-
-        # assert
-        assert bind.bind_string == 'W "powexecauto hasten"'
-
-    def test_bind_string_should_return_correct_string_given_all_valid_powers(self):
-        # arrange
-        valid_trigger = 'SPACE'
-        valid_toggle_off_powers = ['dark nova', 'black dwarf']
-        valid_toggle_on_powers = ['combat jumping', 'super jump']
-        valid_auto_power = 'hasten'
-        
-        # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, toggle_off_powers_list=valid_toggle_off_powers, toggle_on_powers_list=valid_toggle_on_powers, auto_power_string=valid_auto_power)
-        
-        # assert
-        assert bind.bind_string == 'SPACE "powexectoggleoff dark nova$$powexectoggleoff black dwarf$$powexectoggleon combat jumping$$powexectoggleon super jump$$powexecauto hasten"'
+        assert correctly_formatted_bind_string == 'W "powexectoggleoff dark nova$$powexectoggleoff black dwarf$$powexectoggleon sprint$$powexectoggleon super speed$$powexecauto hasten"'
 
 ### WASDBind Tests
 
-class TestValidWASDBindInitializaiton(TestValidToggleBindInitializaiton):
-    bind_under_test = WASDBind
+class TestWASDBindInitialization(TestToggleBindInitialization):
+    BIND_UNDER_TEST = WASDBind
 
     def test_init_should_set_movement_powers_given_valid_powers(self):
         # arrange
         valid_trigger = 'W'
         valid_movement_powers = ['sprint', 'super speed']
         # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, movement_powers=valid_movement_powers)
+        bind = self.BIND_UNDER_TEST(trigger_string=valid_trigger, movement_powers_list=valid_movement_powers)
         # assert
         assert bind.movement_powers == valid_movement_powers
 
-class TestWASDBindStringProperty(TestToggleBindStringProperty):
-    bind_under_test = WASDBind
+class TestWASDBindBindStringProperty(TestToggleBindBindStringProperty):
+    BIND_UNDER_TEST = WASDBind
 
-    def test_bind_string_should_return_correct_string_given_valid_movement_power(self):
+    def test_bind_string_should_return_correctly_formatted_bind_string_with_single_command(self):
         # arrange
-        valid_trigger = 'W'
-        valid_movement_power = ['sprint']
+        bind = self.BIND_UNDER_TEST(trigger_string='W')
+        # act
+        correctly_formatted_bind_string_with_single_command = bind.bind_string
+        # assert
+        assert correctly_formatted_bind_string_with_single_command == 'W "+forward"'
+
+    def test_bind_string_should_return_correctly_formatted_bind_string_with_multiple_commands(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string='W', slash_commands_list=['powexectoggleon super speed'])
+        # act
+        correctly_formatted_bind_string = bind.bind_string
+        # assert
+        assert correctly_formatted_bind_string == 'W "+forward$$powexectoggleon super speed"'
+
+    
+    def test_bind_string_should_return_correctly_formatted_bind_string_given_single_toggle_off_power(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_off_powers_list=['dark nova'])
 
         # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, movement_powers_list=valid_movement_power)
+        correctly_formatted_bind_string = bind.bind_string
 
         # assert
-        assert bind.bind_string == 'W "+forward$$powexectoggleon sprint"'
+        assert correctly_formatted_bind_string == 'W "+forward$$powexectoggleoff dark nova"'
 
-    def test_bind_string_should_return_correct_string_given_valid_movement_powers(self):
+    def test_bind_string_should_return_correctly_formatted_bind_string_given_multiple_toggle_off_powers(self):
         # arrange
-        valid_trigger = 'W'
-        valid_movement_powers = ['sprint', 'super speed']
+        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_off_powers_list=['dark nova', 'black dwarf'])
 
         # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, movement_powers_list=valid_movement_powers)
+        correctly_formatted_bind_string = bind.bind_string
 
         # assert
-        assert bind.bind_string == 'W "+forward$$powexectoggleon sprint$$powexectoggleon super speed"'
+        assert correctly_formatted_bind_string == 'W "+forward$$powexectoggleoff dark nova$$powexectoggleoff black dwarf"'
 
-    def test_bind_string_should_return_correct_string_given_all_valid_powers(self):
+    def test_bind_string_should_return_correctly_formatted_bind_string_given_single_toggle_on_power(self):
         # arrange
-        valid_trigger = 'W'
-        valid_movement_powers = ['sprint', 'super speed']
-        valid_toggle_off_powers = ['dark nova', 'black dwarf']
-        valid_toggle_on_powers = ['combat jumping', 'super jump']
-        valid_auto_power = 'hasten'
-        expected_bind_string = 'W "+forward$$powexectoggleon sprint$$powexectoggleon super speed$$powexectoggleoff dark nova$$powexectoggleoff black dwarf$$powexectoggleon combat jumping$$powexectoggleon super jump$$powexecauto hasten"'
+        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_on_powers_list=['sprint'])
+
         # act
-        bind = self.bind_under_test(trigger_string=valid_trigger, movement_powers_list=valid_movement_powers, toggle_off_powers_list=valid_toggle_off_powers, toggle_on_powers_list=valid_toggle_on_powers, auto_power_string=valid_auto_power)
+        correctly_formatted_bind_string = bind.bind_string
+
         # assert
-        assert bind.bind_string == expected_bind_string
+        assert correctly_formatted_bind_string == 'W "+forward$$powexectoggleon sprint"'
+
+    def test_bind_string_should_return_correctly_formatted_bind_string_given_multiple_toggle_on_powers(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_on_powers_list=['sprint', 'super speed'])
+
+        # act
+        correctly_formatted_bind_string = bind.bind_string
+
+        # assert
+        assert correctly_formatted_bind_string == 'W "+forward$$powexectoggleon sprint$$powexectoggleon super speed"'
+
+    def test_bind_string_should_return_correctly_formatted_bind_string_given_auto_power(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string='W', auto_power_string='hasten')
+
+        # act
+        correctly_formatted_bind_string = bind.bind_string
+
+        # assert
+        assert correctly_formatted_bind_string == 'W "+forward$$powexecauto hasten"'
+
+    def test_bind_string_should_return_correctly_formatted_bind_string_given_all_defined_powers(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_off_powers_list=['dark nova', 'black dwarf'], toggle_on_powers_list=['sprint', 'super speed'], auto_power_string='hasten')
+        
+        # act
+        correctly_formatted_bind_string = bind.bind_string
+
+        # assert
+        assert correctly_formatted_bind_string == 'W "+forward$$powexectoggleoff dark nova$$powexectoggleoff black dwarf$$powexectoggleon sprint$$powexectoggleon super speed$$powexecauto hasten"'
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -28,29 +28,29 @@ class TestValidSlashCommandInitialization:
         # assert
         assert action.args == 'dark nova'
 
-    def test_init_should_set_command_string_given_uppercase_slash_command_string(self):
+    def test_init_should_set_command_string_given_uppercase_command(self):
         # arrange
-        uppercase_slash_command_string = 'POWEXECTOGGLEON DARK NOVA'
+        uppercase_command = 'POWEXECTOGGLEON dark nova'
         # act
-        action = self.action_under_test(slash_command_string=uppercase_slash_command_string)
+        action = self.action_under_test(slash_command_string=uppercase_command)
         # assert
         assert action.slash_command_string == 'powexectoggleon dark nova'
-    
-    def test_init_should_set_command_given_uppercase_slash_command_string(self):
+
+    def test_init_should_set_command_given_uppercase_command(self):
         # arrange
-        uppercase_slash_command_string = 'POWEXECTOGGLEON DARK NOVA'
+        uppercase_command = 'POWEXECTOGGLEON dark nova'
         # act
-        action = self.action_under_test(slash_command_string=uppercase_slash_command_string)
+        action = self.action_under_test(slash_command_string=uppercase_command)
         # assert
         assert action.command == 'powexectoggleon'
 
-    def test_init_should_set_args_given_uppercase_slash_command_string(self):
+    def test_init_should_maintain_args_case_given_uppercase_args(self):
         # arrange
         uppercase_slash_command_string = 'POWEXECTOGGLEON DARK NOVA'
         # act
         action = self.action_under_test(slash_command_string=uppercase_slash_command_string)
         # assert
-        assert action.args == 'dark nova'
+        assert action.args == 'DARK NOVA'
 
     def test_init_should_set_command_string_given_slash_command_string_with_no_args(self):
         # arrange

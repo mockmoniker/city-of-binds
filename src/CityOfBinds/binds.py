@@ -8,10 +8,10 @@ class Bind:
     TRIGGER_TYPE = Trigger
 
     ### Initialization
-    def __init__(self, trigger_string: str, slash_commands_list: list[str]):
+    def __init__(self, trigger_string: str, slash_commands_list: list[str] = []):
         """Initialize the bind with a trigger and slash command list."""
         self._trigger = None
-        self._slash_commands: list[SlashCommand] = None
+        self._slash_commands = None
 
         self.trigger = trigger_string
         self.slash_commands = slash_commands_list
@@ -133,9 +133,9 @@ class ToggleBind(Bind):
                  toggle_on_powers_list: list[str] = [], 
                  auto_power_string: str = ""):
 
-        self._toggle_off_powers: list[Power] = None
-        self._toggle_on_powers: list[Power] = None
-        self._auto_power: Power = None
+        self._toggle_off_powers = None
+        self._toggle_on_powers = None
+        self._auto_power = None
 
         super().__init__(trigger_string=trigger_string, slash_commands_list=slash_commands_list)
 
@@ -246,7 +246,7 @@ class WASDBind(ToggleBind):
                  toggle_on_powers_list: list[str] = [], 
                  auto_power_string: str = "",):
         """Initialize the WASD bind with a trigger and a default movement slash command."""
-        self._movement_powers: list[Power] = None
+        self._movement_powers = None
 
         super().__init__(trigger_string=trigger_string,
                          slash_commands_list=slash_commands_list,

@@ -603,6 +603,7 @@ class SlashCommand:
         "zoomin",
         "zoomout",
     ]
+    VALID_PREFIXES = ['-', '+', '--', '++'] # valid prefixes for slash commands
 
     ### Initialization
     def __init__ (self, slash_command_string: str):
@@ -629,21 +630,25 @@ class SlashCommand:
     def command(self, command_string: str):
         formatted_command_string = command_string.lower()
         self._throw_error_on_invalid_slash_command(slash_command=formatted_command_string)
-        if self.args:
-            self._slash_command_string = f"{formatted_command_string} {self.args}"
-        else:
-            self._slash_command_string = formatted_command_string
+        self._slash_command_string = f"{self.prefix}{formatted_command_string} {self.args}".strip()
 
     @property
     def args(self) -> str:
-        return self._get_args_from_slash_command_string(self.slash_command_string)
+        return self._get_args_from_slash_command_string(slash_command_string=self.slash_command_string)
     
     @args.setter
     def args(self, args: str):
-        if args:
-            self._slash_command_string = f"{self.command} {args}"
-        else:
-            self._slash_command_string = self.command
+        self._slash_command_string = f"{self.prefix}{self.command} {args}".strip()
+
+    @property
+    def prefix(self) -> str:
+        return self._get_prefix_from_slash_command_string(slash_command_string=self.slash_command_string)
+    
+    @prefix.setter
+    def prefix(self, prefix: str):
+        if prefix:
+            self._throw_error_on_invalid_prefix(prefix=prefix)
+        self._slash_command_string = f"{prefix}{self.command} {self.args}".strip()
 
     ### Methods
     def _lowercase_first_word(self, string: str) -> str:
@@ -653,12 +658,19 @@ class SlashCommand:
 
     def _get_slash_command_from_slash_command_string(self, slash_command_string: str) -> str:
         """Helper function to extract the slash command from the slash command string."""
-        return slash_command_string.split(' ')[0]
+        return slash_command_string.split(' ')[0].replace('-', '').replace('+', '')
     
     def _get_args_from_slash_command_string(self, slash_command_string: str) -> str:
         """Helper function to extract the args from the slash command string."""
         args = slash_command_string.split(' ')[1:]
         return ' '.join(args) if args else ''
+    
+    def _get_prefix_from_slash_command_string(self, slash_command_string: str) -> str:
+        """Helper function to extract the prefix from the slash command string."""
+        for prefix in self.VALID_PREFIXES:
+            if slash_command_string.startswith(prefix):
+                return prefix
+        return ''
 
     ### Error Checking/Validation
     def _throw_error_on_invalid_slash_command_string(self, slash_command_string: str):
@@ -672,15 +684,20 @@ class SlashCommand:
 
     def _throw_error_on_invalid_slash_command_string_format(self, slash_command_string: str):
         """Helper function to validate the overall slash command string format."""
-        slash_command_pattern = r"^\w+(\s\w+)*$" # pattern to match "<slash_command> [args...]"
+        slash_command_pattern = r"^([-]{0,2}|[+]{0,2})\w+(\s\w+)*$" # pattern to match "[prefix]<slash_command> [args...]"
         if not re.match(slash_command_pattern, slash_command_string):
-            raise ValueError(f"Invalid slash command format '{slash_command_string}'. Format should be \"<slash_command> [args...]\"")
-        
+            raise ValueError(f"Invalid slash command format '{slash_command_string}'. Format should be \"[prefix]<slash_command> [args...]\"")
+
     def _throw_error_on_invalid_slash_command(self, slash_command: str):
         """Helper function to validate the slash command portion of the slash command string."""
         minimal_slash_command = slash_command.replace('_', '')
         if minimal_slash_command not in self.VALID_COMMANDS:
             raise ValueError(f"Unknown slash command '{slash_command}'. Please see https://homecoming.wiki/wiki/List_of_Slash_Commands for a list of valid slash commands.")
+
+    def _throw_error_on_invalid_prefix(self, prefix: str):
+        """Helper function to validate the prefix portion of the slash command string."""
+        if prefix not in self.VALID_PREFIXES:
+            raise ValueError(f"Invalid prefix '{prefix}'. Valid prefixes are: {', '.join(self.VALID_PREFIXES)}")
 
     ### Overrides
     def __repr__(self):
