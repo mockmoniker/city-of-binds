@@ -5,7 +5,7 @@ class TestCommentBannerInitialization:
     COMMENT_BANNER_UNDER_TEST = CommentBanner
     VALID_COMMENT_TEXT = "This is a comment"
 
-    def test_init_should_set_internal_comment_text_given_valid_comment_text(self):
+    def test_init_should_set_internal_text_given_valid_comment_text(self):
         # arrange
         valid_comment_text = 'This is a comment'
 
@@ -13,7 +13,7 @@ class TestCommentBannerInitialization:
         comment_banner = self.COMMENT_BANNER_UNDER_TEST(comment_text=valid_comment_text)
 
         # assert
-        assert comment_banner._comment_text == 'This is a comment'
+        assert comment_banner._text == 'This is a comment'
 
     def test_init_should_default_internal_border_style_given_no_border_style(self):
         # arrange
@@ -36,37 +36,37 @@ class TestCommentBannerCommentTextProperty:
     COMMENT_BANNER_UNDER_TEST = CommentBanner
     VALID_COMMENT_TEXT = "This is a comment"
 
-    def test_comment_text_getter_should_return_comment_text(self):
+    def test_text_getter_should_return_comment_text(self):
         # arrange
         comment_banner = self.COMMENT_BANNER_UNDER_TEST(comment_text="This is a comment")
 
         # act
-        comment_text = comment_banner.comment_text
+        text = comment_banner.text
 
         # assert
-        assert comment_text == "This is a comment"
+        assert text == "This is a comment"
 
-    def test_comment_text_setter_should_set_internal_comment_text_given_new_valid_comment_text(self):
+    def test_text_setter_should_set_internal_text_given_new_valid_text(self):
         # arrange
         comment_banner = self.COMMENT_BANNER_UNDER_TEST(comment_text=self.VALID_COMMENT_TEXT)
         new_valid_comment_text = "This is a new comment"
 
         # act
-        comment_banner.comment_text = new_valid_comment_text
+        comment_banner.text = new_valid_comment_text
 
         # assert
-        assert comment_banner._comment_text == "This is a new comment"
+        assert comment_banner._text == "This is a new comment"
 
-    def test_comment_text_setter_should_sanitize_comment_text_given_comment_text_with_blank_lines_and_whitespace(self):
+    def test_text_setter_should_sanitize_text_given_text_with_blank_lines_and_whitespace(self):
         # arrange
         comment_banner = self.COMMENT_BANNER_UNDER_TEST(comment_text=self.VALID_COMMENT_TEXT)
-        comment_text_with_blank_lines_and_whitespace = "\n  Hello  \n\nThis is a comment\n  \nEnd  \n"
+        text_with_blank_lines_and_whitespace = "\n  Hello  \n\nThis is a comment\n  \nEnd  \n"
 
         # act
-        comment_banner.comment_text = comment_text_with_blank_lines_and_whitespace
+        comment_banner.text = text_with_blank_lines_and_whitespace
 
         # assert
-        assert comment_banner._comment_text == "Hello\nThis is a comment\nEnd"
+        assert comment_banner.text == "Hello\nThis is a comment\nEnd"
 
 class TestCommentBannerBorderStyleProperty:
     COMMENT_BANNER_UNDER_TEST = CommentBanner
@@ -108,7 +108,7 @@ class TestCommentBannerBorderStyleProperty:
 class TestCommentBannerCommentBannerStringProperty:
     COMMENT_BANNER_UNDER_TEST = CommentBanner
 
-    def test_comment_banner_string_getter_should_return_properly_formatted_comment_banner_string_given_single_line_comment(self):
+    def test_comment_string_getter_should_return_properly_formatted_comment_banner_string_given_single_line_comment(self):
         # arrange
         comment_banner = self.COMMENT_BANNER_UNDER_TEST(comment_text="Hello", border_style='-')
         expected_banner_string = (
@@ -118,12 +118,12 @@ class TestCommentBannerCommentBannerStringProperty:
         )
 
         # act
-        banner_string = comment_banner.comment_banner_string
+        banner_string = comment_banner.comment_string
 
         # assert
         assert banner_string == expected_banner_string
 
-    def test_comment_banner_string_getter_should_return_properly_formatted_comment_banner_string_given_multi_line_comment(self):
+    def test_comment_string_getter_should_return_properly_formatted_comment_banner_string_given_multi_line_comment(self):
         # arrange
         comment_text = "Hello\nThis is a longer line\nEnd"
         comment_banner = self.COMMENT_BANNER_UNDER_TEST(comment_text=comment_text, border_style='=')
@@ -136,19 +136,17 @@ class TestCommentBannerCommentBannerStringProperty:
         )
 
         # act
-        banner_string = comment_banner.comment_banner_string
+        banner_string = comment_banner.comment_string
 
         # assert
         assert banner_string == expected_banner_string
 
-    def test_comment_banner_string_getter_should_return_empty_string_given_empty_comment_text(self):
+    def test_comment_string_getter_should_return_empty_string_given_empty_comment_text(self):
         # arrange
-        comment_banner = self.COMMENT_BANNER_UNDER_TEST(comment_text="", border_style='-')
+        comment_banner = self.COMMENT_BANNER_UNDER_TEST(comment_text="")
 
         # act
-        banner_string = comment_banner.comment_banner_string
+        banner_string = comment_banner.comment_string
 
         # assert
         assert banner_string == ""
-
-

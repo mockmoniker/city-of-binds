@@ -1,34 +1,23 @@
 from CityOfBinds.binds import Bind
 from CityOfBinds.comments import CommentBanner
 
-class BindFile:
-    def __init__(self, filename: str, binds: list[Bind] = [], comment_banner_text: str = ""):
-        """Initialize the bind file with a filename."""
-        self._filename = None
+class BindGroup:
+    def __init__(self, binds: list[Bind] = [], group_banner_text: str = ""):
+        """Initialize the bind group with binds and a group banner."""
         self._binds = None
-        self._comment_banner = None
+        self._group_banner = None
 
-        self.filename = filename
         self.binds = binds
-        self.comment_banner = comment_banner_text
+        self.group_banner = group_banner_text
 
     ### Properties
     @property
-    def filename(self) -> str:
-        return self._filename
-    
-    @filename.setter
-    def filename(self, filename: str):
-        self._throw_error_on_invalid_filename(filename)
-        self._filename = filename
+    def group_banner(self) -> str:
+        return self._group_banner.comment_banner_string
 
-    @property
-    def comment_banner(self) -> str:
-        return self._comment_banner.comment_banner_string
-
-    @comment_banner.setter
-    def comment_banner(self, comment_banner: str):
-        self._comment_banner = CommentBanner(comment_banner)
+    @group_banner.setter
+    def group_banner(self, group_banner: str):
+        self._group_banner = CommentBanner(group_banner)
 
     @property
     def binds(self) -> list[Bind]:
