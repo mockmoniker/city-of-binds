@@ -2,13 +2,13 @@ from CityOfBinds.binds import Bind
 from CityOfBinds.comments import CommentBanner
 
 class BindGroup:
-    def __init__(self, binds: list[Bind] = [], group_banner_text: str = ""):
-        """Initialize the bind group with binds and a group banner."""
+    def __init__(self, binds_list: list[Bind] = [], group_comment_text: str = ""):
+        """Initialize the bind group with binds and a group comment."""
         self._binds = None
-        self._group_banner = None
+        self._group_comment = None
 
-        self.binds = binds
-        self.group_banner = group_banner_text
+        self.binds = binds_list
+        self.group_comment = group_comment_text
 
     ### Properties
     @property

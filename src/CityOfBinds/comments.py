@@ -1,6 +1,6 @@
 import re
 
-class CommentLine:
+class Comment:
     DEFAULT_ALIGNMENT = 'left'
     TEXT_ALIGNMENT_MAPPINGS = {
         'left': str.ljust,
@@ -90,14 +90,14 @@ class CommentLine:
         if alignment not in self.TEXT_ALIGNMENT_MAPPINGS:
             raise ValueError(f"Invalid text alignment '{alignment}'. Valid options are: {', '.join(self.TEXT_ALIGNMENT_MAPPINGS.keys())}")
 
-class CommentBanner(CommentLine):
+class CommentBanner(Comment):
     VALID_BORDER_STYLES = ['-', '=', '*', '~', '#']
     DEFAULT_BORDER_STYLE = '-'
 
     def __init__(self, 
                  comment_text: str,
-                 alignment: str = CommentLine.DEFAULT_ALIGNMENT, 
-                 minimum_comment_width: int = CommentLine.MINIMUM_COMMENT_WIDTH,
+                 alignment: str = Comment.DEFAULT_ALIGNMENT, 
+                 minimum_comment_width: int = Comment.MINIMUM_COMMENT_WIDTH,
                  border_style: str = DEFAULT_BORDER_STYLE):
         self._border_style = None
 
@@ -131,12 +131,12 @@ class CommentBanner(CommentLine):
         )
 
     def _build_comment_banner_string(self, comment_text: str, alignment: str, text_width: int, border_style: str) -> str:
-        border = CommentLine(f"{border_style * text_width}").comment_string
+        border = Comment(f"{border_style * text_width}").comment_string
 
         comment_width = text_width + self.EDGES_LENGTH
         comment_lines = ""
         for line in comment_text.split('\n'):
-            comment_lines += CommentLine(line, alignment, comment_width).comment_string + '\n'
+            comment_lines += Comment(line, alignment, comment_width).comment_string + '\n'
 
         return f"{border}\n{comment_lines}{border}\n"
 
