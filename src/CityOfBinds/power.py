@@ -20,3 +20,15 @@ class Power:
     def _throw_error_on_invalid_power_string_format(self, power_string: str):
         if not re.match(r"^[a-z]+( [a-z]+)*$", power_string):
             raise ValueError(f"Invalid power format: {power_string}")
+
+    ### Dunder Methods
+    def __str__(self) -> str:
+        return self.power_string
+    
+    def __repr__(self) -> str:
+        return f"Power('{self.power_string}')"
+    
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, Power):
+            return False
+        return self.power_string == other.power_string

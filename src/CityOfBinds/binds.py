@@ -8,46 +8,30 @@ class Bind:
     TRIGGER_TYPE = Trigger
 
     ### Initialization
-    def __init__(self, trigger_string: str, slash_commands_list: list[str] = []):
+    def __init__(self, trigger_string: str, slash_commands_string_list: list[str] = []):
         """Initialize the bind with a trigger and slash command list."""
         self._trigger = None
         self._slash_commands = None
 
         self.trigger = trigger_string
-        self.slash_commands = slash_commands_list
+        self.slash_commands = slash_commands_string_list
 
     ### Properties
     @property
-    def trigger(self) -> str:
-        return self._trigger.trigger_string
+    def trigger(self) -> Trigger:
+        return self._trigger
     
     @trigger.setter
     def trigger(self, trigger_string: str):
         self._trigger = self.TRIGGER_TYPE(trigger_string)
 
     @property
-    def trigger_key(self) -> str:
-        return self._trigger.key
-    
-    @trigger_key.setter
-    def trigger_key(self, key: str):
-        self._trigger.key = key
-
-    @property
-    def trigger_modifier(self) -> str:
-        return self._trigger.modifier
-
-    @trigger_modifier.setter
-    def trigger_modifier(self, modifier: str):
-        self._trigger.modifier = modifier
-
-    @property
-    def slash_commands(self) -> list[str]:
-        return [slash_command.slash_command_string for slash_command in self._slash_commands]
+    def slash_commands(self) -> list[SlashCommand]:
+        return self._slash_commands
     
     @slash_commands.setter
-    def slash_commands(self, slash_commands_list: list[str]):
-        self._slash_commands = [SlashCommand(slash_command) for slash_command in slash_commands_list]
+    def slash_commands(self, slash_commands_string_list: list[str]):
+        self._slash_commands = [SlashCommand(slash_command) for slash_command in slash_commands_string_list]
     
     @property
     def bind_string(self) -> str:
@@ -72,14 +56,6 @@ class Bind:
         """Set the trigger modifier."""
         self._trigger.modifier = modifier
 
-    def has_modified_trigger(self) -> bool:
-        """Helper function to determine if the trigger contains a modifier."""
-        return self._trigger.has_modifier()
-    
-    def clear_trigger_modifier(self):
-        """Clear the trigger modifier."""
-        self._trigger.clear_modifier()
-
     ### Copy
     def copy(self) -> 'Bind':
         """Return a copy of the bind."""
@@ -89,11 +65,11 @@ class Bind:
     ### Helpers
     def _build_bind_string(self) -> str:
         """Helper function to build the bind string."""
-        return self._build_bind_string_from_components(self.trigger, self.slash_commands)
+        return self._build_bind_string_from_components(trigger=self.trigger, slash_commands=self.slash_commands)
 
-    def _build_bind_string_from_components(self, trigger: str, slash_commands: list[str]) -> str:
+    def _build_bind_string_from_components(self, trigger: Trigger, slash_commands: list[SlashCommand]) -> str:
         """Helper function to build the bind string from its components."""
-        return f"{trigger} \"{'$$'.join([slash_command for slash_command in slash_commands])}\""
+        return f"{trigger} \"{'$$'.join([str(slash_command) for slash_command in slash_commands])}\""
 
     ### Error Checking/Validation
     def _throw_error_on_empty_bind(self):
@@ -128,48 +104,46 @@ class ToggleBind(Bind):
 
     def __init__(self, 
                  trigger_string: str, 
-                 slash_commands_list: list[str] = [], 
-                 toggle_off_powers_list: list[str] = [], 
-                 toggle_on_powers_list: list[str] = [], 
+                 slash_commands_string_list: list[str] = [], 
+                 toggle_off_powers_string_list: list[str] = [], 
+                 toggle_on_powers_string_list: list[str] = [], 
                  auto_power_string: str = ""):
 
         self._toggle_off_powers = None
         self._toggle_on_powers = None
         self._auto_power = None
 
-        super().__init__(trigger_string=trigger_string, slash_commands_list=slash_commands_list)
+        super().__init__(trigger_string=trigger_string, slash_commands_string_list=slash_commands_string_list)
 
-        self.toggle_off_powers = toggle_off_powers_list
-        self.toggle_on_powers = toggle_on_powers_list
+        self.toggle_off_powers = toggle_off_powers_string_list
+        self.toggle_on_powers = toggle_on_powers_string_list
         self.auto_power = auto_power_string
 
     ### Properties
     @property
-    def toggle_off_powers(self) -> list[str]:
-        return self._get_power_string_list_from_power_list(self._toggle_off_powers)
+    def toggle_off_powers(self) -> list[Power]:
+        return self._toggle_off_powers
     
     @toggle_off_powers.setter
-    def toggle_off_powers(self, toggle_off_powers_list: list[str]):
-        self._toggle_off_powers = self._get_power_list_from_power_string_list(toggle_off_powers_list)
+    def toggle_off_powers(self, toggle_off_powers_string_list: list[str]):
+        self._toggle_off_powers = self._get_power_list_from_power_string_list(toggle_off_powers_string_list)
 
     @property
-    def toggle_on_powers(self) -> list[str]:
-        return self._get_power_string_list_from_power_list(self._toggle_on_powers)
+    def toggle_on_powers(self) -> list[Power]:
+        return self._toggle_on_powers
     
     @toggle_on_powers.setter
-    def toggle_on_powers(self, toggle_on_powers_list: list[str]):
-        self._toggle_on_powers = self._get_power_list_from_power_string_list(toggle_on_powers_list)
+    def toggle_on_powers(self, toggle_on_powers_string_list: list[str]):
+        self._toggle_on_powers = self._get_power_list_from_power_string_list(toggle_on_powers_string_list)
 
     @property
-    def auto_power(self) -> str:
-        if self._auto_power:
-            return self._auto_power.power_string
-        return ""
-    
+    def auto_power(self) -> Power:
+        return self._auto_power
+
     @auto_power.setter
-    def auto_power(self, auto_power: str):
-        if auto_power:
-            self._auto_power = Power(auto_power)
+    def auto_power(self, auto_power_string: str):
+        if auto_power_string:
+            self._auto_power = Power(auto_power_string)
         else:
             self._auto_power = None
 
@@ -187,27 +161,23 @@ class ToggleBind(Bind):
                           auto_power_string=deepcopy(self.auto_power))
 
     ### Helpers
-    def _get_powexec_command_from_power(self, powexec_type: str, power: str) -> str:
+    def _get_powexec_slash_command_from_power(self, powexec_type: str, power: Power) -> SlashCommand:
         """Helper function to convert a single power to a powexec command."""
         if power:
-            return f"{powexec_type} {power}"
-        return ""
+            return SlashCommand(f"{powexec_type} {power}")
+        return None
 
-    def _get_powexec_commands_from_power_list(self, powexec_type: str, power_list: list[str]) -> list[str]:
+    def _get_powexec_slash_command_list_from_power_list(self, powexec_type: str, power_list: list[Power]) -> list[SlashCommand]:
         """Helper function to convert a list of powers to powexec commands."""
-        return [self._get_powexec_command_from_power(powexec_type, power) for power in power_list]
+        return [self._get_powexec_slash_command_from_power(powexec_type, power) for power in power_list]
 
-    def _get_toggle_off_commands_from_power_list(self, power_list: list[str]) -> list[str]:
+    def _get_toggle_off_slash_command_list_from_power_list(self, power_list: list[Power]) -> list[SlashCommand]:
         """Helper function to convert a list of powers to powexectoggleoff commands."""
-        return self._get_powexec_commands_from_power_list(self.POWEXEC_TOGGLE_OFF, power_list)
+        return self._get_powexec_slash_command_list_from_power_list(self.POWEXEC_TOGGLE_OFF, power_list)
 
-    def _get_toggle_on_commands_from_power_list(self, power_list: list[str]) -> list[str]:
+    def _get_toggle_on_slash_command_list_from_power_list(self, power_list: list[Power]) -> list[SlashCommand]:
         """Helper function to convert a list of powers to powexectoggleon commands."""
-        return self._get_powexec_commands_from_power_list(self.POWEXEC_TOGGLE_ON, power_list)
-
-    def _get_power_string_list_from_power_list(self, power_list: list[Power]) -> list[str]:
-        """Helper function to convert a list of Power objects to a list of power strings."""
-        return [power.power_string for power in power_list]
+        return self._get_powexec_slash_command_list_from_power_list(self.POWEXEC_TOGGLE_ON, power_list)
 
     def _get_power_list_from_power_string_list(self, power_string_list: list[str]) -> list[Power]:
         """Helper function to convert a list of power strings to a list of Power objects."""
@@ -215,11 +185,11 @@ class ToggleBind(Bind):
 
     def _build_bind_string(self) -> str:
         """Helper function to build the toggle bind string."""
-        toggle_off_slash_commands = self._get_toggle_off_commands_from_power_list(self.toggle_off_powers)
-        toggle_on_slash_commands = self._get_toggle_on_commands_from_power_list(self.toggle_on_powers)
-        auto_power_slash_command = [self._get_powexec_command_from_power(self.POWEXEC_AUTO, self.auto_power)] if self.auto_power else []
+        toggle_off_slash_command_list = self._get_toggle_off_slash_command_list_from_power_list(self.toggle_off_powers)
+        toggle_on_slash_command_list = self._get_toggle_on_slash_command_list_from_power_list(self.toggle_on_powers)
+        auto_power_slash_command_list = [self._get_powexec_slash_command_from_power(self.POWEXEC_AUTO, self.auto_power)] if self.auto_power else []
 
-        combined_slash_commands = toggle_off_slash_commands + toggle_on_slash_commands + auto_power_slash_command + self.slash_commands
+        combined_slash_commands = toggle_off_slash_command_list + toggle_on_slash_command_list + auto_power_slash_command_list + self.slash_commands
 
         return self._build_bind_string_from_components(self.trigger, combined_slash_commands)
 
@@ -240,31 +210,31 @@ class WASDBind(ToggleBind):
     ### Initialization
     def __init__(self, 
                  trigger_string: str, 
-                 slash_commands_list: list[str] = [],
-                 toggle_off_powers_list: list[str] = [],
-                 movement_powers_list: list[str] = [], 
-                 toggle_on_powers_list: list[str] = [], 
+                 slash_commands_string_list: list[str] = [],
+                 toggle_off_powers_string_list: list[str] = [],
+                 movement_powers_string_list: list[str] = [], 
+                 toggle_on_powers_string_list: list[str] = [], 
                  auto_power_string: str = "",):
         """Initialize the WASD bind with a trigger and a default movement slash command."""
         self._movement_powers = None
 
         super().__init__(trigger_string=trigger_string,
-                         slash_commands_list=slash_commands_list,
-                         toggle_off_powers_list=toggle_off_powers_list,
-                         toggle_on_powers_list=toggle_on_powers_list,
+                         slash_commands_string_list=slash_commands_string_list,
+                         toggle_off_powers_string_list=toggle_off_powers_string_list,
+                         toggle_on_powers_string_list=toggle_on_powers_string_list,
                          auto_power_string=auto_power_string)
 
-        self.movement_powers = movement_powers_list
+        self.movement_powers = movement_powers_string_list
 
     ### Properties
     @property
-    def movement_powers(self) -> list[str]:
-        return self._get_power_string_list_from_power_list(self._movement_powers)
+    def movement_powers(self) -> list[Power]:
+        return self._movement_powers
     
     @movement_powers.setter
-    def movement_powers(self, movement_powers: list[str]):
-        self._movement_powers = self._get_power_list_from_power_string_list(movement_powers)
-    
+    def movement_powers(self, movement_powers_string_list: list[str]):
+        self._movement_powers = self._get_power_list_from_power_string_list(movement_powers_string_list)
+
     ### Copy
     def copy(self) -> 'WASDBind':
         """Return a copy of the WASD bind."""
@@ -278,11 +248,11 @@ class WASDBind(ToggleBind):
     ### Helpers
     def _build_bind_string(self) -> str:
         """Helper function to build the WASD bind string."""
-        direction_command = self._get_wasd_direction(self.trigger_key)
-        toggle_off_slash_commands = self._get_toggle_off_commands_from_power_list(self.toggle_off_powers)
-        movement_slash_commands = self._get_toggle_on_commands_from_power_list(self.movement_powers)
-        toggle_on_slash_commands = self._get_toggle_on_commands_from_power_list(self.toggle_on_powers)
-        auto_power_slash_command = [self._get_powexec_command_from_power(self.POWEXEC_AUTO, self.auto_power)] if self.auto_power else []
+        direction_command = self._get_wasd_direction(self.trigger.key)
+        toggle_off_slash_commands = self._get_toggle_off_slash_command_list_from_power_list(self.toggle_off_powers)
+        movement_slash_commands = self._get_toggle_on_slash_command_list_from_power_list(self.movement_powers)
+        toggle_on_slash_commands = self._get_toggle_on_slash_command_list_from_power_list(self.toggle_on_powers)
+        auto_power_slash_command = [self._get_powexec_slash_command_from_power(self.POWEXEC_AUTO, self.auto_power)] if self.auto_power else []
         
         combined_slash_commands = [direction_command] + toggle_off_slash_commands + movement_slash_commands + toggle_on_slash_commands + auto_power_slash_command + self.slash_commands
 
