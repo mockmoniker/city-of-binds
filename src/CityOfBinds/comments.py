@@ -150,4 +150,3 @@ class CommentBanner(Comment):
     def _throw_error_on_invalid_border_style(self, border_style: str):
         if border_style not in self.VALID_BORDER_STYLES:
             raise ValueError(f"Invalid border style '{border_style}'. Valid options are: {', '.join(self.VALID_BORDER_STYLES)}")
-        
