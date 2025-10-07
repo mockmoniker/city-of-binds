@@ -105,8 +105,6 @@ class ToggleBind(Bind):
                  toggle_on_powers_string_list: list[str] = None, 
                  auto_power_string: str = None):
 
-        if slash_commands_string_list is None:
-            slash_commands_string_list = []
         if toggle_off_powers_string_list is None:
             toggle_off_powers_string_list = []
         if toggle_on_powers_string_list is None:
@@ -208,16 +206,8 @@ class WASDBind(ToggleBind):
                  toggle_on_powers_string_list: list[str] = None, 
                  auto_power_string: str = None):
         """Initialize the WASD bind with a trigger and a default movement slash command."""
-        if slash_commands_string_list is None:
-            slash_commands_string_list = []
-        if toggle_off_powers_string_list is None:
-            toggle_off_powers_string_list = []
         if movement_powers_string_list is None:
             movement_powers_string_list = []
-        if toggle_on_powers_string_list is None:
-            toggle_on_powers_string_list = []
-        if auto_power_string is None:
-            auto_power_string = ""
 
         self._movement_powers = None
 
