@@ -1,4 +1,3 @@
-from copy import deepcopy
 from CityOfBinds.trigger import Trigger, WASDTrigger
 from CityOfBinds.slashcommand import SlashCommand
 from CityOfBinds.power import Power
