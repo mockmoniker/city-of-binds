@@ -183,7 +183,7 @@ class ToggleBind(Bind):
     
 class WASDBind(ToggleBind):
     TRIGGER_TYPE = WASDTrigger
-    WASD_TRIGGER_MAP = {
+    TRIGGER_KEY_TO_MOVEMENT_SLASH_COMMAND_MAP = {
         "W": "+forward",
         "A": "+left",
         "S": "+backward",
@@ -238,4 +238,4 @@ class WASDBind(ToggleBind):
     
     def _get_movement_slash_command_from_trigger(self, trigger: Trigger) -> SlashCommand:
         """Helper function to get the WASD direction for the trigger."""
-        return SlashCommand(self.WASD_TRIGGER_MAP[trigger.key])
+        return SlashCommand(self.TRIGGER_KEY_TO_MOVEMENT_SLASH_COMMAND_MAP[trigger.key])
