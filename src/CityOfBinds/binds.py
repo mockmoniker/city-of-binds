@@ -103,14 +103,12 @@ class ToggleBind(Bind):
                  slash_commands_string_list: list[str] = None, 
                  toggle_off_powers_string_list: list[str] = None, 
                  toggle_on_powers_string_list: list[str] = None, 
-                 auto_power_string: str = None):
+                 auto_power_string: str = ""):
 
         if toggle_off_powers_string_list is None:
             toggle_off_powers_string_list = []
         if toggle_on_powers_string_list is None:
             toggle_on_powers_string_list = []
-        if auto_power_string is None:
-            auto_power_string = ""
 
         self._toggle_off_powers = None
         self._toggle_on_powers = None
