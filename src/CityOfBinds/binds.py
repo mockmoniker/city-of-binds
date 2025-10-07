@@ -56,12 +56,6 @@ class Bind:
         """Set the trigger modifier."""
         self._trigger.modifier = modifier
 
-    ### Copy
-    def copy(self) -> 'Bind':
-        """Return a copy of the bind."""
-        return Bind(trigger_string=deepcopy(self.trigger), 
-                    slash_commands_list=deepcopy(self.slash_commands))
-
     ### Helpers
     def _build_bind_string(self) -> str:
         """Helper function to build the bind string."""
@@ -69,7 +63,7 @@ class Bind:
 
     def _build_bind_string_from_components(self, trigger: Trigger, slash_commands: list[SlashCommand]) -> str:
         """Helper function to build the bind string from its components."""
-        return f"{trigger} \"{'$$'.join([str(slash_command) for slash_command in slash_commands])}\""
+        return f"{trigger} \"{'$$'.join(slash_command.slash_command_string for slash_command in slash_commands)}\""
 
     ### Error Checking/Validation
     def _throw_error_on_empty_bind(self):
@@ -148,17 +142,8 @@ class ToggleBind(Bind):
             self._auto_power = None
 
     ### Methods
-    def is_empty(self):
+    def is_empty(self) -> bool:
         return super().is_empty() and not self.toggle_off_powers and not self.toggle_on_powers and not self.auto_power
-
-    ### Copy
-    def copy(self) -> 'ToggleBind':
-        """Return a copy of the WASD bind."""
-        return ToggleBind(trigger_string=deepcopy(self.trigger), 
-                          slash_commands_list=deepcopy(self.slash_commands), 
-                          toggle_off_powers_list=deepcopy(self.toggle_off_powers), 
-                          toggle_on_powers_list=deepcopy(self.toggle_on_powers), 
-                          auto_power_string=deepcopy(self.auto_power))
 
     ### Helpers
     def _get_powexec_slash_command_from_power(self, powexec_type: str, power: Power) -> SlashCommand:
@@ -235,29 +220,23 @@ class WASDBind(ToggleBind):
     def movement_powers(self, movement_powers_string_list: list[str]):
         self._movement_powers = self._get_power_list_from_power_string_list(movement_powers_string_list)
 
-    ### Copy
-    def copy(self) -> 'WASDBind':
-        """Return a copy of the WASD bind."""
-        return WASDBind(trigger_string=deepcopy(self.trigger), 
-                        slash_commands_list=deepcopy(self.slash_commands), 
-                        toggle_off_powers_list=deepcopy(self.toggle_off_powers), 
-                        movement_powers_list=deepcopy(self.movement_powers),
-                        toggle_on_powers_list=deepcopy(self.toggle_on_powers), 
-                        auto_power_string=deepcopy(self.auto_power))
-
+    ### Methods
+    def is_empty(self) -> bool:
+        return super().is_empty() and not self.movement_powers
+    
     ### Helpers
     def _build_bind_string(self) -> str:
         """Helper function to build the WASD bind string."""
-        direction_command = self._get_wasd_direction(self.trigger.key)
+        movement_slash_command = self._get_movement_slash_command_from_trigger(self.trigger)
         toggle_off_slash_commands = self._get_toggle_off_slash_command_list_from_power_list(self.toggle_off_powers)
         movement_slash_commands = self._get_toggle_on_slash_command_list_from_power_list(self.movement_powers)
         toggle_on_slash_commands = self._get_toggle_on_slash_command_list_from_power_list(self.toggle_on_powers)
-        auto_power_slash_command = [self._get_powexec_slash_command_from_power(self.POWEXEC_AUTO, self.auto_power)] if self.auto_power else []
-        
-        combined_slash_commands = [direction_command] + toggle_off_slash_commands + movement_slash_commands + toggle_on_slash_commands + auto_power_slash_command + self.slash_commands
+        auto_power_slash_command_as_list = [self._get_powexec_slash_command_from_power(self.POWEXEC_AUTO, self.auto_power)] if self.auto_power else []
+
+        combined_slash_commands = [movement_slash_command] + toggle_off_slash_commands + movement_slash_commands + toggle_on_slash_commands + auto_power_slash_command_as_list + self.slash_commands
 
         return self._build_bind_string_from_components(self.trigger, combined_slash_commands)
     
-    def _get_wasd_direction(self, trigger: str) -> str:
+    def _get_movement_slash_command_from_trigger(self, trigger: Trigger) -> SlashCommand:
         """Helper function to get the WASD direction for the trigger."""
-        return self.WASD_TRIGGER_MAP[trigger]
+        return SlashCommand(self.WASD_TRIGGER_MAP[trigger.key])

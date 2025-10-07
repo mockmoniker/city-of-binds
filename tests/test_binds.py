@@ -1,8 +1,9 @@
 import pytest
 from CityOfBinds import SlashCommand, Trigger, Power, Bind, ToggleBind, WASDBind
 
-### Bind Tests
+### Bind Tests ###
 
+# Bind Initialization Tests
 class TestBindInitialization:
     BIND_UNDER_TEST = Bind
     VALID_TRIGGER = 'W'
@@ -27,6 +28,7 @@ class TestBindInitialization:
         # assert
         assert bind._slash_commands == [SlashCommand('+forward'), SlashCommand('powexectoggleon super speed')]
 
+# Bind Property Tests
 class TestBindTriggerProperty:
     BIND_UNDER_TEST = Bind
     VALID_TRIGGER = 'W'
@@ -109,21 +111,22 @@ class TestBindBindLengthProperty:
         # assert
         assert bind_length == len('Q "powexectoggleoff black dwarf$$powexectoggleon dark nova"')
 
+# Bind Method Tests
 class TestBindValidateMethod:
     BIND_UNDER_TEST = Bind
-    VALID_BIND_TRIGGER = 'W'
+    VALID_TRIGGER = 'W'
     VALID_SLASH_COMMAND_LIST = ['+forward', 'powexectoggleon super speed']
 
     def test_validate_should_pass_given_valid_bind(self):
         # arrange
-        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_BIND_TRIGGER, slash_commands_string_list=self.VALID_SLASH_COMMAND_LIST)
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER, slash_commands_string_list=self.VALID_SLASH_COMMAND_LIST)
 
         # act / assert
         bind.validate()  # should not raise an exception
 
     def test_validate_should_raise_value_error_given_bind_with_no_slash_commands(self):
         # arrange
-        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_BIND_TRIGGER, slash_commands_string_list=[])
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER)
 
         # act
         with pytest.raises(ValueError) as excinfo:
@@ -134,7 +137,7 @@ class TestBindValidateMethod:
 
     def test_validate_should_raise_value_error_given_bind_length_exceeding_maximum_length(self):
         # arrange
-        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_BIND_TRIGGER, slash_commands_string_list=[f"l {'A'*250}"]) # 256 characters long
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER, slash_commands_string_list=[f"l {'A'*250}"]) # 256 characters long
 
         # act
         with pytest.raises(ValueError) as excinfo:
@@ -143,8 +146,34 @@ class TestBindValidateMethod:
         # assert
         assert "Bind exceeds maximum length of 255 characters." in str(excinfo.value)
 
-### ToggleBind Tests
+class TestBindIsEmptyMethod:
+    BIND_UNDER_TEST = Bind
+    VALID_TRIGGER = 'W'
+    VALID_SLASH_COMMAND_LIST = ['powexectoggleon super speed']
 
+    def test_is_empty_should_return_true_given_bind_with_no_slash_commands(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER)
+
+        # act
+        is_empty = bind.is_empty()
+
+        # assert
+        assert is_empty is True
+
+    def test_is_empty_should_return_false_given_bind_with_slash_commands(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER, slash_commands_string_list=self.VALID_SLASH_COMMAND_LIST)
+
+        # act
+        is_empty = bind.is_empty()
+
+        # assert
+        assert is_empty is False
+
+### ToggleBind Tests ###
+
+# ToggleBind Initialization Tests
 class TestToggleBindInitialization(TestBindInitialization):
     BIND_UNDER_TEST = ToggleBind
 
@@ -167,6 +196,7 @@ class TestToggleBindInitialization(TestBindInitialization):
         # assert
         assert bind._toggle_on_powers == [Power('sprint'), Power('super jump')]
 
+# ToggleBind Property Tests
 class TestToggleBindTriggerProperty(TestBindTriggerProperty):
     BIND_UNDER_TEST = ToggleBind
 
@@ -246,22 +276,63 @@ class TestToggleBindBindStringProperty(TestBindBindStringProperty):
         # assert
         assert bind_string == 'W "powexectoggleoff dark nova$$powexectoggleoff black dwarf$$powexectoggleon sprint$$powexectoggleon super speed$$powexecauto hasten$$powexectoggleon tough$$powexectoggleon weave"'
 
-### WASDBind Tests
+class TestToggleBindBindLengthProperty(TestBindBindLengthProperty):
+    BIND_UNDER_TEST = ToggleBind
 
+# ToggleBind Method Tests
+class TestToggleBindValidateMethod(TestBindValidateMethod):
+    BIND_UNDER_TEST = ToggleBind
+
+class TestToggleBindIsEmptyMethod(TestBindIsEmptyMethod):
+    BIND_UNDER_TEST = ToggleBind
+
+    def test_is_empty_should_return_false_given_toggle_off_powers(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER, toggle_off_powers_string_list=['dark nova'])
+
+        # act
+        is_empty = bind.is_empty()
+
+        # assert
+        assert is_empty is False
+
+    def test_is_empty_should_return_false_given_toggle_on_powers(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER, toggle_on_powers_string_list=['sprint'])
+
+        # act
+        is_empty = bind.is_empty()
+
+        # assert
+        assert is_empty is False
+
+    def test_is_empty_should_return_false_given_auto_power(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER, auto_power_string='hasten')
+
+        # act
+        is_empty = bind.is_empty()
+
+        # assert
+        assert is_empty is False
+
+### WASDBind Tests ###
+
+# WASDBind Initialization Tests
 class TestWASDBindInitialization(TestToggleBindInitialization):
     BIND_UNDER_TEST = WASDBind
 
-    def test_init_should_set_movement_powers_given_valid_powers(self):
+    def test_init_should_set_internal_movement_powers_given_movement_powers_string_list(self):
         # arrange
-        valid_trigger = 'W'
-        valid_movement_powers = ['sprint', 'super speed']
+        movement_powers_string_list = ['sprint', 'super speed']
 
         # act
-        bind = self.BIND_UNDER_TEST(trigger_string=valid_trigger, movement_powers_string_list=valid_movement_powers)
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER, movement_powers_string_list=movement_powers_string_list)
 
         # assert
-        assert bind.movement_powers == [Power('sprint'), Power('super speed')]
+        assert bind._movement_powers == [Power('sprint'), Power('super speed')]
 
+# WASDBind Property Tests
 class TestWASDBindTriggerProperty(TestToggleBindTriggerProperty):
     BIND_UNDER_TEST = WASDBind
 
@@ -380,3 +451,33 @@ class TestWASDBindBindStringProperty(TestToggleBindBindStringProperty):
 
         # assert
         assert bind_string == 'W "+forward$$powexectoggleoff dark nova$$powexectoggleoff black dwarf$$powexectoggleon sprint$$powexectoggleon super speed$$powexectoggleon tough$$powexectoggleon weave$$powexecauto hasten$$powexectoggleon leadership$$powexectoggleon tactics"'
+
+class TestWASDBindBindLengthProperty(TestBindBindLengthProperty):
+    BIND_UNDER_TEST = WASDBind
+
+    def test_bind_length_should_return_length_of_bind_including_forward_command(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_off_powers_string_list=['dark nova', 'black dwarf'], movement_powers_string_list=['sprint', 'super speed'], toggle_on_powers_string_list=['tough', 'weave'], auto_power_string='hasten', slash_commands_string_list=['powexectoggleon leadership', 'powexectoggleon tactics'])
+
+        # act
+        bind_length = bind.bind_length
+
+        # assert
+        assert bind_length == len('W "+forward$$powexectoggleoff dark nova$$powexectoggleoff black dwarf$$powexectoggleon sprint$$powexectoggleon super speed$$powexectoggleon tough$$powexectoggleon weave$$powexecauto hasten$$powexectoggleon leadership$$powexectoggleon tactics"')
+
+# WASDBind Method Tests
+class TestWASDBindValidateMethod(TestToggleBindValidateMethod):
+    BIND_UNDER_TEST = WASDBind
+
+class TestWASDBindIsEmptyMethod(TestToggleBindIsEmptyMethod):
+    BIND_UNDER_TEST = WASDBind
+
+    def test_is_empty_should_return_false_given_movement_powers(self):
+        # arrange
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER, movement_powers_string_list=['sprint'])
+
+        # act
+        is_empty = bind.is_empty()
+
+        # assert
+        assert is_empty is False
