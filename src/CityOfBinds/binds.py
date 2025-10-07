@@ -7,8 +7,11 @@ class Bind:
     TRIGGER_TYPE = Trigger
 
     ### Initialization
-    def __init__(self, trigger_string: str, slash_commands_string_list: list[str] = []):
+    def __init__(self, trigger_string: str, slash_commands_string_list: list[str] = None):
         """Initialize the bind with a trigger and slash command list."""
+        if slash_commands_string_list is None:
+            slash_commands_string_list = []
+
         self._trigger = None
         self._slash_commands = None
 
@@ -97,10 +100,19 @@ class ToggleBind(Bind):
 
     def __init__(self, 
                  trigger_string: str, 
-                 slash_commands_string_list: list[str] = [], 
-                 toggle_off_powers_string_list: list[str] = [], 
-                 toggle_on_powers_string_list: list[str] = [], 
-                 auto_power_string: str = ""):
+                 slash_commands_string_list: list[str] = None, 
+                 toggle_off_powers_string_list: list[str] = None, 
+                 toggle_on_powers_string_list: list[str] = None, 
+                 auto_power_string: str = None):
+
+        if slash_commands_string_list is None:
+            slash_commands_string_list = []
+        if toggle_off_powers_string_list is None:
+            toggle_off_powers_string_list = []
+        if toggle_on_powers_string_list is None:
+            toggle_on_powers_string_list = []
+        if auto_power_string is None:
+            auto_power_string = ""
 
         self._toggle_off_powers = None
         self._toggle_on_powers = None
@@ -176,10 +188,6 @@ class ToggleBind(Bind):
         combined_slash_commands = toggle_off_slash_command_list + toggle_on_slash_command_list + auto_power_slash_command_list + self.slash_commands
 
         return self._build_bind_string_from_components(self.trigger, combined_slash_commands)
-
-        """Helper function to ensure the power list is not empty."""
-        if not power_list:
-            raise ValueError("Power list must contain one or more powers.")
     
 class WASDBind(ToggleBind):
     TRIGGER_TYPE = WASDTrigger
@@ -194,12 +202,23 @@ class WASDBind(ToggleBind):
     ### Initialization
     def __init__(self, 
                  trigger_string: str, 
-                 slash_commands_string_list: list[str] = [],
-                 toggle_off_powers_string_list: list[str] = [],
-                 movement_powers_string_list: list[str] = [], 
-                 toggle_on_powers_string_list: list[str] = [], 
-                 auto_power_string: str = "",):
+                 slash_commands_string_list: list[str] = None,
+                 toggle_off_powers_string_list: list[str] = None,
+                 movement_powers_string_list: list[str] = None, 
+                 toggle_on_powers_string_list: list[str] = None, 
+                 auto_power_string: str = None):
         """Initialize the WASD bind with a trigger and a default movement slash command."""
+        if slash_commands_string_list is None:
+            slash_commands_string_list = []
+        if toggle_off_powers_string_list is None:
+            toggle_off_powers_string_list = []
+        if movement_powers_string_list is None:
+            movement_powers_string_list = []
+        if toggle_on_powers_string_list is None:
+            toggle_on_powers_string_list = []
+        if auto_power_string is None:
+            auto_power_string = ""
+
         self._movement_powers = None
 
         super().__init__(trigger_string=trigger_string,

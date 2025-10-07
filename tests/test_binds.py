@@ -455,7 +455,7 @@ class TestWASDBindBindStringProperty(TestToggleBindBindStringProperty):
 class TestWASDBindBindLengthProperty(TestBindBindLengthProperty):
     BIND_UNDER_TEST = WASDBind
 
-    def test_bind_length_should_return_length_of_bind_including_forward_command(self):
+    def test_bind_length_should_return_length_of_bind(self):
         # arrange
         bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_off_powers_string_list=['dark nova', 'black dwarf'], movement_powers_string_list=['sprint', 'super speed'], toggle_on_powers_string_list=['tough', 'weave'], auto_power_string='hasten', slash_commands_string_list=['powexectoggleon leadership', 'powexectoggleon tactics'])
 
