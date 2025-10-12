@@ -1,7 +1,8 @@
 import re
+from typing import Set
 
 class SlashCommand:
-    VALID_COMMANDS = [
+    VALID_COMMANDS: Set[str] = set([
         "ac",
         "afk",
         "ah",
@@ -602,8 +603,8 @@ class SlashCommand:
         "z",
         "zoomin",
         "zoomout",
-    ]
-    VALID_PREFIXES = ['-', '+', '--', '++'] # valid prefixes for slash commands
+    ])
+    VALID_PREFIXES: Set[str] = set(['-', '+', '--', '++']) # valid prefixes for slash commands
 
     ### Initialization
     def __init__ (self, slash_command_string: str):
