@@ -1,12 +1,13 @@
 import re
+from typing import Set
 
 class Trigger:
-    VALID_MODIFIERS = [
+    VALID_MODIFIERS: Set[str] = set([
         "SHIFT",
         "ALT",
         "CONTROL", "CTRL",
-    ]
-    VALID_KEYS = [
+    ])
+    VALID_KEYS: Set[str] = set([
         "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
         "ESC", "ESCAPE",
         "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12",
@@ -55,7 +56,7 @@ class Trigger:
         "SUBTRACT",
         "ADD",
         "DECIMAL",
-        "NUMPADENTER"
+        "NUMPADENTER",
         "KANJI",
         "CONVERT",
         "KANA",
@@ -68,7 +69,7 @@ class Trigger:
         "MIDDLEDOUBLECLICK", "MDOUBLECLICK",
         "MOUSECHORD", "MOUSE_CHORD",
         "LEFTDRAGWORLD",
-        "MIDDLEDRAG", "MDRAG"
+        "MIDDLEDRAG", "MDRAG",
         "MOUSEWHEEL",
         "WHEELPLUS", "MOUSEWHEEL_FORWARD",
         "WHEELMINUS", "MOUSEWHEEL_BACKWARD",
@@ -113,12 +114,12 @@ class Trigger:
         "POV3_DOWN",
         "POV3_LEFT",
         "POV3_RIGHT",
-    ]
+    ])
 
     ### Initialization
     def __init__(self, trigger_string: str):
         """Initialize the trigger with a key and optional modifier."""
-        self._trigger_string = trigger_string
+        self._trigger_string = None
         self.trigger_string = trigger_string 
 
     ### Properties
