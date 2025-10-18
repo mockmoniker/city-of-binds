@@ -45,7 +45,7 @@ class Bind:
 
     @property
     def slash_commands(self) -> list[SlashCommand]:
-        return self._slash_commands
+        return self._slash_commands.copy()
     
     @slash_commands.setter
     def slash_commands(self, slash_commands_string_list: list[str]):
@@ -132,7 +132,7 @@ class ToggleBind(Bind):
     ### Properties
     @property
     def toggle_off_powers(self) -> list[Power]:
-        return self._toggle_off_powers
+        return self._toggle_off_powers.copy()
     
     @toggle_off_powers.setter
     def toggle_off_powers(self, toggle_off_powers_string_list: list[str]):
@@ -140,7 +140,7 @@ class ToggleBind(Bind):
 
     @property
     def toggle_on_powers(self) -> list[Power]:
-        return self._toggle_on_powers
+        return self._toggle_on_powers.copy()
     
     @toggle_on_powers.setter
     def toggle_on_powers(self, toggle_on_powers_string_list: list[str]):
@@ -215,7 +215,7 @@ class WASDBind(ToggleBind):
     ### Properties
     @property
     def movement_powers(self) -> list[Power]:
-        return self._movement_powers
+        return self._movement_powers.copy()
     
     @movement_powers.setter
     def movement_powers(self, movement_powers_string_list: list[str]):

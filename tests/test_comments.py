@@ -1,5 +1,54 @@
 import pytest
-from CityOfBinds import CommentBanner
+from CityOfBinds import Comment, CommentBanner
+
+class TestCommentInitialization:
+    COMMENT_UNDER_TEST = Comment
+
+    def test_init_should_set_internal_text_given_valid_comment_text(self):
+        # arrange
+        valid_comment_text = 'This is a comment'
+
+        # act
+        comment = self.COMMENT_UNDER_TEST(comment_text=valid_comment_text)
+
+        # assert
+        assert comment._text == 'This is a comment'
+
+    def test_init_should_default_internal_alignment_given_no_alignment(self):
+        # arrange
+
+        # act
+        comment = self.COMMENT_UNDER_TEST(comment_text='This is a comment')
+
+        # assert
+        assert comment._alignment == 'left'
+
+    def test_init_should_set_internal_alignment_given_valid_alignment(self):
+        # arrange
+        valid_alignment = 'center'
+        # act
+        comment = self.COMMENT_UNDER_TEST(comment_text='This is a comment', alignment=valid_alignment)
+        # assert
+        assert comment._alignment == 'center'
+
+    def test_init_should_default_internal_minimum_width_given_no_minimum_width(self):
+        # arrange
+
+        # act
+        comment = self.COMMENT_UNDER_TEST(comment_text='This is a comment')
+
+        # assert
+        assert comment._minimum_width == Comment.MINIMUM_COMMENT_WIDTH
+
+    def test_init_should_set_internal_minimum_width_given_valid_minimum_width(self):
+        # arrange
+        valid_minimum_width = 30
+        # act
+        comment = self.COMMENT_UNDER_TEST(comment_text='This is a comment', minimum_comment_width=valid_minimum_width)
+        # assert
+        assert comment._minimum_width == 30
+
+
 
 class TestCommentBannerInitialization:
     COMMENT_BANNER_UNDER_TEST = CommentBanner

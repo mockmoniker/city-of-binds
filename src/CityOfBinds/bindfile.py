@@ -1,4 +1,5 @@
 from typing import Union
+from pathlib import Path
 from CityOfBinds.binds import Bind
 from CityOfBinds.comments import Comment
 
@@ -6,58 +7,97 @@ class BindFileConstants:
     EXTENSION = ".txt"
 
 class BindFile:
-    def __init__(self, filename: str, content_list: list[Union[Bind, Comment]] = None):
+    def __init__(self, content_list: list[Union[Bind, Comment]] = None):
         """Initialize the bind file with a filename."""
-        self._filename = None
-
-        self.filename = filename
-        self.contensts = content_list if content_list is not None else []
+        self._contents = []
+        self.contents = content_list if content_list is not None else []
 
     ### Properties
     @property
-    def filename(self) -> str:
-        return self._filename
+    def contents(self) -> list[Union[Bind, Comment]]:
+        """Get the contents of the bind file."""
+        return self._contents.copy()
     
-    @filename.setter
-    def filename(self, filename: str):
-        self._throw_error_on_invalid_filename(filename)
-        self._filename = filename
+    @contents.setter
+    def contents(self, content_list: list[Union[Bind, Comment]]):
+        """Set the contents of the bind file."""
+        if content_list is not None:
+            self._throw_error_on_invalid_content_list(content_list)
+        self._contents = content_list.copy()
 
     ### Methods
+    def add_bind(self, bind: Bind) -> 'BindFile':
+        """Add a Bind to the bind file."""
+        self._throw_error_on_invalid_content_type(expected_type=Bind, content=bind)
+        self._contents.append(bind)
+        return self
+
+    def add_comment(self, comment: Comment) -> 'BindFile':
+        """Add a Comment to the bind file."""
+        self._throw_error_on_invalid_content_type(expected_type=Comment, content=comment)
+        self._contents.append(comment)
+        return self
+
+    def clear(self) -> 'BindFile':
+        """Clear all contents and return self for chaining."""
+        self._contents.clear()
+        return self
+
     def preview(self) -> str:
         """Return the contents of the bind file as a string."""
         return self._build_file_contents()
 
-    def write_to_path(self, path: str = ""):
-        """Write all the binds to the file after validation."""
-        self.validate_contents()
-        with open(path / self.filename + BindFileConstants.EXTENSION, 'w') as file:
+    def is_empty(self) -> bool:
+        """Check if the bind file has any content."""
+        return len(self._contents) == 0
+
+    def write_to_file(self, file_path: Union[str, Path]):
+        """Write contents to the specified file path."""
+        file_path = Path(file_path)
+        
+        # Auto-add .txt extension if missing
+        if not file_path.suffix:
+            file_path = file_path.with_suffix(BindFileConstants.EXTENSION)
+        elif file_path.suffix != BindFileConstants.EXTENSION:
+            raise ValueError(f"File must have {BindFileConstants.EXTENSION} extension, got {file_path.suffix}")
+        
+        # Create parent directories if needed
+        file_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        # Validate and write
+        self._validate_all_content()
+        with open(file_path, 'w', encoding='utf-8') as file:
             file.write(self._build_file_contents())
 
+    def write_to_directory(self, filename: str, directory: Union[str, Path] = ".") -> None:
+        """Convenience method to write to a directory with filename."""
+        directory = Path(directory)
+        full_path = directory / filename
+        self.write_to_file(full_path)
+
     def validate_contents(self):
-        for content in self.contents:
-            if not isinstance(content, (Bind, Comment)):
-                raise ValueError("All contents must be instances of Bind or Comment")
+        for content in self._contents:
             if isinstance(content, Bind):
                 content.validate()
 
     ### Helpers
     def _build_file_contents(self) -> str:
-        file_contents = ""
-        for content in self.contents:
-            if isinstance(content, Comment):
-                file_contents += content.comment_string + "\n"
-            elif isinstance(content, Bind):
-                file_contents += content.bind_string + "\n"
-        return file_contents.strip()
+        if self.is_empty():
+            return ""
+        return "\n".join(str(content) for content in self._contents)
 
     ### Error Checking/Validation
-    def _throw_error_on_invalid_filename(self, filename: str):
-        if not filename:
-            raise ValueError("Filename cannot be empty")
-        if '.' in filename:
-            raise ValueError("Filename should not contain an extension")
+    def _throw_error_on_invalid_content_list(self, content_list: list[Union[Bind, Comment]]):
+        if not isinstance(content_list, list):
+            raise TypeError("Contents must be a list of Bind or Comment instances")
+        for content in content_list:
+            if not isinstance(content, (Bind, Comment)):
+                raise TypeError("All items in contents must be instances of Bind or Comment")
+        
+    def _throw_error_on_invalid_content_type(self, expected_type, content):
+        if not isinstance(content, expected_type):
+            raise TypeError(f"Expected content of type {expected_type.__name__}, got {type(content).__name__}")
 
     def __repr__(self):
-        """Optional: Represent the BindFile with its filename and contents."""
-        return f"BindFile(filename={self.filename}, contents={self.contents})"
+        """Optional: Represent the BindFile with its contents."""
+        return f"BindFile(contents={self._contents})"
