@@ -163,7 +163,7 @@ class TestCommentBannerCommentBannerStringProperty:
         expected_banner_string = (
             "# ----- #\n"
             "# Hello #\n"
-            "# ----- #\n"
+            "# ----- #"
         )
 
         # act
@@ -181,7 +181,7 @@ class TestCommentBannerCommentBannerStringProperty:
             "# Hello                 #\n"
             "# This is a longer line #\n"
             "# End                   #\n"
-            "# ===================== #\n"
+            "# ===================== #"
         )
 
         # act
