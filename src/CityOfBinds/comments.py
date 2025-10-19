@@ -90,6 +90,9 @@ class Comment:
         if alignment not in self.TEXT_ALIGNMENT_MAPPINGS:
             raise ValueError(f"Invalid text alignment '{alignment}'. Valid options are: {', '.join(self.TEXT_ALIGNMENT_MAPPINGS.keys())}")
 
+    def __str__(self):
+        return self.comment_string
+
 class CommentBanner(Comment):
     VALID_BORDER_STYLES = ['-', '=', '*', '~', '#']
     DEFAULT_BORDER_STYLE = '-'
@@ -138,7 +141,7 @@ class CommentBanner(Comment):
         for line in comment_text.split('\n'):
             comment_lines += Comment(line, alignment, comment_width).comment_string + '\n'
 
-        return f"{border}\n{comment_lines}{border}\n"
+        return f"{border}\n{comment_lines}{border}"
 
     def _get_longest_line_width(self, comment_text: str) -> int:
         return max(len(line) for line in comment_text.split('\n')) if comment_text else 0

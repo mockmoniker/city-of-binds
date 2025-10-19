@@ -8,7 +8,7 @@ class BindFileConstants:
 
 class BindFile:
     def __init__(self, content_list: list[Union[Bind, Comment]] = None):
-        """Initialize the bind file with a filename."""
+        """Initialize the bind file with optional content."""
         self._contents = []
         self.contents = content_list if content_list is not None else []
 
@@ -65,7 +65,7 @@ class BindFile:
         file_path.parent.mkdir(parents=True, exist_ok=True)
         
         # Validate and write
-        self._validate_all_content()
+        self.validate_binds()
         with open(file_path, 'w', encoding='utf-8') as file:
             file.write(self._build_file_contents())
 
@@ -75,7 +75,7 @@ class BindFile:
         full_path = directory / filename
         self.write_to_file(full_path)
 
-    def validate_contents(self):
+    def validate_binds(self):
         for content in self._contents:
             if isinstance(content, Bind):
                 content.validate()
