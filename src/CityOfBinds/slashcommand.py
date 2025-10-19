@@ -629,7 +629,7 @@ class SlashCommand:
     
     @command.setter
     def command(self, command_string: str):
-        formatted_command_string = command_string.lower()
+        formatted_command_string = self._get_formatted_command_string(command_string=command_string)
         self._throw_error_on_invalid_slash_command(slash_command=formatted_command_string)
         self._slash_command_string = f"{self.prefix}{formatted_command_string} {self.args}".strip()
 
@@ -651,7 +651,11 @@ class SlashCommand:
             self._throw_error_on_invalid_prefix(prefix=prefix)
         self._slash_command_string = f"{prefix}{self.command} {self.args}".strip()
 
-    ### Methods
+    ### Helpers
+    def _get_formatted_command_string(self, command_string: str) -> str:
+        """Helper function to format the command string to lowercase."""
+        return command_string.lower()
+
     def _lowercase_first_word(self, string: str) -> str:
         """Helper function to lowercase the first word of the slash command string."""
         first_word, space, rest = string.partition(' ')

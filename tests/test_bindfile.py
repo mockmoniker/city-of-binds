@@ -1,73 +1,71 @@
 import pytest
 from CityOfBinds import BindFile, Bind
+from CityOfBinds.comments import CommentBanner
 
-class TestValidBindFileInitialization:
+class TestBindFilePreview:
     bindfile_under_test = BindFile
 
-    def test_init_should_set_filename_given_valid_filename(self):
+    def test_preview_should_return_empty_string_given_empty_bindfile(self):
         # arrange
-        valid_filename = 'bindfile.txt'
+        bindfile = self.bindfile_under_test()
         # act
-        bindfile = self.bindfile_under_test(filename=valid_filename)
+        preview = bindfile.preview()
         # assert
-        assert bindfile.filename == valid_filename
+        assert preview == ""
 
-    def test_init_should_set_comment_banner_given_valid_comment_banner(self):
+    def test_preview_should_return_correct_string_given_bindfile_with_multiple_binds(self):
         # arrange
-        valid_comment_banner = 'This is a comment'
+        bindfile = (BindFile()
+                    .add_bind(Bind(trigger_string="F", slash_commands_string_list=["powexectoggleon dark nova"]))
+                    .add_bind(Bind(trigger_string="G", slash_commands_string_list=["powexectoggleon light nova", "powexectoggleon speed boost"])))
         # act
-        bindfile = self.bindfile_under_test(filename='bindfile.txt', comment_banner=valid_comment_banner)
+        preview = bindfile.preview()
         # assert
-        assert bindfile.comment_banner == valid_comment_banner
+        assert preview == (
+            'F "powexectoggleon dark nova"\n'
+            'G "powexectoggleon light nova$$powexectoggleon speed boost"'
+            )
 
-    def test_init_should_set_binds_given_valid_binds(self):
-        # arrange
-        valid_binds = [Bind(trigger='Q', slash_commands=['powexectoggleon dark nova']), Bind(trigger='E', slash_commands=['powexectoggleon black dwarf'])]
-        # act
-        bindfile = self.bindfile_under_test(filename='bindfile.txt', binds=valid_binds)
-        # assert
-        assert bindfile.binds == valid_binds
-
-class TestValidFileCreation:
+class TestBindFileWriteToFile:
     bindfile_under_test = BindFile
 
-    def test_write_to_file_should_create_file(self, tmp_path):
+    def test_write_to_file_should_create_file_with_correct_contents(self, tmp_path):
         # arrange
-        bindfile = self.bindfile_under_test(filename='bindfile.txt')
-        epxected_file = tmp_path / 'bindfile.txt'
+        bindfile = (BindFile()
+                    .add_bind(Bind(trigger_string="F", slash_commands_string_list=["powexectoggleon dark nova"]))
+                    .add_bind(Bind(trigger_string="G", slash_commands_string_list=["powexectoggleon light nova", "powexectoggleon speed boost"])))
+        file_path = tmp_path / "test_bindfile.txt"
         # act
-        bindfile.write_to_file(path=tmp_path)
+        bindfile.write_to_file(file_path)
         # assert
-        assert epxected_file.exists()
-
-    def test_write_to_file_should_write_bind_to_file(self, tmp_path):
+        with open(file_path, 'r') as f:
+            actual_contents = f.read()
+        assert actual_contents == (
+            'F "powexectoggleon dark nova"\n'
+            'G "powexectoggleon light nova$$powexectoggleon speed boost"'
+            )
+        
+    def test_write_to_file_should_create_file_given_binds_and_comments(self, tmp_path):
         # arrange
-        bindfile = self.bindfile_under_test(filename='bindfile.txt', comment_banner='This is a comment', binds=[Bind(trigger='Q', slash_commands=['powexectoggleon dark nova'])])
-        expected_content = (
-            '#\n'
-            '# This is a comment\n'
-            '#\n'
-            'Q "powexectoggleon dark nova"\n')
+        bindfile = (BindFile()
+                    .add_comment(CommentBanner(comment_text="Start of Binds", border_style='-'))
+                    .add_bind(Bind(trigger_string="F", slash_commands_string_list=["powexectoggleon dark nova"]))
+                    .add_comment(CommentBanner(comment_text="End of Binds", border_style='='))
+                    .add_bind(Bind(trigger_string="G", slash_commands_string_list=["powexectoggleon light nova", "powexectoggleon speed boost"])))
+        file_path = tmp_path / "test_bindfile_with_comments.txt"
         # act
-        bindfile.write_to_file(path=tmp_path)
+        bindfile.write_to_file(file_path)
         # assert
-        with open(tmp_path / 'bindfile.txt', 'r') as file:
-            content = file.read()
-            assert content == expected_content
-
-    def test_write_to_file_should_write_multiple_binds_to_file(self, tmp_path):
-        # arrange
-        bindfile = self.bindfile_under_test(filename='bindfile.txt', comment_banner='This is a comment', binds=[Bind(trigger='Q', slash_commands=['powexectoggleon dark nova']), Bind(trigger='E', slash_commands=['powexectoggleon black dwarf'])])
-        expected_content = (
-            '#\n'
-            '# This is a comment\n'
-            '#\n'
-            'Q "powexectoggleon dark nova"\n'
-            'E "powexectoggleon black dwarf"\n')
-        # act
-        bindfile.write_to_file(path=tmp_path)
-        # assert
-        with open(tmp_path / 'bindfile.txt', 'r') as file:
-            content = file.read()
-            assert content == expected_content
-    
+        with open(file_path, 'r') as f:
+            actual_contents = f.read()
+        expected_contents = (
+            "# -------------- #\n"
+            "# Start of Binds #\n"
+            "# -------------- #\n"
+            'F "powexectoggleon dark nova"\n'
+            "# ============ #\n"
+            "# End of Binds #\n"
+            "# ============ #\n"
+            'G "powexectoggleon light nova$$powexectoggleon speed boost"'
+        )
+        assert actual_contents == expected_contents
