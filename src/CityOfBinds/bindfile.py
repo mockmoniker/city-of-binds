@@ -107,6 +107,31 @@ class BindFile:
         """Optional: Represent the BindFile with its contents."""
         return f"BindFile(contents={self._contents})"
 
+class BindFilePathIndexer:
+    def __init__(self, file_count: int, file_prefix: str = ''):
+        self.file_count = file_count
+        self.file_prefix = file_prefix
+        self._path_index_lookup_table = {}
+
+        self._build_path_index_lookup_table()
+
+    def get_file_path(self, index: int) -> str:
+        """Get the file path for the given index."""
+        if index not in self._path_index_lookup_table:
+            raise ValueError(f"Index {index} is out of range for file count {self.file_count}")
+        formatted_index = self._path_index_lookup_table[index]
+        return f"{self.file_prefix}{formatted_index}{BindFileConstants.EXTENSION}"
+
+    def _build_path_index_lookup_table(self):
+        self._path_index_lookup_table = {}
+        index_width = len(str(self.file_count - 1))  # Calculate the number of digits in the highest index
+
+        for file_index in range(self.file_count):
+            formatted_file_index = str(file_index).zfill(index_width)  # Format with leading zeroes
+            self._path_index_lookup_table[file_index] = formatted_file_index
+
+
+
 class BindFileLinkerConstants:
     BIND_LOAD_FILE_COMMAND = "bindloadfile"
     BIND_LOAD_FILE_SILENT_COMMAND = "bindloadfilesilent"
