@@ -16,14 +16,19 @@ class BindFile:
     @property
     def contents(self) -> list[Union[Bind, Comment]]:
         """Get the contents of the bind file."""
-        return self._contents.copy()
+        return self._contents
     
     @contents.setter
     def contents(self, content_list: list[Union[Bind, Comment]]):
         """Set the contents of the bind file."""
         if content_list is not None:
             self._throw_error_on_invalid_content_list(content_list)
-        self._contents = content_list.copy()
+        self._contents = content_list
+
+    @property
+    def binds(self) -> list[Bind]:
+        """Get only the Bind instances from the contents."""
+        return [content for content in self._contents if isinstance(content, Bind)]
 
     ### Methods
     def add_bind(self, bind: Bind) -> 'BindFile':
@@ -101,3 +106,53 @@ class BindFile:
     def __repr__(self):
         """Optional: Represent the BindFile with its contents."""
         return f"BindFile(contents={self._contents})"
+
+class BindFileLinkerConstants:
+    BIND_LOAD_FILE_COMMAND = "bindloadfile"
+    BIND_LOAD_FILE_SILENT_COMMAND = "bindloadfilesilent"
+
+class BindFileLinker:
+    def __init__(
+            self, 
+            bind_file_list: list[BindFile],
+            is_silent: bool = False, 
+            is_circular: bool = True,
+            excluded_trigger_strings: list[str] = None
+            ):
+        self._bind_file_list = None
+        self._is_silent = None
+        self._is_circular = None
+        self._excluded_trigger_strings = None
+
+        self.bind_file_list = bind_file_list if bind_file_list is not None else []
+        self.is_silent = is_silent
+        self.is_circular = is_circular
+        self.excluded_trigger_strings = excluded_trigger_strings if excluded_trigger_strings is not None else []
+
+    ### Properties
+    @property
+    def is_silent(self) -> bool:
+        return self._is_silent
+
+    @is_silent.setter
+    def is_silent(self, is_silent: bool):
+        self._is_silent = is_silent
+        if is_silent:
+            self._bind_load_file_command = BindFileLinkerConstants.BIND_LOAD_FILE_SILENT_COMMAND
+        else:
+            self._bind_load_file_command = BindFileLinkerConstants.BIND_LOAD_FILE_COMMAND
+
+    ### Methods
+    def link_bind_files(self, path: Union[str, Path] = '', file_prefix: str = ''):
+        """Link the bind files together by adding bind load commands."""
+        file_count = len(self.bind_file_list)
+        for file_index, file in enumerate(self.bind_file_list):
+            # Skip linking for the last file if not circular
+            if not self._is_circular and file_index == file_count - 1:
+                continue
+            for bind in file.binds:
+                if bind.trigger in self._excluded_trigger_strings:
+                    continue
+                next_file_index = (file_index + 1) % file_count
+                next_file_path = f"{path}/{file_prefix}{next_file_index}{BindFileConstants.EXTENSION}"
+                bind.add_slash_command(f'{self._bind_load_file_command} {next_file_path}')

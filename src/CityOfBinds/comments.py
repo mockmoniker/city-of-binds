@@ -136,12 +136,11 @@ class CommentBanner(Comment):
     def _build_comment_banner_string(self, comment_text: str, alignment: str, text_width: int, border_style: str) -> str:
         border = Comment(f"{border_style * text_width}").comment_string
 
-        comment_width = text_width + self.EDGES_LENGTH
-        comment_lines = ""
-        for line in comment_text.split('\n'):
-            comment_lines += Comment(line, alignment, comment_width).comment_string + '\n'
+        comment_lines = "\n".join(
+            self._build_comment_line_string(line, alignment, text_width) for line in comment_text.split('\n')
+        )
 
-        return f"{border}\n{comment_lines}{border}"
+        return f"{border}\n{comment_lines}\n{border}"
 
     def _get_longest_line_width(self, comment_text: str) -> int:
         return max(len(line) for line in comment_text.split('\n')) if comment_text else 0

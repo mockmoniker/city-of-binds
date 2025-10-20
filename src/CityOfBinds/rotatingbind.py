@@ -3,12 +3,14 @@ from CityOfBinds.bindfile import BindFile
 from CityOfBinds.slashcommands import SlashCommands
 
 class RotatingBind():
-    def __init__(self, bind_list: list[Bind], is_silent: bool = False):
+    def __init__(self, bind_list: list[BindFile], is_silent: bool = False, excluded_triggers: list[str] = None):
         self._bind_list = bind_list
         self._is_silent = is_silent
+        self._excluded_triggers = excluded_triggers if excluded_triggers is not None else []
 
         self.bind_list = bind_list
         self.is_silent = is_silent
+        
         
     ### Properties
     @property

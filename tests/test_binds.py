@@ -322,15 +322,15 @@ class TestToggleBindIsEmptyMethod(TestBindIsEmptyMethod):
 class TestWASDBindInitialization(TestToggleBindInitialization):
     BIND_UNDER_TEST = WASDBind
 
-    def test_init_should_set_internal_movement_powers_given_movement_powers_string_list(self):
+    def test_init_should_set_internal_travel_powers_given_travel_powers_string_list(self):
         # arrange
-        movement_powers_string_list = ['sprint', 'super speed']
+        travel_powers_string_list = ['sprint', 'super speed']
 
         # act
-        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER, movement_powers_string_list=movement_powers_string_list)
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER, travel_powers_string_list=travel_powers_string_list)
 
         # assert
-        assert bind._movement_powers == [Power('sprint'), Power('super speed')]
+        assert bind._travel_powers == [Power('sprint'), Power('super speed')]
 
 # WASDBind Property Tests
 class TestWASDBindTriggerProperty(TestToggleBindTriggerProperty):
@@ -414,7 +414,7 @@ class TestWASDBindBindStringProperty(TestToggleBindBindStringProperty):
 
     def test_bind_string_should_return_bind_string_given_single_movement_power(self):
         # arrange
-        bind = self.BIND_UNDER_TEST(trigger_string='W', movement_powers_string_list=['sprint'])
+        bind = self.BIND_UNDER_TEST(trigger_string='W', travel_powers_string_list=['sprint'])
 
         # act
         bind_string = bind.bind_string
@@ -424,7 +424,7 @@ class TestWASDBindBindStringProperty(TestToggleBindBindStringProperty):
 
     def test_bind_string_should_return_bind_string_given_multiple_movement_powers(self):
         # arrange
-        bind = self.BIND_UNDER_TEST(trigger_string='W', movement_powers_string_list=['sprint', 'super speed'])
+        bind = self.BIND_UNDER_TEST(trigger_string='W', travel_powers_string_list=['sprint', 'super speed'])
 
         # act
         bind_string = bind.bind_string
@@ -434,7 +434,7 @@ class TestWASDBindBindStringProperty(TestToggleBindBindStringProperty):
 
     def test_bind_string_should_return_bind_string_given_all_defined_powers(self):
         # arrange
-        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_off_powers_string_list=['dark nova', 'black dwarf'], movement_powers_string_list=['sprint', 'super speed'], toggle_on_powers_string_list=['tough', 'weave'], auto_power_string='hasten')
+        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_off_powers_string_list=['dark nova', 'black dwarf'], travel_powers_string_list=['sprint', 'super speed'], toggle_on_powers_string_list=['tough', 'weave'], auto_power_string='hasten')
         
         # act
         bind_string = bind.bind_string
@@ -444,7 +444,7 @@ class TestWASDBindBindStringProperty(TestToggleBindBindStringProperty):
 
     def test_bind_string_should_return_bind_string_given_all_defined_powers_and_slash_commands(self):
         # arrange
-        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_off_powers_string_list=['dark nova', 'black dwarf'], movement_powers_string_list=['sprint', 'super speed'], toggle_on_powers_string_list=['tough', 'weave'], auto_power_string='hasten', slash_commands_string_list=['powexectoggleon leadership', 'powexectoggleon tactics'])
+        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_off_powers_string_list=['dark nova', 'black dwarf'], travel_powers_string_list=['sprint', 'super speed'], toggle_on_powers_string_list=['tough', 'weave'], auto_power_string='hasten', slash_commands_string_list=['powexectoggleon leadership', 'powexectoggleon tactics'])
         
         # act
         bind_string = bind.bind_string
@@ -457,7 +457,7 @@ class TestWASDBindBindLengthProperty(TestBindBindLengthProperty):
 
     def test_bind_length_should_return_length_of_bind(self):
         # arrange
-        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_off_powers_string_list=['dark nova', 'black dwarf'], movement_powers_string_list=['sprint', 'super speed'], toggle_on_powers_string_list=['tough', 'weave'], auto_power_string='hasten', slash_commands_string_list=['powexectoggleon leadership', 'powexectoggleon tactics'])
+        bind = self.BIND_UNDER_TEST(trigger_string='W', toggle_off_powers_string_list=['dark nova', 'black dwarf'], travel_powers_string_list=['sprint', 'super speed'], toggle_on_powers_string_list=['tough', 'weave'], auto_power_string='hasten', slash_commands_string_list=['powexectoggleon leadership', 'powexectoggleon tactics'])
 
         # act
         bind_length = bind.bind_length
@@ -474,7 +474,7 @@ class TestWASDBindIsEmptyMethod(TestToggleBindIsEmptyMethod):
 
     def test_is_empty_should_return_false_given_movement_powers(self):
         # arrange
-        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER, movement_powers_string_list=['sprint'])
+        bind = self.BIND_UNDER_TEST(trigger_string=self.VALID_TRIGGER, travel_powers_string_list=['sprint'])
 
         # act
         is_empty = bind.is_empty()

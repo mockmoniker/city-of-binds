@@ -45,7 +45,7 @@ class Bind:
 
     @property
     def slash_commands(self) -> list[SlashCommand]:
-        return self._slash_commands.copy()
+        return self._slash_commands
     
     @slash_commands.setter
     def slash_commands(self, slash_commands_string_list: list[str]):
@@ -60,6 +60,11 @@ class Bind:
         return len(self.bind_string)
 
     ### Methods
+    def add_slash_command(self, slash_command_string: str):
+        """Add a slash command to the bind."""
+        slash_command = SlashCommand(slash_command_string)
+        self._slash_commands.append(slash_command)
+
     def validate(self):
         self._throw_error_on_empty_bind()
         self._throw_error_on_bind_too_long()
@@ -132,7 +137,7 @@ class ToggleBind(Bind):
     ### Properties
     @property
     def toggle_off_powers(self) -> list[Power]:
-        return self._toggle_off_powers.copy()
+        return self._toggle_off_powers
     
     @toggle_off_powers.setter
     def toggle_off_powers(self, toggle_off_powers_string_list: list[str]):
@@ -140,7 +145,7 @@ class ToggleBind(Bind):
 
     @property
     def toggle_on_powers(self) -> list[Power]:
-        return self._toggle_on_powers.copy()
+        return self._toggle_on_powers
     
     @toggle_on_powers.setter
     def toggle_on_powers(self, toggle_on_powers_string_list: list[str]):
@@ -158,6 +163,16 @@ class ToggleBind(Bind):
             self._auto_power = None
 
     ### Methods
+    def add_toggle_off_power(self, power_string: str):
+        """Add a power to the toggle off powers list."""
+        power = Power(power_string)
+        self._toggle_off_powers.append(power)
+
+    def add_toggle_on_power(self, power_string: str):
+        """Add a power to the toggle on powers list."""
+        power = Power(power_string)
+        self._toggle_on_powers.append(power)
+
     def is_empty(self) -> bool:
         return super().is_empty() and not self.toggle_off_powers and not self.toggle_on_powers and not self.auto_power
 
@@ -198,11 +213,11 @@ class WASDBind(ToggleBind):
                  trigger_string: str, 
                  slash_commands_string_list: list[str] = None,
                  toggle_off_powers_string_list: list[str] = None,
-                 movement_powers_string_list: list[str] = None, 
+                 travel_powers_string_list: list[str] = None, 
                  toggle_on_powers_string_list: list[str] = None, 
                  auto_power_string: str = None):
         """Initialize the WASD bind with a trigger and a default movement slash command."""
-        self._movement_powers = None
+        self._travel_powers = None
 
         super().__init__(trigger_string=trigger_string,
                          slash_commands_string_list=slash_commands_string_list,
@@ -210,31 +225,36 @@ class WASDBind(ToggleBind):
                          toggle_on_powers_string_list=toggle_on_powers_string_list,
                          auto_power_string=auto_power_string)
 
-        self.movement_powers = movement_powers_string_list if movement_powers_string_list is not None else []
+        self.travel_powers = travel_powers_string_list if travel_powers_string_list is not None else []
 
     ### Properties
     @property
-    def movement_powers(self) -> list[Power]:
-        return self._movement_powers.copy()
+    def travel_powers(self) -> list[Power]:
+        return self._travel_powers
     
-    @movement_powers.setter
-    def movement_powers(self, movement_powers_string_list: list[str]):
-        self._movement_powers = self._convert_strings_to_objects(movement_powers_string_list, Power)
+    @travel_powers.setter
+    def travel_powers(self, travel_powers_string_list: list[str]):
+        self._travel_powers = self._convert_strings_to_objects(travel_powers_string_list, Power)
 
     ### Methods
+    def add_travel_power(self, power_string: str):
+        """Add a power to the travel powers list."""
+        power = Power(power_string)
+        self._travel_powers.append(power)
+
     def is_empty(self) -> bool:
-        return super().is_empty() and not self.movement_powers
+        return super().is_empty() and not self.travel_powers
     
     ### Helpers
     def _build_bind_string(self) -> str:
         """Helper function to build the WASD bind string."""
         movement_slash_command = self._get_movement_slash_command_from_trigger(self.trigger)
         toggle_off_slash_commands = self._get_toggle_off_slash_command_list_from_power_list(self.toggle_off_powers)
-        movement_slash_commands = self._get_toggle_on_slash_command_list_from_power_list(self.movement_powers)
+        toggle_on_travel_power_slash_commands = self._get_toggle_on_slash_command_list_from_power_list(self.travel_powers)
         toggle_on_slash_commands = self._get_toggle_on_slash_command_list_from_power_list(self.toggle_on_powers)
         auto_power_slash_command_as_list = [self._get_powexec_slash_command_from_power(BindConstants.POWEXEC_AUTO, self.auto_power)] if self.auto_power else []
 
-        combined_slash_commands = [movement_slash_command] + toggle_off_slash_commands + movement_slash_commands + toggle_on_slash_commands + auto_power_slash_command_as_list + self.slash_commands
+        combined_slash_commands = [movement_slash_command] + toggle_off_slash_commands + toggle_on_travel_power_slash_commands + toggle_on_slash_commands + auto_power_slash_command_as_list + self.slash_commands
 
         return self._build_bind_string_from_components(self.trigger, combined_slash_commands)
     
