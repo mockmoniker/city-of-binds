@@ -211,7 +211,7 @@ class TestTriggerStringProperty:
         trigger = self.trigger_under_test(trigger_string="W")
         expected_trigger_string = "W"
         # act
-        trigger_string = trigger.trigger_string
+        trigger_string = str(trigger)
         # assert
         assert trigger_string == expected_trigger_string
 
@@ -220,7 +220,7 @@ class TestTriggerStringProperty:
         trigger = self.trigger_under_test(trigger_string="SHIFT+W")
         expected_trigger_string = "SHIFT+W"
         # act
-        trigger_string = trigger.trigger_string
+        trigger_string = str(trigger)
         # assert
         assert trigger_string == expected_trigger_string
 

@@ -4,6 +4,7 @@ from CityOfBinds.binds import Bind
 from CityOfBinds.comments import Comment
 
 class BindFileConstants:
+    MAX_LINES = 242
     EXTENSION = ".txt"
 
 class BindFile:
@@ -64,13 +65,15 @@ class BindFile:
         if not file_path.suffix:
             file_path = file_path.with_suffix(BindFileConstants.EXTENSION)
         elif file_path.suffix != BindFileConstants.EXTENSION:
-            raise ValueError(f"File must have {BindFileConstants.EXTENSION} extension, got {file_path.suffix}")
+            raise ValueError(f"File must have '{BindFileConstants.EXTENSION}' extension, got '{file_path.suffix}'")
         
+        # Validate before writing
+        self.validate_binds()
+
         # Create parent directories if needed
         file_path.parent.mkdir(parents=True, exist_ok=True)
         
-        # Validate and write
-        self.validate_binds()
+        # Write to file
         with open(file_path, 'w', encoding='utf-8') as file:
             file.write(self._build_file_contents())
 
@@ -81,9 +84,8 @@ class BindFile:
         self.write_to_file(full_path)
 
     def validate_binds(self):
-        for content in self._contents:
-            if isinstance(content, Bind):
-                content.validate()
+        for bind in self.binds:
+            bind.validate()
 
     ### Helpers
     def _build_file_contents(self) -> str:
@@ -108,6 +110,19 @@ class BindFile:
         return f"BindFile(contents={self._contents})"
 
 class BindFilePathIndexer:
+    '''Utility to provide a string index given a file number. To have configurable base.'''
+    def __init__(self, file_count: int, base: int = 10):
+        self.file_count = file_count
+        self.base = base
+        self._index_width = len(str(self.file_count - 1))  # Calculate the number of digits in the highest index
+
+    def get_index_string(self, file_number: int) -> str:
+        """Get the index string for the given file number."""
+        if file_number < 0 or file_number >= self.file_count:
+            raise IndexError(f"File number {file_number} is out of range for file count {self.file_count}")
+        return f"{file_number:{self.base}}"
+
+class BindFilePathGenerator:
     def __init__(self, file_count: int, file_prefix: str = ''):
         self.file_count = file_count
         self.file_prefix = file_prefix
@@ -115,12 +130,12 @@ class BindFilePathIndexer:
 
         self._build_path_index_lookup_table()
 
-    def get_file_path(self, index: int) -> str:
+    def get_file_path(self, file_number: int) -> Path:
         """Get the file path for the given index."""
-        if index not in self._path_index_lookup_table:
-            raise ValueError(f"Index {index} is out of range for file count {self.file_count}")
-        formatted_index = self._path_index_lookup_table[index]
-        return f"{self.file_prefix}{formatted_index}{BindFileConstants.EXTENSION}"
+        index = self._get_index_string(file_number)
+        file = self._get_file_from_index(index)
+        path = self._get_path_from_index(index)
+        return path / file
 
     def _build_path_index_lookup_table(self):
         self._path_index_lookup_table = {}
@@ -139,7 +154,7 @@ class BindFileLinkerConstants:
 class BindFileLinker:
     def __init__(
             self, 
-            bind_file_list: list[BindFile],
+            bind_file_list: list[BindFile] = None,
             is_silent: bool = False, 
             is_circular: bool = True,
             excluded_trigger_strings: list[str] = None
@@ -148,6 +163,7 @@ class BindFileLinker:
         self._is_silent = None
         self._is_circular = None
         self._excluded_trigger_strings = None
+        self._bind_load_file_command = BindFileLinkerConstants.BIND_LOAD_FILE_COMMAND
 
         self.bind_file_list = bind_file_list if bind_file_list is not None else []
         self.is_silent = is_silent
@@ -181,3 +197,14 @@ class BindFileLinker:
                 next_file_index = (file_index + 1) % file_count
                 next_file_path = f"{path}/{file_prefix}{next_file_index}{BindFileConstants.EXTENSION}"
                 bind.add_slash_command(f'{self._bind_load_file_command} {next_file_path}')
+
+
+
+def numberToBase(n, b):
+    if n == 0:
+        return [0]
+    digits = []
+    while n:
+        digits.append(int(n % b))
+        n //= b
+    return digits[::-1]

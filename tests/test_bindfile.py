@@ -1,5 +1,5 @@
 import pytest
-from CityOfBinds import BindFile, Bind
+from CityOfBinds import BindFile, Bind, BindFileLinker
 from CityOfBinds.comments import CommentBanner
 
 class TestBindFilePreview:
@@ -16,8 +16,8 @@ class TestBindFilePreview:
     def test_preview_should_return_correct_string_given_bindfile_with_multiple_binds(self):
         # arrange
         bindfile = (BindFile()
-                    .add_bind(Bind(trigger_string="F", slash_commands_string_list=["powexectoggleon dark nova"]))
-                    .add_bind(Bind(trigger_string="G", slash_commands_string_list=["powexectoggleon light nova", "powexectoggleon speed boost"])))
+                    .add_bind(Bind("F", ["powexectoggleon dark nova"]))
+                    .add_bind(Bind("G", ["powexectoggleon light nova", "powexectoggleon speed boost"])))
         # act
         preview = bindfile.preview()
         # assert
@@ -32,8 +32,8 @@ class TestBindFileWriteToFile:
     def test_write_to_file_should_create_file_with_correct_contents(self, tmp_path):
         # arrange
         bindfile = (BindFile()
-                    .add_bind(Bind(trigger_string="F", slash_commands_string_list=["powexectoggleon dark nova"]))
-                    .add_bind(Bind(trigger_string="G", slash_commands_string_list=["powexectoggleon light nova", "powexectoggleon speed boost"])))
+                    .add_bind(Bind("F", ["powexectoggleon dark nova"]))
+                    .add_bind(Bind("G", ["powexectoggleon light nova", "powexectoggleon speed boost"])))
         file_path = tmp_path / "test_bindfile.txt"
         # act
         bindfile.write_to_file(file_path)
@@ -48,10 +48,10 @@ class TestBindFileWriteToFile:
     def test_write_to_file_should_create_file_given_binds_and_comments(self, tmp_path):
         # arrange
         bindfile = (BindFile()
-                    .add_comment(CommentBanner(comment_text="Start of Binds", border_style='-'))
-                    .add_bind(Bind(trigger_string="F", slash_commands_string_list=["powexectoggleon dark nova"]))
-                    .add_comment(CommentBanner(comment_text="End of Binds", border_style='='))
-                    .add_bind(Bind(trigger_string="G", slash_commands_string_list=["powexectoggleon light nova", "powexectoggleon speed boost"])))
+                    .add_comment(CommentBanner("Start of Binds", border_style='-'))
+                    .add_bind(Bind("F", ["powexectoggleon dark nova"]))
+                    .add_comment(CommentBanner("End of Binds", border_style='='))
+                    .add_bind(Bind("G", ["powexectoggleon light nova", "powexectoggleon speed boost"])))
         file_path = tmp_path / "test_bindfile_with_comments.txt"
         # act
         bindfile.write_to_file(file_path)
@@ -69,3 +69,7 @@ class TestBindFileWriteToFile:
             'G "powexectoggleon light nova$$powexectoggleon speed boost"'
         )
         assert actual_contents == expected_contents
+
+class TestBindFileLinker:
+    bindfilelinker_under_test = BindFileLinker
+

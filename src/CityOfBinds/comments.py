@@ -118,6 +118,10 @@ class CommentBanner(Comment):
         self._throw_error_on_invalid_border_style(border_style=border_style)
         self._border_style = border_style
 
+    @property
+    def line_count(self) -> int:
+        return self.comment_string.count('\n') + 1 if self.comment_string else 0
+
     ### Helpers
     def _sanitize_comment_text(self, comment_text: str) -> str:
         ### remove any blank lines and trims leading/trailing whitespace for each line
