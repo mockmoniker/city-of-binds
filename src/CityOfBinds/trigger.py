@@ -182,7 +182,7 @@ class Trigger:
 
     # endregion
 
-    # region Validation and Error Checking
+    # region Error Checking Methods
     def _throw_error_if_invalid_trigger_string(self, trigger_string: str):
         """Helper function to validate the overall trigger string format."""
         self._throw_error_if_invalid_trigger_string_format(trigger_string)
@@ -208,13 +208,13 @@ class Trigger:
             self._throw_invalid_key_error(key)
 
     def _throw_invalid_key_error(self, key: str):
-        raise ValueError(f"Invalid trigger key '{key}'. Please see https://homecoming.wiki/wiki/List_of_Key_Names for list of valid trigger keys.")
+        raise ValueError(f"Unknown trigger key '{key}'. Please see https://homecoming.wiki/wiki/List_of_Key_Names for list of valid trigger keys.")
 
     def _throw_error_if_invalid_modifier(self, modifier: str):
         if ' ' in modifier:
             raise ValueError(f"Invalid trigger modifier '{modifier}'. Trigger modifier cannot contain spaces.")
         if modifier and modifier not in self.VALID_MODIFIERS:
-            raise ValueError(f"Invalid trigger modifier '{modifier}'. Please see https://homecoming.wiki/wiki/List_of_Key_Names for list of valid trigger modifiers.")
+            raise ValueError(f"Unknown trigger modifier '{modifier}'. Please see https://homecoming.wiki/wiki/List_of_Key_Names for list of valid trigger modifiers.")
 
     # endregion
 
@@ -250,6 +250,6 @@ class WASDTrigger(Trigger):
 
     # region Validation and Error Checking
     def _throw_invalid_key_error(self, key: str):
-        raise ValueError(f"Invalid WASD trigger key '{key}'. Valid WASD keys are: {', '.join(self.VALID_KEYS)}")
+        raise ValueError(f"Unknown trigger key '{key}'. Valid WASD keys are: {', '.join(self.VALID_KEYS)}")
     
     # endregion

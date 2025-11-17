@@ -45,6 +45,10 @@ class Bind:
     # endregion
 
     # region Bind Methods
+    def validate(self):
+        self._throw_error_if_empty_bind()
+        self._throw_error_if_bind_too_long()
+
     def is_empty(self) -> bool:
         """Helper function to ensure the bind is not empty."""
         return len(self.commands) == 0
@@ -66,11 +70,7 @@ class Bind:
 
     # endregion
 
-    # region Validation and Error Checking
-    def validate(self):
-        self._throw_error_if_empty_bind()
-        self._throw_error_if_bind_too_long()
-
+    # region Error Checking Methods
     def _throw_error_if_empty_bind(self):
         """Helper function to ensure the commands list is not empty."""
         if self.is_empty():
