@@ -6,6 +6,7 @@ from .binds import Bind, WASDBind
 from .comments import Comment, CommentBanner
 from .bindfile import BindFile, BindFileLinker
 from .rotatingbind import RotatingBind
+from .linker import Indexer
 
 __all__ = ["Trigger",
            "WASDTrigger",
@@ -18,4 +19,6 @@ __all__ = ["Trigger",
            "CommentBanner",
            "BindFile",
            "BindFileLinker",
-           "RotatingBind"]
+           "RotatingBind",
+           "Indexer",
+           ]
