@@ -95,7 +95,7 @@ class Comment:
 
 class CommentBanner(Comment):
     VALID_BORDER_STYLES = ['-', '=', '*', '~', '#']
-    DEFAULT_BORDER_STYLE = '-'
+    DEFAULT_BORDER_STYLE = VALID_BORDER_STYLES[0]
 
     def __init__(self, 
                  comment_text: str,
@@ -118,6 +118,10 @@ class CommentBanner(Comment):
         self._throw_error_on_invalid_border_style(border_style=border_style)
         self._border_style = border_style
 
+    @property
+    def line_count(self) -> int:
+        return self.comment_string.count('\n') + 1 if self.comment_string else 0
+
     ### Helpers
     def _sanitize_comment_text(self, comment_text: str) -> str:
         ### remove any blank lines and trims leading/trailing whitespace for each line
@@ -136,12 +140,11 @@ class CommentBanner(Comment):
     def _build_comment_banner_string(self, comment_text: str, alignment: str, text_width: int, border_style: str) -> str:
         border = Comment(f"{border_style * text_width}").comment_string
 
-        comment_width = text_width + self.EDGES_LENGTH
-        comment_lines = ""
-        for line in comment_text.split('\n'):
-            comment_lines += Comment(line, alignment, comment_width).comment_string + '\n'
+        comment_lines = "\n".join(
+            self._build_comment_line_string(line, alignment, text_width) for line in comment_text.split('\n')
+        )
 
-        return f"{border}\n{comment_lines}{border}"
+        return f"{border}\n{comment_lines}\n{border}"
 
     def _get_longest_line_width(self, comment_text: str) -> int:
         return max(len(line) for line in comment_text.split('\n')) if comment_text else 0
