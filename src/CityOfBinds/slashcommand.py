@@ -684,7 +684,7 @@ class SlashCommand:
 
     def _throw_error_if_invalid_command_string_format(self, command_string: str):
         """Helper function to validate the overall command string format."""
-        command_pattern = r"^([-]{0,2}|[+]{0,2})\w+(\s\w+)*$" # pattern to match "[prefix]<command> [args...]"
+        command_pattern = r"^([-]{0,2}|[+]{0,2})[\w_0-9]+(\s\S.*)?$" # pattern to match "[prefix]<command> [args...]"
         if not re.match(command_pattern, command_string):
             raise ValueError(f"Invalid command format '{command_string}'. Format should be \"[prefix]<command> [args...]\"")
 

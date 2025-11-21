@@ -132,8 +132,8 @@ class Trigger:
         return self._get_key_from_trigger_string(self._trigger_string)
     
     @key.setter
-    def key(self, key: str):
-        key = key.upper()
+    def key(self, key_string: str):
+        key = key_string.upper()
         self._throw_error_if_invalid_key(key)
         if self.modifier:
             self._trigger_string = f"{self.modifier}{TriggerConstants.TRIGGER_DELIM}{key}"
@@ -145,9 +145,9 @@ class Trigger:
         return self._get_modifier_from_trigger_string(self._trigger_string)
 
     @modifier.setter
-    def modifier(self, modifier: str):
-        if modifier:
-            formatted_modifier = modifier.upper()
+    def modifier(self, modifier_string: str):
+        if modifier_string:
+            formatted_modifier = modifier_string.upper()
             self._throw_error_if_invalid_modifier(formatted_modifier)
             self._trigger_string = f"{formatted_modifier}{TriggerConstants.TRIGGER_DELIM}{self.key}"
         else:

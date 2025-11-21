@@ -95,7 +95,7 @@ class Comment:
 
 class CommentBanner(Comment):
     VALID_BORDER_STYLES = ['-', '=', '*', '~', '#']
-    DEFAULT_BORDER_STYLE = '-'
+    DEFAULT_BORDER_STYLE = VALID_BORDER_STYLES[0]
 
     def __init__(self, 
                  comment_text: str,

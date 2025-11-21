@@ -24,6 +24,7 @@ class Bind:
     
     @trigger.setter
     def trigger(self, trigger_string: str):
+        self._throw_error_if_missing_trigger(trigger_string)
         self._trigger = self.TRIGGER_TYPE(trigger_string)
     
     @property
@@ -71,6 +72,11 @@ class Bind:
     # endregion
 
     # region Error Checking Methods
+    def _throw_error_if_missing_trigger(self, trigger_string: str):
+        """Helper function to ensure a trigger string is provided."""
+        if not trigger_string:
+            raise ValueError("Bind must have a trigger.")
+
     def _throw_error_if_empty_bind(self):
         """Helper function to ensure the commands list is not empty."""
         if self.is_empty():

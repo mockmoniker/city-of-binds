@@ -1,6 +1,7 @@
 import re
 
 class Power:
+    ### Initialization
     def __init__(self, power_string: str):
         formatted_power_string = power_string.lower().strip()
         self._throw_error_if_invalid_power_string_format(power_string=formatted_power_string)
@@ -9,7 +10,7 @@ class Power:
     # region Validation and Error Checking
     def _throw_error_if_invalid_power_string_format(self, power_string: str):
         if not re.match(r"^[a-z]+( [a-z]+)*$", power_string):
-            raise ValueError(f"Invalid power format: {power_string}")
+            raise ValueError(f"Invalid power format: '{power_string}'. Power must only contain letters and spaces.")
 
     # endregion
 
