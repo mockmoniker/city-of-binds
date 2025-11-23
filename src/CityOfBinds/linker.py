@@ -42,7 +42,7 @@ class Indexer:
         digits.reverse()
         return ''.join(digits)
 
-    # end region
+    # endregion
 
     # region Dunder Methods
     def __getitem__(self, index: int) -> str:
@@ -95,7 +95,19 @@ class PathGenerator:
     
     @property
     def _width(self) -> int:
-        return self._calculate_width(self.max_files_per_folder, self.indexer.base)
+        #num_files = min(self.file_count, self.max_files_per_folder)
+        #return self._calculate_width(num_files, self.indexer.base)
+        max_index = min(self.file_count, self.max_files_per_folder) - 1
+        return len(self.indexer[max_index])
+
+    @property
+    def _root_width(self) -> int:
+        """Calculate the required width for the root folder based on total file count."""
+        root_subtree_capacity = self.max_files_per_folder ** (self._depth - 1)
+        num_root_folders = math.ceil(self.file_count / root_subtree_capacity)
+
+        max_root_index = num_root_folders - 1
+        return len(self.indexer[max_root_index])
 
     @property
     def max_path_length(self) -> int:
@@ -129,8 +141,7 @@ class PathGenerator:
             capacity //= self.max_files_per_folder
 
         if depth > 1:
-            root_width = self._calculate_root_width(self.file_count, self.max_files_per_folder, depth, self.indexer.base)
-            path_parts[0] = path_parts[0][-root_width:]
+            path_parts[0] = path_parts[0][-self._root_width:]
 
         path_parts[-1] += self.FILE_EXTENSION
 
@@ -142,20 +153,6 @@ class PathGenerator:
             return 1
 
         return math.ceil(math.log(file_count, max_files_per_folder))
-    
-    def _calculate_width(self, num_files: int, base: int) -> int:
-        """Calculate the required width for padding based on the number of files and base of indexing."""
-        return math.floor(math.log(num_files - 1, base)) + 1
-
-    def _calculate_root_width(self, file_count: int, max_files_per_folder: int, depth: int, base: int) -> int:
-        """Calculate the required width for the root folder based on total file count."""
-        root_subtree_capacity = max_files_per_folder ** (depth - 1)
-        num_root_folders = math.ceil(file_count / root_subtree_capacity)
-
-        if num_root_folders == 1:
-            return 1
-
-        return self._calculate_width(num_root_folders, base)
 
     def __getitem__(self, file_index: int) -> Path:
         return self.get_path(file_index)

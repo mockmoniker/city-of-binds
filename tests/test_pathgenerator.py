@@ -36,3 +36,47 @@ class TestPathGenerator:
         assert str(path_generator[257]) == "1/01.txt"
         assert str(path_generator[4094]) == "F/FE.txt"
         assert str(path_generator[4095]) == "F/FF.txt"
+
+    def test_default_generator_should_return_efficiently_padded_paths_edge_case(self):
+        # arrange
+        path_generator = PathGenerator(file_count = 257)
+        # act / assert
+        assert str(path_generator[0]) == "0/00.txt"
+        assert str(path_generator[1]) == "0/01.txt"
+        assert str(path_generator[255]) == "0/FF.txt"
+        assert str(path_generator[256]) == "1/00.txt"
+
+    def test_default_generator_should_return_correct_root_folder_length_edge_case(self):
+        # arrange
+        path_generator = PathGenerator(file_count = 4097)
+        # act / assert
+        assert str(path_generator[0]) == "00/00.txt"
+        assert str(path_generator[1]) == "00/01.txt"
+        assert str(path_generator[255]) == "00/FF.txt"
+        assert str(path_generator[256]) == "01/00.txt"
+        assert str(path_generator[257]) == "01/01.txt"
+        assert str(path_generator[4094]) == "0F/FE.txt"
+        assert str(path_generator[4095]) == "0F/FF.txt"
+        assert str(path_generator[4096]) == "10/00.txt"
+
+    def test_default_generator_should_return_correct_paths_with_small_folder_capacity(self):
+        # arrange
+        path_generator = PathGenerator(file_count = 20, max_files_per_folder = 5)
+        # act / assert
+        assert str(path_generator[0]) == "0/0.txt"
+        assert str(path_generator[1]) == "0/1.txt"
+        assert str(path_generator[2]) == "0/2.txt"
+        assert str(path_generator[3]) == "0/3.txt"
+        assert str(path_generator[4]) == "0/4.txt"
+        assert str(path_generator[5]) == "1/0.txt"
+        assert str(path_generator[6]) == "1/1.txt"
+        assert str(path_generator[19]) == "3/4.txt"
+
+    def test_default_generator_should_return_correct_paths_with_large_folder_capacity(self):
+        # arrange
+        path_generator = PathGenerator(file_count = 256, max_files_per_folder = 1000)
+        # act / assert
+        assert str(path_generator[0]) == "00.txt"
+        assert str(path_generator[1]) == "01.txt"
+        assert str(path_generator[10]) == "0A.txt"
+        assert str(path_generator[19]) == "13.txt"
