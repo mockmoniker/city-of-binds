@@ -1,4 +1,3 @@
-from functools import cached_property
 from CityOfBinds.trigger import Trigger, WASDTrigger
 from CityOfBinds.commandgroup import CommandGroup
 

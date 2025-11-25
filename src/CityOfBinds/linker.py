@@ -1,5 +1,6 @@
 import math
 from pathlib import Path
+from typing import Union
 
 class Indexer:
     """ Converts numerical indices to string representations using a configurable alphabet. """
@@ -69,17 +70,18 @@ class Indexer:
 class PathGenerator:
     DEFAULT_MAX_FILES_PER_FOLDER = 256
     DEFAULT_PADDING_BEHAVIOR = True
-    FILE_EXTENSION = ".txt"
 
     """ Generates a folder/file path based off maximum files and max files per folder."""
     def __init__(
         self, 
         file_count: int,
+        parent_directory: Union[str, Path] = ".",
         max_files_per_folder: int = DEFAULT_MAX_FILES_PER_FOLDER,
         enable_padding: bool = DEFAULT_PADDING_BEHAVIOR,
         indexer: Indexer = None,
     ):
         self.file_count = file_count
+        self.parent_directory = Path(parent_directory)
         self.max_files_per_folder = max_files_per_folder
         self.enable_padding = enable_padding
         self.indexer = indexer if indexer else Indexer()
@@ -143,9 +145,7 @@ class PathGenerator:
         if depth > 1:
             path_parts[0] = path_parts[0][-self._root_width:]
 
-        path_parts[-1] += self.FILE_EXTENSION
-
-        return Path(*path_parts)
+        return self.parent_directory / Path(*path_parts)
 
     def _calculate_depth(self, file_count: int, max_files_per_folder: int) -> int:
         """Calculate how many levels of nesting are needed."""
