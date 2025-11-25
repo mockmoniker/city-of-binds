@@ -6,8 +6,8 @@ from CityOfBinds.bindfile import BindFile, BindFileConstants
 from CityOfBinds.linker import PathGenerator
 
 class BindFileNode:
-    def __init__(self, node_id: int, bind_file: BindFile):
-        self.node_id = node_id
+    def __init__(self, id: int, bind_file: BindFile):
+        self.id = id
         self.bind_file = bind_file
 
 class BindFileGraph(nx.DiGraph):
@@ -15,14 +15,14 @@ class BindFileGraph(nx.DiGraph):
         super().__init__()
 
     def add_node(self, node: BindFileNode) -> 'BindFileGraph':
-        super().add_node(node.node_id, bind_file=node.bind_file)
+        super().add_node(node.id, bind_file=node.bind_file)
         return self
     
     def add_edge(self, from_node: BindFileNode, to_node: BindFileNode, **condition) -> 'BindFileGraph':
         self.add_node(from_node)
         self.add_node(to_node)
 
-        super().add_edge(from_node.node_id, to_node.node_id, **condition)
+        super().add_edge(from_node.id, to_node.id, **condition)
         return self
 
     def get_bind_file(self, node_id: int) -> BindFile:

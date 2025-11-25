@@ -43,7 +43,7 @@ class RotatingBind(BFGPublisher):
     def _create_nodes(self) -> list[BindFileNode]:
         return [
             BindFileNode(
-                node_id=index,
+                id=index,
                 bind_file=BindFile().add_bind(bind), 
             )
             for index, bind in enumerate(self.binds)
