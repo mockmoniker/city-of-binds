@@ -50,11 +50,6 @@ class BFGPublisher(ABC):
     def _create_nodes(self) -> list[BindFileNode]:
         pass
 
-    def _initialize_path_generator(self, bfg: BindFileGraph, directory: str = ".") -> PathGenerator:
-        file_count = bfg.number_of_nodes()
-        self._path_generator = PathGenerator(file_count=file_count, base=10, directory=directory)
-        return self._path_generator
-
     def _create_bind_file_graph(self) -> BindFileGraph:
         bfg = BindFileGraph()
 
