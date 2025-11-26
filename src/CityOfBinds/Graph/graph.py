@@ -67,15 +67,12 @@ class BFGPublisher(ABC):
         for node_id in bfg.nodes():
             bind_file = bfg.get_bind_file(node_id)
 
-            # Get all outgoing edges from this node
             for _, target_node_id, edge_data in bfg.out_edges(node_id, data=True):
-                condition = edge_data
+                on_condition = edge_data
                 
-                # Process each bind in the source bind file
                 for bind in bind_file.binds:
-                    if self._should_link_bind(bind, condition):
-                        next_file_path = path_gen[target_node_id]
-                        self._link_bind(bind, next_file_path)
+                    if self._should_link_bind(bind, on_condition):
+                        self._link_bind(bind, path_gen[target_node_id])
 
     def _should_link_bind(self, bind: Bind, condition: dict[str: any]) -> bool:
         # Placeholder for condition checking logic
@@ -98,8 +95,7 @@ class BFGPublisher(ABC):
         """Write all bind files in the graph to disk."""
         for node_id in bfg.nodes():
             bind_file = bfg.get_bind_file(node_id)
-            file_path = path_gen[node_id]
-            bind_file.write_to_file(file_path)
+            bind_file.write_to_file(path_gen[node_id])
 
     def _throw_error_if_insufficient_nodes(self, node_count: int):
         if node_count < 2:
