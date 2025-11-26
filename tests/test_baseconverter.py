@@ -1,19 +1,19 @@
-from CityOfBinds import Indexer
+from CityOfBinds import BaseConverter
 
 class TestInitialization:
     # region Valid Initialization Tests
     def test_init_should_use_default_alphabet_when_no_alphabet_is_provided(self):
         # arrange
         # act
-        indexer = Indexer()
+        indexer = BaseConverter()
         # assert
-        assert indexer.alphabet == Indexer.DEFAULT_ALPHABET
+        assert indexer.alphabet == BaseConverter.DEFAULT_ALPHABET
 
     def test_init_should_set_alphabet_when_valid_alphabet_is_provided(self):
         # arrange
         custom_alphabet = "ABCDEF"
         # act
-        indexer = Indexer(custom_alphabet)
+        indexer = BaseConverter(custom_alphabet)
         # assert
         assert indexer.alphabet == custom_alphabet
 
@@ -23,7 +23,7 @@ class TestAlphabetProperty:
     # region Alphabet Setter Tests
     def test_alphabet_setter_should_set_alphabet_when_valid_alphabet_is_provided(self):
         # arrange
-        indexer = Indexer()
+        indexer = BaseConverter()
         new_alphabet = "XYZ"
         # act
         indexer.alphabet = new_alphabet
@@ -32,7 +32,7 @@ class TestAlphabetProperty:
 
     def test_alphabet_setter_should_raise_value_error_when_empty_alphabet_is_provided(self):
         # arrange
-        indexer = Indexer()
+        indexer = BaseConverter()
         empty_alphabet = ""
         # act / assert
         try:
@@ -43,7 +43,7 @@ class TestAlphabetProperty:
 
     def test_alphabet_setter_should_raise_value_error_when_non_unique_characters_are_provided(self):
         # arrange
-        indexer = Indexer()
+        indexer = BaseConverter()
         non_unique_alphabet = "AABC"
         # act / assert
         try:
@@ -54,12 +54,12 @@ class TestAlphabetProperty:
 
     # endregion
 
-class TestCustomIndexers:
+class TestCustomBaseConverters:
     # region Custom Alphabet Tests
-    def test_indexer_with_binary_alphabet_should_convert_indices_correctly(self):
+    def test_base_converter_with_binary_alphabet_should_convert_indices_correctly(self):
         # arrange
         binary_alphabet = "01"
-        indexer = Indexer(binary_alphabet)
+        indexer = BaseConverter(binary_alphabet)
         test_cases = {
             0: "0",
             1: "1",
@@ -73,10 +73,10 @@ class TestCustomIndexers:
         for index, expected in test_cases.items():
             assert indexer[index] == expected
 
-    def test_indexer_with_custom_alphabet_should_convert_indices_correctly(self):
+    def test_base_converter_with_custom_alphabet_should_convert_indices_correctly(self):
         # arrange
         custom_alphabet = "XYZ"
-        indexer = Indexer(custom_alphabet)
+        indexer = BaseConverter(custom_alphabet)
         test_cases = {
             0: "X",
             1: "Y",

@@ -1,5 +1,5 @@
 import pytest
-from CityOfBinds import BindFile, Bind, BindFileLinker
+from CityOfBinds import BindFile, Bind
 from CityOfBinds.comments import CommentBanner
 
 class TestBindFilePreview:
@@ -82,7 +82,3 @@ class TestBindFileWriteToFile:
         with open(expected_file_path, 'r') as f:
             actual_contents = f.read()
         assert actual_contents == 'F "powexectoggleon dark nova"'
-
-class TestBindFileLinker:
-    bindfilelinker_under_test = BindFileLinker
-

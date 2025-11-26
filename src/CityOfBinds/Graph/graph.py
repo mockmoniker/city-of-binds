@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from CityOfBinds.binds import Bind
 from CityOfBinds.bindfile import BindFile, BindFileConstants
-from CityOfBinds.linker import PathGenerator
+from CityOfBinds.pathgenerator import PathGenerator
 
 class BindFileNode:
     def __init__(self, id: int, bind_file: BindFile):
