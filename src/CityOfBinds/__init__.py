@@ -5,7 +5,8 @@ from .power import Power
 from .binds import Bind, WASDBind
 from .comments import Comment, CommentBanner
 from .bindfile import BindFile, BindFileLinker
-from .rotatingbind import RotatingBind
+from .RotatingBinds.rotatingbind import RotatingBind
+from .pathgenerator import BaseConverter, PathGenerator
 
 __all__ = ["Trigger",
            "WASDTrigger",
@@ -18,4 +19,7 @@ __all__ = ["Trigger",
            "CommentBanner",
            "BindFile",
            "BindFileLinker",
-           "RotatingBind"]
+           "RotatingBind",
+           "BaseConverter",
+           "PathGenerator"
+           ]

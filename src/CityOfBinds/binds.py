@@ -1,4 +1,3 @@
-from functools import cached_property
 from CityOfBinds.trigger import Trigger, WASDTrigger
 from CityOfBinds.commandgroup import CommandGroup
 
@@ -35,7 +34,7 @@ class Bind:
     def commands(self, commands_string_list: list[str]):
         self._commands = CommandGroup(commands_string_list)
 
-    @cached_property
+    @property
     def bind_string(self) -> str:
         return self._build_bind_string()
     

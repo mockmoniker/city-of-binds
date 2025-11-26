@@ -1,5 +1,5 @@
 import pytest
-from CityOfBinds import BindFile, Bind, BindFileLinker
+from CityOfBinds import BindFile, Bind
 from CityOfBinds.comments import CommentBanner
 
 class TestBindFilePreview:
@@ -70,6 +70,15 @@ class TestBindFileWriteToFile:
         )
         assert actual_contents == expected_contents
 
-class TestBindFileLinker:
-    bindfilelinker_under_test = BindFileLinker
-
+    def tesT_write_to_file_should_auto_add_txt_extension_if_missing(self, tmp_path):
+        # arrange
+        bindfile = BindFile().add_bind(Bind("F", ["powexectoggleon dark nova"]))
+        file_path = tmp_path / "test_bindfile"  # No .txt extension
+        # act
+        bindfile.write_to_file(file_path)
+        # assert
+        expected_file_path = tmp_path / "test_bindfile.txt"
+        assert expected_file_path.exists()
+        with open(expected_file_path, 'r') as f:
+            actual_contents = f.read()
+        assert actual_contents == 'F "powexectoggleon dark nova"'
