@@ -1,6 +1,7 @@
 from CityOfBinds.binds import Bind
 from CityOfBinds.bindfile import BindFile
 from CityOfBinds.Graph.graph import BindFileNode, BindFileGraph, BFGPublisher
+from CityOfBinds.trigger import Trigger, TriggerMixin
 
 class RotatingBind(BFGPublisher):
     def __init__(self, binds: list[Bind], is_circular: bool = True):
@@ -33,18 +34,6 @@ class RotatingBind(BFGPublisher):
     def pop_bind(self, index: int) -> Bind:
         return self.binds.pop(index)
     
-    def _populate_graph(self, bfg: BindFileGraph, nodes: list[BindFileNode]):
-        for node_index in range(len(nodes) - 1):
-            bfg.add_edge(nodes[node_index], nodes[node_index + 1])
-
-        if self.is_circular:
-            bfg.add_edge(nodes[-1], nodes[0])
-
-    def _create_nodes(self) -> list[BindFileNode]:
-        return [
-            BindFileNode(
-                id=index,
-                bind_file=BindFile().add_bind(bind), 
-            )
-            for index, bind in enumerate(self.binds)
-        ]
+    def _populate_graph_publisher(self, bfg: BindFileGraph):
+        nodes = [BindFileNode(index, BindFile().add_bind(bind)) for index, bind in enumerate(self.binds)]
+        bfg.chain_nodes(nodes, close_loop=self.is_circular)

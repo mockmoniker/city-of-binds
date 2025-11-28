@@ -1,4 +1,5 @@
 import re
+import copy
 from typing import Set
 
 class TriggerConstants:
@@ -258,6 +259,7 @@ class TriggerMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._trigger = None
+        self._trigger_class = getattr(self, 'TRIGGER_TYPE', Trigger)
     
     @property
     def trigger(self) -> Trigger:
@@ -266,14 +268,11 @@ class TriggerMixin:
     @trigger.setter
     def trigger(self, value):
         if isinstance(value, str):
-            self._trigger = self._create_trigger_from_string(value)
+            self._trigger = self._trigger_class(value)
         elif isinstance(value, Trigger):
-            self._trigger = value
-        elif value is None:
-            self._trigger = None
+            self._trigger = copy.deepcopy(value)
         else:
-            raise TypeError(f"Expected str, Trigger, or None, got {type(value)}")
-    
-    def _create_trigger_from_string(self, trigger_string: str) -> Trigger:
-        trigger_class = getattr(self, 'TRIGGER_TYPE', Trigger)
-        return trigger_class(trigger_string)
+            self._throw_set_trigger_type_error(value)
+
+    def _throw_set_trigger_type_error(self, value):
+        raise TypeError(f"Invalid type '{type(value)}'. Trigger must be set using a string or a Trigger instance.")

@@ -1,5 +1,6 @@
 import pytest
 from CityOfBinds import SlashCommand, Trigger, Power, Bind, WASDBind, CommandGroup
+from CityOfBinds.trigger import WASDTrigger
 
 ### Bind Tests ###
 
@@ -147,3 +148,15 @@ class TestBindIsEmptyMethod:
         is_empty = bind.is_empty()
         # assert
         assert is_empty is False
+
+class TestWASDBind:
+    def test_wasdbind_should_use_wasdtrigger_as_trigger_type(self):
+        # arrange
+        wasd_bind = WASDBind('W')
+        # act
+        trigger = wasd_bind.trigger
+        wasd_bind.commands.add_toggle_on_power('super speed')
+        # assert
+        assert isinstance(trigger, WASDTrigger)
+        assert str(trigger) == 'W'
+        assert str(wasd_bind) == 'W "+forward$$powexectoggleon super speed"'  # No commands by default

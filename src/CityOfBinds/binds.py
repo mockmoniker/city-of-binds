@@ -1,31 +1,20 @@
-from CityOfBinds.trigger import Trigger, WASDTrigger
+from CityOfBinds.trigger import Trigger, WASDTrigger, TriggerMixin
 from CityOfBinds.commandgroup import CommandGroup
 
 class BindConstants:
     MAX_BIND_LENGTH = 255
 
-class Bind:
-    TRIGGER_TYPE = Trigger
-
+class Bind(TriggerMixin):
     # Initialization
     def __init__(self, trigger_string: str, commands_string_list: list[str] = None):
+        super().__init__()
         """Initialize the bind with a trigger and slash command list."""
-        self._trigger = None
         self._commands = None
 
         self.trigger = trigger_string
         self.commands = commands_string_list if commands_string_list is not None else []
 
     # region Bind Properties
-    @property
-    def trigger(self) -> Trigger:
-        return self._trigger
-    
-    @trigger.setter
-    def trigger(self, trigger_string: str):
-        self._throw_error_if_missing_trigger(trigger_string)
-        self._trigger = self.TRIGGER_TYPE(trigger_string)
-    
     @property
     def commands(self) -> CommandGroup:
         return self._commands
@@ -71,11 +60,6 @@ class Bind:
     # endregion
 
     # region Error Checking Methods
-    def _throw_error_if_missing_trigger(self, trigger_string: str):
-        """Helper function to ensure a trigger string is provided."""
-        if not trigger_string:
-            raise ValueError("Bind must have a trigger.")
-
     def _throw_error_if_empty_bind(self):
         """Helper function to ensure the commands list is not empty."""
         if self.is_empty():

@@ -1,4 +1,4 @@
-from .trigger import Trigger, WASDTrigger
+from .trigger import Trigger, WASDTrigger, TriggerMixin
 from .slashcommand import SlashCommand
 from .commandgroup import CommandGroup
 from .power import Power
@@ -10,6 +10,7 @@ from .pathgenerator import BaseConverter, PathGenerator
 
 __all__ = ["Trigger",
            "WASDTrigger",
+           "TriggerMixin",
            "SlashCommand",
            "CommandGroup",
            "Power",
