@@ -1,5 +1,6 @@
 import random
 from enum import Enum
+from .constants import TemplateConstants
 
 class SelectionType(Enum):
     SEQUENTIAL = 0
@@ -69,4 +70,4 @@ class Pool:
         return random_items
 
     def __str__(self):
-        return f"{StringTemplate.ENCAPSULATION_LEFT}{self.name}{StringTemplate.ENCAPSULATION_RIGHT}"
+        return f"{TemplateConstants.ENCAPSULATION_LEFT}{self.name}{TemplateConstants.ENCAPSULATION_RIGHT}"

@@ -1,11 +1,8 @@
 import re
 from .pool import Pool
+from .constants import TemplateConstants
 
 class StringTemplate:
-    ENCAPSULATION_PATTERN = "<>"
-    ENCAPSULATION_LEFT = ENCAPSULATION_PATTERN[:len(ENCAPSULATION_PATTERN)//2]
-    ENCAPSULATION_RIGHT = ENCAPSULATION_PATTERN[len(ENCAPSULATION_PATTERN)//2:]
-
     def __init__(self, template: str, pools: list[Pool] = None):
         self.template = template
         self.pool_dict: dict[str, Pool] = {}
@@ -22,7 +19,7 @@ class StringTemplate:
             self.add_pool(pool)
         return self
 
-    def build_string(self) -> str:
+    def _build_one(self) -> str:
         placeholder_pattern = self._build_placeholder_regex()
 
         def replace_placeholder(match):
@@ -34,42 +31,22 @@ class StringTemplate:
         result_string = placeholder_pattern.sub(replace_placeholder, self.template)
         return result_string
     
-    def build_strings(self, count: int) -> list[str]:
-        new_strings = []
-        for _ in range(count):
-            new_strings.append(self.build_string())
-        return new_strings
+    def build(self, count: int) -> list[str]:
+        return [self._build_one() for _ in range(count)]
 
     def _build_placeholder_regex(self):
         pool_names = [re.escape(pool_name) for pool_name in self.pool_dict.keys()]
         pool_alternation = "|".join(pool_names)
-        left_encap = re.escape(self.ENCAPSULATION_LEFT)
-        right_encap = re.escape(self.ENCAPSULATION_RIGHT)
+        left_encap = re.escape(TemplateConstants.ENCAPSULATION_LEFT)
+        right_encap = re.escape(TemplateConstants.ENCAPSULATION_RIGHT)
         pattern = f"{left_encap}({pool_alternation}){right_encap}"
         return re.compile(pattern)
-
-class CommandFactory:
-    def __init__(self, command: str, argument_options: list[str], *args, **kwargs):
-        self._command = command
-
-        self._arg_pool = Pool("args", argument_options, *args, **kwargs)
-        self._command_template = StringTemplate(f"{self._command} {self._arg_pool}", [self._arg_pool])
-
-    def build_command(self) -> str:
-        return self._command_template.build_string()
-    
-    def build_commands(self, count: int) -> list[str]:
-        return self._command_template.build_strings(count)
-    
-class PowExecFactory(CommandFactory):
-    def __init__(self, powers: list[str], *args, **kwargs):
-        super().__init__("powexectoggleon", powers, *args, **kwargs)
 
 class ListTemplate():
     def __init__(self, template: list):
         self.template = template
 
-    def build_list(self) -> list:
+    def _build_one(self) -> list:
         new_list = []
         for item in self.template:
             if isinstance(item, Pool):
@@ -80,8 +57,5 @@ class ListTemplate():
                 new_list.append(item)
         return new_list
 
-    def build_lists(self, count: int) -> list[list]:
-        new_lists = []
-        for _ in range(count):
-            new_lists.append(self.build_list())
-        return new_lists
+    def build(self, count: int = 1) -> list[list]:
+        return [self._build_one() for _ in range(count)]
