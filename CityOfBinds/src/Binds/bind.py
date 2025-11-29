@@ -1,28 +1,23 @@
-from CityOfBinds.trigger import Trigger, WASDTrigger, TriggerMixin
-from CityOfBinds.commandgroup import CommandGroup
+from CityOfBinds.src.Triggers.trigger import Trigger, WASDTrigger
+from CityOfBinds.src.Triggers.mixin import TriggerMixin
+from CityOfBinds.src.SlashCommands.commandgroup import CommandGroup
+from CityOfBinds.src.SlashCommands.mixin import CommandGroupMixin
 
 class BindConstants:
-    MAX_BIND_LENGTH = 255
-
-class Bind(TriggerMixin):
-    # Initialization
-    def __init__(self, trigger_string: str, commands_string_list: list[str] = None):
+    MAX_BIND_LENGTH = 255 # TODO: verify if 255 is command max or full bind max (2025/11/27) 
+    
+class Bind(TriggerMixin, CommandGroupMixin):
+    def __init__(
+        self,
+        trigger: Trigger | str,
+        commands: CommandGroup | list[str] = None
+    ):
         super().__init__()
         """Initialize the bind with a trigger and slash command list."""
-        self._commands = None
-
-        self.trigger = trigger_string
-        self.commands = commands_string_list if commands_string_list is not None else []
+        self.trigger = trigger
+        self.commands = commands if commands is not None else CommandGroup()
 
     # region Bind Properties
-    @property
-    def commands(self) -> CommandGroup:
-        return self._commands
-    
-    @commands.setter
-    def commands(self, commands_string_list: list[str]):
-        self._commands = CommandGroup(commands_string_list)
-
     @property
     def bind_string(self) -> str:
         return self._build_bind_string()

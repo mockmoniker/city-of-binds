@@ -1,6 +1,6 @@
 import pytest
-from CityOfBinds import SlashCommand, Trigger, Power, Bind, WASDBind, CommandGroup
-from CityOfBinds.trigger import WASDTrigger
+from CityOfBinds import Trigger, Bind, WASDBind, CommandGroup
+from CityOfBinds import WASDTrigger
 
 ### Bind Tests ###
 

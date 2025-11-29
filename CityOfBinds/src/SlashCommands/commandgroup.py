@@ -1,5 +1,5 @@
-from CityOfBinds.slashcommand import SlashCommand
-from CityOfBinds.power import Power
+from CityOfBinds.src.SlashCommands.slashcommand import SlashCommand
+from CityOfBinds.src.SlashCommands.power import Power
 
 class _CommandList:
     def __init__(self, commands: list[str] = None):
@@ -334,7 +334,7 @@ class CommandGroupConstants:
     BIND_LOAD = "bindload"
     BIND_LOAD_FILE = "bindloadfile"
     BIND_LOAD_FILE_SILENT = "bindloadfilesilent"
-    BIND_SAVE = "bindsave"
+    BIND_SAVE = "bindsave" # TODO: verify if these commands still work. Should be show_bind_file? (2025/11/28) 
     BIND_SAVE_FILE = "bindsavefile"
     BIND_SAVE_FILE_SILENT = "bindsavefilesilent"
 

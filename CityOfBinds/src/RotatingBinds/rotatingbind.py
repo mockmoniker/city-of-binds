@@ -1,7 +1,8 @@
-from CityOfBinds.binds import Bind
-from CityOfBinds.bindfile import BindFile
-from CityOfBinds.Graph.graph import BindFileNode, BindFileGraph, BFGPublisher
-from CityOfBinds.trigger import Trigger, TriggerMixin
+from CityOfBinds.src.Binds.bind import Bind
+from CityOfBinds.src.BindFile.bindfile import BindFile
+from CityOfBinds.src.BindGraphPublisher.node import BindFileNode
+from CityOfBinds.src.BindGraphPublisher.graph import BindFileGraph
+from CityOfBinds.src.BindGraphPublisher.publisher import BFGPublisher
 
 class RotatingBind(BFGPublisher):
     def __init__(self, binds: list[Bind], is_circular: bool = True):
