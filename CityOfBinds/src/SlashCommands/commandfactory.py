@@ -1,11 +1,11 @@
 from CityOfBinds.utils.Templates.templates import StringTemplate, Pool
 
 class CommandFactory(StringTemplate):
-    def __init__(self, command: str, *argument_lists: list[list[str]]):
+    def __init__(self, command: str, *arg_lists: list[str]):
         self._command = command
         self._argument_pools = []
 
-        for index, argument_list in enumerate(argument_lists):
+        for index, argument_list in enumerate(arg_lists):
             pool = Pool(f"argument_{index}", argument_list)
             self._argument_pools.append(pool)
 

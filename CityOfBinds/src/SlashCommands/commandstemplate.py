@@ -1,9 +1,8 @@
 from CityOfBinds.src.SlashCommands.power import Power
-from CityOfBinds.src.SlashCommands.slashcommand import SlashCommand
 from CityOfBinds.src.SlashCommands.commandgroup import CommandGroup, CommandGroupConstants
 from CityOfBinds.src.SlashCommands.commandfactory import CommandFactory
 from CityOfBinds.utils.Templates.pool import Pool
-from CityOfBinds.utils.Templates.templates import ListTemplate, StringTemplate
+from CityOfBinds.utils.Templates.templates import ListTemplate
 
 class CommandsTemplate(CommandGroup, ListTemplate):
     def __init__(self):
@@ -20,21 +19,20 @@ class CommandsTemplate(CommandGroup, ListTemplate):
         if not arg_lists:
             return self # TODO: error or just append command? (2025/11/28) 
         
-        lengths = [len(arg_list) for arg_list in arg_lists]
-        all_lengths_equal = len(set(lengths)) == 1
-
-        build_count = 1
-        if all_lengths_equal:
-            build_count = lengths[0]
-        else:
-            for arg_list in arg_lists:
-                build_count *= len(arg_list)
+        build_count = self._get_unique_build_count(*arg_lists)
 
         command_factory = CommandFactory(command, *arg_lists)
         command_pool = Pool(f"{command}_{id(arg_lists)}", command_factory.build(build_count))
 
         self._commands.append(command_pool)
         return self
+
+    def _get_unique_build_count(self, *lists: list) -> int:
+        build = 1
+        unique_lengths = set([len(arg_list) for arg_list in lists])
+        for unique_length in unique_lengths:
+            build *= unique_length
+        return build
 
     def _build_one(self) -> CommandGroup:
         return CommandGroup(super()._build_one())

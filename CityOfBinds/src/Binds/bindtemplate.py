@@ -1,13 +1,19 @@
-from CityOfBinds.src.Binds.bind import Bind
-from CityOfBinds.src.Triggers.trigger import Trigger
+from CityOfBinds.src.Binds.bind import Bind, WASDBind
+from CityOfBinds.src.Triggers.trigger import Trigger, WASDTrigger
 from CityOfBinds.src.Triggers.mixin import TriggerMixin
-from CityOfBinds.utils.Templates import ListTemplate
+from CityOfBinds.src.SlashCommands.commandstemplate import CommandsTemplate
 
-class BindTemplate(TriggerMixin, ListTemplate):
-    def __init__(self, trigger: Trigger | str, commands_template: ListTemplate):
-        super().__init__(commands_template)
+class BindTemplate(TriggerMixin, CommandsTemplate):
+    BIND_TYPE = Bind
+
+    def __init__(self, trigger: Trigger | str):
+        TriggerMixin.__init__(self)
+        CommandsTemplate.__init__(self)
         self.trigger = trigger
 
     def _build_one(self) -> Bind:
-        commands = self.template._build_one()
-        return Bind(self.trigger, commands)
+        return self.BIND_TYPE(self.trigger, super()._build_one())
+
+class WASDBindTemplate(BindTemplate):
+    TRIGGER_TYPE = WASDTrigger
+    BIND_TYPE = WASDBind

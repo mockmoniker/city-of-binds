@@ -6,7 +6,7 @@ from CityOfBinds.src.SlashCommands.mixin import CommandGroupMixin
 class BindConstants:
     MAX_BIND_LENGTH = 255 # TODO: verify if 255 is command max or full bind max (2025/11/27) 
     
-class Bind(TriggerMixin, CommandGroupMixin):
+class Bind(TriggerMixin, CommandGroupMixin): # TODO: deprecate CommandGroupMixin? Bind should maybe just be a commandGroup with trigger (2025/11/29) 
     def __init__(
         self,
         trigger: Trigger | str,
