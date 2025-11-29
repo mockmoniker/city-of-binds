@@ -3,7 +3,7 @@ from CityOfBinds import BindTemplate
 class TestBindTemplate:
     def test_bindtemplate(self):
         # assemble
-        powers = ["dark nova blast", "dark nova bolt", "dark nova emmanation"]
+        powers = ["dark nova blast", "dark Nova bolt", "dark nova emmanation"]
         bind_template = (BindTemplate("1")
             .add_toggle_off_power("super speed")
             .add_toggle_off_power("sprint")

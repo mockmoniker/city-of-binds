@@ -9,13 +9,13 @@ class CommandsTemplate(CommandGroup, ListTemplate):
         CommandGroup.__init__(self)
         ListTemplate.__init__(self, self._commands)
 
-    def add_power_pool(self, powers: list[ str | Power]) -> 'CommandsTemplate':
-        return self.add_command_arguments_pool(CommandGroupConstants.POWEXEC_NAME, [str(power) for power in powers])
+    def add_power_pool(self, powers: list[str]) -> 'CommandsTemplate':
+        return self.add_command_arguments_pool(CommandGroupConstants.POWEXEC_NAME, [Power(power) for power in powers])
     
-    def add_toggle_on_power_pool(self, powers: list[ str | Power]) -> 'CommandsTemplate':
-        return self.add_command_arguments_pool(CommandGroupConstants.POWEXEC_TOGGLE_ON, [str(power) for power in powers])
+    def add_toggle_on_power_pool(self, powers: list[str]) -> 'CommandsTemplate':
+        return self.add_command_arguments_pool(CommandGroupConstants.POWEXEC_TOGGLE_ON, [Power(power) for power in powers])
 
-    def add_command_arguments_pool(self, command: str, *arg_lists: list[str]) -> 'CommandsTemplate':
+    def add_command_arguments_pool(self, command: str, *arg_lists: list) -> 'CommandsTemplate':
         if not arg_lists:
             return self # TODO: error or just append command? (2025/11/28) 
         

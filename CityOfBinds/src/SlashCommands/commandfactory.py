@@ -1,7 +1,7 @@
 from CityOfBinds.utils.Templates.templates import StringTemplate, Pool
 
 class CommandFactory(StringTemplate):
-    def __init__(self, command: str, *arg_lists: list[str]):
+    def __init__(self, command: str, *arg_lists: list):
         self._command = command
         self._argument_pools = []
 
