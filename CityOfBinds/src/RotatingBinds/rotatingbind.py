@@ -16,9 +16,6 @@ class RotatingBind(BFGPublisher, BindFileTemplate):
     def _create_nodes(self) -> list[BindFileNode]:
         count = 3 # TODO: implement unique count logic (2025/11/30) 
         nodes = [BindFileNode(index, self.build()) for index in range(count)]
-        print (f"Created {len(nodes)} nodes for rotating bind.")
-        for node in nodes:
-            print (f"Node {node.id} has bind file {node.bind_file}.")
         return nodes
 
     def _link_nodes(self, bfg: BindFileGraph, nodes: list[BindFileNode]):
