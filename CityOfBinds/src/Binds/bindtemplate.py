@@ -14,6 +14,9 @@ class BindTemplate(TriggerMixin, CommandsTemplate):
     def _build_one(self) -> Bind:
         return self.BIND_TYPE(self.trigger, super()._build_one())
 
+    def _get_unique_count(self):
+        return super()._get_unique_count()
+
 class WASDBindTemplate(BindTemplate):
     TRIGGER_TYPE = WASDTrigger
     BIND_TYPE = WASDBind

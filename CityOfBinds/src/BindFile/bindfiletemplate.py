@@ -18,3 +18,7 @@ class BindFileTemplate(ListTemplate):
         for bind_template in self.template:
             bind_file.add_bind(bind_template._build_one())
         return bind_file
+    
+    def _get_unique_count(self) -> int:
+        content_lengths = [content.unique_count for content in self.template]
+        return self._calculate_unique_count_from_lengths(content_lengths)

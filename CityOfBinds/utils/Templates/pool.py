@@ -69,5 +69,12 @@ class Pool:
         self._random_gen.shuffle(random_items)
         return random_items
 
+    def __repr__(self):
+        return f"{self.__class__.__name__}(name={self.name}, items={self.items}, select_behavior={self._select_type}, is_finite={self.is_finite}, random_seed={self.random_seed})"
+
     def __str__(self):
         return f"{TemplateConstants.ENCAPSULATION_LEFT}{self.name}{TemplateConstants.ENCAPSULATION_RIGHT}"
+    
+    def __len__(self):
+        return len(self.items)
+        

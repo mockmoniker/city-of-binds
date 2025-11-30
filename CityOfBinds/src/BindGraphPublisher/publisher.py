@@ -19,7 +19,7 @@ class BFGPublisher(ABC):
         """Write all bind files in the graph to the specified directory."""
         
         bfg = self._create_bind_file_graph()
-        path_gen = PathGenerator(bfg.number_of_nodes(), parent_directory=parent_folder_name)
+        path_gen = PathGenerator(bfg.number_of_nodes(), parent_directory=Path(directory)/Path(parent_folder_name))
 
         self._validate_graph_for_publishing(bfg)
 
@@ -39,21 +39,23 @@ class BFGPublisher(ABC):
         pass
 
     @abstractmethod
-    def _link_nodes(self, bfg: BindFileGraph, nodes: list[BindFileNode]):
+    def _create_edges(self, bfg: BindFileGraph, nodes: list[BindFileNode]):
         pass
 
     def _create_bind_file_graph(self) -> BindFileGraph:
-        bfg = BindFileGraph()
-
         nodes = self._create_nodes()
-        self._link_nodes(bfg, nodes)
+
+        bfg = BindFileGraph()
+        for node in nodes:
+            bfg.add_node(node)
+
+        self._create_edges(bfg, nodes)
         self._throw_error_if_insufficient_nodes(len(bfg.nodes()))
 
         return bfg
 
     def _link_bind_files(self, bfg: BindFileGraph, path_gen: PathGenerator):
         """Link bind file contents based on graph structure and conditions."""
-
         for node_id in bfg.nodes():
             bind_file = bfg.get_bind_file(node_id)
 

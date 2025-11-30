@@ -14,9 +14,8 @@ class RotatingBind(BFGPublisher, BindFileTemplate):
         self.is_circular = is_circular
     
     def _create_nodes(self) -> list[BindFileNode]:
-        count = 3 # TODO: implement unique count logic (2025/11/30) 
-        nodes = [BindFileNode(index, self.build()) for index in range(count)]
+        nodes = [BindFileNode(index, self.build()) for index in range(self.unique_count)]
         return nodes
 
-    def _link_nodes(self, bfg: BindFileGraph, nodes: list[BindFileNode]):
+    def _create_edges(self, bfg: BindFileGraph, nodes: list[BindFileNode]):
         bfg.chain_nodes(nodes, close_loop=self.is_circular, on_nodes=self.trigger_advance_list)
