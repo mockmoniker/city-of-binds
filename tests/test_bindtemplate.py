@@ -13,6 +13,6 @@ class TestBindTemplate:
         )
 
         # act/assert
-        assert str(bind_template.build()[0]) == '1 "powexectoggleoff super speed$$powexectoggleoff sprint$$powexectoggleon dark nova$$powexecname dark nova blast$$powexectoggleoff dark nova"'
-        assert str(bind_template.build()[0]) == '1 "powexectoggleoff super speed$$powexectoggleoff sprint$$powexectoggleon dark nova$$powexecname dark nova bolt$$powexectoggleoff dark nova"'
-        assert str(bind_template.build()[0]) == '1 "powexectoggleoff super speed$$powexectoggleoff sprint$$powexectoggleon dark nova$$powexecname dark nova emmanation$$powexectoggleoff dark nova"'
+        assert str(bind_template.build()) == '1 "powexectoggleoff super speed$$powexectoggleoff sprint$$powexectoggleon dark nova$$powexecname dark nova blast$$powexectoggleoff dark nova"'
+        assert str(bind_template.build()) == '1 "powexectoggleoff super speed$$powexectoggleoff sprint$$powexectoggleon dark nova$$powexecname dark nova bolt$$powexectoggleoff dark nova"'
+        assert str(bind_template.build()) == '1 "powexectoggleoff super speed$$powexectoggleoff sprint$$powexectoggleon dark nova$$powexecname dark nova emmanation$$powexectoggleoff dark nova"'

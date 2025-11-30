@@ -1,34 +1,52 @@
+import tempfile
+import shutil
 from abc import ABC, abstractmethod
 from pathlib import Path
 from CityOfBinds.src.Binds.bind import Bind
 from CityOfBinds.src.BindFile.constants import BindFileConstants
+from CityOfBinds.src.BindGraphPublisher.node import BindFileNode
 from CityOfBinds.src.BindGraphPublisher.graph import BindFileGraph
 from CityOfBinds.utils.pathgenerator import PathGenerator
+
+StrPath = str | Path
 
 class BFGPublisher(ABC):
     def __init__(self):
         """Initialize an empty directed graph."""
         self.is_silent = True
 
-    def publish(self, directory: str = "."):
+    def publish(self, parent_folder_name: str, directory: StrPath = "."): # TODO: check this directory/parent folder name nonsense (2025/11/30) 
         """Write all bind files in the graph to the specified directory."""
         
         bfg = self._create_bind_file_graph()
-        path_gen = PathGenerator(bfg.number_of_nodes(), parent_directory=directory)
+        path_gen = PathGenerator(bfg.number_of_nodes(), parent_directory=parent_folder_name)
 
         self._validate_graph_for_publishing(bfg)
 
         self._link_bind_files(bfg, path_gen)
         self._write_bind_files(bfg, path_gen)
 
+    def publish_to_zip(self, parent_folder_name: str, zip_file_path: StrPath):
+        """Publish bind files to a zip archive."""
+        zip_file_path = Path(zip_file_path)
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            self.publish(parent_folder_name, temp_dir)
+            shutil.make_archive(zip_file_path.with_suffix(''), 'zip', temp_dir)
+
     @abstractmethod
-    def _populate_graph_publisher(self, bfg: BindFileGraph):
+    def _create_nodes(self) -> list[BindFileNode]:
+        pass
+
+    @abstractmethod
+    def _link_nodes(self, bfg: BindFileGraph, nodes: list[BindFileNode]):
         pass
 
     def _create_bind_file_graph(self) -> BindFileGraph:
         bfg = BindFileGraph()
 
-        self._populate_graph_publisher(bfg)
+        nodes = self._create_nodes()
+        self._link_nodes(bfg, nodes)
         self._throw_error_if_insufficient_nodes(len(bfg.nodes()))
 
         return bfg

@@ -8,6 +8,7 @@ from .Binds.bind import Bind, WASDBind
 from .Binds.bindtemplate import BindTemplate
 from .BindFile.comments import Comment, CommentBanner
 from .BindFile.bindfile import BindFile
+from .BindFile.bindfiletemplate import BindFileTemplate
 from .RotatingBinds.rotatingbind import RotatingBind
 from ..utils.baseconverter import BaseConverter
 from ..utils.pathgenerator import PathGenerator
@@ -27,6 +28,7 @@ __all__ = ["Trigger",
            "Comment",
            "CommentBanner",
            "BindFile",
+           "BindFileTemplate",
            "RotatingBind",
            "BaseConverter",
            "PathGenerator",

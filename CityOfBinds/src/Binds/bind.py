@@ -87,12 +87,32 @@ class Bind(TriggerMixin, CommandGroupMixin): # TODO: deprecate CommandGroupMixin
 class WASDBind(Bind):
     TRIGGER_TYPE = WASDTrigger
 
-    # region Helper Methods
+    # region Override Methods
     def _build_bind_string(self) -> str:
         """Helper function to build the WASD bind string."""
-        movement_command = CommandGroup()
-        movement_command.prepend_movement(WASDTrigger.KEY_TO_DIRECTION_MAP[self.trigger.key])
+        movement_command = CommandGroup().add_movement(self._get_direction(self.trigger))
         commands_with_movement = movement_command + self.commands
-        return self._build_bind_string_from_components(trigger=self.trigger, commands=commands_with_movement)
+        return self._build_bind_string_from_components(self.trigger, commands_with_movement)
     
     # endregion
+
+    # region Helper Methods
+    def _get_direction(self, trigger: Trigger) -> str:
+        return WASDTrigger.KEY_TO_DIRECTION_MAP[trigger.key]
+
+    # endregion
+
+class iWASDBind(WASDBind):
+    # region Override Methods
+    def _get_direction(self, trigger: Trigger) -> set:
+        direction = super()._get_direction(trigger)
+        opposite_directions = {
+            "forward": "backward",
+            "backward": "forward",
+            "left": "right",
+            "right": "left"
+        }
+        return opposite_directions[direction]
+    
+    # endregion
+    

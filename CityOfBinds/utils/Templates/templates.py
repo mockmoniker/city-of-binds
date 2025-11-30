@@ -57,5 +57,7 @@ class ListTemplate():
                 new_list.append(item)
         return new_list
 
-    def build(self, count: int = 1) -> list[list]:
+    def build(self, count: int = 1) -> list[list] | list:
+        if count == 1:
+            return self._build_one()
         return [self._build_one() for _ in range(count)]

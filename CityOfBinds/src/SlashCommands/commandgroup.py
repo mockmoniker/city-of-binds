@@ -7,7 +7,7 @@ class _CommandList:
         self._commands = [SlashCommand(command) for command in commands] if commands is not None else []
 
     # region Basic List Methods
-    def add_command(self, command_string: str) -> Self:
+    def add_command(self, command_string: str) -> Self: # TODO: make this the only modification method, prepend and insert aren't necessary (2025/11/29) 
         """Add a command to the command group."""
         return self._do_list_method('append', command_string)
 
