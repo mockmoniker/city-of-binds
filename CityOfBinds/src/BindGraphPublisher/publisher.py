@@ -3,6 +3,7 @@ import shutil
 from abc import ABC, abstractmethod
 from pathlib import Path
 from CityOfBinds.src.Binds.bind import Bind
+from CityOfBinds.src.BindFile.bindfile import BindFile
 from CityOfBinds.src.BindFile.constants import BindFileConstants
 from CityOfBinds.src.BindGraphPublisher.node import BindFileNode
 from CityOfBinds.src.BindGraphPublisher.graph import BindFileGraph
@@ -23,7 +24,7 @@ class BFGPublisher(ABC):
 
         self._validate_graph_for_publishing(bfg)
 
-        self._link_bind_files(bfg, path_gen)
+        self._add_bind_links(bfg, path_gen)
         self._write_bind_files(bfg, path_gen)
 
     def publish_to_zip(self, parent_folder_name: str, zip_file_path: StrPath):
@@ -35,26 +36,26 @@ class BFGPublisher(ABC):
             shutil.make_archive(zip_file_path.with_suffix(''), 'zip', temp_dir)
 
     @abstractmethod
-    def _create_nodes(self) -> list[BindFileNode]:
+    def _indexed_bind_files(self) -> list[BindFile]:
         pass
 
     @abstractmethod
-    def _create_edges(self, bfg: BindFileGraph, nodes: list[BindFileNode]):
+    def _create_bind_file_links(self, bfg: BindFileGraph, bind_file_indexes: list[int]):
         pass
 
     def _create_bind_file_graph(self) -> BindFileGraph:
-        nodes = self._create_nodes()
-
         bfg = BindFileGraph()
-        for node in nodes:
-            bfg.add_node(node)
-
-        self._create_edges(bfg, nodes)
+        self._add_initial_nodes(bfg)
+        self._create_bind_file_links(bfg, list(bfg.nodes()))
         self._throw_error_if_insufficient_nodes(len(bfg.nodes()))
 
         return bfg
 
-    def _link_bind_files(self, bfg: BindFileGraph, path_gen: PathGenerator):
+    def _add_initial_nodes(self, bfg: BindFileGraph):
+        for bind_file in self._indexed_bind_files():
+            bfg.add_bind_file(bind_file)
+
+    def _add_bind_links(self, bfg: BindFileGraph, path_gen: PathGenerator):
         """Link bind file contents based on graph structure and conditions."""
         for node_id in bfg.nodes():
             bind_file = bfg.get_bind_file(node_id)

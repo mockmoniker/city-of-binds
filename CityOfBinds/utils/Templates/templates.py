@@ -57,7 +57,7 @@ class StringTemplate(_Template):
         if pools is not None:
             self.add_pools(pools)
 
-    def add_pool(self, pool: Pool) -> 'StringTemplate':
+    def add_pool(self, pool: Pool) -> 'StringTemplate': # TODO: is there need to add pools post init? Maybe delete (2025/11/30) 
         self.pool_dict[pool.name] = pool
         return self
 

@@ -1,12 +1,24 @@
 from typing import Self
+from enum import Enum
 from CityOfBinds.src.BindFile.bindfile import BindFile
 from CityOfBinds.utils.Templates import ListTemplate
+
+class AdvanceOnTriggerType(Enum):
+    INCLUDE = 1
+    EXCLUDE = 2
+    DEFAULT = 3
 
 class BindFileTemplate(ListTemplate):
     def __init__(self):
         ListTemplate.__init__(self, [])
+        self.include_triggers = []
+        self.exclude_triggers = []
 
-    def add_bind_template(self, bind_template) -> Self:
+    def add_bind_template(self, bind_template, advance_on_trigger: AdvanceOnTriggerType = AdvanceOnTriggerType.DEFAULT) -> Self:
+        if advance_on_trigger == AdvanceOnTriggerType.INCLUDE:
+            self.include_triggers.append(bind_template.trigger)
+        elif advance_on_trigger == AdvanceOnTriggerType.EXCLUDE:
+            self.exclude_triggers.append(bind_template.trigger)
         return self._add_content(bind_template)
 
     def _add_content(self, item) -> Self:

@@ -1,21 +1,25 @@
-from CityOfBinds.src.Binds.bind import Bind
-from CityOfBinds.src.BindFile.bindfile import BindFile
-from CityOfBinds.src.Triggers.trigger import Trigger
-from CityOfBinds.src.BindFile.bindfiletemplate import BindFileTemplate
-from CityOfBinds.src.BindGraphPublisher.node import BindFileNode
+from abc import abstractmethod
+from CityOfBinds.src.Binds.bindtemplate import BindTemplate
+from CityOfBinds.src.BindFile.bindfiletemplate import BindFileTemplate, AdvanceOnTriggerType
 from CityOfBinds.src.BindGraphPublisher.graph import BindFileGraph
 from CityOfBinds.src.BindGraphPublisher.publisher import BFGPublisher
 
-class RotatingBind(BFGPublisher, BindFileTemplate):
-    def __init__(self, trigger_advance_list: list[str] = None, is_circular: bool = True):
+class _GenericRotatingBind(BFGPublisher):
+    def __init__(self):
         BFGPublisher.__init__(self)
         BindFileTemplate.__init__(self)
-        self.trigger_advance_list = [Trigger(trigger) for trigger in trigger_advance_list] if trigger_advance_list is not None else []
-        self.is_circular = is_circular
-    
-    def _create_nodes(self) -> list[BindFileNode]:
-        nodes = [BindFileNode(index, self.build()) for index in range(self.unique_count)]
-        return nodes
+        self.bindfile_template = BindFileTemplate()
 
-    def _create_edges(self, bfg: BindFileGraph, nodes: list[BindFileNode]):
-        bfg.chain_nodes(nodes, close_loop=self.is_circular, on_nodes=self.trigger_advance_list)
+    def _indexed_bind_files(self):
+        return self.bindfile_template.build_all()
+
+    def add_bind_template(self, bind_template: BindTemplate, advance_on_trigger: AdvanceOnTriggerType = AdvanceOnTriggerType.DEFAULT):
+        self.bindfile_template.add_bind_template(bind_template, advance_on_trigger)
+        return self
+    
+class RotatingBind(_GenericRotatingBind):
+    def __init__(self):
+        _GenericRotatingBind.__init__(self)
+    
+    def _create_bind_file_links(self, bfg: BindFileGraph, bind_file_indexes: list[int]):
+        bfg.loop(bind_file_indexes)
