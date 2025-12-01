@@ -1,9 +1,9 @@
-from CityOfBinds.src.SlashCommands.power import Power
-from CityOfBinds.src.SlashCommands.commandgroup import (
+from CityOfBinds.src.slash_commands.power import Power
+from CityOfBinds.src.slash_commands.commandgroup import (
     CommandGroup,
     CommandGroupConstants,
 )
-from CityOfBinds.src.SlashCommands.commandfactory import CommandFactory
+from CityOfBinds.src.slash_commands.commandfactory import CommandFactory
 from CityOfBinds.utils.Templates.pool import Pool
 from CityOfBinds.utils.Templates.templates import ListTemplate
 

@@ -1,7 +1,7 @@
-from CityOfBinds.src.Binds.bind import Bind, WASDBind
-from CityOfBinds.src.Triggers.trigger import Trigger, WASDTrigger
-from CityOfBinds.src.Triggers.mixin import TriggerMixin
-from CityOfBinds.src.SlashCommands.commandstemplate import CommandsTemplate
+from CityOfBinds.src.binds.bind import Bind, WASDBind
+from CityOfBinds.src.triggers.trigger import Trigger, WASDTrigger
+from CityOfBinds.src.triggers.mixin import TriggerMixin
+from CityOfBinds.src.slash_commands.commandstemplate import CommandsTemplate
 
 
 class BindTemplate(TriggerMixin, CommandsTemplate):

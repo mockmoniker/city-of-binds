@@ -1,4 +1,4 @@
-from CityOfBinds.src.BindFile.bindfile import BindFile
+from CityOfBinds.src.bind_file.bindfile import BindFile
 
 
 class BindFileNode:

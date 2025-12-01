@@ -1,5 +1,5 @@
 import copy
-from CityOfBinds.src.Triggers.trigger import Trigger
+from CityOfBinds.src.triggers.trigger import Trigger
 
 
 class TriggerMixin:

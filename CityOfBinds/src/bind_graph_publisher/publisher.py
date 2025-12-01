@@ -2,11 +2,11 @@ import tempfile
 import shutil
 from abc import ABC, abstractmethod
 from pathlib import Path
-from CityOfBinds.src.Binds.bind import Bind
-from CityOfBinds.src.BindFile.bindfile import BindFile
-from CityOfBinds.src.BindFile.constants import BindFileConstants
-from CityOfBinds.src.BindGraphPublisher.node import BindFileNode
-from CityOfBinds.src.BindGraphPublisher.graph import BindFileGraph
+from CityOfBinds.src.binds.bind import Bind
+from CityOfBinds.src.bind_file.bindfile import BindFile
+from CityOfBinds.src.bind_file.constants import BindFileConstants
+from CityOfBinds.src.bind_graph_publisher.node import BindFileNode
+from CityOfBinds.src.bind_graph_publisher.graph import BindFileGraph
 from CityOfBinds.utils.pathgenerator import PathGenerator
 
 StrPath = str | Path

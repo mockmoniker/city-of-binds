@@ -1,8 +1,8 @@
 import random
-from CityOfBinds.src.Binds.bind import Bind
-from CityOfBinds.src.SlashCommands.slashcommand import Commands
-from CityOfBinds.src.BindFile.bindfile import BindFile, BindFileNode, BindFileGraph
-from CityOfBinds.src.BindFileGraphPublisher.publisher import BFGPublisher
+from CityOfBinds.src.binds.bind import Bind
+from CityOfBinds.src.slash_commands.slashcommand import Commands
+from CityOfBinds.src.bind_file.bindfile import BindFile, BindFileNode, BindFileGraph
+from CityOfBinds.src.bind_fileGraphPublisher.publisher import BFGPublisher
 
 
 class RandomWalk(BFGPublisher):

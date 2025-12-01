@@ -1,7 +1,7 @@
 import networkx as nx
 import copy
-from CityOfBinds.src.BindGraphPublisher.node import BindFileNode
-from CityOfBinds.src.BindFile.bindfile import BindFile
+from CityOfBinds.src.bind_graph_publisher.node import BindFileNode
+from CityOfBinds.src.bind_file.bindfile import BindFile
 
 
 class BindFileGraph(nx.DiGraph):

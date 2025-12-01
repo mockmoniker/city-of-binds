@@ -1,7 +1,7 @@
-from CityOfBinds.src.Triggers.trigger import Trigger, WASDTrigger
-from CityOfBinds.src.Triggers.mixin import TriggerMixin
-from CityOfBinds.src.SlashCommands.commandgroup import CommandGroup
-from CityOfBinds.src.SlashCommands.mixin import CommandGroupMixin
+from CityOfBinds.src.triggers.trigger import Trigger, WASDTrigger
+from CityOfBinds.src.triggers.mixin import TriggerMixin
+from CityOfBinds.src.slash_commands.commandgroup import CommandGroup
+from CityOfBinds.src.slash_commands.mixin import CommandGroupMixin
 
 
 class BindConstants:

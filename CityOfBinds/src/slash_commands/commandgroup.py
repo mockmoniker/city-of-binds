@@ -1,6 +1,6 @@
 from typing import Self
-from CityOfBinds.src.SlashCommands.slashcommand import SlashCommand
-from CityOfBinds.src.SlashCommands.power import Power
+from CityOfBinds.src.slash_commands.slashcommand import SlashCommand
+from CityOfBinds.src.slash_commands.power import Power
 
 
 class _CommandList:

@@ -1,11 +1,11 @@
 from abc import abstractmethod
-from CityOfBinds.src.Binds.bindtemplate import BindTemplate
-from CityOfBinds.src.BindFile.bindfiletemplate import (
+from CityOfBinds.src.binds.bindtemplate import BindTemplate
+from CityOfBinds.src.bind_file.bindfiletemplate import (
     BindFileTemplate,
     AdvanceOnTriggerType,
 )
-from CityOfBinds.src.BindGraphPublisher.graph import BindFileGraph
-from CityOfBinds.src.BindGraphPublisher.publisher import BFGPublisher
+from CityOfBinds.src.bind_graph_publisher.graph import BindFileGraph
+from CityOfBinds.src.bind_graph_publisher.publisher import BFGPublisher
 
 
 class _GenericRotatingBind(BFGPublisher):

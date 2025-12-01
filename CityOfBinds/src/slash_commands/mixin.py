@@ -1,5 +1,5 @@
 import copy
-from CityOfBinds.src.SlashCommands.commandgroup import CommandGroup
+from CityOfBinds.src.slash_commands.commandgroup import CommandGroup
 
 
 class CommandGroupMixin:
