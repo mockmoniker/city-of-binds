@@ -1,5 +1,6 @@
 from CityOfBinds import BaseConverter
 
+
 class TestInitialization:
     # region Valid Initialization Tests
     def test_init_should_use_default_alphabet_when_no_alphabet_is_provided(self):
@@ -19,6 +20,7 @@ class TestInitialization:
 
     # endregion
 
+
 class TestAlphabetProperty:
     # region Alphabet Setter Tests
     def test_alphabet_setter_should_set_alphabet_when_valid_alphabet_is_provided(self):
@@ -30,7 +32,9 @@ class TestAlphabetProperty:
         # assert
         assert indexer.alphabet == new_alphabet
 
-    def test_alphabet_setter_should_raise_value_error_when_empty_alphabet_is_provided(self):
+    def test_alphabet_setter_should_raise_value_error_when_empty_alphabet_is_provided(
+        self,
+    ):
         # arrange
         indexer = BaseConverter()
         empty_alphabet = ""
@@ -41,7 +45,9 @@ class TestAlphabetProperty:
         except ValueError as e:
             assert str(e) == "Alphabet cannot be empty."
 
-    def test_alphabet_setter_should_raise_value_error_when_non_unique_characters_are_provided(self):
+    def test_alphabet_setter_should_raise_value_error_when_non_unique_characters_are_provided(
+        self,
+    ):
         # arrange
         indexer = BaseConverter()
         non_unique_alphabet = "AABC"
@@ -53,6 +59,7 @@ class TestAlphabetProperty:
             assert str(e) == "Alphabet characters must be unique."
 
     # endregion
+
 
 class TestCustomBaseConverters:
     # region Custom Alphabet Tests
@@ -91,4 +98,3 @@ class TestCustomBaseConverters:
             assert indexer[index] == expected
 
     # endregion
-

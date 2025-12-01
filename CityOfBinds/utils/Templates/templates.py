@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from .pool import Pool
 from .constants import TemplateConstants
 
+
 class _Template(ABC):
     def __init__(self, template):
         self.template = template
@@ -30,7 +31,7 @@ class _Template(ABC):
 
     def build_all(self):
         return self.build(self.unique_count)
-    
+
     def build_sets(self, set_count: int):
         return self.build(set_count * self.unique_count)
 
@@ -44,9 +45,11 @@ class _Template(ABC):
         for length in unique_lengths:
             unique_count *= length
         return unique_count
-    
+
     def __repr__(self):
-        return f"{self.__class__.__name__}(template={self.template}, pools={self.pools})"
+        return (
+            f"{self.__class__.__name__}(template={self.template}, pools={self.pools})"
+        )
 
 
 class StringTemplate(_Template):
@@ -57,11 +60,15 @@ class StringTemplate(_Template):
         if pools is not None:
             self.add_pools(pools)
 
-    def add_pool(self, pool: Pool) -> 'StringTemplate': # TODO: is there need to add pools post init? Maybe delete (2025/11/30) 
+    def add_pool(
+        self, pool: Pool
+    ) -> (
+        "StringTemplate"
+    ):  # TODO: is there need to add pools post init? Maybe delete (2025/11/30)
         self.pool_dict[pool.name] = pool
         return self
 
-    def add_pools(self, pools: list[Pool]) -> 'StringTemplate':
+    def add_pools(self, pools: list[Pool]) -> "StringTemplate":
         for pool in pools:
             self.add_pool(pool)
         return self
@@ -77,7 +84,7 @@ class StringTemplate(_Template):
             pool = self.pool_dict[placeholder_name]
             item = pool.pop()
             return str(item) if item is not None else ""
-        
+
         result_string = placeholder_pattern.sub(replace_placeholder, self.template)
         return result_string
 

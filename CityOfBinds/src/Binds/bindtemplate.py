@@ -3,6 +3,7 @@ from CityOfBinds.src.Triggers.trigger import Trigger, WASDTrigger
 from CityOfBinds.src.Triggers.mixin import TriggerMixin
 from CityOfBinds.src.SlashCommands.commandstemplate import CommandsTemplate
 
+
 class BindTemplate(TriggerMixin, CommandsTemplate):
     BIND_TYPE = Bind
 
@@ -16,6 +17,7 @@ class BindTemplate(TriggerMixin, CommandsTemplate):
 
     def _get_unique_count(self):
         return super()._get_unique_count()
+
 
 class WASDBindTemplate(BindTemplate):
     TRIGGER_TYPE = WASDTrigger

@@ -4,9 +4,12 @@ from CityOfBinds.src.SlashCommands.slashcommand import Commands
 from CityOfBinds.src.BindFile.bindfile import BindFile, BindFileNode, BindFileGraph
 from CityOfBinds.src.BindFileGraphPublisher.publisher import BFGPublisher
 
+
 class RandomWalk(BFGPublisher):
 
-    def __init__(self, wasd_template: list = None, jump_template: list = None, *args, **kwargs):
+    def __init__(
+        self, wasd_template: list = None, jump_template: list = None, *args, **kwargs
+    ):
         self.wasd_template = wasd_template
         self.jump_template = jump_template
 

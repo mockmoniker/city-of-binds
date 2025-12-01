@@ -2,10 +2,12 @@ import random
 from enum import Enum
 from .constants import TemplateConstants
 
+
 class SelectionType(Enum):
     SEQUENTIAL = 0
     RANDOM = 1
     RANDOM_ORDER = 2
+
 
 class Pool:
     DEFAULT_SELECT_BEHAVIOR = SelectionType.SEQUENTIAL
@@ -13,15 +15,17 @@ class Pool:
     DEFAULT_RANDOM_SEED = 0xDEADBEEF
 
     def __init__(
-        self, 
-        name: str, 
-        items: list, 
-        select_behavior: SelectionType = DEFAULT_SELECT_BEHAVIOR, 
+        self,
+        name: str,
+        items: list,
+        select_behavior: SelectionType = DEFAULT_SELECT_BEHAVIOR,
         is_finite: bool = DEFAULT_IS_FINITE,
         random_seed: int = DEFAULT_RANDOM_SEED,
     ):
         self.name: str = name
-        self.items: list = items # TODO: verify list input, decide if it should be mutable (2025/11/27) 
+        self.items: list = (
+            items  # TODO: verify list input, decide if it should be mutable (2025/11/27)
+        )
         self.is_finite: bool = is_finite
         self._select_type: SelectionType = select_behavior
         self.random_seed: int = random_seed
@@ -39,7 +43,7 @@ class Pool:
         if item is not None:
             self._pop_update()
         return item
-    
+
     def peek(self):
         if self._select_type == SelectionType.RANDOM:
             self._random_gen.seed(self._access_count + self.random_seed)
@@ -50,12 +54,14 @@ class Pool:
 
         if self._select_type == SelectionType.SEQUENTIAL:
             return self.items[self._access_count % len(self.items)]
-        
+
         if self._select_type == SelectionType.RANDOM_ORDER:
-            """ creates a new random list whenever random list is exhausted """
+            """creates a new random list whenever random list is exhausted"""
             return self._random_items[self._access_count % len(self.items)]
 
-    def set_select_behavior(self, behavior: SelectionType): # TODO: do I really want this value to be updated? Does it cause weird behavior as is? (2025/11/27) 
+    def set_select_behavior(
+        self, behavior: SelectionType
+    ):  # TODO: do I really want this value to be updated? Does it cause weird behavior as is? (2025/11/27)
         self._select_type = behavior
 
     def _pop_update(self):
@@ -74,7 +80,6 @@ class Pool:
 
     def __str__(self):
         return f"{TemplateConstants.ENCAPSULATION_LEFT}{self.name}{TemplateConstants.ENCAPSULATION_RIGHT}"
-    
+
     def __len__(self):
         return len(self.items)
-        

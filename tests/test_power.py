@@ -1,6 +1,7 @@
 import pytest
 from CityOfBinds import Power
 
+
 class TestInitialization:
     # region Valid Initialization Tests
 

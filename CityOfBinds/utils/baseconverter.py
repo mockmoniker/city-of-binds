@@ -1,7 +1,9 @@
 from functools import lru_cache
 
+
 class BaseConverter:
-    """ Converts numerical indices to string representations using a configurable alphabet. """
+    """Converts numerical indices to string representations using a configurable alphabet."""
+
     DEFAULT_ALPHABET = "0123456789ABCDEF"
 
     def __init__(self, alphabet: str = DEFAULT_ALPHABET):
@@ -31,7 +33,7 @@ class BaseConverter:
         return self._cached_convert(number, to_alphabet or self._alphabet)
 
     def _convert(self, number: int, to_alphabet: str) -> str:
-        """ Get the string representation of the given number. """
+        """Get the string representation of the given number."""
         if number == 0:
             return to_alphabet[0]
 
@@ -41,7 +43,7 @@ class BaseConverter:
             digits.append(to_alphabet[remainder])
         digits.reverse()
 
-        return ''.join(digits)
+        return "".join(digits)
 
     # endregion
 
@@ -72,5 +74,5 @@ class BaseConverter:
     # region Dunder Methods
     def __getitem__(self, number: int) -> str:
         return self.convert(number)
-        
+
     # endregion
