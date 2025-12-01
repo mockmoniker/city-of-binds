@@ -1,39 +1,23 @@
-from CityOfBinds.trigger import Trigger, WASDTrigger
-from CityOfBinds.commandgroup import CommandGroup
+from CityOfBinds.src.Triggers.trigger import Trigger, WASDTrigger
+from CityOfBinds.src.Triggers.mixin import TriggerMixin
+from CityOfBinds.src.SlashCommands.commandgroup import CommandGroup
+from CityOfBinds.src.SlashCommands.mixin import CommandGroupMixin
 
 class BindConstants:
-    MAX_BIND_LENGTH = 255
-
-class Bind:
-    TRIGGER_TYPE = Trigger
-
-    # Initialization
-    def __init__(self, trigger_string: str, commands_string_list: list[str] = None):
+    MAX_BIND_LENGTH = 255 # TODO: verify if 255 is command max or full bind max (2025/11/27) 
+    
+class Bind(TriggerMixin, CommandGroupMixin): # TODO: deprecate CommandGroupMixin? Bind should maybe just be a commandGroup with trigger (2025/11/29) 
+    def __init__(
+        self,
+        trigger: Trigger | str,
+        commands: CommandGroup | list[str] = None
+    ):
+        super().__init__()
         """Initialize the bind with a trigger and slash command list."""
-        self._trigger = None
-        self._commands = None
-
-        self.trigger = trigger_string
-        self.commands = commands_string_list if commands_string_list is not None else []
+        self.trigger = trigger
+        self.commands = commands if commands is not None else CommandGroup()
 
     # region Bind Properties
-    @property
-    def trigger(self) -> Trigger:
-        return self._trigger
-    
-    @trigger.setter
-    def trigger(self, trigger_string: str):
-        self._throw_error_if_missing_trigger(trigger_string)
-        self._trigger = self.TRIGGER_TYPE(trigger_string)
-    
-    @property
-    def commands(self) -> CommandGroup:
-        return self._commands
-    
-    @commands.setter
-    def commands(self, commands_string_list: list[str]):
-        self._commands = CommandGroup(commands_string_list)
-
     @property
     def bind_string(self) -> str:
         return self._build_bind_string()
@@ -71,11 +55,6 @@ class Bind:
     # endregion
 
     # region Error Checking Methods
-    def _throw_error_if_missing_trigger(self, trigger_string: str):
-        """Helper function to ensure a trigger string is provided."""
-        if not trigger_string:
-            raise ValueError("Bind must have a trigger.")
-
     def _throw_error_if_empty_bind(self):
         """Helper function to ensure the commands list is not empty."""
         if self.is_empty():
@@ -108,12 +87,32 @@ class Bind:
 class WASDBind(Bind):
     TRIGGER_TYPE = WASDTrigger
 
-    # region Helper Methods
+    # region Override Methods
     def _build_bind_string(self) -> str:
         """Helper function to build the WASD bind string."""
-        movement_command = CommandGroup()
-        movement_command.prepend_movement(WASDTrigger.KEY_TO_DIRECTION_MAP[self.trigger.key])
+        movement_command = CommandGroup().add_movement(self._get_direction(self.trigger))
         commands_with_movement = movement_command + self.commands
-        return self._build_bind_string_from_components(trigger=self.trigger, commands=commands_with_movement)
+        return self._build_bind_string_from_components(self.trigger, commands_with_movement)
     
     # endregion
+
+    # region Helper Methods
+    def _get_direction(self, trigger: Trigger) -> str:
+        return WASDTrigger.KEY_TO_DIRECTION_MAP[trigger.key]
+
+    # endregion
+
+class iWASDBind(WASDBind):
+    # region Override Methods
+    def _get_direction(self, trigger: Trigger) -> set:
+        direction = super()._get_direction(trigger)
+        opposite_directions = {
+            "forward": "backward",
+            "backward": "forward",
+            "left": "right",
+            "right": "left"
+        }
+        return opposite_directions[direction]
+    
+    # endregion
+    

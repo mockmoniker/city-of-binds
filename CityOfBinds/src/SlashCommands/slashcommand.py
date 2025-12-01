@@ -607,9 +607,12 @@ class SlashCommand:
     VALID_PREFIXES: Set[str] = set(['-', '+', '--', '++'])
 
     ### Initialization
-    def __init__ (self, command_string: str):
+    def __init__ (self, command: 'str | SlashCommand'):
         """Initialize the command with a string."""
-        formatted_command_string = self._lowercase_first_word(command_string)
+        if isinstance(command, SlashCommand):
+            self._command_string = str(command)
+            return
+        formatted_command_string = self._lowercase_first_word(command)
         self._throw_error_if_invalid_command_string(formatted_command_string)
         self._command_string = formatted_command_string
 

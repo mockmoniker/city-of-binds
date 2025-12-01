@@ -1,47 +1,45 @@
-from CityOfBinds import RotatingBind, Bind
-
-class TestInitialization:
-    def test_init_should_accept_binds_list(self):
-        # arrange
-        binds = []
-        # act
-        rotating_bind = RotatingBind(binds)
-        # assert
-        assert rotating_bind.binds == binds
-
-    def test_init_should_accept_is_circular_flag(self):
-        # arrange
-        binds = []
-        is_circular = False
-        # act
-        rotating_bind = RotatingBind(binds, is_circular)
-        # assert
-        assert rotating_bind.is_circular == is_circular
+import os
+from pathlib import Path
+from CityOfBinds import RotatingBind, BindTemplate
 
 class TestFileCreation:
-    def test_simple_rotating_bind_file_creation(self, tmp_path):
-        # arrange
-        binds = [
-            Bind('H', ['say Hello!']),
-            Bind('H', ['say Howdy!']),
-            Bind('H', ['say Yo!']),
-            Bind('H', ['say Hey there!']),
-        ]
-        rotating_bind = RotatingBind(binds)
+    def test_simple_rotating_bind_file_creation(self, in_tmp_dir):
+        # assemble
+        powers = ["dark nova blast", "dark Nova bolt", "dark nova emmanation"]
+        attack_bind_template = (BindTemplate("Q")
+            .add_toggle_off_power("super speed")
+            .add_toggle_off_power("sprint")
+            .add_toggle_on_power("dark nova")
+            .add_power_pool(powers)
+            .add_toggle_off_power("dark nova")
+        )
+        rotating_bind = (RotatingBind()
+            .add_bind_template(attack_bind_template)
+        )
         # act
-        rotating_bind.publish(tmp_path / "hello")
-        # assert
+        rotating_bind.publish(parent_folder_name="my_rotate_bind")
+
         expected_files = [
-            tmp_path / "hello/0.txt",
-            tmp_path / "hello/1.txt",
-            tmp_path / "hello/2.txt",
-            tmp_path / "hello/3.txt",
+            "my_rotate_bind/0.txt",
+            "my_rotate_bind/1.txt",
+            "my_rotate_bind/2.txt",
         ]
+
         for file_path in expected_files:
-            assert file_path.exists()
+            assert Path(file_path).exists()
+
         with open(expected_files[0], 'r') as f:
             contents = f.read()
-        assert f'H "say Hello!$$bindloadfilesilent {str(tmp_path)}/hello/1.txt"' in contents
-        with open(expected_files[3], 'r') as f:
+        assert contents == 'Q "powexectoggleoff super speed$$powexectoggleoff sprint$$powexectoggleon dark nova$$powexecname dark nova blast$$powexectoggleoff dark nova$$bindloadfilesilent my_rotate_bind/1.txt"'
+
+        with open(expected_files[1], 'r') as f:
             contents = f.read()
-        assert f'H "say Hey there!$$bindloadfilesilent {str(tmp_path)}/hello/0.txt"' in contents
+        assert contents == 'Q "powexectoggleoff super speed$$powexectoggleoff sprint$$powexectoggleon dark nova$$powexecname dark nova bolt$$powexectoggleoff dark nova$$bindloadfilesilent my_rotate_bind/2.txt"'
+
+        with open(expected_files[2], 'r') as f:
+            contents = f.read()
+        assert contents == 'Q "powexectoggleoff super speed$$powexectoggleoff sprint$$powexectoggleon dark nova$$powexecname dark nova emmanation$$powexectoggleoff dark nova$$bindloadfilesilent my_rotate_bind/0.txt"'
+
+        #assert str(bind_template.build()[0]) == '1 "powexectoggleoff super speed$$powexectoggleoff sprint$$powexectoggleon dark nova$$powexecname dark nova blast$$powexectoggleoff dark nova"'
+        #assert str(bind_template.build()[0]) == '1 "powexectoggleoff super speed$$powexectoggleoff sprint$$powexectoggleon dark nova$$powexecname dark nova bolt$$powexectoggleoff dark nova"'
+        #assert str(bind_template.build()[0]) == '1 "powexectoggleoff super speed$$powexectoggleoff sprint$$powexectoggleon dark nova$$powexecname dark nova emmanation$$powexectoggleoff dark nova"'

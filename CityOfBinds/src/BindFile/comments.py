@@ -1,5 +1,3 @@
-import re
-
 class Comment:
     DEFAULT_ALIGNMENT = 'left'
     TEXT_ALIGNMENT_MAPPINGS = {

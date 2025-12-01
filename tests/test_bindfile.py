@@ -1,6 +1,6 @@
 import pytest
 from CityOfBinds import BindFile, Bind
-from CityOfBinds.comments import CommentBanner
+from CityOfBinds import CommentBanner
 
 class TestBindFilePreview:
     bindfile_under_test = BindFile

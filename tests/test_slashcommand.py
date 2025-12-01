@@ -159,7 +159,7 @@ class TestValidSlashCommandInitialization:
         # arrange
         valid_command_string = 'powexectoggleon dark nova'
         # act
-        action = self.action_under_test(command_string=valid_command_string)
+        action = self.action_under_test(valid_command_string)
         # assert
         assert str(action) == 'powexectoggleon dark nova'
 
@@ -167,7 +167,7 @@ class TestValidSlashCommandInitialization:
         # arrange
         valid_command_string = 'powexectoggleon dark nova'
         # act
-        action = self.action_under_test(command_string=valid_command_string)
+        action = self.action_under_test(valid_command_string)
         # assert
         assert action.command == 'powexectoggleon'
 
@@ -175,7 +175,7 @@ class TestValidSlashCommandInitialization:
         # arrange
         valid_command_string = 'powexectoggleon dark nova'
         # act
-        action = self.action_under_test(command_string=valid_command_string)
+        action = self.action_under_test(valid_command_string)
         # assert
         assert action.args == 'dark nova'
 
@@ -183,7 +183,7 @@ class TestValidSlashCommandInitialization:
         # arrange
         uppercase_command = 'POWEXECTOGGLEON dark nova'
         # act
-        action = self.action_under_test(command_string=uppercase_command)
+        action = self.action_under_test(uppercase_command)
         # assert
         assert str(action) == 'powexectoggleon dark nova'
 
@@ -191,7 +191,7 @@ class TestValidSlashCommandInitialization:
         # arrange
         uppercase_command = 'POWEXECTOGGLEON dark nova'
         # act
-        action = self.action_under_test(command_string=uppercase_command)
+        action = self.action_under_test(uppercase_command)
         # assert
         assert action.command == 'powexectoggleon'
 
@@ -199,7 +199,7 @@ class TestValidSlashCommandInitialization:
         # arrange
         uppercase_command_string = 'POWEXECTOGGLEON DARK NOVA'
         # act
-        action = self.action_under_test(command_string=uppercase_command_string)
+        action = self.action_under_test(uppercase_command_string)
         # assert
         assert action.args == 'DARK NOVA'
 
@@ -207,7 +207,7 @@ class TestValidSlashCommandInitialization:
         # arrange
         valid_command_string = 'forward'
         # act
-        action = self.action_under_test(command_string=valid_command_string)
+        action = self.action_under_test(valid_command_string)
         # assert
         assert str(action) == 'forward'
 
@@ -215,7 +215,7 @@ class TestValidSlashCommandInitialization:
         # arrange
         valid_command_string = 'forward'
         # act
-        action = self.action_under_test(command_string=valid_command_string)
+        action = self.action_under_test(valid_command_string)
         # assert
         assert action.command == 'forward'
 
@@ -223,7 +223,7 @@ class TestValidSlashCommandInitialization:
         # arrange
         valid_command_string = 'forward'
         # act
-        action = self.action_under_test(command_string=valid_command_string)
+        action = self.action_under_test(valid_command_string)
         # assert
         assert action.args == ''
 
@@ -235,7 +235,7 @@ class TestInvalidSlashCommandInitialization:
         invalid_command_string = ''
         # act
         with pytest.raises(ValueError) as excinfo:
-            self.action_under_test(command_string=invalid_command_string)
+            self.action_under_test(invalid_command_string)
         # assert
         assert "Invalid command format" in str(excinfo.value)
 
@@ -244,7 +244,7 @@ class TestInvalidSlashCommandInitialization:
         invalid_command_string = '   '
         # act
         with pytest.raises(ValueError) as excinfo:
-            self.action_under_test(command_string=invalid_command_string)
+            self.action_under_test(invalid_command_string)
         # assert
         assert "Invalid command format" in str(excinfo.value)
 
@@ -253,7 +253,7 @@ class TestInvalidSlashCommandInitialization:
         invalid_command_string = 'powexectoggleon     dark nova'
         # act
         with pytest.raises(ValueError) as excinfo:
-            self.action_under_test(command_string=invalid_command_string)
+            self.action_under_test(invalid_command_string)
         # assert
         assert "Invalid command format" in str(excinfo.value)
 

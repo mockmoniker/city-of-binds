@@ -253,27 +253,3 @@ class WASDTrigger(Trigger):
         raise ValueError(f"Unknown trigger key '{key}'. Valid WASD keys are: {', '.join(self.VALID_KEYS)}")
     
     # endregion
-
-class TriggerMixin:
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._trigger = None
-    
-    @property
-    def trigger(self) -> Trigger:
-        return self._trigger
-    
-    @trigger.setter
-    def trigger(self, value):
-        if isinstance(value, str):
-            self._trigger = self._create_trigger_from_string(value)
-        elif isinstance(value, Trigger):
-            self._trigger = value
-        elif value is None:
-            self._trigger = None
-        else:
-            raise TypeError(f"Expected str, Trigger, or None, got {type(value)}")
-    
-    def _create_trigger_from_string(self, trigger_string: str) -> Trigger:
-        trigger_class = getattr(self, 'TRIGGER_TYPE', Trigger)
-        return trigger_class(trigger_string)
