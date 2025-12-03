@@ -1,12 +1,13 @@
 import math
-from pathlib import Path
 from typing import Union
+from pathlib import Path
 from functools import cache
-from CityOfBinds.utils.baseconverter import BaseConverter
+from .baseconverter import BaseConverter
+from ..utils.types import StrPath
 
 
 class PathGenerator:
-    DEFAULT_PARENT_DIRECTORY = "."
+    DEFAULT_PARENT_FOLDER_NAME = ""
     DEFAULT_MAX_FILES_PER_FOLDER = 256
     DEFAULT_PADDING_BEHAVIOR = True
 
@@ -15,13 +16,13 @@ class PathGenerator:
     def __init__(
         self,
         file_count: int,
-        parent_directory: Union[str, Path] = DEFAULT_PARENT_DIRECTORY,
+        parent_folder_name: StrPath = DEFAULT_PARENT_FOLDER_NAME,
         max_files_per_folder: int = DEFAULT_MAX_FILES_PER_FOLDER,
         enable_padding: bool = DEFAULT_PADDING_BEHAVIOR,
         path_alphabet: str = None,
     ):
         self._file_count = file_count
-        self._parent_directory = Path(parent_directory)
+        self._parent_folder = Path(parent_folder_name)
         self._max_files_per_folder = max_files_per_folder
         self._enable_padding = enable_padding
         self._base_converter = (
@@ -62,7 +63,7 @@ class PathGenerator:
 
     @cache
     def _get_full_path(self, file_index: int) -> Path:
-        return self._parent_directory / self._get_relative_path(file_index)
+        return self._parent_folder / self._get_relative_path(file_index)
 
     def _get_relative_path(self, file_index: int) -> Path:
         path_parts = self._make_path_parts(file_index)
