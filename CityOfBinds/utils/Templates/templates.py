@@ -1,4 +1,5 @@
 import re
+import math
 from abc import ABC, abstractmethod
 from .pool import Pool
 from .constants import TemplateConstants
@@ -40,11 +41,9 @@ class _Template(ABC):
         return self._calculate_unique_count_from_lengths(pool_lengths)
 
     def _calculate_unique_count_from_lengths(self, lengths: list[int]) -> int:
-        unique_lengths = set(lengths)
-        unique_count = 1
-        for length in unique_lengths:
-            unique_count *= length
-        return unique_count
+        if not lengths:
+            return 1
+        return math.lcm(*lengths)
 
     def __repr__(self):
         return (

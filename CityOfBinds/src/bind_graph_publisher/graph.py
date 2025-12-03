@@ -4,6 +4,13 @@ from CityOfBinds.src.bind_graph_publisher.node import BindFileNode
 from CityOfBinds.src.bind_file.bindfile import BindFile
 
 
+trigger_conditions = {
+    "on_trigger": {"Q", "E", "SPACE"},
+    "fast_triggers": {"Q", "E"},
+    "not_on_trigger": {},
+}
+
+
 class BindFileGraph(nx.DiGraph):
     def __init__(self):
         super().__init__()
@@ -70,7 +77,7 @@ class BindFileGraph(nx.DiGraph):
             self.remove_edge(source_bind_file_index, target_bind_file_index)
         except nx.NetworkXError as e:
             raise ValueError(
-                f"No link to subdivide between bind file '{self.get_bind_file(source_bind_file_index)}' and bind file '{self.get_bind_file(target_bind_file_index)}' to subdivide."
+                f"No link to subdivide between bind file '{self.get_bind_file(source_bind_file_index)}' and bind file '{self.get_bind_file(target_bind_file_index)}'."
             ) from e
 
         new_bind_file_index = self.number_of_nodes()

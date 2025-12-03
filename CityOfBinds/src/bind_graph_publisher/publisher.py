@@ -1,6 +1,7 @@
 import tempfile
 import shutil
 from abc import ABC, abstractmethod
+from typing import Type, Protocol, Callable, Iterator
 from pathlib import Path
 from CityOfBinds.src.binds.bind import Bind
 from CityOfBinds.src.bind_file.bindfile import BindFile
@@ -10,6 +11,139 @@ from CityOfBinds.src.bind_graph_publisher.graph import BindFileGraph
 from CityOfBinds.utils.pathgenerator import PathGenerator
 
 StrPath = str | Path
+
+
+class FileGraphProtocol(Protocol):
+    def out_edges(self, node_id: int, data: bool = False) -> Iterator[tuple]: ...
+
+
+class PathFactoryProtocol(Protocol):
+    def __getitem__(self, index: int) -> Path: ...
+
+
+class _FileGraphPublisher(ABC):
+    def __init__(
+        self,
+        path_factory: Callable[[int, StrPath], PathFactoryProtocol] = PathGenerator,
+        absolute_path_links: bool = False,
+    ):
+        self._Path_Factory = path_factory
+        self.absolute_path_links = absolute_path_links
+
+    def publish_files(
+        self,
+        indexed_files: list,
+        file_graph: FileGraphProtocol,
+        directory: StrPath = ".",
+        parent_folder: str = "",
+    ):
+        paths = self._create_paths(len(indexed_files), directory, parent_folder)
+        self._link_files(indexed_files, file_graph, paths)
+        self._write_files(indexed_files, directory, paths)
+
+    def _create_paths(
+        self, file_count: int, directory: StrPath, parent_folder: str
+    ) -> PathFactoryProtocol:
+        if self.absolute_path_links:
+            # TODO: test this resolve function, see if needed in my scenario (2025/12/01)
+            parent_folder = Path(directory).resolve() / parent_folder
+        return self._Path_Factory(file_count, parent_folder)
+
+    def _link_files(self, files: list, file_graph, paths):
+        for file_index, source_file in enumerate(files):
+            for _, target_index, edge_data in file_graph.out_edges(
+                file_index, data=True
+            ):
+                target_file = files[target_index]
+                self._link_file(
+                    source_file, target_file, paths[target_index], edge_data
+                )
+
+    def _write_files(
+        self,
+        files: list,
+        directory: StrPath,
+        paths,
+    ):
+        for file_index, file in enumerate(files):
+            file_path = paths[file_index]
+            self._write_file(file, directory / file_path)
+
+    @abstractmethod
+    def _link_file(
+        self, source_file, target_file, target_file_path: StrPath, edge_data: dict
+    ):
+        pass
+
+    @abstractmethod
+    def _write_file(self, file, path: StrPath):
+        pass
+
+
+class BFGPublisher2(_FileGraphPublisher):
+    def __init__(
+        self,
+        is_silent: bool = True,
+        absolute_path_links: bool = False,
+    ):
+        self.is_silent = is_silent
+        super().__init__(absolute_path_links=absolute_path_links)
+
+    def _link_file(
+        self,
+        source_bind_file: BindFile,
+        target_bind_file: BindFile,
+        target_file_path: StrPath,
+        edge_data: dict,
+    ):
+        self._update_source_bind_file(source_bind_file, target_file_path, edge_data)
+        self._update_target_bind_file(target_bind_file, edge_data)
+
+    def _update_source_bind_file(
+        self,
+        source_bind_file: BindFile,
+        target_file_path: StrPath,
+        edge_data: dict,
+    ):
+        for bind in source_bind_file.binds:
+            if self._should_link_bind(bind, edge_data):
+                self._link_bind(bind, target_file_path)
+
+    def _should_link_bind(self, bind: Bind, edge_data: dict[str:any]) -> bool:
+        # Placeholder for condition checking logic
+        if edge_data is None:
+            return True
+
+        if "on_triggers" in edge_data:
+            return bind.trigger in edge_data["on_triggers"]
+
+        if "not_on_triggers" in edge_data:
+            return bind.trigger not in edge_data["not_on_triggers"]
+
+        return True
+
+    def _link_bind(self, bind: Bind, target_file_path: StrPath):
+        if self.is_silent:
+            bind.commands.add_bind_load_file_silent(
+                Path(target_file_path).with_suffix(BindFileConstants.EXTENSION)
+            )
+        else:
+            bind.commands.add_bind_load_file(
+                Path(target_file_path).with_suffix(BindFileConstants.EXTENSION)
+            )
+
+    def _update_target_bind_file(self, target_bind_file: BindFile, edge_data: dict):
+        if "key_up_triggers" not in edge_data or not edge_data["key_up_triggers"]:
+            return
+
+        for bind in target_bind_file.binds:
+            if bind.trigger in edge_data["key_up_triggers"]:
+                bind.trigger_on_key_up = (
+                    True  # TODO: implement this on bind (2025/12/01)
+                )
+
+    def _write_file(self, bind_file: BindFile, path: StrPath):
+        bind_file.write_to_file(Path(path))
 
 
 class BFGPublisher(ABC):
@@ -42,7 +176,7 @@ class BFGPublisher(ABC):
             shutil.make_archive(zip_file_path.with_suffix(""), "zip", temp_dir)
 
     @abstractmethod
-    def _indexed_bind_files(self) -> list[BindFile]:
+    def _build_and_order_bind_files(self) -> list[BindFile]:
         pass
 
     @abstractmethod
@@ -58,7 +192,7 @@ class BFGPublisher(ABC):
         return bfg
 
     def _add_initial_nodes(self, bfg: BindFileGraph):
-        for bind_file in self._indexed_bind_files():
+        for bind_file in self._build_and_order_bind_files():
             bfg.add_bind_file(bind_file)
 
     def _add_bind_links(self, bfg: BindFileGraph, path_gen: PathGenerator):

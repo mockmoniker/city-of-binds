@@ -17,7 +17,7 @@ class TestFileCreation:
         )
         rotating_bind = RotatingBind().add_bind_template(attack_bind_template)
         # act
-        rotating_bind.publish(parent_folder_name="my_rotate_bind")
+        rotating_bind.publish_bind_files(parent_folder_name="my_rotate_bind")
 
         expected_files = [
             "my_rotate_bind/0.txt",
