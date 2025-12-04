@@ -3,10 +3,10 @@ from .trigger import Trigger
 
 
 class TriggerMixin:
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, trigger: str):
         self._trigger = None
         self._trigger_class = getattr(self, "TRIGGER_TYPE", Trigger)
+        self.trigger = trigger
 
     @property
     def trigger(self) -> Trigger:

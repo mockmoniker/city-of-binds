@@ -1,15 +1,13 @@
 from typing import Self
-from .slash_command import SlashCommand
-from ..powers import Power
+from ..slash_command import SlashCommand
+from ...powers import Power
 
 
-class _CommandList:
-    def __init__(self, commands: list[SlashCommand | str] = None):
-        self._commands = (
-            [SlashCommand(command) for command in commands]
-            if commands is not None
-            else []
-        )
+class CommandGroup:
+    COMMAND_DELIM = "$$"
+
+    def __init__(self, commands: list[str] = None):
+        self._commands = [SlashCommand(cmd) for cmd in commands] if commands else []
 
     # region Basic List Methods
     def add_command(
@@ -412,6 +410,14 @@ class _CommandList:
             f"{CommandGroupConstants.CC_EMOTE} {cc_slot} {emote_string}"
         )
 
+    def _build_command_string(self) -> str:
+        return self._build_command_string_from_components(self._commands)
+
+    def _build_command_string_from_components(
+        self, commands: list[SlashCommand]
+    ) -> str:
+        return f'"{CommandGroup.COMMAND_DELIM.join(str(cmd) for cmd in commands)}"'
+
     # region Dunder Methods
     def __iter__(self):
         return iter(self._commands)
@@ -425,14 +431,14 @@ class _CommandList:
     def __len__(self):
         return len(self._commands)
 
-    def __add__(self, other: "_CommandList") -> Self:
+    def __add__(self, other: "CommandGroup") -> Self:
         new_command_group = self.__class__()  # Creates same type as caller
         new_command_group._commands = self._commands + other._commands
         return new_command_group
 
     def __eq__(self, other):
         """Override the default equality operator."""
-        if not isinstance(other, _CommandList):
+        if not isinstance(other, CommandGroup):
             return False
         if len(self) != len(other):
             return False
@@ -440,6 +446,14 @@ class _CommandList:
             if str(cmd_self) != str(cmd_other):
                 return False
         return True
+
+    def __repr__(self) -> str:
+        """Override the default representation."""
+        return f"{self.__class__.__name__}(commands={self._commands})"
+
+    def __str__(self) -> str:
+        """Override the default string representation."""
+        return self._build_command_string()
 
     # endregion
 
@@ -479,21 +493,3 @@ class CommandGroupConstants:
         "right": "+right",
         "up": "+up",
     }
-
-
-class CommandGroup(_CommandList):
-    COMMAND_DELIM = "$$"
-
-    """A class representing a group of commands"""
-
-    def __init__(self, commands: list[SlashCommand | str] = None):
-        super().__init__(commands)
-
-    # region Dunder Methods
-    def __str__(self) -> str:
-        """Override the default string representation."""
-        return (
-            f'"{self.COMMAND_DELIM.join(str(command) for command in self._commands)}"'
-        )
-
-    # endregion

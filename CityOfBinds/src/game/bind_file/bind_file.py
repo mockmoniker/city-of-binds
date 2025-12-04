@@ -1,7 +1,7 @@
 from pathlib import Path
 from .comments import Comment
 from .constants import BindFileConstants
-from ..binds import Bind
+from CityOfBinds import Bind
 
 
 class BindFile:

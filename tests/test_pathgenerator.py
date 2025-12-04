@@ -1,4 +1,4 @@
-from CityOfBinds import PathGenerator
+from CityOfBinds.utils.pathgenerator import PathGenerator
 
 
 class TestPathGenerator:

@@ -1,5 +1,5 @@
-from ..utils.slash_commands import CommandGroup
 from ..utils.triggers import Trigger, TriggerMixin
+from ..utils.slash_commands import CommandsMixin, CommandGroup
 
 
 class BindConstants:
@@ -8,16 +8,10 @@ class BindConstants:
     )
 
 
-class Bind(
-    TriggerMixin, CommandGroup
-):  # TODO: deprecate CommandGroupMixin? Bind should maybe just be a commandGroup with trigger (2025/11/29)
-    def __init__(
-        self, trigger: Trigger | str, commands: CommandGroup | list[str] = None
-    ):
-        super().__init__()
-        """Initialize the bind with a trigger and slash command list."""
-        self.trigger = trigger
-        self.commands = commands if commands is not None else CommandGroup()
+class Bind(TriggerMixin, CommandsMixin):
+    def __init__(self, trigger: str, commands: list[str] = None):
+        TriggerMixin.__init__(self, trigger)
+        CommandsMixin.__init__(self, commands)
 
     # region Bind Properties
     @property

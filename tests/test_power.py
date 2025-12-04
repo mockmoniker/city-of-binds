@@ -1,5 +1,5 @@
 import pytest
-from CityOfBinds import Power
+from CityOfBinds.src.game.utils.powers import Power
 
 
 class TestInitialization:

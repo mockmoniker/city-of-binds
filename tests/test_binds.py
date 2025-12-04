@@ -1,6 +1,7 @@
 import pytest
-from CityOfBinds import Trigger, Bind, WASDBind, CommandGroup
-from CityOfBinds import WASDTrigger
+from CityOfBinds import Bind, WASDBind
+from CityOfBinds.src.game.utils.triggers import Trigger, WASDTrigger
+from CityOfBinds.src.game.utils.slash_commands import SlashCommand, CommandGroup
 
 ### Bind Tests ###
 
@@ -25,7 +26,10 @@ class TestBindInitialization:
         bind = self.BIND_UNDER_TEST(self.VALID_TRIGGER, commands_string_list)
         # assert
         assert bind._commands == CommandGroup(
-            ["+forward", "powexectoggleon super speed"]
+            [
+                "+forward",
+                "powexectoggleon super speed",
+            ]
         )
 
 

@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 from CityOfBinds import RotatingBind, BindTemplate
 
