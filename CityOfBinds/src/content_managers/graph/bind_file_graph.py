@@ -1,6 +1,6 @@
 import networkx as nx
 import copy
-from CityOfBinds import BindFile
+from ...game.bind_file import BindFile
 
 
 trigger_conditions = {

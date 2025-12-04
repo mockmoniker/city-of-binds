@@ -1,6 +1,6 @@
 from typing import Self
 from enum import Enum
-from CityOfBinds import BindFile
+from ...game.bind_file import BindFile
 from CityOfBinds.utils.templates import ListTemplate
 
 

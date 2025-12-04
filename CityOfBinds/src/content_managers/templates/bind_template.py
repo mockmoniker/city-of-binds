@@ -1,4 +1,4 @@
-from CityOfBinds import Bind, WASDBind
+from ...game.binds import Bind, WASDBind
 from .utils.commands_template import CommandsTemplate
 from ...game.utils.triggers import WASDTrigger, TriggerMixin
 
