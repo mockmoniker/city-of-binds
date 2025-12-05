@@ -1,6 +1,6 @@
 from typing import Self
 from ..slash_command import SlashCommand
-from ...powers import _Power
+from ....utils import _Power
 
 
 class _CommandGroup:
