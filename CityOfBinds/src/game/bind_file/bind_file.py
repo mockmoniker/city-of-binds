@@ -1,5 +1,5 @@
 from pathlib import Path
-from .comments import _Comment
+from ..utils import _Comment
 from .constants import BindFileConstants
 from ..binds import Bind
 from ....utils import StrPath

@@ -1,5 +1,5 @@
 import pytest
-from CityOfBinds.src.game.bind_file.comments import _Comment, _CommentBanner
+from CityOfBinds.src.game.utils import _Comment, _CommentBanner
 
 
 class TestCommentInitialization:
