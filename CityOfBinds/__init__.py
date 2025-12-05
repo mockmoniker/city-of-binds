@@ -1,12 +1,6 @@
 # /CityOfBinds/__init__.py
 from .src.game.binds import Bind, WASDBind, iWASDBind
-from .src.game import BindFile
-from .src.game.rotating_binds import (
-    RotatingBind,
-    RandomBinds,
-    RandomWalk,
-    WASDRotatingBind,
-)
+from .src.game import BindFile, RotatingBind, RandomBinds, RandomWalk, WASDRotatingBind
 from .src.content_managers import (
     BindTemplate,
     WASDBindTemplate,
