@@ -1,6 +1,6 @@
 import copy
 from .generic_rotating_binds import _GenericRotatingBind, _LoopTopology
-from ...content_managers.templates.bind_template import WASDBindTemplate
+from ...content_managers import WASDBindTemplate
 
 
 class WASDRotatingBind(_GenericRotatingBind, _LoopTopology):
