@@ -1,3 +1,3 @@
-from .power import Power
+from .power import _Power
 
-__all__ = ["Power"]
+__all__ = ["_Power"]

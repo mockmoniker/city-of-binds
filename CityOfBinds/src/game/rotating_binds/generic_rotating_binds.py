@@ -2,7 +2,7 @@ import copy
 import random
 from abc import ABC, abstractmethod
 from ...game.bind_file.bind_file import BindFile
-from ...content_publisher.bfg_publisher import BFGPublisher2
+from ...content_publisher.bfg_publisher import BFGPublisher
 from ...content_managers.graph.bind_file_graph import BindFileGraph
 from ...content_managers.templates.bind_template import BindTemplate
 from ...content_managers.templates.bind_file_template import (
@@ -15,7 +15,7 @@ from ....utils.types import StrPath
 class _GenericRotatingBind(ABC):
     def __init__(self, is_silent: bool = True, absolute_path_links: bool = False):
         self.bind_file_template: BindFileTemplate = BindFileTemplate()
-        self.bfg_publisher: BFGPublisher2 = BFGPublisher2(
+        self.bfg_publisher: BFGPublisher = BFGPublisher(
             is_silent=is_silent, absolute_path_links=absolute_path_links
         )
 

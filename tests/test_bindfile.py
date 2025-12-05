@@ -1,6 +1,6 @@
 import pytest
 from CityOfBinds import BindFile, Bind
-from CityOfBinds.src.game.bind_file.comments import CommentBanner
+from CityOfBinds.src.game.bind_file.comments import _CommentBanner
 
 
 class TestBindFilePreview:
@@ -61,9 +61,9 @@ class TestBindFileWriteToFile:
         # arrange
         bindfile = (
             BindFile()
-            .add_comment(CommentBanner("Start of Binds", border_style="-"))
+            .add_comment(_CommentBanner("Start of Binds", border_style="-"))
             .add_bind(Bind("F", ["powexectoggleon dark nova"]))
-            .add_comment(CommentBanner("End of Binds", border_style="="))
+            .add_comment(_CommentBanner("End of Binds", border_style="="))
             .add_bind(
                 Bind("G", ["powexectoggleon light nova", "powexectoggleon speed boost"])
             )

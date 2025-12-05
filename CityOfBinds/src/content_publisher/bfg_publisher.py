@@ -5,7 +5,7 @@ from ...utils.types import StrPath
 from ...utils.file_publisher import _FileGraphPublisher
 
 
-class BFGPublisher2(_FileGraphPublisher):
+class BFGPublisher(_FileGraphPublisher):
     def __init__(
         self,
         is_silent: bool = True,

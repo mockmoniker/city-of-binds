@@ -6,7 +6,7 @@ class TriggerConstants:
     TRIGGER_DELIM = "+"
 
 
-class Trigger:
+class _Trigger:
     VALID_MODIFIERS: Set[str] = set(
         [
             "SHIFT",
@@ -388,7 +388,7 @@ class Trigger:
 
     def __eq__(self, other):
         """Override the default equality operator."""
-        if not isinstance(other, Trigger):
+        if not isinstance(other, _Trigger):
             return False
         return self._trigger_string == other._trigger_string
 

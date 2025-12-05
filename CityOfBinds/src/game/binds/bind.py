@@ -1,5 +1,5 @@
-from ..utils.triggers import Trigger, TriggerMixin
-from ..utils.slash_commands import CommandsMixin, CommandGroup
+from ..utils.triggers import _Trigger, _TriggerMixin
+from ..utils.slash_commands import _CommandsMixin, _CommandGroup
 
 
 class BindConstants:
@@ -8,10 +8,10 @@ class BindConstants:
     )
 
 
-class Bind(TriggerMixin, CommandsMixin):
+class Bind(_TriggerMixin, _CommandsMixin):
     def __init__(self, trigger: str, commands: list[str] = None):
-        TriggerMixin.__init__(self, trigger)
-        CommandsMixin.__init__(self, commands)
+        _TriggerMixin.__init__(self, trigger)
+        _CommandsMixin.__init__(self, commands)
 
     # region Bind Properties
     @property
@@ -47,7 +47,7 @@ class Bind(TriggerMixin, CommandsMixin):
         )
 
     def _build_bind_string_from_components(
-        self, trigger: Trigger, commands: CommandGroup
+        self, trigger: _Trigger, commands: _CommandGroup
     ) -> str:
         """Helper function to build the bind string from its components."""
         return f"{str(trigger)} {str(commands)}"

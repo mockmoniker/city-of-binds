@@ -1,7 +1,7 @@
 import re
 
 
-class Power:
+class _Power:
     ### Initialization
     def __init__(self, power_string: str):
         formatted_power_string = power_string.lower().strip()
@@ -27,7 +27,7 @@ class Power:
         return f"Power('{self._power}')"
 
     def __eq__(self, other) -> bool:
-        if not isinstance(other, Power):
+        if not isinstance(other, _Power):
             return False
         return self._power == other._power
 

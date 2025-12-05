@@ -1,14 +1,14 @@
 from ...game.binds import Bind, WASDBind
-from .utils.commands_template import CommandsTemplate
-from ...game.utils.triggers import WASDTrigger, TriggerMixin
+from .utils.commands_template import _CommandsTemplate
+from ...game.utils.triggers import _WASDTrigger, _TriggerMixin
 
 
-class BindTemplate(TriggerMixin, CommandsTemplate):
+class BindTemplate(_TriggerMixin, _CommandsTemplate):
     BIND_TYPE = Bind
 
     def __init__(self, trigger: str):
-        TriggerMixin.__init__(self, trigger)
-        CommandsTemplate.__init__(self)
+        _TriggerMixin.__init__(self, trigger)
+        _CommandsTemplate.__init__(self)
 
     def _build_one(self) -> Bind:
         return self.BIND_TYPE(self.trigger, super()._build_one())
@@ -18,5 +18,5 @@ class BindTemplate(TriggerMixin, CommandsTemplate):
 
 
 class WASDBindTemplate(BindTemplate):
-    TRIGGER_TYPE = WASDTrigger
+    TRIGGER_TYPE = _WASDTrigger
     BIND_TYPE = WASDBind

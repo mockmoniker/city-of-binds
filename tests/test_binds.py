@@ -1,7 +1,7 @@
 import pytest
 from CityOfBinds import Bind, WASDBind
-from CityOfBinds.src.game.utils.triggers import Trigger, WASDTrigger
-from CityOfBinds.src.game.utils.slash_commands import SlashCommand, CommandGroup
+from CityOfBinds.src.game.utils.triggers import _Trigger, _WASDTrigger
+from CityOfBinds.src.game.utils.slash_commands import SlashCommand, _CommandGroup
 
 ### Bind Tests ###
 
@@ -17,7 +17,7 @@ class TestBindInitialization:
         # act
         bind = self.BIND_UNDER_TEST(trigger_string)
         # assert
-        assert bind._trigger == Trigger("SHIFT+SPACE")
+        assert bind._trigger == _Trigger("SHIFT+SPACE")
 
     def test_init_should_set_internal_commands_given_commands_string_list(self):
         # arrange
@@ -25,7 +25,7 @@ class TestBindInitialization:
         # act
         bind = self.BIND_UNDER_TEST(self.VALID_TRIGGER, commands_string_list)
         # assert
-        assert bind._commands == CommandGroup(
+        assert bind._commands == _CommandGroup(
             [
                 "+forward",
                 "powexectoggleon super speed",
@@ -44,7 +44,7 @@ class TestBindTriggerProperty:
         # act
         trigger = bind.trigger
         # assert
-        assert trigger == Trigger("SHIFT+SPACE")
+        assert trigger == _Trigger("SHIFT+SPACE")
 
     def test_trigger_setter_should_set_trigger_given_new_trigger_string(self):
         # arrange
@@ -53,7 +53,7 @@ class TestBindTriggerProperty:
         # act
         bind.trigger = new_trigger_string
         # assert
-        assert bind.trigger == Trigger("SHIFT+SPACE")
+        assert bind.trigger == _Trigger("SHIFT+SPACE")
 
 
 class TestBindCommandsProperty:
@@ -68,7 +68,7 @@ class TestBindCommandsProperty:
         # act
         list_of_commands = bind.commands
         # assert
-        assert list_of_commands == CommandGroup(
+        assert list_of_commands == _CommandGroup(
             ["+forward", "powexectoggleon super speed"]
         )
 
@@ -79,7 +79,7 @@ class TestBindCommandsProperty:
         # act
         bind.commands = new_commands_string_list
         # assert
-        assert bind.commands == CommandGroup(
+        assert bind.commands == _CommandGroup(
             ["+forward", "powexectoggleon super speed"]
         )
 
@@ -185,7 +185,7 @@ class TestWASDBind:
         trigger = wasd_bind.trigger
         wasd_bind.commands.add_toggle_on_power("super speed")
         # assert
-        assert isinstance(trigger, WASDTrigger)
+        assert isinstance(trigger, _WASDTrigger)
         assert str(trigger) == "W"
         assert (
             str(wasd_bind) == 'W "+forward$$powexectoggleon super speed"'

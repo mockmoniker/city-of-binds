@@ -1,9 +1,9 @@
 import pytest
-from CityOfBinds.src.game.bind_file.comments import Comment, CommentBanner
+from CityOfBinds.src.game.bind_file.comments import _Comment, _CommentBanner
 
 
 class TestCommentInitialization:
-    COMMENT_UNDER_TEST = Comment
+    COMMENT_UNDER_TEST = _Comment
 
     def test_init_should_set_internal_text_given_valid_comment_text(self):
         # arrange
@@ -41,7 +41,7 @@ class TestCommentInitialization:
         comment = self.COMMENT_UNDER_TEST(comment_text="This is a comment")
 
         # assert
-        assert comment._minimum_width == Comment.MINIMUM_COMMENT_WIDTH
+        assert comment._minimum_width == _Comment.MINIMUM_COMMENT_WIDTH
 
     def test_init_should_set_internal_minimum_width_given_valid_minimum_width(self):
         # arrange
@@ -55,7 +55,7 @@ class TestCommentInitialization:
 
 
 class TestCommentBannerInitialization:
-    COMMENT_BANNER_UNDER_TEST = CommentBanner
+    COMMENT_BANNER_UNDER_TEST = _CommentBanner
     VALID_COMMENT_TEXT = "This is a comment"
 
     def test_init_should_set_internal_text_given_valid_comment_text(self):
@@ -91,7 +91,7 @@ class TestCommentBannerInitialization:
 
 
 class TestCommentBannerCommentTextProperty:
-    COMMENT_BANNER_UNDER_TEST = CommentBanner
+    COMMENT_BANNER_UNDER_TEST = _CommentBanner
     VALID_COMMENT_TEXT = "This is a comment"
 
     def test_text_getter_should_return_comment_text(self):
@@ -138,7 +138,7 @@ class TestCommentBannerCommentTextProperty:
 
 
 class TestCommentBannerBorderStyleProperty:
-    COMMENT_BANNER_UNDER_TEST = CommentBanner
+    COMMENT_BANNER_UNDER_TEST = _CommentBanner
     VALID_COMMENT_TEXT = "This is a comment"
 
     def test_border_style_getter_should_return_border_style(self):
@@ -186,7 +186,7 @@ class TestCommentBannerBorderStyleProperty:
 
 
 class TestCommentBannerCommentBannerStringProperty:
-    COMMENT_BANNER_UNDER_TEST = CommentBanner
+    COMMENT_BANNER_UNDER_TEST = _CommentBanner
 
     def test_comment_string_getter_should_return_properly_formatted_comment_banner_string_given_single_line_comment(
         self,

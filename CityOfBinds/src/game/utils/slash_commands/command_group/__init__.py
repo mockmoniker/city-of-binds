@@ -1,4 +1,4 @@
-from .command_group import CommandGroup, CommandGroupConstants
-from .command_group_mixin import CommandsMixin
+from .command_group import _CommandGroup, CommandGroupConstants
+from .command_group_mixin import _CommandsMixin
 
-__all__ = ["CommandGroup", "CommandsMixin", "CommandGroupConstants"]
+__all__ = ["_CommandGroup", "_CommandsMixin", "CommandGroupConstants"]

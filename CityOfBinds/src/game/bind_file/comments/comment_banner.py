@@ -1,15 +1,15 @@
-from .comment import Comment
+from .comment import _Comment
 
 
-class CommentBanner(Comment):
+class _CommentBanner(_Comment):
     VALID_BORDER_STYLES = ["-", "=", "*", "~", "#"]
     DEFAULT_BORDER_STYLE = VALID_BORDER_STYLES[0]
 
     def __init__(
         self,
         comment_text: str,
-        alignment: str = Comment.DEFAULT_ALIGNMENT,
-        minimum_comment_width: int = Comment.MINIMUM_COMMENT_WIDTH,
+        alignment: str = _Comment.DEFAULT_ALIGNMENT,
+        minimum_comment_width: int = _Comment.MINIMUM_COMMENT_WIDTH,
         border_style: str = DEFAULT_BORDER_STYLE,
     ):
         self._border_style = None
@@ -62,7 +62,7 @@ class CommentBanner(Comment):
     def _build_comment_banner_string(
         self, comment_text: str, alignment: str, text_width: int, border_style: str
     ) -> str:
-        border = Comment(f"{border_style * text_width}").comment_string
+        border = _Comment(f"{border_style * text_width}").comment_string
 
         comment_lines = "\n".join(
             self._build_comment_line_string(line, alignment, text_width)

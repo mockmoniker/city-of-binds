@@ -1,8 +1,8 @@
 from typing import Set
-from .trigger import Trigger
+from .trigger import _Trigger
 
 
-class WASDTrigger(Trigger):
+class _WASDTrigger(_Trigger):
     KEY_TO_DIRECTION_MAP = {
         "W": "forward",
         "A": "left",

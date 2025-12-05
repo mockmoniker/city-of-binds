@@ -1,23 +1,27 @@
 from pathlib import Path
-from .comments import Comment
+from .comments import _Comment
 from .constants import BindFileConstants
 from ..binds import Bind
+from CityOfBinds.utils.types import StrPath
+
+
+BindContent = Bind | _Comment
 
 
 class BindFile:
-    def __init__(self, content_list: list[Bind | Comment] = None):
+    def __init__(self, content_list: list[BindContent] = None):
         """Initialize the bind file with optional content."""
         self._contents = []
         self.contents = content_list if content_list is not None else []
 
     ### Properties
     @property
-    def contents(self) -> list[Bind | Comment]:
+    def contents(self) -> list[BindContent]:
         """Get the contents of the bind file."""
         return self._contents
 
     @contents.setter
-    def contents(self, content_list: list[Bind | Comment]):
+    def contents(self, content_list: list[BindContent]):
         """Set the contents of the bind file."""
         if content_list is not None:
             self._throw_error_on_invalid_content_list(content_list)
@@ -35,10 +39,10 @@ class BindFile:
         self._contents.append(bind)
         return self
 
-    def add_comment(self, comment: Comment) -> "BindFile":
+    def add_comment(self, comment: _Comment) -> "BindFile":
         """Add a Comment to the bind file."""
         self._throw_error_on_invalid_content_type(
-            expected_type=Comment, content=comment
+            expected_type=_Comment, content=comment
         )
         self._contents.append(comment)
         return self
@@ -56,7 +60,7 @@ class BindFile:
         """Check if the bind file has any content."""
         return len(self._contents) == 0
 
-    def write_to_file(self, file_path: str | Path):
+    def write_to_file(self, file_path: StrPath):
         """Write contents to the specified file path."""
         file_path = Path(file_path)
 
@@ -78,7 +82,7 @@ class BindFile:
         with open(file_path, "w", encoding="utf-8") as file:
             file.write(self._build_file_contents())
 
-    def write_to_directory(self, filename: str, directory: str | Path = ".") -> None:
+    def write_to_directory(self, filename: str, directory: StrPath = ".") -> None:
         """Convenience method to write to a directory with filename."""
         directory = Path(directory)
         full_path = directory / filename
@@ -95,11 +99,11 @@ class BindFile:
         return "\n".join(str(content) for content in self._contents)
 
     ### Error Checking/Validation
-    def _throw_error_on_invalid_content_list(self, content_list: list[Bind | Comment]):
+    def _throw_error_on_invalid_content_list(self, content_list: list[BindContent]):
         if not isinstance(content_list, list):
             raise TypeError("Contents must be a list of Bind or Comment instances")
         for content in content_list:
-            if not isinstance(content, (Bind, Comment)):
+            if not isinstance(content, (Bind, _Comment)):
                 raise TypeError(
                     "All items in contents must be instances of Bind or Comment"
                 )

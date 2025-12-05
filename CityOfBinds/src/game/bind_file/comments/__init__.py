@@ -1,4 +1,4 @@
-from .comment import Comment
-from .comment_banner import CommentBanner
+from .comment import _Comment
+from .comment_banner import _CommentBanner
 
-__all__ = ["Comment", "CommentBanner"]
+__all__ = ["_Comment", "_CommentBanner"]

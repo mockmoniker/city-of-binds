@@ -1,9 +1,9 @@
 from typing import Self
 from ..slash_command import SlashCommand
-from ...powers import Power
+from ...powers import _Power
 
 
-class CommandGroup:
+class _CommandGroup:
     COMMAND_DELIM = "$$"
 
     def __init__(self, commands: list[str] = None):
@@ -218,7 +218,7 @@ class CommandGroup:
         self, powexec_type: str, power_string: str, argument: str = None
     ) -> str:
         """Helper function to build a power command string."""
-        power = Power(power_string)
+        power = _Power(power_string)
         if argument:
             return f"{powexec_type} {argument} {str(power)}"
         return f"{powexec_type} {str(power)}"
@@ -416,7 +416,7 @@ class CommandGroup:
     def _build_command_string_from_components(
         self, commands: list[SlashCommand]
     ) -> str:
-        return f'"{CommandGroup.COMMAND_DELIM.join(str(cmd) for cmd in commands)}"'
+        return f'"{_CommandGroup.COMMAND_DELIM.join(str(cmd) for cmd in commands)}"'
 
     # region Dunder Methods
     def __iter__(self):
@@ -431,14 +431,14 @@ class CommandGroup:
     def __len__(self):
         return len(self._commands)
 
-    def __add__(self, other: "CommandGroup") -> Self:
+    def __add__(self, other: "_CommandGroup") -> Self:
         new_command_group = self.__class__()  # Creates same type as caller
         new_command_group._commands = self._commands + other._commands
         return new_command_group
 
     def __eq__(self, other):
         """Override the default equality operator."""
-        if not isinstance(other, CommandGroup):
+        if not isinstance(other, _CommandGroup):
             return False
         if len(self) != len(other):
             return False
