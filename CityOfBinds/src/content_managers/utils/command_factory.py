@@ -1,4 +1,4 @@
-from .....utils import StringTemplate, Pool
+from ....utils import StringTemplate, Pool
 
 
 class _CommandFactory(StringTemplate):
