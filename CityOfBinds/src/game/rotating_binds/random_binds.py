@@ -1,7 +1,7 @@
 from .rotating_bind import RotatingBind
 from .wasd_rotating_bind import WASDRotatingBind
 from .generic_rotating_binds import _RandomOrder
-from ..bind_file import BindFile
+from ...game import BindFile
 
 
 class RandomBinds(RotatingBind, _RandomOrder):

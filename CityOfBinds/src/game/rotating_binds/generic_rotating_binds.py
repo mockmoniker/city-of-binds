@@ -1,7 +1,7 @@
 import copy
 import random
 from abc import ABC, abstractmethod
-from ...game.bind_file.bind_file import BindFile
+from ...game import BindFile
 from ...content_publisher import BFGPublisher
 from ...content_managers import BindFileGraph
 from ...content_managers import BindTemplate

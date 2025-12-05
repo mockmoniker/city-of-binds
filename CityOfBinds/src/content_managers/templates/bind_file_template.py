@@ -1,6 +1,6 @@
 from typing import Self
 from enum import Enum
-from ...game.bind_file import BindFile
+from ...game import BindFile
 from ....utils import ListTemplate
 
 
