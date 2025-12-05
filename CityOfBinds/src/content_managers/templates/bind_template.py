@@ -1,6 +1,6 @@
 from ...game.binds import Bind, WASDBind
 from .utils.commands_template import _CommandsTemplate
-from ...game.utils.triggers import _WASDTrigger, _TriggerMixin
+from ...game.utils import _WASDTrigger, _TriggerMixin
 
 
 class BindTemplate(_TriggerMixin, _CommandsTemplate):

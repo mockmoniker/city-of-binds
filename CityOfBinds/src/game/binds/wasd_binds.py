@@ -1,5 +1,5 @@
 from .bind import Bind
-from ..utils.triggers import _WASDTrigger
+from ..utils import _WASDTrigger
 from ..utils.slash_commands import _CommandGroup
 
 
