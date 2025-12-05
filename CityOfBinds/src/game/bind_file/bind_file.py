@@ -1,7 +1,7 @@
 from pathlib import Path
 from ..utils import _Comment
 from .constants import BindFileConstants
-from ..binds import Bind
+from ...game import Bind
 from ....utils import StrPath
 
 

@@ -1,5 +1,5 @@
 from pathlib import Path
-from ..game.binds import Bind
+from ..game import Bind
 from ..game import BindFile, BindFileConstants
 from ...utils import StrPath
 from ...utils import _FileGraphPublisher

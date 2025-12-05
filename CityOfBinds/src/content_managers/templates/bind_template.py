@@ -1,4 +1,4 @@
-from ...game.binds import Bind, WASDBind
+from ...game import Bind, WASDBind
 from ..utils import _CommandsTemplate
 from ...game.utils import _WASDTrigger, _TriggerMixin
 
