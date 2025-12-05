@@ -1,7 +1,7 @@
 import pytest
 from CityOfBinds import Bind, WASDBind
 from CityOfBinds.src.game.utils import _Trigger, _WASDTrigger
-from CityOfBinds.src.game.utils.slash_commands import SlashCommand, _CommandGroup
+from CityOfBinds.src.game.utils import SlashCommand, _CommandGroup
 
 ### Bind Tests ###
 

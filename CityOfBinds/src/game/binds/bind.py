@@ -1,5 +1,5 @@
 from ..utils import _Trigger, _TriggerMixin
-from ..utils.slash_commands import _CommandsMixin, _CommandGroup
+from ..utils import _CommandsMixin, _CommandGroup
 
 
 class BindConstants:

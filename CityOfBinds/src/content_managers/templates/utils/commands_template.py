@@ -1,6 +1,6 @@
 from .command_factory import _CommandFactory
 from ....game.utils import _Power
-from ....game.utils.slash_commands import _CommandGroup, CommandGroupConstants
+from ....game.utils import _CommandGroup, CommandGroupConstants
 from .....utils import ListTemplate, Pool
 
 
