@@ -9,6 +9,7 @@ from .src.game.rotating_binds import (
 )
 from .src.content_managers.templates.bind_template import BindTemplate, WASDBindTemplate
 from .src.content_managers.templates.bind_file_template import BindFileTemplate
+from .src.content_publisher.bfg_publisher import BFGPublisher
 
 __all__ = [
     "Bind",
@@ -22,4 +23,5 @@ __all__ = [
     "BindTemplate",
     "WASDBindTemplate",
     "BindFileTemplate",
+    "BFGPublisher",
 ]

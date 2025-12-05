@@ -1,8 +1,8 @@
 from pathlib import Path
 from ..game.binds import Bind
 from ..game.bind_file import BindFile, BindFileConstants
-from ...utils.types import StrPath
-from ...utils.file_publisher import _FileGraphPublisher
+from ...utils import StrPath
+from ...utils import _FileGraphPublisher
 
 
 class BFGPublisher(_FileGraphPublisher):
