@@ -2,7 +2,7 @@ from pathlib import Path
 from .comments import _Comment
 from .constants import BindFileConstants
 from ..binds import Bind
-from CityOfBinds.utils.types import StrPath
+from ....utils.types import StrPath
 
 
 BindContent = Bind | _Comment

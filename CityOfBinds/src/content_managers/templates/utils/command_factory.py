@@ -1,4 +1,4 @@
-from CityOfBinds.utils.templates.templates import StringTemplate, Pool
+from .....utils.templates.templates import StringTemplate, Pool
 
 
 class _CommandFactory(StringTemplate):

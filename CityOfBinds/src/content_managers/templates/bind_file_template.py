@@ -1,7 +1,7 @@
 from typing import Self
 from enum import Enum
 from ...game.bind_file import BindFile
-from CityOfBinds.utils.templates import ListTemplate
+from ....utils.templates import ListTemplate
 
 
 class AdvanceOnTriggerType(Enum):

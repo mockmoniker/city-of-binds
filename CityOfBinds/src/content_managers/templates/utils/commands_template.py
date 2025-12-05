@@ -1,7 +1,7 @@
 from .command_factory import _CommandFactory
 from ....game.utils.powers import _Power
 from ....game.utils.slash_commands import _CommandGroup, CommandGroupConstants
-from CityOfBinds.utils.templates import ListTemplate, Pool
+from .....utils.templates import ListTemplate, Pool
 
 
 class _CommandsTemplate(_CommandGroup, ListTemplate):
