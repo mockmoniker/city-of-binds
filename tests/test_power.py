@@ -1,5 +1,6 @@
 import pytest
-from CityOfBinds import Power
+from CityOfBinds.src.game.utils import _Power
+
 
 class TestInitialization:
     # region Valid Initialization Tests
@@ -8,7 +9,7 @@ class TestInitialization:
         # arrange
         power_string = "hasten"
         # act
-        power = Power(power_string)
+        power = _Power(power_string)
         # assert
         assert str(power) == "hasten"
 
@@ -16,7 +17,7 @@ class TestInitialization:
         # arrange
         power_string = "super speed"
         # act
-        power = Power(power_string)
+        power = _Power(power_string)
         # assert
         assert str(power) == "super speed"
 
@@ -24,7 +25,7 @@ class TestInitialization:
         # arrange
         power_string = "SUPER SPEED"
         # act
-        power = Power(power_string)
+        power = _Power(power_string)
         # assert
         assert str(power) == "super speed"
 
@@ -37,7 +38,7 @@ class TestInitialization:
         power_string = ""
         # act
         with pytest.raises(ValueError) as excinfo:
-            Power(power_string)
+            _Power(power_string)
         # assert
         assert "Invalid power format" in str(excinfo.value)
 
@@ -46,7 +47,7 @@ class TestInitialization:
         power_string = "speed123"
         # act
         with pytest.raises(ValueError) as excinfo:
-            Power(power_string)
+            _Power(power_string)
         # assert
         assert "Invalid power format" in str(excinfo.value)
 
@@ -55,7 +56,7 @@ class TestInitialization:
         power_string = "super-speed!"
         # act
         with pytest.raises(ValueError) as excinfo:
-            Power(power_string)
+            _Power(power_string)
         # assert
         assert "Invalid power format" in str(excinfo.value)
 

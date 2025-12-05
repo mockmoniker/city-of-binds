@@ -1,121 +1,137 @@
 import pytest
-from CityOfBinds import Trigger, WASDTrigger
+from CityOfBinds.src.game.utils import _Trigger, _WASDTrigger
 
-@pytest.fixture(params=[Trigger, WASDTrigger])
+
+@pytest.fixture(params=[_Trigger, _WASDTrigger])
 def TriggerUnderTest(request):
     return request.param
+
 
 class TestInitialization:
     # region Valid Initialization Tests
     def test_init_should_accept_single_char_key_only(self, TriggerUnderTest):
         # arrange
-        trigger_string = 'W'
+        trigger_string = "W"
         # act
         trigger = TriggerUnderTest(trigger_string)
         # assert
-        assert str(trigger) == 'W'
+        assert str(trigger) == "W"
 
     def test_init_should_accept_multi_char_key_only(self, TriggerUnderTest):
         # arrange
-        trigger_string = 'SPACE'
+        trigger_string = "SPACE"
         # act
         trigger = TriggerUnderTest(trigger_string)
         # assert
-        assert str(trigger) == 'SPACE'
+        assert str(trigger) == "SPACE"
 
     def test_init_should_accept_single_char_key_with_modifier(self, TriggerUnderTest):
         # arrange
-        trigger_string = 'SHIFT+W'
+        trigger_string = "SHIFT+W"
         # act
         trigger = TriggerUnderTest(trigger_string)
         # assert
-        assert str(trigger) == 'SHIFT+W'
+        assert str(trigger) == "SHIFT+W"
 
     def test_init_should_accept_multi_char_key_with_modifier(self, TriggerUnderTest):
         # arrange
-        trigger_string = 'SHIFT+SPACE'
+        trigger_string = "SHIFT+SPACE"
         # act
         trigger = TriggerUnderTest(trigger_string)
         # assert
-        assert str(trigger) == 'SHIFT+SPACE'
+        assert str(trigger) == "SHIFT+SPACE"
 
     def test_init_should_accept_lowercase_trigger_string(self, TriggerUnderTest):
         # arrange
-        trigger_string = 'shift+w'
+        trigger_string = "shift+w"
         # act
         trigger = TriggerUnderTest(trigger_string)
         # assert
-        assert str(trigger) == 'SHIFT+W'
+        assert str(trigger) == "SHIFT+W"
 
     # endregion
 
     # region Invalid Initialization Tests
     def test_init_should_throw_error_given_empty_trigger_string(self, TriggerUnderTest):
         # arrange
-        trigger_string = ''
+        trigger_string = ""
         # act
         with pytest.raises(ValueError) as excinfo:
             TriggerUnderTest(trigger_string)
         # assert
         assert "Invalid trigger format" in str(excinfo.value)
 
-    def test_init_should_throw_error_given_trigger_string_with_spaces(self, TriggerUnderTest):
+    def test_init_should_throw_error_given_trigger_string_with_spaces(
+        self, TriggerUnderTest
+    ):
         # arrange
-        trigger_string = 'SHIFT + W'
+        trigger_string = "SHIFT + W"
         # act
         with pytest.raises(ValueError) as excinfo:
             TriggerUnderTest(trigger_string)
         # assert
         assert "Invalid trigger format" in str(excinfo.value)
 
-    def test_init_should_throw_error_given_trigger_string_with_multiple_modifiers(self, TriggerUnderTest):
+    def test_init_should_throw_error_given_trigger_string_with_multiple_modifiers(
+        self, TriggerUnderTest
+    ):
         # arrange
-        trigger_string = 'CTRL+SHIFT+W'
+        trigger_string = "CTRL+SHIFT+W"
         # act
         with pytest.raises(ValueError) as excinfo:
             TriggerUnderTest(trigger_string)
         # assert
         assert "Invalid trigger format" in str(excinfo.value)
 
-    def test_init_should_throw_error_given_trigger_string_with_empty_expected_modifier(self, TriggerUnderTest):
+    def test_init_should_throw_error_given_trigger_string_with_empty_expected_modifier(
+        self, TriggerUnderTest
+    ):
         # arrange
-        trigger_string = '+W'
+        trigger_string = "+W"
         # act
         with pytest.raises(ValueError) as excinfo:
             TriggerUnderTest(trigger_string)
         # assert
         assert "Invalid trigger format" in str(excinfo.value)
 
-    def test_init_should_throw_error_given_trigger_string_with_empty_expected_key(self, TriggerUnderTest):
+    def test_init_should_throw_error_given_trigger_string_with_empty_expected_key(
+        self, TriggerUnderTest
+    ):
         # arrange
-        trigger_string = 'SHIFT+'
+        trigger_string = "SHIFT+"
         # act
         with pytest.raises(ValueError) as excinfo:
             TriggerUnderTest(trigger_string)
         # assert
         assert "Invalid trigger format" in str(excinfo.value)
 
-    def test_init_should_throw_error_given_trigger_string_with_multiple_trigger_delims(self, TriggerUnderTest):
+    def test_init_should_throw_error_given_trigger_string_with_multiple_trigger_delims(
+        self, TriggerUnderTest
+    ):
         # arrange
-        trigger_string = 'SHIFT++W'
+        trigger_string = "SHIFT++W"
         # act
         with pytest.raises(ValueError) as excinfo:
             TriggerUnderTest(trigger_string)
         # assert
         assert "Invalid trigger format" in str(excinfo.value)
 
-    def test_init_should_throw_error_given_trigger_string_with_invalid_key(self, TriggerUnderTest):
+    def test_init_should_throw_error_given_trigger_string_with_invalid_key(
+        self, TriggerUnderTest
+    ):
         # arrange
-        trigger_string = 'WW'
+        trigger_string = "WW"
         # act
         with pytest.raises(ValueError) as excinfo:
             TriggerUnderTest(trigger_string)
         # assert
         assert "Unknown trigger key" in str(excinfo.value)
 
-    def test_init_should_throw_error_given_trigger_string_with_invalid_modifier(self, TriggerUnderTest):
+    def test_init_should_throw_error_given_trigger_string_with_invalid_modifier(
+        self, TriggerUnderTest
+    ):
         # arrange
-        trigger_string = 'CTRLL+W'
+        trigger_string = "CTRLL+W"
         # act
         with pytest.raises(ValueError) as excinfo:
             TriggerUnderTest(trigger_string)
@@ -123,6 +139,7 @@ class TestInitialization:
         assert "Unknown trigger modifier" in str(excinfo.value)
 
     # endregion
+
 
 class TestKeyProperty:
     # region Getter Tests
@@ -155,7 +172,9 @@ class TestKeyProperty:
         # assert
         assert str(trigger) == "SHIFT+SPACE"
 
-    def test_key_setter_should_set_capital_key_given_lowercase_key(self, TriggerUnderTest):
+    def test_key_setter_should_set_capital_key_given_lowercase_key(
+        self, TriggerUnderTest
+    ):
         # arrange
         trigger = TriggerUnderTest("SHIFT+W")
         new_key = "space"
@@ -170,17 +189,19 @@ class TestKeyProperty:
     def test_key_setter_should_throw_error_given_empty_key(self, TriggerUnderTest):
         # arrange
         trigger = TriggerUnderTest("SHIFT+W")
-        new_key = ''
+        new_key = ""
         # act
         with pytest.raises(ValueError) as excinfo:
             trigger.key = new_key
         # assert
         assert "Trigger key cannot be empty." in str(excinfo.value)
 
-    def test_key_setter_should_throw_error_given_key_with_spaces(self, TriggerUnderTest):
+    def test_key_setter_should_throw_error_given_key_with_spaces(
+        self, TriggerUnderTest
+    ):
         # arrange
         trigger = TriggerUnderTest("SHIFT+W")
-        new_key = 'LEFT CLICK'
+        new_key = "LEFT CLICK"
         # act
         with pytest.raises(ValueError) as excinfo:
             trigger.key = new_key
@@ -190,7 +211,7 @@ class TestKeyProperty:
     def test_key_setter_should_throw_error_given_invalid_key(self, TriggerUnderTest):
         # arrange
         trigger = TriggerUnderTest("SHIFT+W")
-        new_key = 'WW'
+        new_key = "WW"
         # act
         with pytest.raises(ValueError) as excinfo:
             trigger.key = new_key
@@ -198,6 +219,7 @@ class TestKeyProperty:
         assert "Unknown trigger key" in str(excinfo.value)
 
     # endregion
+
 
 class TestModifierProperty:
     # region Getter Tests
@@ -230,7 +252,9 @@ class TestModifierProperty:
         # assert
         assert str(trigger) == "CTRL+W"
 
-    def test_modifier_setter_should_set_capital_modifier_given_lowercase_modifier(self, TriggerUnderTest):
+    def test_modifier_setter_should_set_capital_modifier_given_lowercase_modifier(
+        self, TriggerUnderTest
+    ):
         # arrange
         trigger = TriggerUnderTest("SHIFT+W")
         new_modifier = "ctrl"
@@ -239,41 +263,49 @@ class TestModifierProperty:
         # assert
         assert trigger.modifier == "CTRL"
 
-    def test_modifier_setter_should_set_empty_modifier_given_empty_string(self, TriggerUnderTest):
+    def test_modifier_setter_should_set_empty_modifier_given_empty_string(
+        self, TriggerUnderTest
+    ):
         # arrange
         trigger = TriggerUnderTest("SHIFT+W")
-        new_modifier = ''
+        new_modifier = ""
         # act
         trigger.modifier = new_modifier
         # assert
-        assert trigger.modifier == ''
+        assert trigger.modifier == ""
 
     # endregion
 
     # region Invalid Setter Tests
-    def test_modifier_setter_should_remove_delim_given_empty_string(self, TriggerUnderTest):
+    def test_modifier_setter_should_remove_delim_given_empty_string(
+        self, TriggerUnderTest
+    ):
         # arrange
         trigger = TriggerUnderTest("SHIFT+W")
-        new_modifier = ''
+        new_modifier = ""
         # act
         trigger.modifier = new_modifier
         # assert
-        assert str(trigger) == 'W'
+        assert str(trigger) == "W"
 
-    def test_modifier_setter_should_throw_error_given_modifier_with_spaces(self, TriggerUnderTest):
+    def test_modifier_setter_should_throw_error_given_modifier_with_spaces(
+        self, TriggerUnderTest
+    ):
         # arrange
         trigger = TriggerUnderTest("SHIFT+W")
-        new_modifier = 'LEFT SHIFT'
+        new_modifier = "LEFT SHIFT"
         # act
         with pytest.raises(ValueError) as excinfo:
             trigger.modifier = new_modifier
         # assert
         assert "Trigger modifier cannot contain spaces." in str(excinfo.value)
 
-    def test_modifier_setter_should_throw_error_given_invalid_modifier(self, TriggerUnderTest):
+    def test_modifier_setter_should_throw_error_given_invalid_modifier(
+        self, TriggerUnderTest
+    ):
         # arrange
         trigger = TriggerUnderTest("SHIFT+W")
-        new_modifier = 'CTRLL'
+        new_modifier = "CTRLL"
         # act
         with pytest.raises(ValueError) as excinfo:
             trigger.modifier = new_modifier
@@ -282,9 +314,12 @@ class TestModifierProperty:
 
     # endregion
 
+
 class TestHasModifierMethod:
     # region Tests
-    def test_has_modifier_should_return_true_given_trigger_with_modifier(self, TriggerUnderTest):
+    def test_has_modifier_should_return_true_given_trigger_with_modifier(
+        self, TriggerUnderTest
+    ):
         # arrange
         trigger = TriggerUnderTest("SHIFT+W")
         # act
@@ -292,7 +327,9 @@ class TestHasModifierMethod:
         # assert
         assert has_modifier is True
 
-    def test_has_modifier_should_return_false_given_trigger_without_modifier(self, TriggerUnderTest):
+    def test_has_modifier_should_return_false_given_trigger_without_modifier(
+        self, TriggerUnderTest
+    ):
         # arrange
         trigger = TriggerUnderTest("W")
         # act
@@ -302,6 +339,7 @@ class TestHasModifierMethod:
 
     # endregion
 
+
 class TestClearModifierMethod:
     # region Tests
     def test_clear_modifier_should_remove_modifier_from_trigger(self, TriggerUnderTest):
@@ -310,7 +348,7 @@ class TestClearModifierMethod:
         # act
         trigger.clear_modifier()
         # assert
-        assert trigger.modifier == ''
+        assert trigger.modifier == ""
         assert str(trigger) == "W"
 
     # endregion

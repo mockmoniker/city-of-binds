@@ -1,28 +1,33 @@
 import math
-from pathlib import Path
 from typing import Union
+from pathlib import Path
 from functools import cache
-from CityOfBinds.utils.baseconverter import BaseConverter
+from .baseconverter import BaseConverter
+from ..utils.types import StrPath
+
 
 class PathGenerator:
-    DEFAULT_PARENT_DIRECTORY = "."
+    DEFAULT_PARENT_FOLDER_NAME = ""
     DEFAULT_MAX_FILES_PER_FOLDER = 256
     DEFAULT_PADDING_BEHAVIOR = True
 
     """ Generates a folder/file path based off maximum files and max files per folder."""
+
     def __init__(
-        self, 
+        self,
         file_count: int,
-        parent_directory: Union[str, Path] = DEFAULT_PARENT_DIRECTORY,
+        parent_folder_name: StrPath = DEFAULT_PARENT_FOLDER_NAME,
         max_files_per_folder: int = DEFAULT_MAX_FILES_PER_FOLDER,
         enable_padding: bool = DEFAULT_PADDING_BEHAVIOR,
         path_alphabet: str = None,
     ):
         self._file_count = file_count
-        self._parent_directory = Path(parent_directory)
+        self._parent_folder = Path(parent_folder_name)
         self._max_files_per_folder = max_files_per_folder
         self._enable_padding = enable_padding
-        self._base_converter = BaseConverter(path_alphabet) if path_alphabet else BaseConverter()
+        self._base_converter = (
+            BaseConverter(path_alphabet) if path_alphabet else BaseConverter()
+        )
         self._cached_paths = {}
 
         # region Helper Properties to Precompute
@@ -46,7 +51,7 @@ class PathGenerator:
     def max_path_length(self) -> int:
         """Public property to get the maximum length of the entire file path."""
         return len(str(self.get_path(self._file_count - 1)))
-    
+
     # endregion
 
     # region Path Generation Methods
@@ -58,7 +63,7 @@ class PathGenerator:
 
     @cache
     def _get_full_path(self, file_index: int) -> Path:
-        return self._parent_directory / self._get_relative_path(file_index)
+        return self._parent_folder / self._get_relative_path(file_index)
 
     def _get_relative_path(self, file_index: int) -> Path:
         path_parts = self._make_path_parts(file_index)
@@ -80,20 +85,30 @@ class PathGenerator:
     def _pad_path_parts(self, path_parts: list[str]):
         if self._enable_padding:
             for i in range(len(path_parts)):
-                path_parts[i] = path_parts[i].rjust(self._part_width, self._padding_char)
+                path_parts[i] = path_parts[i].rjust(
+                    self._part_width, self._padding_char
+                )
 
     def _trim_root_path_part(self, path_parts: list[str]):
         if self._depth > 1:
-            path_parts[0] = path_parts[0][-self._root_width:]
+            path_parts[0] = path_parts[0][-self._root_width :]
 
     # endregion
 
     # region Helper Calculation Methods
     def _calculate_helper_properties(self):
-        self._depth = self._calculate_depth(self._file_count, self._max_files_per_folder)
-        self._capacity = self._calculate_capacity(self._max_files_per_folder, self._depth)
-        self._depth_capacities = self._calculate_depth_capacities(self._depth, self._capacity, self._max_files_per_folder)
-        self._part_width = self._calculate_part_width(self._file_count, self._max_files_per_folder)
+        self._depth = self._calculate_depth(
+            self._file_count, self._max_files_per_folder
+        )
+        self._capacity = self._calculate_capacity(
+            self._max_files_per_folder, self._depth
+        )
+        self._depth_capacities = self._calculate_depth_capacities(
+            self._depth, self._capacity, self._max_files_per_folder
+        )
+        self._part_width = self._calculate_part_width(
+            self._file_count, self._max_files_per_folder
+        )
         self._root_width = self._calculate_root_width(self._file_count, self._capacity)
 
     def _calculate_depth(self, file_count: int, max_files_per_folder: int) -> int:
@@ -106,7 +121,9 @@ class PathGenerator:
         """Calculate the total capacity of files given the depth and max files per folder."""
         return max_files_per_folder ** (depth - 1)
 
-    def _calculate_depth_capacities(self, depth: int, full_path_capacity: int, max_files_per_folder: int) -> list[int]:
+    def _calculate_depth_capacities(
+        self, depth: int, full_path_capacity: int, max_files_per_folder: int
+    ) -> list[int]:
         """Calculate the capacities at each depth level."""
         depth_capacities = []
         capacity = full_path_capacity
@@ -131,7 +148,9 @@ class PathGenerator:
     # region Error Checking Methods
     def _throw_error_if_index_out_of_range(self, file_index: int):
         if file_index < 0 or file_index >= self._file_count:
-            raise IndexError(f"File index '{file_index}' out of range [0, {self._file_count-1}]")
+            raise IndexError(
+                f"File index '{file_index}' out of range [0, {self._file_count-1}]"
+            )
 
     # endregion
 
@@ -140,4 +159,3 @@ class PathGenerator:
         return self.get_path(file_index)
 
     # endregion
-    

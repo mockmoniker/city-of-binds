@@ -1,6 +1,7 @@
 import os
 import pytest
 
+
 @pytest.fixture
 def in_tmp_dir(tmp_path):
     """Fixture that changes working directory to tmp_path for the test duration."""
