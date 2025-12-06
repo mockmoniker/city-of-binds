@@ -10,6 +10,11 @@ trigger_conditions = {
 }
 
 
+graph = nx.DiGraph()
+graph.nodes()
+graph.number_of_nodes()
+
+
 class BindFileGraph(nx.DiGraph):
     def __init__(self):
         super().__init__()
@@ -23,29 +28,50 @@ class BindFileGraph(nx.DiGraph):
         source_bind_file_index: int,
         target_bind_file_index: int,
         delay: int = 0,
-        **condition,
+        trigger_conditions: dict = None,
     ) -> "BindFileGraph":
-        super().add_edge(source_bind_file_index, target_bind_file_index, **condition)
+        super().add_edge(
+            source_bind_file_index,
+            target_bind_file_index,
+            trigger_conditions=trigger_conditions or {},
+        )
         if delay > 0:
             self.add_delay(source_bind_file_index, target_bind_file_index, delay)
         return self
 
     def chain(
-        self, bind_file_indexes: list[int], delay: int = 0, **condition
+        self,
+        bind_file_indexes: list[int],
+        delay: int = 0,
+        trigger_conditions: dict = None,
     ) -> "BindFileGraph":
         for i in bind_file_indexes[:-1]:
-            self.link(i, i + 1, delay=delay, **condition)
+            self.link(i, i + 1, delay=delay, trigger_conditions=trigger_conditions)
         return self
 
-    def loop(self, bind_file_indexes: list[int], delay: int = 0, **conditions):
-        self.chain(bind_file_indexes, delay=delay, **conditions)
+    def loop(
+        self,
+        bind_file_indexes: list[int],
+        delay: int = 0,
+        trigger_conditions: dict = None,
+    ):
+        self.chain(
+            bind_file_indexes, delay=delay, trigger_conditions=trigger_conditions
+        )
         self.link(
-            bind_file_indexes[-1], bind_file_indexes[0], delay=delay, **conditions
+            bind_file_indexes[-1],
+            bind_file_indexes[0],
+            delay=delay,
+            trigger_conditions=trigger_conditions,
         )
         return self
 
     def make_k_regular(
-        self, bind_file_indexes: list[int], k: int, delay: int = 0, **conditions
+        self,
+        bind_file_indexes: list[int],
+        k: int,
+        delay: int = 0,
+        trigger_conditions: dict = None,
     ) -> "BindFileGraph":
         if k > len(bind_file_indexes):
             raise ValueError(
@@ -60,7 +86,7 @@ class BindFileGraph(nx.DiGraph):
                     bind_file_indexes[i],
                     bind_file_indexes[target_index],
                     delay=delay,
-                    **conditions,
+                    trigger_conditions=trigger_conditions,
                 )
         return self
 

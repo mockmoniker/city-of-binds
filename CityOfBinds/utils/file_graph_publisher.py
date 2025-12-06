@@ -6,7 +6,10 @@ from .types import StrPath
 
 
 class FileGraphProtocol(Protocol):
+    def nodes(self) -> Iterator: ...
     def out_edges(self, node_id: int, data: bool = False) -> Iterator[tuple]: ...
+
+    nodes: any
 
 
 class PathFactoryProtocol(Protocol):
@@ -18,20 +21,28 @@ class _FileGraphPublisher(ABC):
         self,
         path_factory: Callable[[int, StrPath], PathFactoryProtocol] = PathGenerator,
         absolute_path_links: bool = False,
+        file_graph_key: str = "file",
     ):
         self._Path_Factory = path_factory
         self.absolute_path_links = absolute_path_links
+        self.file_graph_key = file_graph_key
 
     def publish_files(
         self,
-        indexed_files: list,
         file_graph: FileGraphProtocol,
         directory: StrPath = ".",
         parent_folder: str = "",
     ):
-        paths = self._create_paths(len(indexed_files), directory, parent_folder)
-        self._link_files(indexed_files, file_graph, paths)
-        self._write_files(indexed_files, directory, paths)
+        node_to_index = self._create_node_to_index_map(file_graph)
+        paths = self._create_paths(len(node_to_index), directory, parent_folder)
+        self._link_files(file_graph, node_to_index, paths)
+        self._write_files(file_graph, node_to_index, directory, paths)
+
+    def _create_node_to_index_map(self, file_graph: FileGraphProtocol) -> dict:
+        node_to_index = {}
+        for index, node_id in enumerate(file_graph.nodes()):
+            node_to_index[node_id] = index
+        return node_to_index
 
     def _create_paths(
         self, file_count: int, directory: StrPath, parent_folder: str
@@ -41,29 +52,45 @@ class _FileGraphPublisher(ABC):
             parent_folder = Path(directory).resolve() / parent_folder
         return self._Path_Factory(file_count, parent_folder)
 
-    def _link_files(self, files: list, file_graph, paths):
-        for file_index, source_file in enumerate(files):
-            for _, target_index, edge_data in file_graph.out_edges(
-                file_index, data=True
+    def _link_files(self, file_graph: FileGraphProtocol, node_to_index: dict, paths):
+        for source_node_id in file_graph.nodes():
+            source_file = file_graph.nodes[source_node_id][self.file_graph_key]
+            source_file_path = node_to_index[source_node_id]
+
+            for _, target_node_id, edge_data in file_graph.out_edges(
+                source_node_id, data=True
             ):
-                target_file = files[target_index]
+                target_file = file_graph.nodes[target_node_id][self.file_graph_key]
+                target_file_path = paths[node_to_index[target_node_id]]
+
                 self._link_file(
-                    source_file, target_file, paths[target_index], edge_data
+                    source_file,
+                    target_file,
+                    source_file_path,
+                    target_file_path,
+                    edge_data,
                 )
 
     def _write_files(
         self,
-        files: list,
+        file_graph: FileGraphProtocol,
+        node_to_index: dict,
         directory: StrPath,
         paths,
     ):
-        for file_index, file in enumerate(files):
-            file_path = paths[file_index]
-            self._write_file(file, directory / file_path)
+        for node_id in file_graph.nodes():
+            file = file_graph.nodes[node_id][self.file_graph_key]
+            file_path = Path(directory) / paths[node_to_index[node_id]]
+            self._write_file(file, file_path)
 
     @abstractmethod
     def _link_file(
-        self, source_file, target_file, target_file_path: StrPath, edge_data: dict
+        self,
+        source_file,
+        target_file,
+        source_file_path: StrPath,
+        target_file_path: StrPath,
+        edge_data: dict,
     ):
         pass
 

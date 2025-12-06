@@ -12,6 +12,7 @@ class Bind(_TriggerMixin, _CommandsMixin):
     def __init__(self, trigger: str, commands: list[str] = None):
         _TriggerMixin.__init__(self, trigger)
         _CommandsMixin.__init__(self, commands)
+        self.trigger_on_key_up = False
 
     # region Bind Properties
     @property
@@ -41,9 +42,12 @@ class Bind(_TriggerMixin, _CommandsMixin):
 
     # region Helper Methods
     def _build_bind_string(self) -> str:
-        """Helper function to build the bind string."""
+        commands = self.commands
+        if self.trigger_on_key_up:
+            modifier_command = _CommandGroup("+")
+            commands = modifier_command + commands
         return self._build_bind_string_from_components(
-            trigger=self.trigger, commands=self.commands
+            trigger=self.trigger, commands=commands
         )
 
     def _build_bind_string_from_components(
