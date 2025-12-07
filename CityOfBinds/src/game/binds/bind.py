@@ -1,11 +1,6 @@
 from ..utils import _Trigger, _TriggerMixin
 from ..utils import _CommandsMixin, _CommandGroup
-
-
-class BindConstants:
-    MAX_BIND_LENGTH = (
-        255  # TODO: verify if 255 is command max or full bind max (2025/11/27)
-    )
+from ...configs.constants import GameConstants
 
 
 class Bind(_TriggerMixin, _CommandsMixin):
@@ -36,7 +31,7 @@ class Bind(_TriggerMixin, _CommandsMixin):
 
     def is_over_bind_length(self) -> bool:
         """Helper function to ensure the total bind string does not exceed max character length."""
-        return self.bind_length > BindConstants.MAX_BIND_LENGTH
+        return self.bind_length > GameConstants.MAX_BIND_LENGTH
 
     # endregion
 
@@ -68,7 +63,7 @@ class Bind(_TriggerMixin, _CommandsMixin):
         """Helper function to ensure the bind does not exceed max length."""
         if self.is_over_bind_length():
             raise ValueError(
-                f"Bind exceeds maximum length of {BindConstants.MAX_BIND_LENGTH} characters. Current length is '{self.bind_length}'."
+                f"Bind exceeds maximum length of {GameConstants.MAX_BIND_LENGTH} characters. Current length is '{self.bind_length}'."
             )
 
     # endregion
