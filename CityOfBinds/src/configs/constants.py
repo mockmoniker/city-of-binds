@@ -5,7 +5,7 @@ class FileExtensions:
 
 class GameConstants:
     MAX_BIND_LENGTH = 255  # TODO: validate and check if this is full bind length or just commands (2025/12/06)
-    COMMAND_GROUP_DELIMITER = "$$"
+    COMMANDS_DELIM = "$$"
 
 
 class TriggerConstants:

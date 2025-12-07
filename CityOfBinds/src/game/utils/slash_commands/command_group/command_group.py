@@ -1,11 +1,10 @@
 from typing import Self
 from ..slash_command import SlashCommand
 from ....utils import _Power
+from .....configs.constants import GameConstants
 
 
 class _CommandGroup:
-    COMMAND_DELIM = "$$"
-
     def __init__(self, commands: list[str] = None):
         self._commands = [SlashCommand(cmd) for cmd in commands] if commands else []
 
@@ -416,7 +415,7 @@ class _CommandGroup:
     def _build_command_string_from_components(
         self, commands: list[SlashCommand]
     ) -> str:
-        return f'"{_CommandGroup.COMMAND_DELIM.join(str(cmd) for cmd in commands)}"'
+        return f'"{GameConstants.COMMANDS_DELIM.join(str(cmd) for cmd in commands)}"'
 
     # region Dunder Methods
     def __iter__(self):
