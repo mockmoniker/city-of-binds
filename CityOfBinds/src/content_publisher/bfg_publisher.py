@@ -1,8 +1,9 @@
 from pathlib import Path
 from ..game import Bind
-from ..game import BindFile, BindFileConstants
+from ..game import BindFile
 from ...utils import StrPath
 from ...utils import _FileGraphPublisher
+from ..configs.constants import FileExtensions
 
 
 class BFGPublisher(_FileGraphPublisher):
@@ -58,11 +59,11 @@ class BFGPublisher(_FileGraphPublisher):
     def _link_bind(self, bind: Bind, target_file_path: StrPath):
         if self.is_silent:
             bind.commands.add_bind_load_file_silent(
-                Path(target_file_path).with_suffix(BindFileConstants.EXTENSION)
+                Path(target_file_path).with_suffix(FileExtensions.BIND_FILE)
             )
         else:
             bind.commands.add_bind_load_file(
-                Path(target_file_path).with_suffix(BindFileConstants.EXTENSION)
+                Path(target_file_path).with_suffix(FileExtensions.BIND_FILE)
             )
 
     def _update_target_bind_file(

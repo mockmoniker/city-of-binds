@@ -1,5 +1,6 @@
-class FileConstants:
-    BIND_FILE_EXTENSION = ".txt"
+class FileExtensions:
+    BIND_FILE = ".txt"
+    POP_MENU = ".mnu"
 
 
 class GameConstants:
