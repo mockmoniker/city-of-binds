@@ -33,6 +33,20 @@ class _GenericRotatingBind(ABC):
         bfg = self._create_bind_file_graph(indexed_bind_files, trigger_conditions)
         self.bfg_publisher.publish_files(bfg, directory, parent_folder_name)
 
+    # TODO: make this reuse logic w/ publish bind files method (2025/12/07)
+    def archive_bind_files(
+        self,
+        parent_folder_name: str = "",
+        archive_directory: StrPath = ".",
+        archive_format: str = "zip",
+    ):
+        indexed_bind_files = self._create_indexed_bind_files()
+        trigger_conditions = self._get_trigger_conditions()
+        bfg = self._create_bind_file_graph(indexed_bind_files, trigger_conditions)
+        self.bfg_publisher.publish_to_archive(
+            bfg, archive_directory, parent_folder_name, archive_format
+        )
+
     def add_bind_template(
         self,
         bind_template: BindTemplate,

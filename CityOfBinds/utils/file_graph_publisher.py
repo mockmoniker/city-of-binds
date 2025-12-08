@@ -1,10 +1,12 @@
 import tempfile
 import shutil
 from abc import ABC, abstractmethod
-from typing import Protocol, Iterator, Callable
+from typing import Protocol, Iterator, Callable, TypeAlias
 from pathlib import Path
 from .pathgenerator import PathGenerator
 from .types import StrPath
+
+PathFactoryConstructor: TypeAlias = Callable[[int, StrPath], "PathFactoryProtocol"]
 
 
 class FileGraphDefaults:
@@ -30,9 +32,7 @@ class PathFactoryProtocol(Protocol):
 class _FileGraphPublisher(ABC):
     def __init__(
         self,
-        path_factory: Callable[
-            [int, StrPath], PathFactoryProtocol
-        ] = FileGraphDefaults.PATH_FACTORY,
+        path_factory: PathFactoryConstructor = FileGraphDefaults.PATH_FACTORY,
         absolute_path_links: bool = FileGraphDefaults.ABSOLUTE_PATH_LINKS,
         file_graph_key: str = FileGraphDefaults.FILE_GRAPH_KEY,
     ):
