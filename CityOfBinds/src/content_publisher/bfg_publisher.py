@@ -3,7 +3,7 @@ from ..game import Bind
 from ..game import BindFile
 from ...utils import StrPath
 from ...utils import _FileGraphPublisher
-from ..configs.constants import FileExtensions
+from ..configs.constants import FileExtensions, BFGConstants
 
 
 class BFGPublisher(_FileGraphPublisher):
@@ -14,7 +14,8 @@ class BFGPublisher(_FileGraphPublisher):
     ):
         self.is_silent = is_silent
         super().__init__(
-            absolute_path_links=absolute_path_links, file_graph_key="bind_file"
+            absolute_path_links=absolute_path_links,
+            file_graph_key=BFGConstants.NODE_DATA_KEY,
         )
 
     def _link_file(
@@ -25,7 +26,7 @@ class BFGPublisher(_FileGraphPublisher):
         target_file_path: StrPath,
         edge_data: dict,
     ):
-        trigger_conditions = edge_data["trigger_conditions"]
+        trigger_conditions = edge_data[BFGConstants.EDGE_DATA_KEY]
         self._update_source_bind_file(
             source_bind_file, target_file_path, trigger_conditions
         )
@@ -48,11 +49,11 @@ class BFGPublisher(_FileGraphPublisher):
         if trigger_conditions is None:
             return True
 
-        if "on_triggers" in trigger_conditions:
-            return bind.trigger in trigger_conditions["on_triggers"]
+        if BFGConstants.INCLUSIVE_KEY in trigger_conditions:
+            return bind.trigger in trigger_conditions[BFGConstants.INCLUSIVE_KEY]
 
-        if "not_on_triggers" in trigger_conditions:
-            return bind.trigger not in trigger_conditions["not_on_triggers"]
+        if BFGConstants.EXCLUSIVE_KEY in trigger_conditions:
+            return bind.trigger not in trigger_conditions[BFGConstants.EXCLUSIVE_KEY]
 
         return True
 
@@ -70,16 +71,14 @@ class BFGPublisher(_FileGraphPublisher):
         self, target_bind_file: BindFile, trigger_conditions: dict[str, list[str]]
     ):
         if (
-            "quick_triggers" not in trigger_conditions
-            or not trigger_conditions["quick_triggers"]
+            BFGConstants.QUICK_TRIGGER_KEY not in trigger_conditions
+            or not trigger_conditions[BFGConstants.QUICK_TRIGGER_KEY]
         ):
             return
 
         for bind in target_bind_file.binds:
-            if bind.trigger in trigger_conditions["quick_triggers"]:
-                bind.trigger_on_key_up = (
-                    True  # TODO: implement this on bind (2025/12/01)
-                )
+            if bind.trigger in trigger_conditions[BFGConstants.QUICK_TRIGGER_KEY]:
+                bind.trigger_on_key_up = True
 
     def _write_file(self, bind_file: BindFile, path: StrPath):
         bind_file.write_to_file(Path(path))

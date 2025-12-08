@@ -3,10 +3,6 @@ from typing import Set
 from ....configs.constants import GameConstants
 
 
-class TriggerConstants:
-    TRIGGER_DELIM = "+"
-
-
 class _Trigger:
     VALID_MODIFIERS: Set[str] = set(
         [
@@ -311,12 +307,12 @@ class _Trigger:
 
     def _get_modifier_from_trigger_string(self, trigger_string: str) -> str:
         """Helper function to extract the modifier from a trigger string."""
-        parts = trigger_string.split(TriggerConstants.TRIGGER_DELIM)
+        parts = trigger_string.split(GameConstants.TRIGGER_DELIM)
         return parts[0] if len(parts) == 2 else ""
 
     def _get_key_from_trigger_string(self, trigger_string: str) -> str:
         """Helper function to extract the key from a trigger string."""
-        parts = trigger_string.split(TriggerConstants.TRIGGER_DELIM)
+        parts = trigger_string.split(GameConstants.TRIGGER_DELIM)
         return parts[-1]  # Last part is always the key
 
     def _normalize_and_validate_modifier(self, modifier: str) -> str:
@@ -341,7 +337,7 @@ class _Trigger:
     def _build_trigger_string(self) -> str:
         """Build the complete trigger string from parts."""
         if self._modifier:
-            return f"{self._modifier}{TriggerConstants.TRIGGER_DELIM}{self._key}"
+            return f"{self._modifier}{GameConstants.TRIGGER_DELIM}{self._key}"
         return self._key
 
     # endregion
@@ -349,7 +345,7 @@ class _Trigger:
     # region Error Checking Methods
     def _throw_error_if_invalid_trigger_string(self, trigger_string: str):
         # TODO: write trigger string validation better (2025/12/07)
-        trigger_parts = trigger_string.split(TriggerConstants.TRIGGER_DELIM)
+        trigger_parts = trigger_string.split(GameConstants.TRIGGER_DELIM)
         if len(trigger_parts) > 2:
             raise ValueError(
                 f"Invalid trigger format '{trigger_string}'. Trigger format must follow [MODIFIER+]<KEY>."

@@ -1,18 +1,7 @@
 import networkx as nx
 import copy
 from ...game import BindFile
-
-
-trigger_conditions = {
-    "on_trigger": {"Q", "E", "SPACE"},
-    "fast_triggers": {"Q", "E"},
-    "not_on_trigger": {},
-}
-
-
-graph = nx.DiGraph()
-graph.nodes()
-graph.number_of_nodes()
+from ...configs.constants import BFGConstants
 
 
 class BindFileGraph(nx.DiGraph):
@@ -149,4 +138,4 @@ class BindFileGraph(nx.DiGraph):
         return list(self.predecessors(bind_file_index))
 
     def get_bind_file(self, bind_file_index: int) -> BindFile:
-        return self.nodes[bind_file_index]["bind_file"]
+        return self.nodes[bind_file_index][BFGConstants.NODE_DATA_KEY]
