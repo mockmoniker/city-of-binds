@@ -265,92 +265,103 @@ class _Trigger:
     ### Initialization
     def __init__(self, trigger_string: str):
         """Initialize the trigger with a key and optional modifier."""
-        formatted_trigger_string = trigger_string.upper()
-        self._throw_error_if_invalid_trigger_string(formatted_trigger_string)
-        self._trigger_string = formatted_trigger_string
+        self._modifier = None
+        self._key = None
+
+        self._throw_error_if_invalid_trigger_string(trigger_string)
+        trigger_string = self._normalize_trigger_string(trigger_string)
+        modifier, key = self._get_trigger_parts(trigger_string)
+        self.modifier = modifier
+        self.key = key
 
     # region Trigger Properties
     @property
-    def key(self):
-        return self._get_key_from_trigger_string(self._trigger_string)
-
-    @key.setter
-    def key(self, key_string: str):
-        key = key_string.upper()
-        self._throw_error_if_invalid_key(key)
-        if self.modifier:
-            self._trigger_string = (
-                f"{self.modifier}{TriggerConstants.TRIGGER_DELIM}{key}"
-            )
-        else:
-            self._trigger_string = key
-
-    @property
-    def modifier(self):
-        return self._get_modifier_from_trigger_string(self._trigger_string)
+    def modifier(self) -> str:
+        return self._modifier
 
     @modifier.setter
-    def modifier(self, modifier_string: str):
-        if modifier_string:
-            formatted_modifier = modifier_string.upper()
-            self._throw_error_if_invalid_modifier(formatted_modifier)
-            self._trigger_string = (
-                f"{formatted_modifier}{TriggerConstants.TRIGGER_DELIM}{self.key}"
-            )
-        else:
-            self._trigger_string = self.key
+    def modifier(self, modifier: str):
+        self._modifier = self._normalize_and_validate_modifier(modifier)
+
+    @property
+    def key(self) -> str:
+        return self._key
+
+    @key.setter
+    def key(self, key: str):
+        self._key = self._normalize_and_validate_key(key)
 
     # endregion
 
     # region Trigger Methods
     def has_modifier(self) -> bool:
-        return bool(self.modifier)
+        return bool(self._modifier)
 
     def clear_modifier(self):
-        self._trigger_string = self.key
+        self._modifier = ""
 
     # endregion
 
     # region Helper Methods
-    def _get_key_from_trigger_string(self, trigger_string: str) -> str:
-        """Helper function to extract the key from a trigger string."""
-        return self._get_trigger_components(trigger_string)[-1]
+    def _get_trigger_parts(self, trigger_string: str) -> tuple[str, str]:
+        """Extract modifier and key from trigger string."""
+        modifier = self._get_modifier_from_trigger_string(trigger_string)
+        key = self._get_key_from_trigger_string(trigger_string)
+        return modifier, key
 
     def _get_modifier_from_trigger_string(self, trigger_string: str) -> str:
         """Helper function to extract the modifier from a trigger string."""
-        trigger_components = self._get_trigger_components(trigger_string)
-        if len(trigger_components) == 2:
-            return trigger_components[0]
-        return ""
+        parts = trigger_string.split(TriggerConstants.TRIGGER_DELIM)
+        return parts[0] if len(parts) == 2 else ""
 
-    def _get_trigger_components(self, trigger_string: str) -> list[str]:
-        """Helper function to extract the key and modifier from a trigger string."""
-        return trigger_string.split(TriggerConstants.TRIGGER_DELIM)
+    def _get_key_from_trigger_string(self, trigger_string: str) -> str:
+        """Helper function to extract the key from a trigger string."""
+        parts = trigger_string.split(TriggerConstants.TRIGGER_DELIM)
+        return parts[-1]  # Last part is always the key
+
+    def _normalize_and_validate_modifier(self, modifier: str) -> str:
+        modifier = self._normalize_modifier(modifier)
+        self._throw_error_if_invalid_modifier(modifier)
+        return modifier
+
+    def _normalize_and_validate_key(self, key: str) -> str:
+        key = self._normalize_key(key)
+        self._throw_error_if_invalid_key(key)
+        return key
+
+    def _normalize_trigger_string(self, trigger_string: str) -> str:
+        return trigger_string.strip()
+
+    def _normalize_modifier(self, modifier: str) -> str:
+        return modifier.strip().upper() if modifier else ""
+
+    def _normalize_key(self, key: str) -> str:
+        return key.strip().upper()
+
+    def _build_trigger_string(self) -> str:
+        """Build the complete trigger string from parts."""
+        if self._modifier:
+            return f"{self._modifier}{TriggerConstants.TRIGGER_DELIM}{self._key}"
+        return self._key
 
     # endregion
 
     # region Error Checking Methods
     def _throw_error_if_invalid_trigger_string(self, trigger_string: str):
-        """Helper function to validate the overall trigger string format."""
-        self._throw_error_if_invalid_trigger_string_format(trigger_string)
-
-        key = self._get_key_from_trigger_string(trigger_string)
-        self._throw_error_if_invalid_key(key)
-
-        modifier = self._get_modifier_from_trigger_string(trigger_string)
-        self._throw_error_if_invalid_modifier(modifier)
-
-    def _throw_error_if_invalid_trigger_string_format(self, trigger_string: str):
-        """Helper function to validate the overall trigger string format."""
-        trigger_pattern = r"^(\w+\+)?\w+$"  # pattern to match "[modifier+]<key>"
-        if not re.match(trigger_pattern, trigger_string):
+        # TODO: write trigger string validation better (2025/12/07)
+        trigger_parts = trigger_string.split(TriggerConstants.TRIGGER_DELIM)
+        if len(trigger_parts) > 2:
             raise ValueError(
-                f"Invalid trigger format '{trigger_string}'. Format should be \"[modifier+]<key>\" where modifier is optional."
+                f"Invalid trigger format '{trigger_string}'. Trigger format must follow [MODIFIER+]<KEY>."
+            )
+        if len(trigger_parts) == 2 and (not trigger_parts[0] or not trigger_parts[1]):
+            raise ValueError(
+                f"Invalid trigger format '{trigger_string}'. Trigger format must follow [MODIFIER+]<KEY>."
             )
 
     def _throw_error_if_invalid_key(self, key: str):
         if not key:
-            raise ValueError("Invalid trigger key. Trigger key cannot be empty.")
+            raise ValueError("Trigger key cannot be empty.")
         if " " in key:
             raise ValueError(
                 f"Invalid trigger key '{key}'. Trigger key cannot contain spaces."
@@ -364,11 +375,13 @@ class _Trigger:
         )
 
     def _throw_error_if_invalid_modifier(self, modifier: str):
+        if not modifier:
+            return
         if " " in modifier:
             raise ValueError(
                 f"Invalid trigger modifier '{modifier}'. Trigger modifier cannot contain spaces."
             )
-        if modifier and modifier not in self.VALID_MODIFIERS:
+        if modifier not in self.VALID_MODIFIERS:
             raise ValueError(
                 f"Unknown trigger modifier '{modifier}'. Please see https://homecoming.wiki/wiki/List_of_Key_Names for list of valid trigger modifiers."
             )
@@ -385,12 +398,12 @@ class _Trigger:
 
     def __str__(self):
         """Override the default string representation."""
-        return self._trigger_string
+        return self._build_trigger_string()
 
     def __eq__(self, other):
         """Override the default equality operator."""
         if not isinstance(other, _Trigger):
             return False
-        return self._trigger_string == other._trigger_string
+        return str(self) == str(other)
 
     # endregion
