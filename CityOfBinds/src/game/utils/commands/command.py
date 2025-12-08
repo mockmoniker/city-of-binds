@@ -1,10 +1,12 @@
 import re
 from typing import Set
+from ....configs.constants import GameConstants
 
 
-class SlashCommand:
+class _Command:
     VALID_COMMANDS: Set[str] = set(
         [
+            "",
             "ac",
             "afk",
             "ah",
@@ -607,112 +609,128 @@ class SlashCommand:
             "zoomout",
         ]
     )
-    VALID_PREFIXES: Set[str] = set(["-", "+", "--", "++"])
+    VALID_PREFIXES: Set[str] = set(["--", "++", "-", "+"])
 
     ### Initialization
-    def __init__(self, command: "str | SlashCommand"):
+    def __init__(self, command: str):
         """Initialize the command with a string."""
-        if isinstance(command, SlashCommand):
-            self._command_string = str(command)
-            return
-        formatted_command_string = self._lowercase_first_word(command)
-        self._throw_error_if_invalid_command_string(formatted_command_string)
-        self._command_string = formatted_command_string
+        self._prefix = None
+        self._slash_command = None
+        self._args = None
+
+        command = self._normalize_command_string(command)
+        prefix, slash_command, args = self._get_command_parts(command)
+        self.prefix = prefix
+        self.slash_command = slash_command
+        self.args = args
 
     # region Command Properties
     @property
-    def command(self) -> str:
-        return self._get_command_from_command_string(self._command_string)
-
-    @command.setter
-    def command(self, command_string: str):
-        formatted_command_string = self._get_formatted_command_string(command_string)
-        self._throw_error_if_invalid_command(command=formatted_command_string)
-        self._command_string = (
-            f"{self.prefix}{formatted_command_string} {self.args}".strip()
-        )
-
-    @property
-    def args(self) -> str:
-        return self._get_args_from_command_string(self._command_string)
-
-    @args.setter
-    def args(self, args: str):
-        self._command_string = f"{self.prefix}{self.command} {args}".strip()
-
-    @property
     def prefix(self) -> str:
-        return self._get_prefix_from_command_string(self._command_string)
+        return self._prefix
 
     @prefix.setter
     def prefix(self, prefix: str):
-        if prefix:
-            self._throw_error_if_invalid_prefix(prefix=prefix)
-        self._command_string = f"{prefix}{self.command} {self.args}".strip()
+        self._prefix = self._normalize_and_validate_prefix(prefix)
+
+    @property
+    def slash_command(self) -> str:
+        return self._slash_command
+
+    @slash_command.setter
+    def slash_command(self, slash_command: str):
+        self._slash_command = self._normalize_and_validate_slash_command(slash_command)
+
+    @property
+    def args(self) -> str:
+        return self._args
+
+    @args.setter
+    def args(self, args: str):
+        self._args = self._normalize_and_validate_args(args)
 
     # endregion
 
     # region Helper Functions
-    def _get_formatted_command_string(self, command_string: str) -> str:
-        """Helper function to format the command string to lowercase."""
-        return command_string.lower()
-
-    def _lowercase_first_word(self, string: str) -> str:
-        """Helper function to lowercase the first word of the command string."""
-        first_word, space, rest = string.partition(" ")
-        return first_word.lower() + space + rest
-
-    def _get_command_from_command_string(self, command_string: str) -> str:
-        """Helper function to extract the command from the command string."""
-        return command_string.split(" ")[0].replace("-", "").replace("+", "")
-
-    def _get_args_from_command_string(self, command_string: str) -> str:
-        """Helper function to extract the args from the command string."""
-        args = command_string.split(" ")[1:]
-        return " ".join(args) if args else ""
+    def _get_command_parts(self, command_string: str) -> tuple[str, str, str]:
+        """Helper function to extract the command parts from the command string."""
+        prefix = self._get_prefix_from_command_string(command_string)
+        slash_command = self._get_slash_command_from_command_string(command_string)
+        args = self._get_args_from_command_string(command_string)
+        return prefix, slash_command, args
 
     def _get_prefix_from_command_string(self, command_string: str) -> str:
         """Helper function to extract the prefix from the command string."""
-        for prefix in self.VALID_PREFIXES:
+        for prefix in sorted(self.VALID_PREFIXES, key=len, reverse=True):
             if command_string.startswith(prefix):
                 return prefix
         return ""
 
+    def _get_slash_command_from_command_string(self, command_string: str) -> str:
+        """Helper function to extract the command from the command string."""
+        slash_command = command_string.split(" ")[0]
+        slash_command = self._remove_prefixes(slash_command)
+        return slash_command
+
+    def _remove_prefixes(self, slash_command: str) -> str:
+        for prefix in sorted(self.VALID_PREFIXES, key=len, reverse=True):
+            if slash_command.startswith(prefix):
+                return slash_command[len(prefix) :]
+        return slash_command
+
+    def _get_args_from_command_string(self, command_string: str) -> str:
+        slash_command, space, args = command_string.partition(" ")
+        return args if space else ""
+
+    def _normalize_and_validate_prefix(self, prefix: str) -> str:
+        prefix = self._normalize_prefix(prefix)
+        self._throw_error_if_invalid_prefix(prefix)
+        return prefix
+
+    def _normalize_and_validate_slash_command(self, slash_command: str) -> str:
+        slash_command = self._normalize_slash_command(slash_command)
+        self._throw_error_if_unknown_slash_command(slash_command)
+        return slash_command
+
+    def _normalize_and_validate_args(self, args: str) -> str:
+        return self._normalize_args(args)
+
+    def _normalize_command_string(self, command_string: str) -> str:
+        return command_string.lstrip()
+
+    def _normalize_prefix(self, prefix: str) -> str:
+        return prefix.strip()
+
+    def _normalize_slash_command(self, slash_command: str) -> str:
+        slash_command = slash_command.strip()
+        slash_command = slash_command.replace("_", "")
+        slash_command = slash_command.lower()
+        return slash_command
+
+    def _normalize_args(self, args: str) -> str:
+        return args.lstrip()
+
+    def _build_command_string(self) -> str:
+        if self.args:
+            return f"{self.prefix}{self.slash_command} {self.args}"
+        else:
+            return f"{self.prefix}{self.slash_command}"
+
     # endregion
 
     # region Error Checking Methods
-    def _throw_error_if_invalid_command_string(self, command_string: str):
-        """Helper function to validate the overall command string format."""
-        self._throw_error_if_invalid_command_string_format(
-            command_string=command_string
-        )
-
-        command = self._get_command_from_command_string(command_string=command_string)
-        self._throw_error_if_invalid_command(command=command)
-
-        # no check on args needed, args can be anything
-
-    def _throw_error_if_invalid_command_string_format(self, command_string: str):
-        """Helper function to validate the overall command string format."""
-        command_pattern = r"^([-]{0,2}|[+]{0,2})[\w_0-9]+(\s\S.*)?$"  # pattern to match "[prefix]<command> [args...]"
-        if not re.match(command_pattern, command_string):
-            raise ValueError(
-                f"Invalid command format '{command_string}'. Format should be \"[prefix]<command> [args...]\""
-            )
-
-    def _throw_error_if_invalid_command(self, command: str):
-        """Helper function to validate the command portion of the command string."""
-        minimal_command = command.replace("_", "")
-        if minimal_command not in self.VALID_COMMANDS:
-            raise ValueError(
-                f"Unknown command '{command}'. Please see https://homecoming.wiki/wiki/List_of_Slash_Commands for a list of valid commands."
-            )
-
     def _throw_error_if_invalid_prefix(self, prefix: str):
         """Helper function to validate the prefix portion of the command string."""
-        if prefix not in self.VALID_PREFIXES:
+        if prefix and prefix not in self.VALID_PREFIXES:
             raise ValueError(
                 f"Invalid prefix '{prefix}'. Valid prefixes are: {', '.join(self.VALID_PREFIXES)}"
+            )
+
+    def _throw_error_if_unknown_slash_command(self, slash_command: str):
+        """Helper function to validate the command portion of the command string."""
+        if slash_command not in self.VALID_COMMANDS:
+            raise ValueError(
+                f"Unknown slash command '{slash_command}'. Please see https://homecoming.wiki/wiki/List_of_Slash_Commands for a list of valid commands."
             )
 
     # endregion
@@ -720,16 +738,16 @@ class SlashCommand:
     # region Dunder Methods
     def __repr__(self):
         if self.args:
-            return f"{self.__class__.__name__}(command='{self.command}', args='{self.args}')"
+            return f"{self.__class__.__name__}(command='{self.slash_command}', args='{self.args}')"
         else:
-            return f"{self.__class__.__name__}(command='{self.command}')"
+            return f"{self.__class__.__name__}(command='{self.slash_command}')"
 
     def __str__(self):
-        return self._command_string
+        return self._build_command_string()
 
     def __eq__(self, other):
-        if not isinstance(other, SlashCommand):
+        if not isinstance(other, _Command):
             return False
-        return self._command_string == other._command_string
+        return str(self) == str(other)
 
     # endregion

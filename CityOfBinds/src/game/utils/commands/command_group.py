@@ -1,12 +1,12 @@
 from typing import Self
-from ..slash_command import SlashCommand
-from ....utils import _Power
-from .....configs.constants import GameConstants
+from .command import _Command
+from .. import _Power
+from ....configs.constants import GameConstants
 
 
 class _CommandGroup:
     def __init__(self, commands: list[str] = None):
-        self._commands = [SlashCommand(cmd) for cmd in commands] if commands else []
+        self._commands = [_Command(cmd) for cmd in commands] if commands else []
 
     # region Basic List Methods
     def add_command(
@@ -35,7 +35,7 @@ class _CommandGroup:
         """Modify the command list using a modification function."""
         method = getattr(self._commands, list_method_name)
         if command_string is not None:
-            method(*args, SlashCommand(command_string))
+            method(*args, _Command(command_string))
         else:
             method(*args)
         return self
@@ -412,9 +412,7 @@ class _CommandGroup:
     def _build_command_string(self) -> str:
         return self._build_command_string_from_components(self._commands)
 
-    def _build_command_string_from_components(
-        self, commands: list[SlashCommand]
-    ) -> str:
+    def _build_command_string_from_components(self, commands: list[_Command]) -> str:
         return f'"{GameConstants.COMMANDS_DELIM.join(str(cmd) for cmd in commands)}"'
 
     # region Dunder Methods
@@ -425,7 +423,7 @@ class _CommandGroup:
         return self._commands[index]
 
     def __setitem__(self, index, value):
-        self._commands[index] = SlashCommand(value)
+        self._commands[index] = _Command(value)
 
     def __len__(self):
         return len(self._commands)

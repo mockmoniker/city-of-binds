@@ -1,5 +1,6 @@
 import re
 from typing import Set
+from ....configs.constants import GameConstants
 
 
 class TriggerConstants:
