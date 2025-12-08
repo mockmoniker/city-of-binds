@@ -1,8 +1,19 @@
+import tempfile
+import shutil
 from abc import ABC, abstractmethod
 from typing import Protocol, Iterator, Callable
 from pathlib import Path
 from .pathgenerator import PathGenerator
 from .types import StrPath
+
+
+class FileGraphDefaults:
+    FILE_GRAPH_KEY = "file"
+    PARENT_FOLDER = "file_graph"
+    PUBLISH_DIRECTORY = "."
+    ABSOLUTE_PATH_LINKS = False
+    ARCHIVE_FORMAT = "zip"
+    PATH_FACTORY = PathGenerator
 
 
 class FileGraphProtocol(Protocol):
@@ -19,9 +30,11 @@ class PathFactoryProtocol(Protocol):
 class _FileGraphPublisher(ABC):
     def __init__(
         self,
-        path_factory: Callable[[int, StrPath], PathFactoryProtocol] = PathGenerator,
-        absolute_path_links: bool = False,
-        file_graph_key: str = "file",
+        path_factory: Callable[
+            [int, StrPath], PathFactoryProtocol
+        ] = FileGraphDefaults.PATH_FACTORY,
+        absolute_path_links: bool = FileGraphDefaults.ABSOLUTE_PATH_LINKS,
+        file_graph_key: str = FileGraphDefaults.FILE_GRAPH_KEY,
     ):
         self._Path_Factory = path_factory
         self.absolute_path_links = absolute_path_links
@@ -30,13 +43,32 @@ class _FileGraphPublisher(ABC):
     def publish_files(
         self,
         file_graph: FileGraphProtocol,
-        directory: StrPath = ".",
-        parent_folder: str = "",
+        directory: StrPath = FileGraphDefaults.PUBLISH_DIRECTORY,
+        parent_folder: str = FileGraphDefaults.PARENT_FOLDER,
     ):
         node_to_index = self._create_node_to_index_map(file_graph)
         paths = self._create_paths(len(node_to_index), directory, parent_folder)
         self._link_files(file_graph, node_to_index, paths)
         self._write_files(file_graph, node_to_index, directory, paths)
+
+    def publish_to_archive(
+        self,
+        file_graph: FileGraphProtocol,
+        archive_directory: StrPath = FileGraphDefaults.PUBLISH_DIRECTORY,
+        parent_folder: str = FileGraphDefaults.PARENT_FOLDER,
+        archive_format: str = FileGraphDefaults.ARCHIVE_FORMAT,
+    ):
+        """Publish files to a temporary directory, then zip it up."""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            # Publish files to temporary directory
+            self.publish_files(file_graph, temp_dir, parent_folder)
+
+            # Create zip file path (zip name matches parent folder)
+            archive_path = Path(archive_directory) / f"{parent_folder}"
+            archive_path.parent.mkdir(parents=True, exist_ok=True)
+
+            # Create zip from the temp directory root (includes parent_folder structure)
+            shutil.make_archive(str(archive_path), archive_format, temp_dir)
 
     def _create_node_to_index_map(self, file_graph: FileGraphProtocol) -> dict:
         node_to_index = {}
