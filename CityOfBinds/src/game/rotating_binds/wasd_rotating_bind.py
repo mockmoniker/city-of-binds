@@ -1,7 +1,7 @@
 import copy
 from .generic_rotating_binds import _GenericRotatingBind, _LoopTopology
 from ...content_managers import WASDBindTemplate
-from ...content_managers import AdvanceOnTriggerType
+from ...content_managers import RotationPolicy
 
 
 class WASDRotatingBind(_GenericRotatingBind, _LoopTopology):
@@ -27,4 +27,4 @@ class WASDRotatingBind(_GenericRotatingBind, _LoopTopology):
         for direction in self.direction_keys:
             direction_template = copy.deepcopy(self.wasd_bind_template)
             direction_template.trigger = direction
-            self.add_bind_template(direction_template, AdvanceOnTriggerType.INCLUDE)
+            self.add_bind_template(direction_template, RotationPolicy.ON_THIS_TRIGGER)

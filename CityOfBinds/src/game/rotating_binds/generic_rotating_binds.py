@@ -7,7 +7,7 @@ from ...content_managers import BindFileGraph
 from ...content_managers import BindTemplate
 from ...content_managers import (
     BindFileTemplate,
-    AdvanceOnTriggerType,
+    RotationPolicy,
 )
 from ....utils.types import StrPath
 from ...configs.constants import BFGConstants
@@ -51,7 +51,7 @@ class _GenericRotatingBind(ABC):
     def add_bind_template(
         self,
         bind_template: BindTemplate,
-        advance_on_trigger: AdvanceOnTriggerType = AdvanceOnTriggerType.DEFAULT,
+        advance_on_trigger: RotationPolicy = RotationPolicy.DEFAULT,
     ):
         self.bind_file_template.add_bind_template(bind_template, advance_on_trigger)
         return self

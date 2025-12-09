@@ -16,8 +16,8 @@ class BindFileGraph(nx.DiGraph):
         self,
         source_bind_file_index: int,
         target_bind_file_index: int,
-        delay: int = 0,
         trigger_conditions: dict = None,
+        delay: int = 0,
     ) -> "BindFileGraph":
         super().add_edge(
             source_bind_file_index,
@@ -31,27 +31,27 @@ class BindFileGraph(nx.DiGraph):
     def chain(
         self,
         bind_file_indexes: list[int],
-        delay: int = 0,
         trigger_conditions: dict = None,
+        delay: int = 0,
     ) -> "BindFileGraph":
         for i in bind_file_indexes[:-1]:
-            self.link(i, i + 1, delay=delay, trigger_conditions=trigger_conditions)
+            self.link(i, i + 1, trigger_conditions=trigger_conditions, delay=delay)
         return self
 
     def loop(
         self,
         bind_file_indexes: list[int],
-        delay: int = 0,
         trigger_conditions: dict = None,
+        delay: int = 0,
     ):
         self.chain(
-            bind_file_indexes, delay=delay, trigger_conditions=trigger_conditions
+            bind_file_indexes, trigger_conditions=trigger_conditions, delay=delay
         )
         self.link(
             bind_file_indexes[-1],
             bind_file_indexes[0],
-            delay=delay,
             trigger_conditions=trigger_conditions,
+            delay=delay,
         )
         return self
 
@@ -59,8 +59,8 @@ class BindFileGraph(nx.DiGraph):
         self,
         bind_file_indexes: list[int],
         k: int,
-        delay: int = 0,
         trigger_conditions: dict = None,
+        delay: int = 0,
     ) -> "BindFileGraph":
         if k > len(bind_file_indexes):
             raise ValueError(
@@ -74,8 +74,8 @@ class BindFileGraph(nx.DiGraph):
                 self.link(
                     bind_file_indexes[i],
                     bind_file_indexes[target_index],
-                    delay=delay,
                     trigger_conditions=trigger_conditions,
+                    delay=delay,
                 )
         return self
 

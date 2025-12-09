@@ -4,10 +4,10 @@ from ...game import BindFile
 from ....utils import ListTemplate
 
 
-class AdvanceOnTriggerType(Enum):
-    INCLUDE = 1
-    EXCLUDE = 2
-    DEFAULT = 3
+class RotationPolicy(Enum):
+    ON_THIS_TRIGGER = "inclusive"
+    NOT_ON_THIS_TRIGGER = "exclusive"
+    DEFAULT = "default"
 
 
 class BindFileTemplate(ListTemplate):
@@ -15,16 +15,20 @@ class BindFileTemplate(ListTemplate):
         ListTemplate.__init__(self, [])
         self.include_triggers = []
         self.exclude_triggers = []
+        self.quick_triggers = []
 
     def add_bind_template(
         self,
         bind_template,
-        advance_on_trigger: AdvanceOnTriggerType = AdvanceOnTriggerType.DEFAULT,
+        rotation_policy: RotationPolicy = RotationPolicy.DEFAULT,
+        quick_trigger: bool = False,
     ) -> Self:
-        if advance_on_trigger == AdvanceOnTriggerType.INCLUDE:
+        if rotation_policy == RotationPolicy.ON_THIS_TRIGGER:
             self.include_triggers.append(bind_template.trigger)
-        elif advance_on_trigger == AdvanceOnTriggerType.EXCLUDE:
+        elif rotation_policy == RotationPolicy.NOT_ON_THIS_TRIGGER:
             self.exclude_triggers.append(bind_template.trigger)
+        if quick_trigger:
+            self.quick_triggers.append(bind_template.trigger)
         return self._add_content(bind_template)
 
     def _add_content(self, item) -> Self:

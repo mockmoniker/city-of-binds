@@ -38,7 +38,7 @@ class Bind(_TriggerMixin, _CommandsMixin):
     # region Helper Methods
     def _build_bind_string(self) -> str:
         commands = self.commands
-        if self.trigger_on_key_up:
+        if self.trigger_on_key_up and not commands[0].prefix:
             modifier_command = _CommandGroup("+")
             commands = modifier_command + commands
         return self._build_bind_string_from_components(

@@ -649,6 +649,9 @@ class _Command:
     def args(self, args: str):
         self._args = self._normalize_and_validate_args(args)
 
+    def clear_prefix(self):
+        self._prefix = ""
+
     # endregion
 
     # region Helper Functions
