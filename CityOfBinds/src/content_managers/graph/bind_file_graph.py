@@ -22,7 +22,7 @@ class BindFileGraph(nx.DiGraph):
         super().add_edge(
             source_bind_file_index,
             target_bind_file_index,
-            trigger_conditions=trigger_conditions or {},
+            **{BFGConstants.EDGE_DATA_KEY: trigger_conditions} or {},
         )
         if delay > 0:
             self.add_delay(source_bind_file_index, target_bind_file_index, delay)

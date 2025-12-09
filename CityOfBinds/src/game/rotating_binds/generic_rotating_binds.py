@@ -10,6 +10,7 @@ from ...content_managers import (
     AdvanceOnTriggerType,
 )
 from ....utils.types import StrPath
+from ...configs.constants import BFGConstants
 
 
 class _GenericRotatingBind(ABC):
@@ -69,9 +70,13 @@ class _GenericRotatingBind(ABC):
     def _get_trigger_conditions(self) -> dict:
         conditions = {}
         if self.bind_file_template.include_triggers:
-            conditions["on_triggers"] = self.bind_file_template.include_triggers
+            conditions[BFGConstants.INCLUSIVE_KEY] = (
+                self.bind_file_template.include_triggers
+            )
         if self.bind_file_template.exclude_triggers:
-            conditions["not_on_triggers"] = self.bind_file_template.exclude_triggers
+            conditions[BFGConstants.EXCLUSIVE_KEY] = (
+                self.bind_file_template.exclude_triggers
+            )
         return conditions
 
     def _create_bind_file_graph(

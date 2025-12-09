@@ -3,6 +3,7 @@ from .wasd_rotating_bind import WASDRotatingBind
 from .generic_rotating_binds import _RandomOrder
 from ...game import BindFile
 from ...content_managers import BindFileGraph
+from ...configs.constants import BFGConstants
 
 
 class RandomBinds(RotatingBind, _RandomOrder):
@@ -50,6 +51,6 @@ class RandomWalk(WASDRotatingBind, _RandomOrder):
             edges = list(bfg.edges(file_index))
 
             for (source, target), trigger in zip(edges, self.direction_keys):
-                bfg.edges[source, target]["trigger_conditions"] = {
-                    "on_triggers": [trigger]
+                bfg.edges[source, target][BFGConstants.EDGE_DATA_KEY] = {
+                    BFGConstants.INCLUSIVE_KEY: [trigger]
                 }
