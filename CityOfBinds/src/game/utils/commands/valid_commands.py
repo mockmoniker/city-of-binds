@@ -1,677 +1,497 @@
-from typing import Set, Dict, List, type
-from .common_slash_commands import CommonSlashCommands as CSC
+from typing import Set, Dict, List, Type, Union
 
 
 VALID_PREFIXES: Set[str] = {"--", "++", "-", "+"}
 
-
-VALID_BIND_FILE_COMMANDS: dict[str, List[type]] = {
-    CSC.BIND_LOAD: [],
-    CSC.BIND_LOAD_FILE: [str],
-    CSC.BIND_LOAD_FILE_SILENT: [str],
-    CSC.BIND_SAVE: [],
-    CSC.BIND_SAVE_FILE: [str],
-    CSC.BIND_SAVE_FILE_SILENT: [str],
-    "showbind": [str],
-    "showbindall": [str],
-    "showbindallfile": [str],
-}
-
-VALID_POWEXEC_COMMANDS: dict[str, List[type]] = {
-    "powerstogglealloff": [],
-    "powexecabort": [],
-    "powexecalt2slot": [int],
-    "powexecaltslot": [int],
-    CSC.POWEXEC_AUTO: [str],
-    CSC.POWEXEC_LOCATION: [str, str],
-    CSC.POWEXEC_NAME: [str],
-    "powexecserverslot": [int],
-    "powexecslot": [int],
-    CSC.POWEXEC_TOGGLE_OFF: [str],
-    CSC.POWEXEC_TOGGLE_ON: [str],
-    "powexectray": [int, int],
-    "powexecunqueue": [str],
-}
-
-VALID_CHAT_COMMANDS: dict[str, List[type]] = {
-    "ac": [str],
-    "arena": [str],
-    CSC.CHAT_BROADCAST: [str],
-    "broadcast": [str],
-    "y": [str],
-    "yell": [str],
-    "c": [str],
-    "coalition": [str],
-    "f": [str],
-    CSC.CHAT_TEAM: [str],
-    "group": [str],
-    "team": [str],
-    "general": [str],
-    "gen": [str],
-    "z": [str],
-    CSC.CHAT_LOCAL: [str],
-    "local": [str],
-    CSC.CHAT_LEAGUE: [str],
-    "league": [str],
-    "league_chat": [str],
-    "req": [str],
-    "request": [str],
-    CSC.CHAT_RAID: [str],
-    "auction": [str],
-    "help": [str],
-    "h": [str],
-    "hc": [str],
-    "helpchat": [str],
-    "guide": [str],
-    CSC.CHAT_SAY: [str],
-    "say": [str],
-    "sg": [str],
-    "supergroup": [str],
-    "tell": [str],
-    "p": [str],
-    "private": [str],
-    "t": [str],
-    "whisper": [str],
-    "tll": [str],
-    "ttl": [str],
-    "tell_last": [str],
-    "tl": [str],
-    CSC.CHAT_LFG: [str],
-    "lookingforgroup": [str],
-}
-
-VALID_COSTUME_CHANGE_COMMANDS: dict[str, List[type]] = {
-    CSC.CC: [int],
-    "costumechange": [int],
-    CSC.CC_EMOTE: [int, str],
-    "ccemote": [int, str],
-}
-
-VALID_EMOTE_COMMANDS: dict[str, List[type]] = {
-    CSC.EMOTE: [str],
-    "em": [str],
-    "me": [str],
-    "emote": [str],
-}
-
-VALID_OTHER_COMMANDS: dict[str, List[type]] = {
-    "": [],
-    "ac": [],
-    "afk": [],
-    "ah": [],
-    "ai": [],
-    "alt2tray": [],
-    "altinvite": [],
-    "alttray": [],
-    "alttraysticky": [],
-    "anglesnap": [],
-    "anglesnapcycle": [],
-    "antialiasing": [],
-    "architect": [],
-    "architectclaimtickets": [],
-    "architectcompletemission": [],
-    "architectexit": [],
-    "architectfixerrors": [],
-    "architectinvincible": [],
-    "architectinvisible": [],
-    "architectkilltarget": [],
-    "architectloginupdate": [],
-    "architectnextcritter": [],
-    "architectnextobjective": [],
-    "architectrepublish": [],
-    "architectsaveandexit": [],
-    "architectsaveandtest": [],
-    "architectsavecompressedcostumes": [],
-    "arena": [],
-    "arenainvite": [],
-    "arenalist": [],
-    "arenalocal": [],
-    "arenascore": [],
-    "assist": [],
-    "assistname": [],
-    "attachcycle": [],
-    "aucloginupdate": [],
-    "auction": [],
-    "auctionhouse": [],
-    "autoreply": [],
-    "autorun": [],
-    "b": [],
-    "backward": [],
-    "badgegrant": [],
-    "basedefaultsky": [],
-    "baselightingtype": [],
-    "baseredo": [],
-    "baseselect": [],
-    "baseundo": [],
-    "beginchat": [],
-    "bind": [str, str],
-    "blackmarket": [],
-    "bloomscale": [],
-    "bloomweight": [],
-    "boostconvert": [],
-    "broadcast": [],
-    "buildsave": [],
-    "buildsavefile": [],
-    "c": [],
-    "camdist": [],
-    "camdistadjust": [],
-    "camreset": [],
-    "camrotate": [],
-    "camturn": [],
-    "canlook": [],
-    "center": [],
-    "centersel": [],
-    "chancreate": [],
-    "chandesc": [],
-    "changehandle": [],
-    "chaninvite": [],
-    "chaninvitedeny": [],
-    "chaninvitegf": [],
-    "chaninvitesg": [],
-    "chaninviteteam": [],
-    "chanjoin": [],
-    "chanleave": [],
-    "chanmembers": [],
-    "chanmode": [],
-    "chanmotd": [],
-    "chansend": [],
-    "chantimeout": [],
-    "chanusermode": [],
-    "chat": [],
-    "chatcycle": [],
-    "chatload": [],
-    "chatloadfile": [],
-    "chatoptions": [],
-    "chatsave": [],
-    "chatsavefile": [],
-    "chatset": [],
-    "ci": [],
-    "citytime": [],
-    "clearAttributeView": [],
-    "clearchat": [],
-    "clearpetnames": [],
-    "clearRewardChoice": [],
-    "cleartray": [],
-    "clicktomove": [],
-    "cmdlist": [],
-    "coalition": [],
-    "coalitioncancel": [],
-    "coalitioninvite": [],
-    "coalitionmintalkrank": [],
-    "coalitionnosend": [],
-    "coalitionsgmintalkrank": [],
-    "comment": [],
-    "compatiblecursors": [],
-    "conprint": [],
-    "contactfinderselectcurrent": [],
-    "contactfindershowcurrent": [],
-    "contactfindershownext": [],
-    "contactfindershowprevious": [],
-    "contactfinderteleporttocurrent": [],
-    "contextmenu": [],
-    "controllermodifiers": [],
-    "controllervmouse": [],
-    "cooldownindicator": [],
-    "copychat": [],
-    "ctm": [],
-    "ctminvert": [],
-    "ctmtoggle": [],
-    "cursorcache": [],
-    "customwindow": [],
-    "customwindowtoggle": [],
-    "debugdisableautodismiss": [],
-    "demodump": [],
-    "demodumptga": [],
-    "demofps": [],
-    "demoframestats": [],
-    "demohideallentityui": [],
-    "demohidechat": [],
-    "demohidedamage": [],
-    "demohidenames": [],
-    "demoloop": [],
-    "demopause": [],
-    "demorecord": [],
-    "demorecordauto": [],
-    "demospeedscale": [],
-    "demostop": [],
-    "demote": [],
-    "dialoganswer": [],
-    "dialogno": [],
-    "dialogyes": [],
-    "disable2d": [],
-    "dofweight": [],
-    "down": [],
-    "e": [],
-    "editbase": [],
-    "em": [],
-    "emailheaders": [],
-    "emote": [],
-    "enablevbos": [],
-    "enterbasefrompasscode": [],
-    "enterbasefromsgid": [],
-    "enterdoor": [],
-    "estrange": [],
-    "exitlaunch": [],
-    "extramodifiers": [],
-    "f": [],
-    "face": [],
-    "findmember": [],
-    "first": [],
-    "fl": [],
-    "follow": [],
-    "forward": [],
-    "forwardmouse": [],
-    "friend": [],
-    "friendlist": [],
-    "fsaa": [],
-    "fullRelight": [],
-    "fullscreen": [],
-    "g": [],
-    "gamereturn": [],
-    "gen": [],
-    "general": [],
-    "getallarenastats": [],
-    "getarenastats": [],
-    "getcomment": [],
-    "getglobalname": [],
-    "getlocalinvite": [],
-    "getlocalleagueinvite": [],
-    "getlocalname": [],
-    "getpos": [],
-    "getratedarenastats": [],
-    "gfriend": [],
-    "gfriends": [],
-    "ghide": [],
-    "gignore": [],
-    "gignoring": [],
-    "ginvite": [],
-    "ginvitesg": [],
-    "gmotd": [],
-    "gototray": [],
-    "gototrayalt": [],
-    "gototrayalt2": [],
-    "gototraystray": [],
-    "graphfps": [],
-    "gridsnap": [],
-    "gridsnapcycle": [],
-    "group": [],
-    "guide": [],
-    "gunfriend": [],
-    "gunfriendplayer": [],
-    "gunhide": [],
-    "gunignore": [],
-    "h": [],
-    "hardconsts": [],
-    "hc": [],
-    "help": [],
-    "helpchat": [],
-    "helpwindow": [],
-    "hide": [],
-    "hideall": [],
-    "hidefriends": [],
-    "hidegchannels": [],
-    "hidegfriends": [],
-    "hideinvite": [],
-    "hideprimarychat": [],
-    "hidesearch": [],
-    "hideset": [],
-    "hidesg": [],
-    "hidetell": [],
-    "i": [],
-    "ignore": [],
-    "ignorelist": [],
-    "ignorespammer": [],
-    "imageServer": [],
-    "incarnateequip": [],
-    "incarnateunequip": [],
-    "incarnateunequipall": [],
-    "incarnateunequipbyslot": [],
-    "info": [],
-    "infoself": [],
-    "infoselftab": [],
-    "infotab": [],
-    "inspcombine": [],
-    "inspdelete": [],
-    "inspexecname": [],
-    "inspexecpetname": [],
-    "inspexecpettarget": [],
-    "inspexecslot": [],
-    "inspexectray": [],
-    "inspirationslot": [],
-    "interact": [],
-    "invite": [],
-    "k": [],
+VALID_BIND_MANAGEMENT_COMMANDS: Dict[str, List[Type]] = {
+    "bind": [str, str],  # key, command
+    "showbind": [str],  # key
+    "showbindall": [],
+    "unbind": [str],  # key
+    "unbindall": [],
     "keybindreset": [],
-    "kick": [],
-    "kiosk": [],
-    "l": [],
-    "lc": [],
-    "league": [],
-    "leaguechat": [],
-    "leagueinvite": [],
-    "leaguekick": [],
-    "leaguemakeleader": [],
-    "leagueToggleTeamLock": [],
-    "leagueWithdrawTeam": [],
-    "leaveLeague": [],
-    "leaveteam": [],
-    "left": [],
-    "lfg": [],
-    "lfgeventresponse": [],
-    "lfgremovefromqueue": [],
-    "lfgrequesteventlist": [],
-    "lfgset": [],
-    "lfgtoggle": [],
-    "li": [],
-    "linkchannel": [],
-    "linkinfo": [],
-    "linkinteract": [],
-    "linkinteractglobal": [],
-    "listenrange": [],
-    "lk": [],
-    "lml": [],
-    "loc": [],
-    "local": [],
-    "localtime": [],
-    "lodbias": [],
-    "logchat": [],
-    "lookdown": [],
-    "lookingforgroup": [],
-    "lookup": [],
-    "loudstacking": [],
-    "ma": [],
-    "macro": [],
-    "macroimage": [],
-    "macroslot": [],
-    "mailview": [],
-    "makeleader": [],
-    "manage": [],
-    "map": [],
-    "maxAniso": [],
-    "maxColorTrackerVerts": [],
-    "maxfps": [],
-    "maximize": [],
-    "maxInactiveFps": [],
-    "maxrtframes": [],
-    "maxtexunits": [],
-    "me": [],
-    "menu": [],
-    "mergeInsp": [],
-    "missionarchitect": [],
-    "missionmake": [],
-    "missionsearch": [],
-    "ml": [],
-    "mmentry": [],
-    "mmscrollsettoggleregion": [],
-    "mmscrollsetviewlist": [],
-    "monitorattribute": [],
-    "mousedrag": [],
-    "mouseinvert": [],
-    "mouselook": [],
-    "mousespeed": [],
-    "myhandle": [],
-    "mypurchases": [],
-    "namecaptain": [],
-    "namecommander": [],
-    "nameenforcer": [],
-    "nameflunky": [],
-    "nameleader": [],
-    "namelieutenant": [],
-    "namemember": [],
-    "nameoverlord": [],
-    "nameringleader": [],
-    "namescale": [],
-    "nametaskmaster": [],
-    "nav": [],
-    "neterrorcorrection": [],
-    "netgraph": [],
-    "nexttray": [],
-    "nexttrayalt": [],
-    "nexttrayalt2": [],
-    "nexttraystray": [],
-    "noBump": [],
-    "nojpg": [],
-    "nojumprepeat": [],
-    "nop": [],
-    "noparticles": [],
-    "nosunflare": [],
-    "notga": [],
-    "optionlist": [],
-    "optionload": [],
-    "optionloadfile": [],
-    "optionsave": [],
-    "optionsavefile": [],
-    "optionset": [],
-    "optiontoggle": [],
-    "p": [],
-    "petcom": [],
-    "petcomall": [],
-    "petcomname": [],
-    "petcompow": [],
-    "petition": [],
-    "petoptions": [],
-    "petrename": [],
-    "petrenamename": [],
-    "petsay": [],
-    "petsayall": [],
-    "petsayname": [],
-    "petsaypow": [],
-    "petselect": [],
-    "petselectname": [],
-    "playernote": [],
-    "playernotelocal": [],
-    "playerturn": [],
-    "popmenu": [],
-    "powers": [],
-    "prevshaders": [],
-    "prevtray": [],
-    "prevtrayalt": [],
-    "prevtrayalt2": [],
-    "prevtraystray": [],
-    "private": [],
-    "profilerrecord": [],
-    "profilerstop": [],
-    "profilingmemory": [],
-    "promote": [],
-    "quickchat": [],
-    "quit": [],
-    "quittocharacterselect": [],
-    "quittologin": [],
-    "r": [],
-    "rechargeindicator": [],
-    "rechargetimercolor": [],
-    "rechargetimerformat": [],
-    "rechargetimeropacity": [],
-    "rechargetimerthreshold": [],
-    "reducemip": [],
-    "release": [],
-    "releasepets": [],
-    "reloadgfx": [],
-    "renderscale": [],
-    "renderscalex": [],
-    "renderscaley": [],
-    "rendersize": [],
-    "reply": [],
-    "req": [],
-    "request": [],
-    "requestexitmission": [],
-    "respec": [],
-    "respecstatus": [],
-    "right": [],
-    "roleplaying": [],
-    "roll": [],
-    "roomclip": [],
-    "roomclipcycle": [],
-    "rotate": [],
-    "salvageopen": [],
-    "screen": [],
-    "screenshot": [],
-    "screenshottga": [],
-    "screenshottitle": [],
-    "screenshotui": [],
-    "sea": [],
-    "search": [],
-    "seeeverything": [],
-    "selectbuild": [],
-    "selectlast": [],
-    "selectnext": [],
-    "sell": [],
-    "send": [],
-    "servertime": [],
-    "setdifficultyav": [],
-    "setdifficultyboss": [],
-    "setdifficultylevel": [],
-    "setdifficultyteamsize": [],
-    "sethelperstatus": [],
-    "setpowerinfoclass": [],
-    "settitle": [],
-    "settitleid": [],
-    "sg": [],
-    "sgenterpasscode": [],
-    "sgi": [],
-    "sginvite": [],
-    "sgk": [],
-    "sgkick": [],
-    "sgkickyes": [],
-    "sgleave": [],
-    "sgmode": [],
-    "sgmodeset": [],
-    "sgmusic": [],
-    "sgpasscode": [],
-    "sgsetdemotetimeout": [],
-    "sgsetdescription": [],
-    "sgsetmotd": [],
-    "sgsetmotto": [],
-    "sgwho": [],
-    "shaderCache": [],
-    "sheathe": [],
-    "show": [],
-    "showfps": [],
-    "shownewtray": [],
-    "showpetnames": [],
-    "showtime": [],
-    "slashchat": [],
-    "speakrange": [],
-    "speedturn": [],
-    "startchat": [],
-    "stopinactivedisplay": [],
-    "stopmonitorattribute": [],
-    "stuck": [],
-    "supergroup": [],
-    "supporthardwarelights": [],
-    "suppressCloseFx": [],
-    "suppressCloseFxDist": [],
-    "sync": [],
-    "synch": [],
-    "t": [],
-    "tabclose": [],
-    "tabcreate": [],
-    "tabglobalnext": [],
-    "tabglobalprev": [],
-    "tabnext": [],
-    "tabprev": [],
-    "tabselect": [],
-    "tabtoggle": [],
-    "tailorstatus": [],
+}
+
+VALID_BIND_LOAD_FILE_COMMANDS: Dict[str, List[Type]] = {
+    "bindload": [],
+    "bindloadfile": [str],  # filename
+    "bindloadfilesilent": [str],  # filename
+}
+
+VALID_BIND_SAVE_FILE_COMMANDS: Dict[str, List[Type]] = {
+    "bindsave": [],
+    "bindsavefile": [str],  # filename
+    "bindsavefilesilent": [str],  # filename
+    "showbindallfile": [str],  # filename
+}
+
+VALID_POWEXEC_COMMANDS: Dict[str, List[Type]] = {
+    "powexecname": [str],  # power
+    "powexecauto": [str],  # power
+    "powexeclocation": [str, str],  # loc, power
+    "powexectoggleoff": [str],  # power
+    "powexectoggleon": [str],  # power
+    "powerstogglealloff": [],
+    "powexecslot": [int],  # slot
+    "powexecaltslot": [int],  # slot
+    "powexecalt2slot": [int],  # slot
+    "powexecserverslot": [int],  # slot
+    "powexectray": [int, int],  # slot tray
+    "powexecabort": [],
+    "powexecunqueue": [],
+}
+
+
+VALID_CHAT_COMMANDS: Dict[str, List[Type]] = {
+    "s": [str],  # message
+    "say": [str],  # message
+    "l": [str],  # message
+    "local": [str],  # message
+    "b": [str],  # message
+    "broadcast": [str],
+    "b": [str],  # message
+    "y": [str],  # message
+    "yell": [str],  # message
+    "g": [str],  # message
+    "team": [str],  # message
+    "g": [str],  # message
+    "group": [str],  # message
+    "lc": [str],  # message
+    "league": [str],  # message
+    "leaguechat": [str],  # message
+    "lc": [str],  # message
+    "general": [str],  # message
+    "gen": [str],  # message
+    "z": [str],  # message
+    "lfg": [str],  # message
+    "lookingforgroup": [str],  # message
+    "help": [str],  # message
+    "h": [str],  # message
+    "helpchat": [str],  # message
+    "hc": [str],  # message
+    "guide": [str],  # message
+    "request": [str],  # message
+    "req": [str],  # message
+    "auction": [str],  # message
+    "sell": [str],  # message
+    "tell": [str, str],  # name, message
+    "t": [str, str],  # name, message
+    "p": [str, str],  # name, message
+    "private": [str, str],  # name, message
+    "whisper": [str, str],  # name, message
+    "telllast": [str],  # message
+    "tl": [str],  # message
+    "tll": [str, str],  # name, message
+    "ttl": [str, str],  # name, message
+    "reply": [str],  # message
+    "r": [str],  # message
+    "autoreply": [],
+    "supergroup": [str],  # message
+    "sg": [str],  # message
+    "coalition": [str],  # message
+    "c": [str],  # message
+    "f": [str],  # message
+    "arena": [str],  # message
+    "ac": [str],  # message
+    "arenalocal": [str],  # message
+}
+
+
+VALID_COSTUME_CHANGE_COMMANDS: Dict[str, List[Type]] = {
+    "cc": [int],  # slot
+    "costumechange": [int],
+    "cce": [int, str],  # slot ccemote
+    "ccemote": [int, str],  # slot ccemote
+}
+
+
+VALID_EMOTE_COMMANDS: Dict[str, List[Type]] = {
+    "e": [str],  # emote
+    "em": [str],
+    "emote": [str],
+    "me": [],  # alias for emote
+}
+
+
+# ===== TARGETING COMMANDS =====
+VALID_TARGETING_COMMANDS: Dict[str, List[Type]] = {
+    # Basic targeting
     "target": [],
-    "targetcustomfar": [],
-    "targetcustomnear": [],
-    "targetcustomnext": [],
-    "targetcustomprev": [],
-    "targetdistance": [],
-    "targetenemyfar": [],
+    "targetname": [str],  # name
+    "assist": [],
+    "assistname": [str],  # name
+    "unselect": [],
+    # Enemy targeting
     "targetenemynear": [],
+    "targetenemyfar": [],
     "targetenemynext": [],
     "targetenemyprev": [],
-    "targetfriendfar": [],
+    # Friend targeting
     "targetfriendnear": [],
+    "targetfriendfar": [],
     "targetfriendnext": [],
     "targetfriendprev": [],
-    "targetname": [],
-    "team": [],
-    "teamMoveToLeague": [],
-    "teamquitinternal": [],
-    "teamselect": [],
-    "tell": [],
-    "telllast": [],
-    "texaniso": [],
-    "texLodBias": [],
-    "third": [],
-    "thumbtack": [],
-    "titlechange": [],
-    "tl": [],
-    "tll": [],
-    "tmtl": [],
-    "toggle": [],
+    # Custom targeting
+    "targetcustomnear": [str],  # params
+    "targetcustomfar": [str],  # params
+    "targetcustomnext": [str],  # params
+    "targetcustomprev": [str],  # params
+    # Toggle targeting
     "toggleenemy": [],
     "toggleenemyprev": [],
-    "trade": [],
-    "tradeaccept": [],
+    # Target distance
+    "targetdistance": [int],  # 0-1 (boolean)
+}
+
+
+# ===== MOVEMENT COMMANDS =====
+VALID_MOVEMENT_COMMANDS: Dict[str, List[Type]] = {
+    "forward": [],
+    "backward": [],
+    "left": [],
+    "right": [],
+    "up": [],
+    "down": [],
+    "turnleft": [],
+    "turnright": [],
+    "autorun": [],
+    "follow": [],
+    "face": [],
+    "playerturn": [],
+    "speedturn": [float],  # number
+}
+
+
+# ===== TRAY COMMANDS =====
+VALID_TRAY_COMMANDS: Dict[str, List[Type]] = {
+    # Tray navigation
+    "nexttray": [],
+    "prevtray": [],
+    "nexttrayalt": [],
+    "prevtrayalt": [],
+    "nexttrayalt2": [],
+    "prevtrayalt2": [],
+    "nexttraystray": [],
+    "prevtraystray": [],
+    # Tray selection
+    "gototray": [int],  # number
+    "gototrayalt": [int],  # number
+    "gototrayalt2": [int],  # number
+    "gototraystray": [int, int],  # row tray
+    # Tray display
+    "alttray": [int],  # 0-1
+    "alt2tray": [int],  # 0-1
+    "alttraysticky": [],
+    "traysticky": [int, int],  # tray 0-1
+    "traystickyalt2": [],
+    # Tray options
     "tray": [],
+    "cleartray": [],
+    "shownewtray": [],
     "trayalwaysshrink": [],
     "trayanimations": [],
     "traylabels": [],
-    "traysticky": [],
-    "traystickyalt2": [],
-    "ttl": [],
-    "turnleft": [],
-    "turnright": [],
-    "tutvotekick": [],
-    "tutvotekickopinion": [],
-    "uiscale": [],
-    "unbind": [],
-    "unbindall": [],
-    "unfriend": [],
-    "unhide": [],
-    "unhideall": [],
-    "unhidefriends": [],
-    "unhidegchannels": [],
-    "unhidegfriends": [],
-    "unhideinvite": [],
-    "unhidesearch": [],
-    "unhidesg": [],
-    "unhidetell": [],
-    "unignore": [],
-    "unlevelingpact": [],
-    "unloadgfx": [],
-    "unselect": [],
-    "up": [],
-    "usecelshader": [],
-    "useCubemap": [],
-    "usedof": [],
-    "usefp": [],
-    "usehdr": [],
-    "useHQ": [],
-    "userenderscale": [],
-    "usewater": [],
-    "visscale": [],
-    "watching": [],
-    "wdwload": [],
-    "wdwloadfile": [],
-    "wdwsave": [],
-    "wdwsavefile": [],
-    "wentworths": [],
-    "whereami": [],
-    "whisper": [],
-    "who": [],
-    "whoall": [],
-    "windowcloseextra": [],
-    "windowcolor": [],
-    "windowhide": [],
-    "windownames": [],
-    "windowresetall": [],
-    "windowscale": [],
-    "windowshow": [],
-    "windowtoggle": [],
-    "y": [],
-    "yell": [],
-    "z": [],
-    "zoomin": [],
-    "zoomout": [],
 }
 
-VALID_COMMANDS = (
-    set(VALID_BIND_FILE_COMMANDS.keys())
-    | set(VALID_POWEXEC_COMMANDS.keys())
-    | set(VALID_OTHER_COMMANDS.keys())
-)
+
+# ===== TEAM/LEAGUE COMMANDS =====
+VALID_TEAM_LEAGUE_COMMANDS: Dict[str, List[Type]] = {
+    # Team management
+    "invite": [str],  # character
+    "i": [str],  # alias for invite
+    "kick": [str],  # character
+    "k": [str],  # alias for kick
+    "leaveteam": [],
+    "makeleader": [str],  # character
+    "ml": [str],  # alias for makeleader
+    "teamselect": [int],  # number
+    "teamquitinternal": [],
+    # League management
+    "leagueinvite": [str],  # name
+    "li": [str],  # alias for league_invite
+    "leaguekick": [str],  # name
+    "lk": [str],  # alias for league_kick
+    "leaguemakeleader": [str],  # name
+    "lml": [str],  # alias for league_make_leader
+    "leaveLeague": [],
+    "leagueToggleTeamLock": [],
+    "leagueWithdrawTeam": [],
+    "teamMoveToLeague": [str],  # LeaderName
+    "tmtl": [str],  # alias for teamMoveToLeague
+    # Invites by global name
+    "getlocalinvite": [str],  # globalname
+    "getlocalleagueinvite": [str],  # globalname
+}
+
+
+# ===== INSPIRATION COMMANDS =====
+VALID_INSPIRATION_COMMANDS: Dict[str, List[Type]] = {
+    "inspexecname": [str],  # inspiration
+    "inspexecslot": [int],  # 1-5
+    "inspirationslot": [int],  # alias for inspexec_slot
+    "inspexectray": [int, int],  # row column
+    "inspexecpetname": [str, str],  # insp_name petname
+    "inspexecpettarget": [str],  # insp_name
+    "inspdelete": [str],  # inspiration
+    "inspcombine": [str, str],  # inspName inspName
+    "mergeInsp": [str, str],  # alias for insp_combine
+}
+
+
+# ===== PET COMMANDS =====
+VALID_PET_COMMANDS: Dict[str, List[Type]] = {
+    "petcom": [str],  # commands
+    "petcomall": [str],  # commands
+    "petcomname": [str, str],  # pet_name commands
+    "petcompow": [str, str],  # power_name commands
+    "petsay": [str],  # message
+    "petsayall": [str],  # message
+    "petsayname": [str, str],  # pet_name message
+    "petsaypow": [str, str],  # power_name message
+    "petselect": [int],  # integer
+    "petselectname": [str],  # pet_name
+    "petrename": [str],  # name
+    "petrenamename": [str],  # name
+    "releasepets": [],
+    "clearpetnames": [],
+    "showpetnames": [],
+    "petoptions": [],
+}
+
+
+# ===== SUPERGROUP COMMANDS =====
+VALID_SUPERGROUP_COMMANDS: Dict[str, List[Type]] = {
+    # Basic SG management
+    "sginvite": [str],  # character
+    "sgi": [str],  # alias for sginvite
+    "sgkick": [str],  # character
+    "sgk": [str],  # alias for sgkick
+    "sgkickyes": [str],  # name (no confirmation)
+    "sgleave": [],
+    "sgmode": [],
+    "sgmodeset": [int],  # mode (0-1)
+    "sgwho": [],
+    "altinvite": [str],  # name
+    # SG settings
+    "sgsetmotd": [str],  # message
+    "sgsetmotto": [str],  # motto
+    "sgsetdescription": [str],  # description
+    "sgsetdemotetimeout": [int],  # seconds
+    "sgpasscode": [str],  # text
+    # Rank naming
+    "nameleader": [str],  # name
+    "nameoverlord": [str],  # name
+    "nameringleader": [str],  # name
+    "nameenforcer": [str],  # name
+    "nametaskmaster": [str],  # name
+    "namecommander": [str],  # name
+    "namelieutenant": [str],  # name
+    "namecaptain": [str],  # name
+    "namemember": [str],  # name
+    "nameflunky": [str],  # name
+    # Promote/demote
+    "promote": [str],  # character
+    "demote": [str],  # character
+    # Base access
+    "enterbasefrompasscode": [str],  # passcode
+    "enterbasefromsgid": [int],  # SGID number
+    "sgenterpasscode": [],
+}
+
+
+# ===== WINDOW/UI COMMANDS =====
+VALID_WINDOW_UI_COMMANDS: Dict[str, List[Type]] = {
+    # Window management
+    "windowshow": [str],  # window_name
+    "show": [str],  # alias for window_show
+    "windowhide": [str],  # window_name
+    "windowtoggle": [str],  # window_name
+    "toggle": [str],  # alias for window_toggle
+    "windowresetall": [],
+    "windownames": [],
+    "windowscale": [str, float],  # window scale
+    "windowcolor": [],
+    "windowcloseextra": [],
+    "gamereturn": [],  # alias for window_close_extra
+    # Custom windows
+    "customwindow": [str],  # name
+    "customwindowtoggle": [str],  # name
+    # Chat windows
+    "chat": [],
+    "chatcycle": [],
+    "clearchat": [],
+    "copychat": [str],  # tab
+    "beginchat": [str],  # string
+    "startchat": [],
+    "slashchat": [],
+    # Specific windows
+    "map": [],
+    "nav": [],
+    "powers": [],
+    "info": [],
+    "infoself": [],
+    "infotab": [int],  # tab_number
+    "infoselftab": [int],  # tab_number
+    "menu": [],
+    "helpwindow": [],
+    # UI scaling
+    "uiscale": [float],  # number
+}
+
+
+# ===== MACRO COMMANDS =====
+VALID_MACRO_COMMANDS: Dict[str, List[Type]] = {
+    "macro": [str, str],  # name command
+    "macroimage": [str, str, str],  # icon tooltip command
+    "macroslot": [int, str, str],  # macro-slot# name command
+}
+
+
+# ===== CAMERA COMMANDS =====
+VALID_CAMERA_COMMANDS: Dict[str, List[Type]] = {
+    "camdist": [float],  # distance
+    "camdistadjust": [float],  # adjustment
+    "camreset": [],
+    "camrotate": [],
+    "camturn": [],
+    "mouselook": [],
+    "canlook": [],  # alias for mouse_look
+    "mouseinvert": [],
+    "mousespeed": [float],  # scale factor
+    "mousedrag": [],
+    "first": [],
+    "third": [],
+    "lookdown": [],
+    "lookup": [],
+    "zoomin": [Union[str, int]],  # +, ++, or 0-1
+    "zoomout": [Union[str, int]],  # +, ++, or 0-1
+}
+
+
+# ===== OTHER COMMANDS =====
+VALID_OTHER_COMMANDS: Dict[str, List[Type]] = {
+    # No operation
+    "": [],
+    "nop": [],
+    # System information
+    "loc": [],  # alias for getpos
+    "getpos": [],
+    "whereami": [],
+    "citytime": [],
+    "localtime": [],
+    "servertime": [],
+    "showtime": [int],  # 0-1
+    "myhandle": [],
+    # Status/flags
+    "afk": [str],  # message
+    "roleplaying": [],
+    "watching": [],
+    "sethelperstatus": [int],  # 1-4
+    "lfgset": [int],  # number
+    "lfgtoggle": [],
+    # Friends/ignore
+    "friend": [str],  # character
+    "unfriend": [str],  # character
+    "estrange": [str],  # alias for unfriend
+    "friendlist": [],
+    "fl": [],  # alias for friendlist
+    "ignore": [str],  # character
+    "unignore": [str],  # character
+    "ignorelist": [],
+    "ignorespammer": [str],  # character
+    # Global friends
+    "gfriend": [str],  # name
+    "gunfriend": [str],  # name
+    "gunfriendplayer": [str],  # alias for gunfriend
+    "gfriends": [],
+    "gignore": [str],  # username
+    "gunignore": [str],  # username
+    "gignoring": [],
+    # Global names
+    "getglobalname": [str],  # localname
+    "getlocalname": [str],  # globalname
+    # Hide commands
+    "hide": [],
+    "ghide": [],  # alias for hide
+    "gunhide": [],  # alias for hide
+    "unhide": [],
+    "hideall": [],
+    "unhideall": [],
+    "hidefriends": [],
+    "unhidefriends": [],
+    "hidegchannels": [],
+    "unhidegchannels": [],
+    "hidegfriends": [],
+    "unhidegfriends": [],
+    "hideinvite": [],
+    "unhideinvite": [],
+    "hideprimarychat": [],
+    "hidesearch": [],
+    "unhidesearch": [],
+    "hideset": [int],  # number
+    "hidesg": [],
+    "unhidesg": [],
+    "hidetell": [],
+    "unhidetell": [],
+    # Search
+    "search": [str],  # options
+    "sea": [str],  # alias for search
+    "findmember": [str],  # alias for search
+    "who": [str],  # name
+    "whoall": [],
+    # Game exit
+    "quit": [],
+    "quittocharacterselect": [],
+    "quittologin": [],
+    "exitlaunch": [str],  # FilePath
+    # Other utilities
+    "stuck": [],
+    "sync": [],
+    "synch": [],  # alias for sync
+    "release": [],
+    "interact": [],
+    "enterdoor": [int, int, int, int],  # coordinates map_ID
+    "contextmenu": [int],  # menu_num
+    "popmenu": [str],  # name
+    "quickchat": [],
+    "comment": [str],  # text
+    "getcomment": [],  # alias for comment
+    "conprint": [str],  # string
+    "cmdlist": [],
+}
+
+
+# ===== COMPLETE COMMAND DICTIONARY =====
+VALID_COMMANDS_BY_CATEGORY = {
+    "bind_file": VALID_BIND_FILE_COMMANDS,
+    "powexec": VALID_POWEXEC_COMMANDS,
+    "chat": VALID_CHAT_COMMANDS,
+    "costume_change": VALID_COSTUME_CHANGE_COMMANDS,
+    "emote": VALID_EMOTE_COMMANDS,
+    "targeting": VALID_TARGETING_COMMANDS,
+    "movement": VALID_MOVEMENT_COMMANDS,
+    "tray": VALID_TRAY_COMMANDS,
+    "team_league": VALID_TEAM_LEAGUE_COMMANDS,
+    "inspiration": VALID_INSPIRATION_COMMANDS,
+    "pet": VALID_PET_COMMANDS,
+    "supergroup": VALID_SUPERGROUP_COMMANDS,
+    "window_ui": VALID_WINDOW_UI_COMMANDS,
+    "macro": VALID_MACRO_COMMANDS,
+    "camera": VALID_CAMERA_COMMANDS,
+    "other": VALID_OTHER_COMMANDS,
+}
+
+
+# Flatten all commands for quick lookup
+VALID_COMMANDS: Set[str] = set()
+for category_commands in VALID_COMMANDS_BY_CATEGORY.values():
+    VALID_COMMANDS.update(category_commands.keys())
+
+
+# Legacy compatibility - keep existing structure
+VALID_BIND_FILE_COMMANDS_LEGACY = VALID_BIND_FILE_COMMANDS
+VALID_POWEXEC_COMMANDS_LEGACY = VALID_POWEXEC_COMMANDS
+VALID_CHAT_COMMANDS_LEGACY = VALID_CHAT_COMMANDS
+VALID_COSTUME_CHANGE_COMMANDS_LEGACY = VALID_COSTUME_CHANGE_COMMANDS
+VALID_EMOTE_COMMANDS_LEGACY = VALID_EMOTE_COMMANDS
+VALID_OTHER_COMMANDS_LEGACY = VALID_OTHER_COMMANDS
