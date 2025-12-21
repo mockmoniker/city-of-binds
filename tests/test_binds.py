@@ -130,14 +130,14 @@ class TestBindValidateMethod:
         # arrange
         valid_bind = self.BIND_UNDER_TEST(self.VALID_TRIGGER, self.VALID_COMMAND_LIST)
         # act / assert
-        valid_bind.validate()  # should not raise an exception
+        valid_bind._validate()  # should not raise an exception
 
     def test_validate_should_raise_value_error_given_bind_with_no_commands(self):
         # arrange
         bind = self.BIND_UNDER_TEST(self.VALID_TRIGGER)
         # act
         with pytest.raises(ValueError) as excinfo:
-            bind.validate()
+            bind._validate()
         # assert
         assert "Bind must contain one or more commands." in str(excinfo.value)
 
@@ -150,7 +150,7 @@ class TestBindValidateMethod:
         )  # 256 characters long
         # act
         with pytest.raises(ValueError) as excinfo:
-            bind.validate()
+            bind._validate()
         # assert
         assert "Bind exceeds maximum length of 255 characters." in str(excinfo.value)
 

@@ -90,7 +90,7 @@ class BindFile:
 
     def validate_binds(self):
         for bind in self.binds:
-            bind.validate()
+            bind._validate()
 
     ### Helpers
     def _build_file_contents(self) -> str:

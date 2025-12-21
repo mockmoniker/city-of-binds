@@ -21,9 +21,12 @@ class Bind(_TriggerMixin, _CommandsMixin):
     # endregion
 
     # region Bind Methods
-    def validate(self):
+    def _validate(self):
         self._throw_error_if_empty_bind()
         self._throw_error_if_bind_too_long()
+
+    def is_valid(self) -> bool:
+        return not self.is_empty() and not self.is_over_bind_length()
 
     def is_empty(self) -> bool:
         """Helper function to ensure the bind is not empty."""
