@@ -48,8 +48,10 @@ def extract_slash_commands(data: dict) -> dict[str, str]:
     return slash_commands
 
 
-def generate_python_code(slash_commands: dict[str, str], timestamp: str) -> str:
+def generate_python_code(slash_commands: dict[str, str]) -> str:
     """Generate the complete Python code for valid_commands.py."""
+    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+
     slash_command_entires = []
     for cmd, shortcut in sorted(slash_commands.items()):
         slash_command_entires.append(f'    "{cmd}": "{shortcut}",')
@@ -68,15 +70,13 @@ def main():
 
     slash_commands = extract_slash_commands(data)
 
-    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
-
-    python_code = generate_python_code(slash_commands, timestamp)
+    python_code = generate_python_code(slash_commands)
 
     output_file.parent.mkdir(parents=True, exist_ok=True)
     with open(output_file, "w") as f:
         f.write(python_code)
 
-    print(f"Generated {len(slash_commands)} slash_commands -> {output_file}")
+    print(f"Generated {len(slash_commands)} slash commands -> {output_file}")
 
 
 if __name__ == "__main__":
