@@ -8,6 +8,27 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 
+COMMENT_BANNER = f'''"""
+DO NOT EDIT - Run scripts/{Path(__file__).name} to regenerate
+
+Generated: {{timestamp}}
+"""'''
+
+
+def get_files():
+    root = Path(__file__).parent.parent
+    input_file = root / "resources" / "hc_wiki_slash_commands.json"
+    output_file = (
+        root
+        / "CityOfBinds"
+        / "src"
+        / "configs"
+        / "valid_input"
+        / "valid_slash_commands.py"
+    )
+    return input_file, output_file
+
+
 def normalize_slash_command(slash_command: str) -> str:
     """Normalize slash command using same logic as runtime validation."""
     slash_command = slash_command.strip()
@@ -16,60 +37,46 @@ def normalize_slash_command(slash_command: str) -> str:
     return slash_command
 
 
-def main():
-    # File paths
-    root = Path(__file__).parent.parent
-    json_file = root / "resources" / "hc_wiki_slash_commands.json"
-    output_file = (
-        root / "CityOfBinds" / "src" / "configs" / "valid_input" / "valid_commands.py"
-    )
+def extract_slash_commands(data: dict) -> dict[str, str]:
+    """Extract slash commands and their shortcuts from JSON data."""
+    slash_commands = {}
+    for item in data.get("slash_commands", []):
+        slash_command = normalize_slash_command(item.get("command", ""))
+        shortcut = normalize_slash_command(item.get("shortcut", ""))
+        slash_commands[slash_command] = shortcut
+    slash_commands[""] = ""  # Add empty command
+    return slash_commands
 
-    # Load JSON data
-    with open(json_file) as f:
+
+def generate_python_code(slash_commands: dict[str, str], timestamp: str) -> str:
+    """Generate the complete Python code for valid_commands.py."""
+    slash_command_entires = []
+    for cmd, shortcut in sorted(slash_commands.items()):
+        slash_command_entires.append(f'    "{cmd}": "{shortcut}",')
+
+    slash_commands_dict = "\n".join(slash_command_entires)
+
+    python_code = f"""{COMMENT_BANNER.format(timestamp=timestamp)}\n\nVALID_COMMANDS: dict[str, str] = {{\n{slash_commands_dict}\n}}\n"""
+    return python_code
+
+
+def main():
+    input_file, output_file = get_files()
+
+    with open(input_file) as f:
         data = json.load(f)
 
-    # Extract commands
-    commands = {}
-    for item in data.get("slash_commands", []):
-        command = item.get("command", "").strip()
-        shortcut = item.get("shortcut", "").strip()
-        if command:
-            normalized_cmd = normalize_slash_command(command)
-            normalized_shortcut = (
-                normalize_slash_command(shortcut) if shortcut else normalized_cmd
-            )
-            commands[normalized_cmd] = normalized_shortcut
+    slash_commands = extract_slash_commands(data)
 
-    commands[""] = ""  # Add empty command
-
-    # Generate the complete Python file
     timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
 
-    # Build commands dictionary entries
-    command_entries = []
-    for cmd, shortcut in sorted(commands.items()):
-        command_entries.append(f'    "{cmd}": "{shortcut}",')
+    python_code = generate_python_code(slash_commands, timestamp)
 
-    commands_dict = "\n".join(command_entries)
-
-    # Build the complete file content
-    python_code = f'''"""
-Generated: {timestamp}
-
-DO NOT EDIT - Run scripts/generate_valid_commands.py to regenerate
-"""
-
-VALID_COMMANDS: dict[str, str] = {{
-{commands_dict}
-}}
-'''
-
-    # Write output
     output_file.parent.mkdir(parents=True, exist_ok=True)
     with open(output_file, "w") as f:
         f.write(python_code)
 
-    print(f"Generated {len(commands)} commands -> {output_file}")
+    print(f"Generated {len(slash_commands)} slash_commands -> {output_file}")
 
 
 if __name__ == "__main__":
