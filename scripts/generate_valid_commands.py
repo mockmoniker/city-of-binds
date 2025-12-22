@@ -1,16 +1,27 @@
 #!/usr/bin/env python3
 """
-Simple generator to create valid_commands.py from hc_wiki_slash_commands.json
+Simple generator to create valid_commands.py from template and JSON data
 """
 
 import json
 from pathlib import Path
+from datetime import datetime, timezone
+
+
+def normalize_slash_command(slash_command: str) -> str:
+    slash_command = slash_command.strip()
+    slash_command = slash_command.replace("_", "")
+    slash_command = slash_command.lower()
+    return slash_command
 
 
 def main():
     # File paths
     project_root = Path(__file__).parent.parent
     json_file = project_root / "resources" / "hc_wiki_slash_commands.json"
+    template_file = (
+        project_root / "scripts" / "templates" / "valid_commands.template.py"
+    )
     output_file = (
         project_root
         / "CityOfBinds"
@@ -25,30 +36,33 @@ def main():
     with open(json_file) as f:
         data = json.load(f)
 
+    # Load template
+    with open(template_file) as f:
+        template = f.read()
+
     # Extract commands
     commands = {}
     for item in data.get("slash_commands", []):
-        command = item.get("command", "").strip()
-        shortcut = item.get("shortcut", "").strip()
+        command = normalize_slash_command(item.get("command", ""))
+        shortcut = normalize_slash_command(item.get("shortcut", ""))
         if command:
             commands[command] = shortcut
 
-    # Generate Python code
-    commands_dict = "\n".join(
+    commands[""] = ""  # Add empty command
+
+    # Generate commands dictionary entries with proper formatting
+    commands_entries = "\n".join(
         f'    "{cmd}": "{shortcut}",' for cmd, shortcut in sorted(commands.items())
     )
+    commands_dict = f"{{\n{commands_entries}\n}}"
 
-    python_code = (
-        f'"""\n'
-        f"Auto-generated slash commands for City of Heroes.\n"
-        f"DO NOT EDIT - Run scripts/generate_valid_commands.py to regenerate\n"
-        f'"""\n\n'
-        f"from typing import Dict, Set\n\n"
-        f'VALID_PREFIXES: Set[str] = {{"--", "++", "-", "+"}}\n\n'
-        f"VALID_COMMANDS: Dict[str, str] = {{\n"
-        f"{commands_dict}\n"
-        f"}}\n"
+    # Fill template placeholders
+    python_code = template.format(
+        DATE=datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        DO_NOT_EDIT_NOTICE="DO NOT EDIT - Run scripts/generate_valid_commands.py to regenerate",
+        COMMANDS=commands_dict,
     )
+    python_code = python_code.replace("  # type: ignore", "")
 
     # Write output
     output_file.parent.mkdir(parents=True, exist_ok=True)

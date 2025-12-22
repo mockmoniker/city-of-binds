@@ -3,8 +3,8 @@
     "description": "A comprehensive list of slash commands from the Homecoming Wiki",
     "source": "https://homecoming.wiki/wiki/List_of_Slash_Commands",
     "scraper": "https://github.com/mockmoniker/city-scraper",
-    "date": "2025/12/20",
-    "count": 602
+    "date": "2025/12/21",
+    "count": 601
   },
   "slash_commands": [
     {
@@ -166,13 +166,13 @@
     {
       "command": "arena",
       "args": "message",
-      "shortcut": "arena",
+      "shortcut": "ac",
       "wiki": "https://homecoming.wiki/wiki/Arena_(Slash_Command)"
     },
     {
       "command": "arena_invite",
       "args": "player",
-      "shortcut": "arena_invite",
+      "shortcut": "ai",
       "wiki": "https://homecoming.wiki/wiki/Arena_invite_(Slash_Command)"
     },
     {
@@ -220,7 +220,7 @@
     {
       "command": "auction",
       "args": "message",
-      "shortcut": "req",
+      "shortcut": "auction",
       "wiki": "https://homecoming.wiki/wiki/Auction_(Slash_Command)"
     },
     {
@@ -436,7 +436,7 @@
     {
       "command": "cc_emote",
       "args": "# ccemote",
-      "shortcut": "cc_emote",
+      "shortcut": "cce",
       "wiki": "https://homecoming.wiki/wiki/Cc_emote_(Slash_Command)"
     },
     {
@@ -472,7 +472,7 @@
     {
       "command": "chan_invite",
       "args": "channel username",
-      "shortcut": "chan_invite",
+      "shortcut": "ginvite",
       "wiki": "https://homecoming.wiki/wiki/Chan_invite_(Slash_Command)"
     },
     {
@@ -490,7 +490,7 @@
     {
       "command": "chan_invite_sg",
       "args": "channel_name rank",
-      "shortcut": "chan_invite_sg",
+      "shortcut": "ginvite_sg",
       "wiki": "https://homecoming.wiki/wiki/Chan_invite_sg_(Slash_Command)"
     },
     {
@@ -652,7 +652,7 @@
     {
       "command": "coalition",
       "args": "message",
-      "shortcut": "coalition",
+      "shortcut": "c",
       "wiki": "https://homecoming.wiki/wiki/Coalition_(Slash_Command)"
     },
     {
@@ -766,7 +766,7 @@
     {
       "command": "costume_change",
       "args": "#",
-      "shortcut": "costume_change",
+      "shortcut": "cc",
       "wiki": "https://homecoming.wiki/wiki/Costume_change_(Slash_Command)"
     },
     {
@@ -814,7 +814,7 @@
     {
       "command": "demodump",
       "args": "",
-      "shortcut": "play",
+      "shortcut": "demodump",
       "wiki": "https://homecoming.wiki/wiki/Demodump_(Slash_Command)"
     },
     {
@@ -892,7 +892,7 @@
     {
       "command": "demostop",
       "args": "",
-      "shortcut": "play",
+      "shortcut": "demostop",
       "wiki": "https://homecoming.wiki/wiki/Demostop_(Slash_Command)"
     },
     {
@@ -1126,7 +1126,7 @@
     {
       "command": "get_comment",
       "args": "message",
-      "shortcut": "get_comment",
+      "shortcut": "comment",
       "wiki": "https://homecoming.wiki/wiki/Get_comment_(Slash_Command)"
     },
     {
@@ -1156,7 +1156,7 @@
     {
       "command": "getpos",
       "args": "",
-      "shortcut": "getpos",
+      "shortcut": "loc",
       "wiki": "https://homecoming.wiki/wiki/Getpos_(Slash_Command)"
     },
     {
@@ -1180,13 +1180,13 @@
     {
       "command": "ghide",
       "args": "",
-      "shortcut": "ghide",
+      "shortcut": "hide",
       "wiki": "https://homecoming.wiki/wiki/Ghide_(Slash_Command)"
     },
     {
       "command": "gignore",
       "args": "character_name or @global_name",
-      "shortcut": "gignore",
+      "shortcut": "ignore",
       "wiki": "https://homecoming.wiki/wiki/Gignore_(Slash_Command)"
     },
     {
@@ -1258,7 +1258,7 @@
     {
       "command": "group",
       "args": "message",
-      "shortcut": "group",
+      "shortcut": "g",
       "wiki": "https://homecoming.wiki/wiki/Group_(Slash_Command)"
     },
     {
@@ -1276,13 +1276,13 @@
     {
       "command": "gunfriend_player",
       "args": "name",
-      "shortcut": "gunfriend_player",
+      "shortcut": "gunfriend",
       "wiki": "https://homecoming.wiki/wiki/Gunfriend_player_(Slash_Command)"
     },
     {
       "command": "gunhide",
       "args": "",
-      "shortcut": "ghide",
+      "shortcut": "hide",
       "wiki": "https://homecoming.wiki/wiki/Gunhide_(Slash_Command)"
     },
     {
@@ -1522,7 +1522,7 @@
     {
       "command": "inspirationslot",
       "args": "[1-5]",
-      "shortcut": "inspirationslot",
+      "shortcut": "inspexec_slot",
       "wiki": "https://homecoming.wiki/wiki/Inspirationslot_(Slash_Command)"
     },
     {
@@ -1546,7 +1546,7 @@
     {
       "command": "keybind_reset",
       "args": "",
-      "shortcut": "keybind_reset",
+      "shortcut": "unbind_all",
       "wiki": "https://homecoming.wiki/wiki/Keybind_reset_(Slash_Command)"
     },
     {
@@ -1594,7 +1594,7 @@
     {
       "command": "league_kick",
       "args": "character",
-      "shortcut": "league_kick",
+      "shortcut": "lk",
       "wiki": "https://homecoming.wiki/wiki/League_kick_(Slash_Command)"
     },
     {
@@ -1894,7 +1894,7 @@
     {
       "command": "missionsearch",
       "args": "",
-      "shortcut": "missionsearch",
+      "shortcut": "architect",
       "wiki": "https://homecoming.wiki/wiki/Missionsearch_(Slash_Command)"
     },
     {
@@ -2524,7 +2524,7 @@
     {
       "command": "reply",
       "args": "message",
-      "shortcut": "reply",
+      "shortcut": "r",
       "wiki": "https://homecoming.wiki/wiki/Reply_(Slash_Command)"
     },
     {
@@ -2536,7 +2536,7 @@
     {
       "command": "request",
       "args": "message",
-      "shortcut": "req",
+      "shortcut": "request",
       "wiki": "https://homecoming.wiki/wiki/Request_(Slash_Command)"
     },
     {
@@ -2680,14 +2680,8 @@
     {
       "command": "sell",
       "args": "message",
-      "shortcut": "req",
+      "shortcut": "sell",
       "wiki": "https://homecoming.wiki/wiki/Sell_(Slash_Command)"
-    },
-    {
-      "command": "sell (base editor)",
-      "args": "",
-      "shortcut": "sell (base editor)",
-      "wiki": "https://homecoming.wiki/wiki/Sell_(base_editor)_(Slash_Command)"
     },
     {
       "command": "send",
@@ -2740,13 +2734,13 @@
     {
       "command": "set_title",
       "args": "integer",
-      "shortcut": "set_title",
+      "shortcut": "settitle",
       "wiki": "https://homecoming.wiki/wiki/Set_title_(Slash_Command)"
     },
     {
       "command": "set_title_id",
       "args": "integer",
-      "shortcut": "set_title_id",
+      "shortcut": "settitle",
       "wiki": "https://homecoming.wiki/wiki/Set_title_id_(Slash_Command)"
     },
     {
@@ -2770,7 +2764,7 @@
     {
       "command": "sginvite",
       "args": "playername",
-      "shortcut": "sginvite",
+      "shortcut": "sgi",
       "wiki": "https://homecoming.wiki/wiki/Sginvite_(Slash_Command)"
     },
     {
@@ -2782,7 +2776,7 @@
     {
       "command": "sgkick",
       "args": "character",
-      "shortcut": "sgkick",
+      "shortcut": "sgk",
       "wiki": "https://homecoming.wiki/wiki/Sgkick_(Slash_Command)"
     },
     {
@@ -2986,7 +2980,7 @@
     {
       "command": "synch",
       "args": "",
-      "shortcut": "synch",
+      "shortcut": "sync",
       "wiki": "https://homecoming.wiki/wiki/Synch_(Slash_Command)"
     },
     {
@@ -3100,7 +3094,7 @@
     {
       "command": "target_enemy_next",
       "args": "",
-      "shortcut": "target_enemy_next",
+      "shortcut": "toggle_enemy",
       "wiki": "https://homecoming.wiki/wiki/Target_enemy_next_(Slash_Command)"
     },
     {
@@ -3142,7 +3136,7 @@
     {
       "command": "team",
       "args": "message",
-      "shortcut": "team",
+      "shortcut": "g",
       "wiki": "https://homecoming.wiki/wiki/Team_(Slash_Command)"
     },
     {
@@ -3346,7 +3340,7 @@
     {
       "command": "unhide",
       "args": "",
-      "shortcut": "ghide",
+      "shortcut": "hide",
       "wiki": "https://homecoming.wiki/wiki/Unhide_(Slash_Command)"
     },
     {
