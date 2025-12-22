@@ -1,10 +1,10 @@
 """
-DO NOT EDIT - Run scripts/generate_valid_commands.py to regenerate
+DO NOT EDIT - Run scripts/generate_valid_slash_commands.py to regenerate
 
-Generated: 2025-12-22 07:24:08 UTC
+Generated: 2025-12-22 07:35:52 UTC
 """
 
-VALID_COMMANDS: dict[str, str] = {
+VALID_SLASH_COMMANDS: dict[str, str] = {
     "": "",
     "ac": "ac",
     "afk": "afk",

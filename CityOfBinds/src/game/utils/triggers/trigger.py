@@ -1,4 +1,4 @@
-from .valid_triggers import VALID_MODIFIERS, VALID_KEYS
+from ....configs.valid_input import VALID_TRIGGER_MODIFIERS, VALID_TRIGGER_KEYS
 from ....configs.constants import GameConstants
 
 
@@ -107,7 +107,7 @@ class _Trigger:
             raise ValueError(
                 f"Invalid trigger key '{key}'. Trigger key cannot contain spaces."
             )
-        if key not in VALID_KEYS:
+        if key not in VALID_TRIGGER_KEYS:
             self._throw_invalid_key_error(key)
 
     def _throw_invalid_key_error(self, key: str):
@@ -122,7 +122,7 @@ class _Trigger:
             raise ValueError(
                 f"Invalid trigger modifier '{modifier}'. Trigger modifier cannot contain spaces."
             )
-        if modifier not in VALID_MODIFIERS:
+        if modifier not in VALID_TRIGGER_MODIFIERS:
             raise ValueError(
                 f"Unknown trigger modifier '{modifier}'. Please see https://homecoming.wiki/wiki/List_of_Key_Names for list of valid trigger modifiers."
             )

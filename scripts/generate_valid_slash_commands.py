@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate valid_commands.py directly from JSON data
+Generate valid_slash_commands.py directly from JSON data
 """
 
 import json
@@ -56,7 +56,7 @@ def generate_python_code(slash_commands: dict[str, str], timestamp: str) -> str:
 
     slash_commands_dict = "\n".join(slash_command_entires)
 
-    python_code = f"""{COMMENT_BANNER.format(timestamp=timestamp)}\n\nVALID_COMMANDS: dict[str, str] = {{\n{slash_commands_dict}\n}}\n"""
+    python_code = f"""{COMMENT_BANNER.format(timestamp=timestamp)}\n\nVALID_SLASH_COMMANDS: dict[str, str] = {{\n{slash_commands_dict}\n}}\n"""
     return python_code
 
 

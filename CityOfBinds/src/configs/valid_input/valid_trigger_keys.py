@@ -1,15 +1,6 @@
-from typing import Set
+VALID_WASD_KEYS: set[str] = {"W", "A", "S", "D", "SPACE"}
 
-VALID_MODIFIERS: Set[str] = {
-    "SHIFT",
-    "ALT",
-    "CONTROL",
-    "CTRL",
-}
-
-VALID_WASD_KEYS: Set[str] = {"W", "A", "S", "D", "SPACE"}
-
-VALID_LETTER_KEYS: Set[str] = {
+VALID_LETTER_KEYS: set[str] = {
     "A",
     "B",
     "C",
@@ -38,7 +29,7 @@ VALID_LETTER_KEYS: Set[str] = {
     "Z",
 }
 
-VALID_NUMBER_KEYS: Set[str] = {
+VALID_NUMBER_KEYS: set[str] = {
     "0",
     "1",
     "2",
@@ -51,7 +42,7 @@ VALID_NUMBER_KEYS: Set[str] = {
     "9",
 }
 
-VALID_FUNCTION_KEYS: Set[str] = {
+VALID_FUNCTION_KEYS: set[str] = {
     "F1",
     "F2",
     "F3",
@@ -66,7 +57,7 @@ VALID_FUNCTION_KEYS: Set[str] = {
     "F12",
 }
 
-VALID_SYMBOL_KEYS: Set[str] = {
+VALID_SYMBOL_KEYS: set[str] = {
     "`",
     "TILDE",
     "-",
@@ -93,7 +84,7 @@ VALID_SYMBOL_KEYS: Set[str] = {
     "SPACE",
 }
 
-VALID_SYSTEM_KEYS: Set[str] = {
+VALID_SYSTEM_KEYS: set[str] = {
     "ESC",
     "ESCAPE",
     "APPS",
@@ -104,7 +95,7 @@ VALID_SYSTEM_KEYS: Set[str] = {
     "DELETE",
 }
 
-VALID_NAVIGATION_KEYS: Set[str] = {
+VALID_NAVIGATION_KEYS: set[str] = {
     "HOME",
     "END",
     "PAGEUP",
@@ -113,7 +104,7 @@ VALID_NAVIGATION_KEYS: Set[str] = {
     "NEXT",
 }
 
-VALID_ARROW_KEYS: Set[str] = {
+VALID_ARROW_KEYS: set[str] = {
     "UPARROW",
     "UP",
     "DOWNARROW",
@@ -124,7 +115,7 @@ VALID_ARROW_KEYS: Set[str] = {
     "RIGHT",
 }
 
-VALID_MODIFIER_KEYS: Set[str] = {
+VALID_MODIFIER_KEYS: set[str] = {
     "LSHIFT",
     "RSHIFT",
     "LALT",
@@ -139,13 +130,13 @@ VALID_MODIFIER_KEYS: Set[str] = {
     "LWIN",
 }
 
-VALID_INTERNATIONAL_KEYS: Set[str] = {
+VALID_INTERNATIONAL_KEYS: set[str] = {
     "KANJI",
     "CONVERT",
     "KANA",
 }
 
-VALID_NUMPAD_KEYS: Set[str] = {
+VALID_NUMPAD_KEYS: set[str] = {
     "NUMPAD0",
     "NUMPAD1",
     "NUMPAD2",
@@ -165,7 +156,7 @@ VALID_NUMPAD_KEYS: Set[str] = {
     "NUMPADENTER",
 }
 
-VALID_MOUSE_KEYS: Set[str] = {
+VALID_MOUSE_KEYS: set[str] = {
     "LBUTTON",
     "LEFTCLICK",
     "LCLICK",
@@ -198,7 +189,7 @@ VALID_MOUSE_KEYS: Set[str] = {
     "MOUSEWHEEL_BACKWARD",
 }
 
-VALID_CONTROLLER_KEYS: Set[str] = {
+VALID_CONTROLLER_KEYS: set[str] = {
     "JOY1",
     "ABUTTON",
     "CROSSBUTTON",
@@ -286,7 +277,7 @@ VALID_CONTROLLER_KEYS: Set[str] = {
     "POV3_RIGHT",
 }
 
-VALID_KEYS = (
+VALID_TRIGGER_KEYS: set[str] = (
     VALID_LETTER_KEYS
     | VALID_NUMBER_KEYS
     | VALID_FUNCTION_KEYS
