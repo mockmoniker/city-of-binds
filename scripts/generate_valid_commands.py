@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Simple generator to create valid_commands.py from template and JSON data
+Generate valid_commands.py directly from JSON data
 """
 
 import json
@@ -9,6 +9,7 @@ from datetime import datetime, timezone
 
 
 def normalize_slash_command(slash_command: str) -> str:
+    """Normalize slash command using same logic as runtime validation."""
     slash_command = slash_command.strip()
     slash_command = slash_command.replace("_", "")
     slash_command = slash_command.lower()
@@ -17,52 +18,52 @@ def normalize_slash_command(slash_command: str) -> str:
 
 def main():
     # File paths
-    project_root = Path(__file__).parent.parent
-    json_file = project_root / "resources" / "hc_wiki_slash_commands.json"
-    template_file = (
-        project_root / "scripts" / "templates" / "valid_commands.template.py"
-    )
+    root = Path(__file__).parent.parent
+    json_file = root / "resources" / "hc_wiki_slash_commands.json"
     output_file = (
-        project_root
-        / "CityOfBinds"
-        / "src"
-        / "game"
-        / "utils"
-        / "commands"
-        / "valid_commands.py"
+        root / "CityOfBinds" / "src" / "configs" / "valid_input" / "valid_commands.py"
     )
 
     # Load JSON data
     with open(json_file) as f:
         data = json.load(f)
 
-    # Load template
-    with open(template_file) as f:
-        template = f.read()
-
     # Extract commands
     commands = {}
     for item in data.get("slash_commands", []):
-        command = normalize_slash_command(item.get("command", ""))
-        shortcut = normalize_slash_command(item.get("shortcut", ""))
+        command = item.get("command", "").strip()
+        shortcut = item.get("shortcut", "").strip()
         if command:
-            commands[command] = shortcut
+            normalized_cmd = normalize_slash_command(command)
+            normalized_shortcut = (
+                normalize_slash_command(shortcut) if shortcut else normalized_cmd
+            )
+            commands[normalized_cmd] = normalized_shortcut
 
     commands[""] = ""  # Add empty command
 
-    # Generate commands dictionary entries with proper formatting
-    commands_entries = "\n".join(
-        f'    "{cmd}": "{shortcut}",' for cmd, shortcut in sorted(commands.items())
-    )
-    commands_dict = f"{{\n{commands_entries}\n}}"
+    # Generate the complete Python file
+    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
 
-    # Fill template placeholders
-    python_code = template.format(
-        DATE=datetime.now(timezone.utc).strftime("%Y-%m-%d"),
-        DO_NOT_EDIT_NOTICE="DO NOT EDIT - Run scripts/generate_valid_commands.py to regenerate",
-        COMMANDS=commands_dict,
-    )
-    python_code = python_code.replace("  # type: ignore", "")
+    # Build commands dictionary entries
+    command_entries = []
+    for cmd, shortcut in sorted(commands.items()):
+        command_entries.append(f'    "{cmd}": "{shortcut}",')
+
+    commands_dict = "\n".join(command_entries)
+
+    # Build the complete file content
+    python_code = f'''
+"""
+Generated: {timestamp}
+
+DO NOT EDIT - Run scripts/generate_valid_commands.py to regenerate
+"""
+
+VALID_COMMANDS: dict[str, str] = {{
+{commands_dict}
+}}
+'''
 
     # Write output
     output_file.parent.mkdir(parents=True, exist_ok=True)
