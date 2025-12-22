@@ -53,8 +53,7 @@ def main():
     commands_dict = "\n".join(command_entries)
 
     # Build the complete file content
-    python_code = f'''
-"""
+    python_code = f'''"""
 Generated: {timestamp}
 
 DO NOT EDIT - Run scripts/generate_valid_commands.py to regenerate
