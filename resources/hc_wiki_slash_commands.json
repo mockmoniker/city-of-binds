@@ -1,0 +1,3617 @@
+{
+  "_metadata": {
+    "description": "A comprehensive list of slash commands from the Homecoming Wiki",
+    "source": "https://homecoming.wiki/wiki/List_of_Slash_Commands",
+    "scraper": "https://github.com/mockmoniker/city-scraper",
+    "date": "2025/12/21",
+    "count": 601
+  },
+  "slash_commands": [
+    {
+      "command": "ac",
+      "args": "message",
+      "shortcut": "ac",
+      "wiki": "https://homecoming.wiki/wiki/Ac_(Slash_Command)"
+    },
+    {
+      "command": "afk",
+      "args": "message(optional)",
+      "shortcut": "afk",
+      "wiki": "https://homecoming.wiki/wiki/Afk_(Slash_Command)"
+    },
+    {
+      "command": "ah",
+      "args": "",
+      "shortcut": "ah",
+      "wiki": "https://homecoming.wiki/wiki/Ah_(Slash_Command)"
+    },
+    {
+      "command": "ai",
+      "args": "player",
+      "shortcut": "ai",
+      "wiki": "https://homecoming.wiki/wiki/Ai_(Slash_Command)"
+    },
+    {
+      "command": "alt2tray",
+      "args": "[0-1]",
+      "shortcut": "alt2tray",
+      "wiki": "https://homecoming.wiki/wiki/Alt2tray_(Slash_Command)"
+    },
+    {
+      "command": "altinvite",
+      "args": "name",
+      "shortcut": "altinvite",
+      "wiki": "https://homecoming.wiki/wiki/Altinvite_(Slash_Command)"
+    },
+    {
+      "command": "alttray",
+      "args": "[0-1]",
+      "shortcut": "alttray",
+      "wiki": "https://homecoming.wiki/wiki/Alttray_(Slash_Command)"
+    },
+    {
+      "command": "alttraysticky",
+      "args": "",
+      "shortcut": "alttraysticky",
+      "wiki": "https://homecoming.wiki/wiki/Alttraysticky_(Slash_Command)"
+    },
+    {
+      "command": "angle_snap",
+      "args": "[0-359]",
+      "shortcut": "angle_snap",
+      "wiki": "https://homecoming.wiki/wiki/Angle_snap_(Slash_Command)"
+    },
+    {
+      "command": "angle_snap_cycle",
+      "args": "",
+      "shortcut": "angle_snap_cycle",
+      "wiki": "https://homecoming.wiki/wiki/Angle_snap_cycle_(Slash_Command)"
+    },
+    {
+      "command": "antialiasing",
+      "args": "",
+      "shortcut": "fsaa",
+      "wiki": "https://homecoming.wiki/wiki/Antialiasing_(Slash_Command)"
+    },
+    {
+      "command": "architect",
+      "args": "",
+      "shortcut": "architect",
+      "wiki": "https://homecoming.wiki/wiki/Architect_(Slash_Command)"
+    },
+    {
+      "command": "architect_claim_tickets",
+      "args": "#",
+      "shortcut": "architect_claim_tickets",
+      "wiki": "https://homecoming.wiki/wiki/Architect_claim_tickets_(Slash_Command)"
+    },
+    {
+      "command": "architect_completemission",
+      "args": "",
+      "shortcut": "architect_completemission",
+      "wiki": "https://homecoming.wiki/wiki/Architect_completemission_(Slash_Command)"
+    },
+    {
+      "command": "architectexit",
+      "args": "",
+      "shortcut": "architectexit",
+      "wiki": "https://homecoming.wiki/wiki/Architectexit_(Slash_Command)"
+    },
+    {
+      "command": "architectfixerrors",
+      "args": "",
+      "shortcut": "architectfixerrors",
+      "wiki": "https://homecoming.wiki/wiki/Architectfixerrors_(Slash_Command)"
+    },
+    {
+      "command": "architect_invincible",
+      "args": "",
+      "shortcut": "architect_invincible",
+      "wiki": "https://homecoming.wiki/wiki/Architect_invincible_(Slash_Command)"
+    },
+    {
+      "command": "architect_invisible",
+      "args": "0-1",
+      "shortcut": "architect_invisible",
+      "wiki": "https://homecoming.wiki/wiki/Architect_invisible_(Slash_Command)"
+    },
+    {
+      "command": "architect_killtarget",
+      "args": "",
+      "shortcut": "architect_killtarget",
+      "wiki": "https://homecoming.wiki/wiki/Architect_killtarget_(Slash_Command)"
+    },
+    {
+      "command": "architect_loginupdate",
+      "args": "",
+      "shortcut": "architect_loginupdate",
+      "wiki": "https://homecoming.wiki/wiki/Architect_loginupdate_(Slash_Command)"
+    },
+    {
+      "command": "architect_nextcritter",
+      "args": "",
+      "shortcut": "architect_nextcritter",
+      "wiki": "https://homecoming.wiki/wiki/Architect_nextcritter_(Slash_Command)"
+    },
+    {
+      "command": "architect_nextobjective",
+      "args": "",
+      "shortcut": "architect_nextobjective",
+      "wiki": "https://homecoming.wiki/wiki/Architect_nextobjective_(Slash_Command)"
+    },
+    {
+      "command": "architectrepublish",
+      "args": "",
+      "shortcut": "architectrepublish",
+      "wiki": "https://homecoming.wiki/wiki/Architectrepublish_(Slash_Command)"
+    },
+    {
+      "command": "architectsaveandexit",
+      "args": "",
+      "shortcut": "architectsaveandexit",
+      "wiki": "https://homecoming.wiki/wiki/Architectsaveandexit_(Slash_Command)"
+    },
+    {
+      "command": "architectsaveandtest",
+      "args": "",
+      "shortcut": "architectsaveandtest",
+      "wiki": "https://homecoming.wiki/wiki/Architectsaveandtest_(Slash_Command)"
+    },
+    {
+      "command": "architect_save_compressed_costumes",
+      "args": "[0-1]",
+      "shortcut": "architect_save_compressed_costumes",
+      "wiki": "https://homecoming.wiki/wiki/Architect_save_compressed_costumes_(Slash_Command)"
+    },
+    {
+      "command": "arena",
+      "args": "message",
+      "shortcut": "ac",
+      "wiki": "https://homecoming.wiki/wiki/Arena_(Slash_Command)"
+    },
+    {
+      "command": "arena_invite",
+      "args": "player",
+      "shortcut": "ai",
+      "wiki": "https://homecoming.wiki/wiki/Arena_invite_(Slash_Command)"
+    },
+    {
+      "command": "arenalist",
+      "args": "",
+      "shortcut": "arenalist",
+      "wiki": "https://homecoming.wiki/wiki/Arenalist_(Slash_Command)"
+    },
+    {
+      "command": "arena_local",
+      "args": "message",
+      "shortcut": "arena_local",
+      "wiki": "https://homecoming.wiki/wiki/Arena_local_(Slash_Command)"
+    },
+    {
+      "command": "arena_score",
+      "args": "",
+      "shortcut": "arena_score",
+      "wiki": "https://homecoming.wiki/wiki/Arena_score_(Slash_Command)"
+    },
+    {
+      "command": "assist",
+      "args": "",
+      "shortcut": "assist",
+      "wiki": "https://homecoming.wiki/wiki/Assist_(Slash_Command)"
+    },
+    {
+      "command": "assist_name",
+      "args": "player",
+      "shortcut": "assist_name",
+      "wiki": "https://homecoming.wiki/wiki/Assist_name_(Slash_Command)"
+    },
+    {
+      "command": "attach_cycle",
+      "args": "",
+      "shortcut": "attach_cycle",
+      "wiki": "https://homecoming.wiki/wiki/Attach_cycle_(Slash_Command)"
+    },
+    {
+      "command": "auc_loginupdate",
+      "args": "",
+      "shortcut": "auc_loginupdate",
+      "wiki": "https://homecoming.wiki/wiki/Auc_loginupdate_(Slash_Command)"
+    },
+    {
+      "command": "auction",
+      "args": "message",
+      "shortcut": "auction",
+      "wiki": "https://homecoming.wiki/wiki/Auction_(Slash_Command)"
+    },
+    {
+      "command": "auctionhouse",
+      "args": "",
+      "shortcut": "ah",
+      "wiki": "https://homecoming.wiki/wiki/Auctionhouse_(Slash_Command)"
+    },
+    {
+      "command": "autoreply",
+      "args": "",
+      "shortcut": "autoreply",
+      "wiki": "https://homecoming.wiki/wiki/Autoreply_(Slash_Command)"
+    },
+    {
+      "command": "autorun",
+      "args": "string",
+      "shortcut": "autorun",
+      "wiki": "https://homecoming.wiki/wiki/Autorun_(Slash_Command)"
+    },
+    {
+      "command": "b",
+      "args": "message",
+      "shortcut": "b",
+      "wiki": "https://homecoming.wiki/wiki/B_(Slash_Command)"
+    },
+    {
+      "command": "backward",
+      "args": "",
+      "shortcut": "backward",
+      "wiki": "https://homecoming.wiki/wiki/Backward_(Slash_Command)"
+    },
+    {
+      "command": "badgegrant",
+      "args": "BadgeGrant Tag",
+      "shortcut": "badgegrant",
+      "wiki": "https://homecoming.wiki/wiki/Badgegrant_(Slash_Command)"
+    },
+    {
+      "command": "base_default_sky",
+      "args": "number",
+      "shortcut": "base_default_sky",
+      "wiki": "https://homecoming.wiki/wiki/Base_default_sky_(Slash_Command)"
+    },
+    {
+      "command": "base_lighting_type",
+      "args": "number",
+      "shortcut": "base_lighting_type",
+      "wiki": "https://homecoming.wiki/wiki/Base_lighting_type_(Slash_Command)"
+    },
+    {
+      "command": "base_redo",
+      "args": "",
+      "shortcut": "base_redo",
+      "wiki": "https://homecoming.wiki/wiki/Base_redo_(Slash_Command)"
+    },
+    {
+      "command": "base_select",
+      "args": "",
+      "shortcut": "base_select",
+      "wiki": "https://homecoming.wiki/wiki/Base_select_(Slash_Command)"
+    },
+    {
+      "command": "base_undo",
+      "args": "",
+      "shortcut": "base_undo",
+      "wiki": "https://homecoming.wiki/wiki/Base_undo_(Slash_Command)"
+    },
+    {
+      "command": "beginchat",
+      "args": "string",
+      "shortcut": "beginchat",
+      "wiki": "https://homecoming.wiki/wiki/Beginchat_(Slash_Command)"
+    },
+    {
+      "command": "bind",
+      "args": "trigger command",
+      "shortcut": "bind",
+      "wiki": "https://homecoming.wiki/wiki/Bind_(Slash_Command)"
+    },
+    {
+      "command": "bind_load",
+      "args": "",
+      "shortcut": "bind_load",
+      "wiki": "https://homecoming.wiki/wiki/Bind_load_(Slash_Command)"
+    },
+    {
+      "command": "bind_load_file",
+      "args": "<path>\\filename.txt",
+      "shortcut": "bind_load_file",
+      "wiki": "https://homecoming.wiki/wiki/Bind_load_file_(Slash_Command)"
+    },
+    {
+      "command": "bind_load_file_silent",
+      "args": "path",
+      "shortcut": "bind_load_file_silent",
+      "wiki": "https://homecoming.wiki/wiki/Bind_load_file_silent_(Slash_Command)"
+    },
+    {
+      "command": "bind_save",
+      "args": "",
+      "shortcut": "bind_save",
+      "wiki": "https://homecoming.wiki/wiki/Bind_save_(Slash_Command)"
+    },
+    {
+      "command": "bind_save_file",
+      "args": "<path>\\filename.txt",
+      "shortcut": "bind_save_file",
+      "wiki": "https://homecoming.wiki/wiki/Bind_save_file_(Slash_Command)"
+    },
+    {
+      "command": "bind_save_file_silent",
+      "args": "filename.txt",
+      "shortcut": "bind_save_file_silent",
+      "wiki": "https://homecoming.wiki/wiki/Bind_save_file_silent_(Slash_Command)"
+    },
+    {
+      "command": "blackmarket",
+      "args": "",
+      "shortcut": "ah",
+      "wiki": "https://homecoming.wiki/wiki/Blackmarket_(Slash_Command)"
+    },
+    {
+      "command": "bloomscale",
+      "args": "number",
+      "shortcut": "bloomscale",
+      "wiki": "https://homecoming.wiki/wiki/Bloomscale_(Slash_Command)"
+    },
+    {
+      "command": "bloomweight",
+      "args": "[0.0-2.0]",
+      "shortcut": "bloomweight",
+      "wiki": "https://homecoming.wiki/wiki/Bloomweight_(Slash_Command)"
+    },
+    {
+      "command": "boost_convert",
+      "args": "Inv_ID type",
+      "shortcut": "boost_convert",
+      "wiki": "https://homecoming.wiki/wiki/Boost_convert_(Slash_Command)"
+    },
+    {
+      "command": "broadcast",
+      "args": "message",
+      "shortcut": "b",
+      "wiki": "https://homecoming.wiki/wiki/Broadcast_(Slash_Command)"
+    },
+    {
+      "command": "build_save",
+      "args": "",
+      "shortcut": "build_save",
+      "wiki": "https://homecoming.wiki/wiki/Build_save_(Slash_Command)"
+    },
+    {
+      "command": "build_save_file",
+      "args": "<path>\\filename.txt",
+      "shortcut": "build_save_file",
+      "wiki": "https://homecoming.wiki/wiki/Build_save_file_(Slash_Command)"
+    },
+    {
+      "command": "c",
+      "args": "message",
+      "shortcut": "c",
+      "wiki": "https://homecoming.wiki/wiki/C_(Slash_Command)"
+    },
+    {
+      "command": "camdist",
+      "args": "number",
+      "shortcut": "camdist",
+      "wiki": "https://homecoming.wiki/wiki/Camdist_(Slash_Command)"
+    },
+    {
+      "command": "camdistadjust",
+      "args": "number",
+      "shortcut": "camdistadjust",
+      "wiki": "https://homecoming.wiki/wiki/Camdistadjust_(Slash_Command)"
+    },
+    {
+      "command": "camreset",
+      "args": "",
+      "shortcut": "camreset",
+      "wiki": "https://homecoming.wiki/wiki/Camreset_(Slash_Command)"
+    },
+    {
+      "command": "camrotate",
+      "args": "+, ++, or 0-1",
+      "shortcut": "camrotate",
+      "wiki": "https://homecoming.wiki/wiki/Camrotate_(Slash_Command)"
+    },
+    {
+      "command": "camturn",
+      "args": "",
+      "shortcut": "camturn",
+      "wiki": "https://homecoming.wiki/wiki/Camturn_(Slash_Command)"
+    },
+    {
+      "command": "canlook",
+      "args": "+, ++, or 0-1",
+      "shortcut": "canlook",
+      "wiki": "https://homecoming.wiki/wiki/Canlook_(Slash_Command)"
+    },
+    {
+      "command": "cc",
+      "args": "#",
+      "shortcut": "cc",
+      "wiki": "https://homecoming.wiki/wiki/Cc_(Slash_Command)"
+    },
+    {
+      "command": "cce",
+      "args": "# ccemote",
+      "shortcut": "cce",
+      "wiki": "https://homecoming.wiki/wiki/Cce_(Slash_Command)"
+    },
+    {
+      "command": "cc_emote",
+      "args": "# ccemote",
+      "shortcut": "cce",
+      "wiki": "https://homecoming.wiki/wiki/Cc_emote_(Slash_Command)"
+    },
+    {
+      "command": "center",
+      "args": "",
+      "shortcut": "center",
+      "wiki": "https://homecoming.wiki/wiki/Center_(Slash_Command)"
+    },
+    {
+      "command": "centersel",
+      "args": "",
+      "shortcut": "centersel",
+      "wiki": "https://homecoming.wiki/wiki/Centersel_(Slash_Command)"
+    },
+    {
+      "command": "chan_create",
+      "args": "channel_name",
+      "shortcut": "chan_create",
+      "wiki": "https://homecoming.wiki/wiki/Chan_create_(Slash_Command)"
+    },
+    {
+      "command": "chan_desc",
+      "args": "channel description",
+      "shortcut": "chan_desc",
+      "wiki": "https://homecoming.wiki/wiki/Chan_desc_(Slash_Command)"
+    },
+    {
+      "command": "change_handle",
+      "args": "new_global",
+      "shortcut": "change_handle",
+      "wiki": "https://homecoming.wiki/wiki/Change_handle_(Slash_Command)"
+    },
+    {
+      "command": "chan_invite",
+      "args": "channel username",
+      "shortcut": "ginvite",
+      "wiki": "https://homecoming.wiki/wiki/Chan_invite_(Slash_Command)"
+    },
+    {
+      "command": "chan_invitedeny",
+      "args": "channel_name inviter_name",
+      "shortcut": "chan_invitedeny",
+      "wiki": "https://homecoming.wiki/wiki/Chan_invitedeny_(Slash_Command)"
+    },
+    {
+      "command": "chan_invite_gf",
+      "args": "channel",
+      "shortcut": "chan_invite_gf",
+      "wiki": "https://homecoming.wiki/wiki/Chan_invite_gf_(Slash_Command)"
+    },
+    {
+      "command": "chan_invite_sg",
+      "args": "channel_name rank",
+      "shortcut": "ginvite_sg",
+      "wiki": "https://homecoming.wiki/wiki/Chan_invite_sg_(Slash_Command)"
+    },
+    {
+      "command": "chan_invite_team",
+      "args": "channel",
+      "shortcut": "chan_invite_team",
+      "wiki": "https://homecoming.wiki/wiki/Chan_invite_team_(Slash_Command)"
+    },
+    {
+      "command": "chan_join",
+      "args": "channel",
+      "shortcut": "chan_join",
+      "wiki": "https://homecoming.wiki/wiki/Chan_join_(Slash_Command)"
+    },
+    {
+      "command": "chan_leave",
+      "args": "channel",
+      "shortcut": "chan_leave",
+      "wiki": "https://homecoming.wiki/wiki/Chan_leave_(Slash_Command)"
+    },
+    {
+      "command": "chan_members",
+      "args": "channel",
+      "shortcut": "chan_members",
+      "wiki": "https://homecoming.wiki/wiki/Chan_members_(Slash_Command)"
+    },
+    {
+      "command": "chan_mode",
+      "args": "channel options",
+      "shortcut": "chan_mode",
+      "wiki": "https://homecoming.wiki/wiki/Chan_mode_(Slash_Command)"
+    },
+    {
+      "command": "chan_motd",
+      "args": "channel_name message",
+      "shortcut": "chan_motd",
+      "wiki": "https://homecoming.wiki/wiki/Chan_motd_(Slash_Command)"
+    },
+    {
+      "command": "chan_send",
+      "args": "channel message",
+      "shortcut": "Send",
+      "wiki": "https://homecoming.wiki/wiki/Chan_send_(Slash_Command)"
+    },
+    {
+      "command": "chan_timeout",
+      "args": "<channel name> <duration>",
+      "shortcut": "chan_timeout",
+      "wiki": "https://homecoming.wiki/wiki/Chan_timeout_(Slash_Command)"
+    },
+    {
+      "command": "chan_user_mode",
+      "args": "channel_Name global_Name options",
+      "shortcut": "chan_user_mode",
+      "wiki": "https://homecoming.wiki/wiki/Chan_user_mode_(Slash_Command)"
+    },
+    {
+      "command": "chat",
+      "args": "",
+      "shortcut": "chat",
+      "wiki": "https://homecoming.wiki/wiki/Chat_(Slash_Command)"
+    },
+    {
+      "command": "chat_cycle",
+      "args": "",
+      "shortcut": "chat_cycle",
+      "wiki": "https://homecoming.wiki/wiki/Chat_cycle_(Slash_Command)"
+    },
+    {
+      "command": "chat_load",
+      "args": "",
+      "shortcut": "chat_load",
+      "wiki": "https://homecoming.wiki/wiki/Chat_load_(Slash_Command)"
+    },
+    {
+      "command": "chat_load_file",
+      "args": "path & filename",
+      "shortcut": "chat_load_file",
+      "wiki": "https://homecoming.wiki/wiki/Chat_load_file_(Slash_Command)"
+    },
+    {
+      "command": "chatoptions",
+      "args": "[0-4]",
+      "shortcut": "chatoptions",
+      "wiki": "https://homecoming.wiki/wiki/Chatoptions_(Slash_Command)"
+    },
+    {
+      "command": "chat_save",
+      "args": "",
+      "shortcut": "chat_save",
+      "wiki": "https://homecoming.wiki/wiki/Chat_save_(Slash_Command)"
+    },
+    {
+      "command": "chat_save_file",
+      "args": "filename",
+      "shortcut": "chat_save_file",
+      "wiki": "https://homecoming.wiki/wiki/Chat_save_file_(Slash_Command)"
+    },
+    {
+      "command": "chat_set",
+      "args": "channel_name",
+      "shortcut": "chat_set",
+      "wiki": "https://homecoming.wiki/wiki/Chat_set_(Slash_Command)"
+    },
+    {
+      "command": "ci",
+      "args": "playername",
+      "shortcut": "ci",
+      "wiki": "https://homecoming.wiki/wiki/Ci_(Slash_Command)"
+    },
+    {
+      "command": "citytime",
+      "args": "",
+      "shortcut": "citytime",
+      "wiki": "https://homecoming.wiki/wiki/Citytime_(Slash_Command)"
+    },
+    {
+      "command": "clearAttributeView",
+      "args": "",
+      "shortcut": "clearAttributeView",
+      "wiki": "https://homecoming.wiki/wiki/ClearAttributeView_(Slash_Command)"
+    },
+    {
+      "command": "clearchat",
+      "args": "",
+      "shortcut": "clearchat",
+      "wiki": "https://homecoming.wiki/wiki/Clearchat_(Slash_Command)"
+    },
+    {
+      "command": "clear_petnames",
+      "args": "",
+      "shortcut": "clear_petnames",
+      "wiki": "https://homecoming.wiki/wiki/Clear_petnames_(Slash_Command)"
+    },
+    {
+      "command": "clearRewardChoice",
+      "args": "",
+      "shortcut": "clearRewardChoice",
+      "wiki": "https://homecoming.wiki/wiki/ClearRewardChoice_(Slash_Command)"
+    },
+    {
+      "command": "clear_tray",
+      "args": "",
+      "shortcut": "clear_tray",
+      "wiki": "https://homecoming.wiki/wiki/Clear_tray_(Slash_Command)"
+    },
+    {
+      "command": "clicktomove",
+      "args": "+, ++, or [0-1]",
+      "shortcut": "ctm",
+      "wiki": "https://homecoming.wiki/wiki/Clicktomove_(Slash_Command)"
+    },
+    {
+      "command": "cmdlist",
+      "args": "",
+      "shortcut": "cmdlist",
+      "wiki": "https://homecoming.wiki/wiki/Cmdlist_(Slash_Command)"
+    },
+    {
+      "command": "coalition",
+      "args": "message",
+      "shortcut": "c",
+      "wiki": "https://homecoming.wiki/wiki/Coalition_(Slash_Command)"
+    },
+    {
+      "command": "coalition_cancel",
+      "args": "supergroup",
+      "shortcut": "coalition_cancel",
+      "wiki": "https://homecoming.wiki/wiki/Coalition_cancel_(Slash_Command)"
+    },
+    {
+      "command": "coalition_invite",
+      "args": "charactername",
+      "shortcut": "ci",
+      "wiki": "https://homecoming.wiki/wiki/Coalition_invite_(Slash_Command)"
+    },
+    {
+      "command": "coalition_mintalkrank",
+      "args": "Supergroup_ID [0-1]",
+      "shortcut": "coalition_mintalkrank",
+      "wiki": "https://homecoming.wiki/wiki/Coalition_mintalkrank_(Slash_Command)"
+    },
+    {
+      "command": "coalition_nosend",
+      "args": "supergroup_ID [0-1]",
+      "shortcut": "coalition_nosend",
+      "wiki": "https://homecoming.wiki/wiki/Coalition_nosend_(Slash_Command)"
+    },
+    {
+      "command": "coalition_sg_mintalkrank",
+      "args": "[0-1]",
+      "shortcut": "coalition_sg_mintalkrank",
+      "wiki": "https://homecoming.wiki/wiki/Coalition_sg_mintalkrank_(Slash_Command)"
+    },
+    {
+      "command": "comment",
+      "args": "message",
+      "shortcut": "comment",
+      "wiki": "https://homecoming.wiki/wiki/Comment_(Slash_Command)"
+    },
+    {
+      "command": "compatiblecursors",
+      "args": "[0-1]",
+      "shortcut": "compatiblecursors",
+      "wiki": "https://homecoming.wiki/wiki/Compatiblecursors_(Slash_Command)"
+    },
+    {
+      "command": "conprint",
+      "args": "<string>",
+      "shortcut": "conprint",
+      "wiki": "https://homecoming.wiki/wiki/Conprint_(Slash_Command)"
+    },
+    {
+      "command": "contactfinder_selectcurrent",
+      "args": "",
+      "shortcut": "contactfinder_selectcurrent",
+      "wiki": "https://homecoming.wiki/wiki/Contactfinder_selectcurrent_(Slash_Command)"
+    },
+    {
+      "command": "contactfinder_showcurrent",
+      "args": "",
+      "shortcut": "contactfinder_showcurrent",
+      "wiki": "https://homecoming.wiki/wiki/Contactfinder_showcurrent_(Slash_Command)"
+    },
+    {
+      "command": "contactfinder_shownext",
+      "args": "",
+      "shortcut": "contactfinder_shownext",
+      "wiki": "https://homecoming.wiki/wiki/Contactfinder_shownext_(Slash_Command)"
+    },
+    {
+      "command": "contactfinder_showprevious",
+      "args": "",
+      "shortcut": "contactfinder_showprevious",
+      "wiki": "https://homecoming.wiki/wiki/Contactfinder_showprevious_(Slash_Command)"
+    },
+    {
+      "command": "contactfinder_teleporttocurrent",
+      "args": "",
+      "shortcut": "contactfinder_teleporttocurrent",
+      "wiki": "https://homecoming.wiki/wiki/Contactfinder_teleporttocurrent_(Slash_Command)"
+    },
+    {
+      "command": "contextmenu",
+      "args": "menu_num",
+      "shortcut": "contextmenu",
+      "wiki": "https://homecoming.wiki/wiki/Contextmenu_(Slash_Command)"
+    },
+    {
+      "command": "controller_modifiers",
+      "args": "<first> <second>",
+      "shortcut": "controller_modifiers",
+      "wiki": "https://homecoming.wiki/wiki/Controller_modifiers_(Slash_Command)"
+    },
+    {
+      "command": "controller_vmouse",
+      "args": "<LMB> <RMB> [MMB] [Snap]",
+      "shortcut": "controller_vmouse",
+      "wiki": "https://homecoming.wiki/wiki/Controller_vmouse_(Slash_Command)"
+    },
+    {
+      "command": "cooldown_indicator",
+      "args": "[1-3]",
+      "shortcut": "cooldown_indicator",
+      "wiki": "https://homecoming.wiki/wiki/Cooldown_indicator_(Slash_Command)"
+    },
+    {
+      "command": "copychat",
+      "args": "chat_tab_name",
+      "shortcut": "copychat",
+      "wiki": "https://homecoming.wiki/wiki/Copychat_(Slash_Command)"
+    },
+    {
+      "command": "costume_change",
+      "args": "#",
+      "shortcut": "cc",
+      "wiki": "https://homecoming.wiki/wiki/Costume_change_(Slash_Command)"
+    },
+    {
+      "command": "ctm",
+      "args": "+, ++, or [0-1]",
+      "shortcut": "ctm",
+      "wiki": "https://homecoming.wiki/wiki/Ctm_(Slash_Command)"
+    },
+    {
+      "command": "ctm_invert",
+      "args": "+, ++, or [0-1]",
+      "shortcut": "ctm",
+      "wiki": "https://homecoming.wiki/wiki/Ctm_invert_(Slash_Command)"
+    },
+    {
+      "command": "ctmtoggle",
+      "args": "",
+      "shortcut": "ctmtoggle",
+      "wiki": "https://homecoming.wiki/wiki/Ctmtoggle_(Slash_Command)"
+    },
+    {
+      "command": "cursorcache",
+      "args": "[0-1]",
+      "shortcut": "cursorcache",
+      "wiki": "https://homecoming.wiki/wiki/Cursorcache_(Slash_Command)"
+    },
+    {
+      "command": "custom_window",
+      "args": "name",
+      "shortcut": "custom_window",
+      "wiki": "https://homecoming.wiki/wiki/Custom_window_(Slash_Command)"
+    },
+    {
+      "command": "custom_window_toggle",
+      "args": "name",
+      "shortcut": "custom_window_toggle",
+      "wiki": "https://homecoming.wiki/wiki/Custom_window_toggle_(Slash_Command)"
+    },
+    {
+      "command": "debug_disableautodismiss",
+      "args": "[0-1]",
+      "shortcut": "debug_disableautodismiss",
+      "wiki": "https://homecoming.wiki/wiki/Debug_disableautodismiss_(Slash_Command)"
+    },
+    {
+      "command": "demodump",
+      "args": "",
+      "shortcut": "demodump",
+      "wiki": "https://homecoming.wiki/wiki/Demodump_(Slash_Command)"
+    },
+    {
+      "command": "demodumptga",
+      "args": "[0-1]",
+      "shortcut": "demodumptga",
+      "wiki": "https://homecoming.wiki/wiki/Demodumptga_(Slash_Command)"
+    },
+    {
+      "command": "demofps",
+      "args": "number",
+      "shortcut": "demofps",
+      "wiki": "https://homecoming.wiki/wiki/Demofps_(Slash_Command)"
+    },
+    {
+      "command": "demoframestats",
+      "args": "[0-1]",
+      "shortcut": "demoframestats",
+      "wiki": "https://homecoming.wiki/wiki/Demoframestats_(Slash_Command)"
+    },
+    {
+      "command": "demohideallentityui",
+      "args": "[0-1]",
+      "shortcut": "demohideallentityui",
+      "wiki": "https://homecoming.wiki/wiki/Demohideallentityui_(Slash_Command)"
+    },
+    {
+      "command": "demohidechat",
+      "args": "[0-1]",
+      "shortcut": "demohidechat",
+      "wiki": "https://homecoming.wiki/wiki/Demohidechat_(Slash_Command)"
+    },
+    {
+      "command": "demohidedamage",
+      "args": "[0-1]",
+      "shortcut": "demohidedamage",
+      "wiki": "https://homecoming.wiki/wiki/Demohidedamage_(Slash_Command)"
+    },
+    {
+      "command": "demohidenames",
+      "args": "[0-1]",
+      "shortcut": "demohidenames",
+      "wiki": "https://homecoming.wiki/wiki/Demohidenames_(Slash_Command)"
+    },
+    {
+      "command": "demoloop",
+      "args": "number",
+      "shortcut": "demoloop",
+      "wiki": "https://homecoming.wiki/wiki/Demoloop_(Slash_Command)"
+    },
+    {
+      "command": "demopause",
+      "args": "number",
+      "shortcut": "demopause",
+      "wiki": "https://homecoming.wiki/wiki/Demopause_(Slash_Command)"
+    },
+    {
+      "command": "demorecord",
+      "args": "demo_name",
+      "shortcut": "demorecord",
+      "wiki": "https://homecoming.wiki/wiki/Demorecord_(Slash_Command)"
+    },
+    {
+      "command": "demorecord_auto",
+      "args": "",
+      "shortcut": "demorecord_auto",
+      "wiki": "https://homecoming.wiki/wiki/Demorecord_auto_(Slash_Command)"
+    },
+    {
+      "command": "demospeedscale",
+      "args": "number",
+      "shortcut": "demospeedscale",
+      "wiki": "https://homecoming.wiki/wiki/Demospeedscale_(Slash_Command)"
+    },
+    {
+      "command": "demostop",
+      "args": "",
+      "shortcut": "demostop",
+      "wiki": "https://homecoming.wiki/wiki/Demostop_(Slash_Command)"
+    },
+    {
+      "command": "demote",
+      "args": "character",
+      "shortcut": "demote",
+      "wiki": "https://homecoming.wiki/wiki/Demote_(Slash_Command)"
+    },
+    {
+      "command": "dialog_answer",
+      "args": "choice",
+      "shortcut": "dialog_answer",
+      "wiki": "https://homecoming.wiki/wiki/Dialog_answer_(Slash_Command)"
+    },
+    {
+      "command": "dialog_no",
+      "args": "",
+      "shortcut": "dialog_no",
+      "wiki": "https://homecoming.wiki/wiki/Dialog_no_(Slash_Command)"
+    },
+    {
+      "command": "dialog_yes",
+      "args": "",
+      "shortcut": "dialog_yes",
+      "wiki": "https://homecoming.wiki/wiki/Dialog_yes_(Slash_Command)"
+    },
+    {
+      "command": "disable2d",
+      "args": "[0-1]",
+      "shortcut": "disable2d",
+      "wiki": "https://homecoming.wiki/wiki/Disable2d_(Slash_Command)"
+    },
+    {
+      "command": "dofweight",
+      "args": "[0.0-2.0]",
+      "shortcut": "dofweight",
+      "wiki": "https://homecoming.wiki/wiki/Dofweight_(Slash_Command)"
+    },
+    {
+      "command": "down",
+      "args": "+, ++, or [0-1]",
+      "shortcut": "down",
+      "wiki": "https://homecoming.wiki/wiki/Down_(Slash_Command)"
+    },
+    {
+      "command": "e",
+      "args": "text",
+      "shortcut": "e",
+      "wiki": "https://homecoming.wiki/wiki/E_(Slash_Command)"
+    },
+    {
+      "command": "editbase",
+      "args": "[1/0]",
+      "shortcut": "editbase",
+      "wiki": "https://homecoming.wiki/wiki/Editbase_(Slash_Command)"
+    },
+    {
+      "command": "em",
+      "args": "text",
+      "shortcut": "e",
+      "wiki": "https://homecoming.wiki/wiki/Em_(Slash_Command)"
+    },
+    {
+      "command": "emailheaders",
+      "args": "",
+      "shortcut": "emailheaders",
+      "wiki": "https://homecoming.wiki/wiki/Emailheaders_(Slash_Command)"
+    },
+    {
+      "command": "emote",
+      "args": "text",
+      "shortcut": "e",
+      "wiki": "https://homecoming.wiki/wiki/Emote_(Slash_Command)"
+    },
+    {
+      "command": "enablevbos",
+      "args": "[0-1]",
+      "shortcut": "enablevbos",
+      "wiki": "https://homecoming.wiki/wiki/Enablevbos_(Slash_Command)"
+    },
+    {
+      "command": "enterbasefrompasscode",
+      "args": "passcode",
+      "shortcut": "enterbasefrompasscode",
+      "wiki": "https://homecoming.wiki/wiki/Enterbasefrompasscode_(Slash_Command)"
+    },
+    {
+      "command": "enter_base_from_sgid",
+      "args": "SGID number",
+      "shortcut": "enter_base_from_sgid",
+      "wiki": "https://homecoming.wiki/wiki/Enter_base_from_sgid_(Slash_Command)"
+    },
+    {
+      "command": "enterdoor",
+      "args": "coordinates map_ID",
+      "shortcut": "enterdoor",
+      "wiki": "https://homecoming.wiki/wiki/Enterdoor_(Slash_Command)"
+    },
+    {
+      "command": "estrange",
+      "args": "name",
+      "shortcut": "estrange",
+      "wiki": "https://homecoming.wiki/wiki/Estrange_(Slash_Command)"
+    },
+    {
+      "command": "exitlaunch",
+      "args": "FilePath",
+      "shortcut": "exitlaunch",
+      "wiki": "https://homecoming.wiki/wiki/Exitlaunch_(Slash_Command)"
+    },
+    {
+      "command": "extra_modifiers",
+      "args": "[ExMod1] [ExMod2] [ExMod3] [ExMod4]",
+      "shortcut": "extra_modifiers",
+      "wiki": "https://homecoming.wiki/wiki/Extra_modifiers_(Slash_Command)"
+    },
+    {
+      "command": "f",
+      "args": "message",
+      "shortcut": "f",
+      "wiki": "https://homecoming.wiki/wiki/F_(Slash_Command)"
+    },
+    {
+      "command": "face",
+      "args": "",
+      "shortcut": "face",
+      "wiki": "https://homecoming.wiki/wiki/Face_(Slash_Command)"
+    },
+    {
+      "command": "findmember",
+      "args": "options",
+      "shortcut": "sea",
+      "wiki": "https://homecoming.wiki/wiki/Findmember_(Slash_Command)"
+    },
+    {
+      "command": "first",
+      "args": "+, ++, or 0-1",
+      "shortcut": "first",
+      "wiki": "https://homecoming.wiki/wiki/First_(Slash_Command)"
+    },
+    {
+      "command": "fl",
+      "args": "",
+      "shortcut": "fl",
+      "wiki": "https://homecoming.wiki/wiki/Fl_(Slash_Command)"
+    },
+    {
+      "command": "follow",
+      "args": "",
+      "shortcut": "follow",
+      "wiki": "https://homecoming.wiki/wiki/Follow_(Slash_Command)"
+    },
+    {
+      "command": "forward",
+      "args": "+, ++, 0-1",
+      "shortcut": "forward",
+      "wiki": "https://homecoming.wiki/wiki/Forward_(Slash_Command)"
+    },
+    {
+      "command": "forward_mouse",
+      "args": "+, ++, or 1",
+      "shortcut": "forward_mouse",
+      "wiki": "https://homecoming.wiki/wiki/Forward_mouse_(Slash_Command)"
+    },
+    {
+      "command": "friend",
+      "args": "name",
+      "shortcut": "friend",
+      "wiki": "https://homecoming.wiki/wiki/Friend_(Slash_Command)"
+    },
+    {
+      "command": "friendlist",
+      "args": "",
+      "shortcut": "fl",
+      "wiki": "https://homecoming.wiki/wiki/Friendlist_(Slash_Command)"
+    },
+    {
+      "command": "fsaa",
+      "args": "",
+      "shortcut": "fsaa",
+      "wiki": "https://homecoming.wiki/wiki/Fsaa_(Slash_Command)"
+    },
+    {
+      "command": "fullRelight",
+      "args": "[0-1]",
+      "shortcut": "fullRelight",
+      "wiki": "https://homecoming.wiki/wiki/FullRelight_(Slash_Command)"
+    },
+    {
+      "command": "fullscreen",
+      "args": "[0-1]",
+      "shortcut": "fullscreen",
+      "wiki": "https://homecoming.wiki/wiki/Fullscreen_(Slash_Command)"
+    },
+    {
+      "command": "g",
+      "args": "message",
+      "shortcut": "g",
+      "wiki": "https://homecoming.wiki/wiki/G_(Slash_Command)"
+    },
+    {
+      "command": "gamereturn",
+      "args": "",
+      "shortcut": "gamereturn",
+      "wiki": "https://homecoming.wiki/wiki/Gamereturn_(Slash_Command)"
+    },
+    {
+      "command": "gen",
+      "args": "message",
+      "shortcut": "z",
+      "wiki": "https://homecoming.wiki/wiki/Gen_(Slash_Command)"
+    },
+    {
+      "command": "general",
+      "args": "message",
+      "shortcut": "z",
+      "wiki": "https://homecoming.wiki/wiki/General_(Slash_Command)"
+    },
+    {
+      "command": "getallarenastats",
+      "args": "",
+      "shortcut": "getallarenastats",
+      "wiki": "https://homecoming.wiki/wiki/Getallarenastats_(Slash_Command)"
+    },
+    {
+      "command": "getarenastats",
+      "args": "",
+      "shortcut": "getarenastats",
+      "wiki": "https://homecoming.wiki/wiki/Getarenastats_(Slash_Command)"
+    },
+    {
+      "command": "get_comment",
+      "args": "message",
+      "shortcut": "comment",
+      "wiki": "https://homecoming.wiki/wiki/Get_comment_(Slash_Command)"
+    },
+    {
+      "command": "getglobalname",
+      "args": "local_name",
+      "shortcut": "getglobalname",
+      "wiki": "https://homecoming.wiki/wiki/Getglobalname_(Slash_Command)"
+    },
+    {
+      "command": "get_local_invite",
+      "args": "globalname",
+      "shortcut": "get_local_invite",
+      "wiki": "https://homecoming.wiki/wiki/Get_local_invite_(Slash_Command)"
+    },
+    {
+      "command": "get_local_league_invite",
+      "args": "globalname",
+      "shortcut": "get_local_league_invite",
+      "wiki": "https://homecoming.wiki/wiki/Get_local_league_invite_(Slash_Command)"
+    },
+    {
+      "command": "getlocalname",
+      "args": "global_name",
+      "shortcut": "getlocalname",
+      "wiki": "https://homecoming.wiki/wiki/Getlocalname_(Slash_Command)"
+    },
+    {
+      "command": "getpos",
+      "args": "",
+      "shortcut": "loc",
+      "wiki": "https://homecoming.wiki/wiki/Getpos_(Slash_Command)"
+    },
+    {
+      "command": "getratedarenastats",
+      "args": "",
+      "shortcut": "getarenastats",
+      "wiki": "https://homecoming.wiki/wiki/Getratedarenastats_(Slash_Command)"
+    },
+    {
+      "command": "gfriend",
+      "args": "name",
+      "shortcut": "gfriend",
+      "wiki": "https://homecoming.wiki/wiki/Gfriend_(Slash_Command)"
+    },
+    {
+      "command": "gfriends",
+      "args": "",
+      "shortcut": "gfriends",
+      "wiki": "https://homecoming.wiki/wiki/Gfriends_(Slash_Command)"
+    },
+    {
+      "command": "ghide",
+      "args": "",
+      "shortcut": "hide",
+      "wiki": "https://homecoming.wiki/wiki/Ghide_(Slash_Command)"
+    },
+    {
+      "command": "gignore",
+      "args": "character_name or @global_name",
+      "shortcut": "ignore",
+      "wiki": "https://homecoming.wiki/wiki/Gignore_(Slash_Command)"
+    },
+    {
+      "command": "gignoring",
+      "args": "",
+      "shortcut": "gignoring",
+      "wiki": "https://homecoming.wiki/wiki/Gignoring_(Slash_Command)"
+    },
+    {
+      "command": "ginvite",
+      "args": "channel username",
+      "shortcut": "ginvite",
+      "wiki": "https://homecoming.wiki/wiki/Ginvite_(Slash_Command)"
+    },
+    {
+      "command": "ginvite_sg",
+      "args": "channel_name rank",
+      "shortcut": "ginvite_sg",
+      "wiki": "https://homecoming.wiki/wiki/Ginvite_sg_(Slash_Command)"
+    },
+    {
+      "command": "gmotd",
+      "args": "",
+      "shortcut": "gmotd",
+      "wiki": "https://homecoming.wiki/wiki/Gmotd_(Slash_Command)"
+    },
+    {
+      "command": "goto_tray",
+      "args": "number",
+      "shortcut": "goto_tray",
+      "wiki": "https://homecoming.wiki/wiki/Goto_tray_(Slash_Command)"
+    },
+    {
+      "command": "goto_tray_alt",
+      "args": "number",
+      "shortcut": "goto_tray_alt",
+      "wiki": "https://homecoming.wiki/wiki/Goto_tray_alt_(Slash_Command)"
+    },
+    {
+      "command": "goto_tray_alt2",
+      "args": "number",
+      "shortcut": "goto_tray_alt2",
+      "wiki": "https://homecoming.wiki/wiki/Goto_tray_alt2_(Slash_Command)"
+    },
+    {
+      "command": "goto_trays_tray",
+      "args": "Tray_Slot Power_Tray",
+      "shortcut": "goto_trays_tray",
+      "wiki": "https://homecoming.wiki/wiki/Goto_trays_tray_(Slash_Command)"
+    },
+    {
+      "command": "graphfps",
+      "args": "number",
+      "shortcut": "graphfps",
+      "wiki": "https://homecoming.wiki/wiki/Graphfps_(Slash_Command)"
+    },
+    {
+      "command": "grid_snap",
+      "args": "number",
+      "shortcut": "grid_snap",
+      "wiki": "https://homecoming.wiki/wiki/Grid_snap_(Slash_Command)"
+    },
+    {
+      "command": "grid_snap_cycle",
+      "args": "",
+      "shortcut": "grid_snap_cycle",
+      "wiki": "https://homecoming.wiki/wiki/Grid_snap_cycle_(Slash_Command)"
+    },
+    {
+      "command": "group",
+      "args": "message",
+      "shortcut": "g",
+      "wiki": "https://homecoming.wiki/wiki/Group_(Slash_Command)"
+    },
+    {
+      "command": "guide",
+      "args": "message",
+      "shortcut": "h",
+      "wiki": "https://homecoming.wiki/wiki/Guide_(Slash_Command)"
+    },
+    {
+      "command": "gunfriend",
+      "args": "name",
+      "shortcut": "gunfriend",
+      "wiki": "https://homecoming.wiki/wiki/Gunfriend_(Slash_Command)"
+    },
+    {
+      "command": "gunfriend_player",
+      "args": "name",
+      "shortcut": "gunfriend",
+      "wiki": "https://homecoming.wiki/wiki/Gunfriend_player_(Slash_Command)"
+    },
+    {
+      "command": "gunhide",
+      "args": "",
+      "shortcut": "hide",
+      "wiki": "https://homecoming.wiki/wiki/Gunhide_(Slash_Command)"
+    },
+    {
+      "command": "gunignore",
+      "args": "global_name",
+      "shortcut": "unignore",
+      "wiki": "https://homecoming.wiki/wiki/Gunignore_(Slash_Command)"
+    },
+    {
+      "command": "h",
+      "args": "message",
+      "shortcut": "h",
+      "wiki": "https://homecoming.wiki/wiki/H_(Slash_Command)"
+    },
+    {
+      "command": "hardconsts",
+      "args": "0-1",
+      "shortcut": "hardconsts",
+      "wiki": "https://homecoming.wiki/wiki/Hardconsts_(Slash_Command)"
+    },
+    {
+      "command": "hc",
+      "args": "message",
+      "shortcut": "h",
+      "wiki": "https://homecoming.wiki/wiki/Hc_(Slash_Command)"
+    },
+    {
+      "command": "help",
+      "args": "message",
+      "shortcut": "h",
+      "wiki": "https://homecoming.wiki/wiki/Help_(Slash_Command)"
+    },
+    {
+      "command": "helpchat",
+      "args": "message",
+      "shortcut": "h",
+      "wiki": "https://homecoming.wiki/wiki/Helpchat_(Slash_Command)"
+    },
+    {
+      "command": "helpwindow",
+      "args": "",
+      "shortcut": "helpwindow",
+      "wiki": "https://homecoming.wiki/wiki/Helpwindow_(Slash_Command)"
+    },
+    {
+      "command": "hide",
+      "args": "",
+      "shortcut": "hide",
+      "wiki": "https://homecoming.wiki/wiki/Hide_(Slash_Command)"
+    },
+    {
+      "command": "hide_all",
+      "args": "",
+      "shortcut": "hide_all",
+      "wiki": "https://homecoming.wiki/wiki/Hide_all_(Slash_Command)"
+    },
+    {
+      "command": "hide_friends",
+      "args": "",
+      "shortcut": "hide_friends",
+      "wiki": "https://homecoming.wiki/wiki/Hide_friends_(Slash_Command)"
+    },
+    {
+      "command": "hide_gchannels",
+      "args": "",
+      "shortcut": "hide_gchannels",
+      "wiki": "https://homecoming.wiki/wiki/Hide_gchannels_(Slash_Command)"
+    },
+    {
+      "command": "hide_gfriends",
+      "args": "",
+      "shortcut": "hide_gfriends",
+      "wiki": "https://homecoming.wiki/wiki/Hide_gfriends_(Slash_Command)"
+    },
+    {
+      "command": "hide_invite",
+      "args": "",
+      "shortcut": "hide_invite",
+      "wiki": "https://homecoming.wiki/wiki/Hide_invite_(Slash_Command)"
+    },
+    {
+      "command": "hideprimarychat",
+      "args": "",
+      "shortcut": "hideprimarychat",
+      "wiki": "https://homecoming.wiki/wiki/Hideprimarychat_(Slash_Command)"
+    },
+    {
+      "command": "hide_search",
+      "args": "",
+      "shortcut": "hide_search",
+      "wiki": "https://homecoming.wiki/wiki/Hide_search_(Slash_Command)"
+    },
+    {
+      "command": "hideset",
+      "args": "number",
+      "shortcut": "hideset",
+      "wiki": "https://homecoming.wiki/wiki/Hideset_(Slash_Command)"
+    },
+    {
+      "command": "hide_sg",
+      "args": "",
+      "shortcut": "hide_sg",
+      "wiki": "https://homecoming.wiki/wiki/Hide_sg_(Slash_Command)"
+    },
+    {
+      "command": "hide_tell",
+      "args": "",
+      "shortcut": "hide_tell",
+      "wiki": "https://homecoming.wiki/wiki/Hide_tell_(Slash_Command)"
+    },
+    {
+      "command": "i",
+      "args": "character_name",
+      "shortcut": "i",
+      "wiki": "https://homecoming.wiki/wiki/I_(Slash_Command)"
+    },
+    {
+      "command": "ignore",
+      "args": "character_name or @global_name",
+      "shortcut": "ignore",
+      "wiki": "https://homecoming.wiki/wiki/Ignore_(Slash_Command)"
+    },
+    {
+      "command": "ignorelist",
+      "args": "",
+      "shortcut": "gignoring",
+      "wiki": "https://homecoming.wiki/wiki/Ignorelist_(Slash_Command)"
+    },
+    {
+      "command": "ignore_spammer",
+      "args": "character",
+      "shortcut": "ignore_spammer",
+      "wiki": "https://homecoming.wiki/wiki/Ignore_spammer_(Slash_Command)"
+    },
+    {
+      "command": "imageServer",
+      "args": "<string> <string>",
+      "shortcut": "imageServer",
+      "wiki": "https://homecoming.wiki/wiki/ImageServer_(Slash_Command)"
+    },
+    {
+      "command": "incarnate_equip",
+      "args": "slotName powername",
+      "shortcut": "incarnate_equip",
+      "wiki": "https://homecoming.wiki/wiki/Incarnate_equip_(Slash_Command)"
+    },
+    {
+      "command": "incarnate_unequip",
+      "args": "slotName powername",
+      "shortcut": "incarnate_unequip",
+      "wiki": "https://homecoming.wiki/wiki/Incarnate_unequip_(Slash_Command)"
+    },
+    {
+      "command": "incarnate_unequip_all",
+      "args": "",
+      "shortcut": "incarnate_unequip_all",
+      "wiki": "https://homecoming.wiki/wiki/Incarnate_unequip_all_(Slash_Command)"
+    },
+    {
+      "command": "incarnate_unequip_by_slot",
+      "args": "slotName",
+      "shortcut": "incarnate_unequip_by_slot",
+      "wiki": "https://homecoming.wiki/wiki/Incarnate_unequip_by_slot_(Slash_Command)"
+    },
+    {
+      "command": "info",
+      "args": "",
+      "shortcut": "info",
+      "wiki": "https://homecoming.wiki/wiki/Info_(Slash_Command)"
+    },
+    {
+      "command": "info_pin_badge",
+      "args": "SetTitleID or [0 to -2]",
+      "shortcut": "info_pin_badge",
+      "wiki": "https://homecoming.wiki/wiki/Info_pin_badge_(Slash_Command)"
+    },
+    {
+      "command": "info_self",
+      "args": "",
+      "shortcut": "info_self",
+      "wiki": "https://homecoming.wiki/wiki/Info_self_(Slash_Command)"
+    },
+    {
+      "command": "info_self_tab",
+      "args": "tabNumber",
+      "shortcut": "info_self_tab",
+      "wiki": "https://homecoming.wiki/wiki/Info_self_tab_(Slash_Command)"
+    },
+    {
+      "command": "info_tab",
+      "args": "number",
+      "shortcut": "info_tab",
+      "wiki": "https://homecoming.wiki/wiki/Info_tab_(Slash_Command)"
+    },
+    {
+      "command": "insp_combine",
+      "args": "inspName inspName",
+      "shortcut": "MergeInsp",
+      "wiki": "https://homecoming.wiki/wiki/Insp_combine_(Slash_Command)"
+    },
+    {
+      "command": "insp_delete",
+      "args": "insp_name",
+      "shortcut": "insp_delete",
+      "wiki": "https://homecoming.wiki/wiki/Insp_delete_(Slash_Command)"
+    },
+    {
+      "command": "inspexec_name",
+      "args": "insp_name",
+      "shortcut": "inspexec_name",
+      "wiki": "https://homecoming.wiki/wiki/Inspexec_name_(Slash_Command)"
+    },
+    {
+      "command": "inspexec_pet_name",
+      "args": "insp_name pet_name",
+      "shortcut": "inspexec_pet_name",
+      "wiki": "https://homecoming.wiki/wiki/Inspexec_pet_name_(Slash_Command)"
+    },
+    {
+      "command": "inspexec_pet_target",
+      "args": "insp_name",
+      "shortcut": "inspexec_pet_target",
+      "wiki": "https://homecoming.wiki/wiki/Inspexec_pet_target_(Slash_Command)"
+    },
+    {
+      "command": "inspexec_slot",
+      "args": "[1-5]",
+      "shortcut": "inspexec_slot",
+      "wiki": "https://homecoming.wiki/wiki/Inspexec_slot_(Slash_Command)"
+    },
+    {
+      "command": "inspexec_tray",
+      "args": "row column",
+      "shortcut": "inspexec_tray",
+      "wiki": "https://homecoming.wiki/wiki/Inspexec_tray_(Slash_Command)"
+    },
+    {
+      "command": "inspirationslot",
+      "args": "[1-5]",
+      "shortcut": "inspexec_slot",
+      "wiki": "https://homecoming.wiki/wiki/Inspirationslot_(Slash_Command)"
+    },
+    {
+      "command": "interact",
+      "args": "",
+      "shortcut": "interact",
+      "wiki": "https://homecoming.wiki/wiki/Interact_(Slash_Command)"
+    },
+    {
+      "command": "invite",
+      "args": "character_name",
+      "shortcut": "invite",
+      "wiki": "https://homecoming.wiki/wiki/Invite_(Slash_Command)"
+    },
+    {
+      "command": "k",
+      "args": "character",
+      "shortcut": "k",
+      "wiki": "https://homecoming.wiki/wiki/K_(Slash_Command)"
+    },
+    {
+      "command": "keybind_reset",
+      "args": "",
+      "shortcut": "unbind_all",
+      "wiki": "https://homecoming.wiki/wiki/Keybind_reset_(Slash_Command)"
+    },
+    {
+      "command": "kick",
+      "args": "character",
+      "shortcut": "k",
+      "wiki": "https://homecoming.wiki/wiki/Kick_(Slash_Command)"
+    },
+    {
+      "command": "kiosk",
+      "args": "number number",
+      "shortcut": "kiosk",
+      "wiki": "https://homecoming.wiki/wiki/Kiosk_(Slash_Command)"
+    },
+    {
+      "command": "l",
+      "args": "message",
+      "shortcut": "l",
+      "wiki": "https://homecoming.wiki/wiki/L_(Slash_Command)"
+    },
+    {
+      "command": "lc",
+      "args": "message",
+      "shortcut": "lc",
+      "wiki": "https://homecoming.wiki/wiki/Lc_(Slash_Command)"
+    },
+    {
+      "command": "league",
+      "args": "message",
+      "shortcut": "lc",
+      "wiki": "https://homecoming.wiki/wiki/League_(Slash_Command)"
+    },
+    {
+      "command": "league_chat",
+      "args": "message",
+      "shortcut": "lc",
+      "wiki": "https://homecoming.wiki/wiki/League_chat_(Slash_Command)"
+    },
+    {
+      "command": "league_invite",
+      "args": "name",
+      "shortcut": "li",
+      "wiki": "https://homecoming.wiki/wiki/League_invite_(Slash_Command)"
+    },
+    {
+      "command": "league_kick",
+      "args": "character",
+      "shortcut": "lk",
+      "wiki": "https://homecoming.wiki/wiki/League_kick_(Slash_Command)"
+    },
+    {
+      "command": "league_make_leader",
+      "args": "character_name",
+      "shortcut": "lml",
+      "wiki": "https://homecoming.wiki/wiki/League_make_leader_(Slash_Command)"
+    },
+    {
+      "command": "leagueToggleTeamLock",
+      "args": "",
+      "shortcut": "leagueToggleTeamLock",
+      "wiki": "https://homecoming.wiki/wiki/LeagueToggleTeamLock_(Slash_Command)"
+    },
+    {
+      "command": "leagueWithdrawTeam",
+      "args": "",
+      "shortcut": "leagueWithdrawTeam",
+      "wiki": "https://homecoming.wiki/wiki/LeagueWithdrawTeam_(Slash_Command)"
+    },
+    {
+      "command": "leaveLeague",
+      "args": "",
+      "shortcut": "leaveLeague",
+      "wiki": "https://homecoming.wiki/wiki/LeaveLeague_(Slash_Command)"
+    },
+    {
+      "command": "leaveteam",
+      "args": "",
+      "shortcut": "leaveteam",
+      "wiki": "https://homecoming.wiki/wiki/Leaveteam_(Slash_Command)"
+    },
+    {
+      "command": "left",
+      "args": "+, ++, 0-1",
+      "shortcut": "left",
+      "wiki": "https://homecoming.wiki/wiki/Left_(Slash_Command)"
+    },
+    {
+      "command": "lfg",
+      "args": "message",
+      "shortcut": "lfg",
+      "wiki": "https://homecoming.wiki/wiki/Lfg_(Slash_Command)"
+    },
+    {
+      "command": "lfg_event_response",
+      "args": "yes/no",
+      "shortcut": "lfg_event_response",
+      "wiki": "https://homecoming.wiki/wiki/Lfg_event_response_(Slash_Command)"
+    },
+    {
+      "command": "lfg_remove_from_queue",
+      "args": "",
+      "shortcut": "lfg_remove_from_queue",
+      "wiki": "https://homecoming.wiki/wiki/Lfg_remove_from_queue_(Slash_Command)"
+    },
+    {
+      "command": "lfg_request_event_list",
+      "args": "",
+      "shortcut": "lfg_request_event_list",
+      "wiki": "https://homecoming.wiki/wiki/Lfg_request_event_list_(Slash_Command)"
+    },
+    {
+      "command": "lfgset",
+      "args": "number",
+      "shortcut": "lfgset",
+      "wiki": "https://homecoming.wiki/wiki/Lfgset_(Slash_Command)"
+    },
+    {
+      "command": "lfgtoggle",
+      "args": "",
+      "shortcut": "lfgtoggle",
+      "wiki": "https://homecoming.wiki/wiki/Lfgtoggle_(Slash_Command)"
+    },
+    {
+      "command": "li",
+      "args": "name",
+      "shortcut": "li",
+      "wiki": "https://homecoming.wiki/wiki/Li_(Slash_Command)"
+    },
+    {
+      "command": "link_channel",
+      "args": "ChannelName",
+      "shortcut": "link_channel",
+      "wiki": "https://homecoming.wiki/wiki/Link_channel_(Slash_Command)"
+    },
+    {
+      "command": "link_info",
+      "args": "ItemName",
+      "shortcut": "link_info",
+      "wiki": "https://homecoming.wiki/wiki/Link_info_(Slash_Command)"
+    },
+    {
+      "command": "link_interact",
+      "args": "name",
+      "shortcut": "link_interact",
+      "wiki": "https://homecoming.wiki/wiki/Link_interact_(Slash_Command)"
+    },
+    {
+      "command": "link_interact_global",
+      "args": "name string",
+      "shortcut": "link_interact_global",
+      "wiki": "https://homecoming.wiki/wiki/Link_interact_global_(Slash_Command)"
+    },
+    {
+      "command": "listen_range",
+      "args": "number",
+      "shortcut": "listen_range",
+      "wiki": "https://homecoming.wiki/wiki/Listen_range_(Slash_Command)"
+    },
+    {
+      "command": "lk",
+      "args": "character",
+      "shortcut": "lk",
+      "wiki": "https://homecoming.wiki/wiki/Lk_(Slash_Command)"
+    },
+    {
+      "command": "lml",
+      "args": "character_name",
+      "shortcut": "lml",
+      "wiki": "https://homecoming.wiki/wiki/Lml_(Slash_Command)"
+    },
+    {
+      "command": "loc",
+      "args": "",
+      "shortcut": "loc",
+      "wiki": "https://homecoming.wiki/wiki/Loc_(Slash_Command)"
+    },
+    {
+      "command": "local",
+      "args": "message",
+      "shortcut": "L",
+      "wiki": "https://homecoming.wiki/wiki/Local_(Slash_Command)"
+    },
+    {
+      "command": "localtime",
+      "args": "",
+      "shortcut": "localtime",
+      "wiki": "https://homecoming.wiki/wiki/Localtime_(Slash_Command)"
+    },
+    {
+      "command": "lodbias",
+      "args": "[0.3-20.0]",
+      "shortcut": "lodbias",
+      "wiki": "https://homecoming.wiki/wiki/Lodbias_(Slash_Command)"
+    },
+    {
+      "command": "logchat",
+      "args": "",
+      "shortcut": "logchat",
+      "wiki": "https://homecoming.wiki/wiki/Logchat_(Slash_Command)"
+    },
+    {
+      "command": "lookdown",
+      "args": "+, ++, or 0-1",
+      "shortcut": "lookdown",
+      "wiki": "https://homecoming.wiki/wiki/Lookdown_(Slash_Command)"
+    },
+    {
+      "command": "looking_for_group",
+      "args": "message",
+      "shortcut": "lfg",
+      "wiki": "https://homecoming.wiki/wiki/Looking_for_group_(Slash_Command)"
+    },
+    {
+      "command": "lookup",
+      "args": "+, ++, or 0-1",
+      "shortcut": "lookup",
+      "wiki": "https://homecoming.wiki/wiki/Lookup_(Slash_Command)"
+    },
+    {
+      "command": "loudstacking",
+      "args": "[0-1]",
+      "shortcut": "loudstacking",
+      "wiki": "https://homecoming.wiki/wiki/Loudstacking_(Slash_Command)"
+    },
+    {
+      "command": "ma",
+      "args": "message",
+      "shortcut": "ma",
+      "wiki": "https://homecoming.wiki/wiki/Ma_(Slash_Command)"
+    },
+    {
+      "command": "macro",
+      "args": "name command",
+      "shortcut": "macro",
+      "wiki": "https://homecoming.wiki/wiki/Macro_(Slash_Command)"
+    },
+    {
+      "command": "macro_image",
+      "args": "image_name tooltip commands",
+      "shortcut": "macro_image",
+      "wiki": "https://homecoming.wiki/wiki/Macro_image_(Slash_Command)"
+    },
+    {
+      "command": "macroslot",
+      "args": "macro-slot# name command",
+      "shortcut": "macroslot",
+      "wiki": "https://homecoming.wiki/wiki/Macroslot_(Slash_Command)"
+    },
+    {
+      "command": "mailview",
+      "args": "string",
+      "shortcut": "mailview",
+      "wiki": "https://homecoming.wiki/wiki/Mailview_(Slash_Command)"
+    },
+    {
+      "command": "makeleader",
+      "args": "character",
+      "shortcut": "ml",
+      "wiki": "https://homecoming.wiki/wiki/Makeleader_(Slash_Command)"
+    },
+    {
+      "command": "manage",
+      "args": "",
+      "shortcut": "manage",
+      "wiki": "https://homecoming.wiki/wiki/Manage_(Slash_Command)"
+    },
+    {
+      "command": "map",
+      "args": "",
+      "shortcut": "map",
+      "wiki": "https://homecoming.wiki/wiki/Map_(Slash_Command)"
+    },
+    {
+      "command": "maxAniso",
+      "args": "",
+      "shortcut": "maxAniso",
+      "wiki": "https://homecoming.wiki/wiki/MaxAniso_(Slash_Command)"
+    },
+    {
+      "command": "maxColorTrackerVerts",
+      "args": "number",
+      "shortcut": "maxColorTrackerVerts",
+      "wiki": "https://homecoming.wiki/wiki/MaxColorTrackerVerts_(Slash_Command)"
+    },
+    {
+      "command": "maxfps",
+      "args": "number",
+      "shortcut": "maxfps",
+      "wiki": "https://homecoming.wiki/wiki/Maxfps_(Slash_Command)"
+    },
+    {
+      "command": "maximize",
+      "args": "[0-1]",
+      "shortcut": "maximize",
+      "wiki": "https://homecoming.wiki/wiki/Maximize_(Slash_Command)"
+    },
+    {
+      "command": "maxInactiveFps",
+      "args": "number",
+      "shortcut": "maxInactiveFps",
+      "wiki": "https://homecoming.wiki/wiki/MaxInactiveFps_(Slash_Command)"
+    },
+    {
+      "command": "maxrtframes",
+      "args": "number",
+      "shortcut": "maxrtframes",
+      "wiki": "https://homecoming.wiki/wiki/Maxrtframes_(Slash_Command)"
+    },
+    {
+      "command": "maxtexunits",
+      "args": "[0-5]",
+      "shortcut": "maxtexunits",
+      "wiki": "https://homecoming.wiki/wiki/Maxtexunits_(Slash_Command)"
+    },
+    {
+      "command": "me",
+      "args": "text",
+      "shortcut": "e",
+      "wiki": "https://homecoming.wiki/wiki/Me_(Slash_Command)"
+    },
+    {
+      "command": "menu",
+      "args": "",
+      "shortcut": "menu",
+      "wiki": "https://homecoming.wiki/wiki/Menu_(Slash_Command)"
+    },
+    {
+      "command": "mergeInsp",
+      "args": "inspName inspName",
+      "shortcut": "mergeInsp",
+      "wiki": "https://homecoming.wiki/wiki/MergeInsp_(Slash_Command)"
+    },
+    {
+      "command": "mission_architect",
+      "args": "message",
+      "shortcut": "ma",
+      "wiki": "https://homecoming.wiki/wiki/Mission_architect_(Slash_Command)"
+    },
+    {
+      "command": "missionmake",
+      "args": "",
+      "shortcut": "mmentry",
+      "wiki": "https://homecoming.wiki/wiki/Missionmake_(Slash_Command)"
+    },
+    {
+      "command": "missionsearch",
+      "args": "",
+      "shortcut": "architect",
+      "wiki": "https://homecoming.wiki/wiki/Missionsearch_(Slash_Command)"
+    },
+    {
+      "command": "ml",
+      "args": "character",
+      "shortcut": "ml",
+      "wiki": "https://homecoming.wiki/wiki/Ml_(Slash_Command)"
+    },
+    {
+      "command": "mmentry",
+      "args": "",
+      "shortcut": "mmentry",
+      "wiki": "https://homecoming.wiki/wiki/Mmentry_(Slash_Command)"
+    },
+    {
+      "command": "mmscrollsettoggleregion",
+      "args": "",
+      "shortcut": "mmscrollsettoggleregion",
+      "wiki": "https://homecoming.wiki/wiki/Mmscrollsettoggleregion_(Slash_Command)"
+    },
+    {
+      "command": "mmscrollsetviewlist",
+      "args": "",
+      "shortcut": "mmscrollsetviewlist",
+      "wiki": "https://homecoming.wiki/wiki/Mmscrollsetviewlist_(Slash_Command)"
+    },
+    {
+      "command": "monitorattribute",
+      "args": "string",
+      "shortcut": "monitorattribute",
+      "wiki": "https://homecoming.wiki/wiki/Monitorattribute_(Slash_Command)"
+    },
+    {
+      "command": "mousedrag",
+      "args": "",
+      "shortcut": "mousedrag",
+      "wiki": "https://homecoming.wiki/wiki/Mousedrag_(Slash_Command)"
+    },
+    {
+      "command": "mouse_invert",
+      "args": "0-1",
+      "shortcut": "mouse_invert",
+      "wiki": "https://homecoming.wiki/wiki/Mouse_invert_(Slash_Command)"
+    },
+    {
+      "command": "mouse_look",
+      "args": "",
+      "shortcut": "canlook",
+      "wiki": "https://homecoming.wiki/wiki/Mouse_look_(Slash_Command)"
+    },
+    {
+      "command": "mouse_speed",
+      "args": "[0.0-10.0]",
+      "shortcut": "mouse_speed",
+      "wiki": "https://homecoming.wiki/wiki/Mouse_speed_(Slash_Command)"
+    },
+    {
+      "command": "myhandle",
+      "args": "",
+      "shortcut": "myhandle",
+      "wiki": "https://homecoming.wiki/wiki/Myhandle_(Slash_Command)"
+    },
+    {
+      "command": "mypurchases",
+      "args": "",
+      "shortcut": "mypurchases",
+      "wiki": "https://homecoming.wiki/wiki/Mypurchases_(Slash_Command)"
+    },
+    {
+      "command": "namecaptain",
+      "args": "",
+      "shortcut": "namecaptain",
+      "wiki": "https://homecoming.wiki/wiki/Namecaptain_(Slash_Command)"
+    },
+    {
+      "command": "namecommander",
+      "args": "",
+      "shortcut": "namecommander",
+      "wiki": "https://homecoming.wiki/wiki/Namecommander_(Slash_Command)"
+    },
+    {
+      "command": "nameenforcer",
+      "args": "",
+      "shortcut": "nameenforcer",
+      "wiki": "https://homecoming.wiki/wiki/Nameenforcer_(Slash_Command)"
+    },
+    {
+      "command": "nameflunky",
+      "args": "",
+      "shortcut": "nameflunky",
+      "wiki": "https://homecoming.wiki/wiki/Nameflunky_(Slash_Command)"
+    },
+    {
+      "command": "nameleader",
+      "args": "",
+      "shortcut": "nameleader",
+      "wiki": "https://homecoming.wiki/wiki/Nameleader_(Slash_Command)"
+    },
+    {
+      "command": "namelieutenant",
+      "args": "",
+      "shortcut": "namelieutenant",
+      "wiki": "https://homecoming.wiki/wiki/Namelieutenant_(Slash_Command)"
+    },
+    {
+      "command": "namemember",
+      "args": "",
+      "shortcut": "namemember",
+      "wiki": "https://homecoming.wiki/wiki/Namemember_(Slash_Command)"
+    },
+    {
+      "command": "nameoverlord",
+      "args": "",
+      "shortcut": "nameoverlord",
+      "wiki": "https://homecoming.wiki/wiki/Nameoverlord_(Slash_Command)"
+    },
+    {
+      "command": "nameringleader",
+      "args": "",
+      "shortcut": "nameringleader",
+      "wiki": "https://homecoming.wiki/wiki/Nameringleader_(Slash_Command)"
+    },
+    {
+      "command": "name_scale",
+      "args": "[0.5-9+]",
+      "shortcut": "name_scale",
+      "wiki": "https://homecoming.wiki/wiki/Name_scale_(Slash_Command)"
+    },
+    {
+      "command": "nametaskmaster",
+      "args": "",
+      "shortcut": "nametaskmaster",
+      "wiki": "https://homecoming.wiki/wiki/Nametaskmaster_(Slash_Command)"
+    },
+    {
+      "command": "nav",
+      "args": "",
+      "shortcut": "nav",
+      "wiki": "https://homecoming.wiki/wiki/Nav_(Slash_Command)"
+    },
+    {
+      "command": "neterrorcorrection",
+      "args": "[0-2]",
+      "shortcut": "neterrorcorrection",
+      "wiki": "https://homecoming.wiki/wiki/Neterrorcorrection_(Slash_Command)"
+    },
+    {
+      "command": "netgraph",
+      "args": "number",
+      "shortcut": "netgraph",
+      "wiki": "https://homecoming.wiki/wiki/Netgraph_(Slash_Command)"
+    },
+    {
+      "command": "next_tray",
+      "args": "",
+      "shortcut": "next_tray",
+      "wiki": "https://homecoming.wiki/wiki/Next_tray_(Slash_Command)"
+    },
+    {
+      "command": "next_tray_alt",
+      "args": "",
+      "shortcut": "next_tray_alt",
+      "wiki": "https://homecoming.wiki/wiki/Next_tray_alt_(Slash_Command)"
+    },
+    {
+      "command": "next_tray_alt2",
+      "args": "",
+      "shortcut": "next_tray_alt2",
+      "wiki": "https://homecoming.wiki/wiki/Next_tray_alt2_(Slash_Command)"
+    },
+    {
+      "command": "next_trays_tray",
+      "args": "1-3",
+      "shortcut": "next_trays_tray",
+      "wiki": "https://homecoming.wiki/wiki/Next_trays_tray_(Slash_Command)"
+    },
+    {
+      "command": "noBump",
+      "args": "0-1",
+      "shortcut": "noBump",
+      "wiki": "https://homecoming.wiki/wiki/NoBump_(Slash_Command)"
+    },
+    {
+      "command": "nojpg",
+      "args": "[0-1]",
+      "shortcut": "nojpg",
+      "wiki": "https://homecoming.wiki/wiki/Nojpg_(Slash_Command)"
+    },
+    {
+      "command": "nojumprepeat",
+      "args": "0-1",
+      "shortcut": "nojumprepeat",
+      "wiki": "https://homecoming.wiki/wiki/Nojumprepeat_(Slash_Command)"
+    },
+    {
+      "command": "nop",
+      "args": "",
+      "shortcut": "nop",
+      "wiki": "https://homecoming.wiki/wiki/Nop_(Slash_Command)"
+    },
+    {
+      "command": "noparticles",
+      "args": "[0-1]",
+      "shortcut": "noparticles",
+      "wiki": "https://homecoming.wiki/wiki/Noparticles_(Slash_Command)"
+    },
+    {
+      "command": "nosunflare",
+      "args": "[0-1]",
+      "shortcut": "nosunflare",
+      "wiki": "https://homecoming.wiki/wiki/Nosunflare_(Slash_Command)"
+    },
+    {
+      "command": "notga",
+      "args": "[0-1]",
+      "shortcut": "notga",
+      "wiki": "https://homecoming.wiki/wiki/Notga_(Slash_Command)"
+    },
+    {
+      "command": "option_list",
+      "args": "",
+      "shortcut": "option_list",
+      "wiki": "https://homecoming.wiki/wiki/Option_list_(Slash_Command)"
+    },
+    {
+      "command": "option_load",
+      "args": "",
+      "shortcut": "option_load",
+      "wiki": "https://homecoming.wiki/wiki/Option_load_(Slash_Command)"
+    },
+    {
+      "command": "option_load_file",
+      "args": "filename",
+      "shortcut": "option_load_file",
+      "wiki": "https://homecoming.wiki/wiki/Option_load_file_(Slash_Command)"
+    },
+    {
+      "command": "option_save",
+      "args": "",
+      "shortcut": "option_save",
+      "wiki": "https://homecoming.wiki/wiki/Option_save_(Slash_Command)"
+    },
+    {
+      "command": "option_save_file",
+      "args": "filename",
+      "shortcut": "option_save_file",
+      "wiki": "https://homecoming.wiki/wiki/Option_save_file_(Slash_Command)"
+    },
+    {
+      "command": "option_set",
+      "args": "option_name value",
+      "shortcut": "option_set",
+      "wiki": "https://homecoming.wiki/wiki/Option_set_(Slash_Command)"
+    },
+    {
+      "command": "option_toggle",
+      "args": "optionname",
+      "shortcut": "option_toggle",
+      "wiki": "https://homecoming.wiki/wiki/Option_toggle_(Slash_Command)"
+    },
+    {
+      "command": "p",
+      "args": "player_name, message",
+      "shortcut": "p",
+      "wiki": "https://homecoming.wiki/wiki/P_(Slash_Command)"
+    },
+    {
+      "command": "petcom",
+      "args": "stance action",
+      "shortcut": "petcom",
+      "wiki": "https://homecoming.wiki/wiki/Petcom_(Slash_Command)"
+    },
+    {
+      "command": "petcom_all",
+      "args": "stance action",
+      "shortcut": "petcom_all",
+      "wiki": "https://homecoming.wiki/wiki/Petcom_all_(Slash_Command)"
+    },
+    {
+      "command": "petcom_name",
+      "args": "pet_name pet_commands",
+      "shortcut": "petcom_name",
+      "wiki": "https://homecoming.wiki/wiki/Petcom_name_(Slash_Command)"
+    },
+    {
+      "command": "petcom_pow",
+      "args": "power_name pet_commands",
+      "shortcut": "petcom_pow",
+      "wiki": "https://homecoming.wiki/wiki/Petcom_pow_(Slash_Command)"
+    },
+    {
+      "command": "petition",
+      "args": "title (optional)",
+      "shortcut": "petition",
+      "wiki": "https://homecoming.wiki/wiki/Petition_(Slash_Command)"
+    },
+    {
+      "command": "petoptions",
+      "args": "",
+      "shortcut": "petoptions",
+      "wiki": "https://homecoming.wiki/wiki/Petoptions_(Slash_Command)"
+    },
+    {
+      "command": "petrename",
+      "args": "pet_name",
+      "shortcut": "petrename",
+      "wiki": "https://homecoming.wiki/wiki/Petrename_(Slash_Command)"
+    },
+    {
+      "command": "petrename_name",
+      "args": "current_name new_name",
+      "shortcut": "petrename_name",
+      "wiki": "https://homecoming.wiki/wiki/Petrename_name_(Slash_Command)"
+    },
+    {
+      "command": "petsay",
+      "args": "message",
+      "shortcut": "petsay",
+      "wiki": "https://homecoming.wiki/wiki/Petsay_(Slash_Command)"
+    },
+    {
+      "command": "petsay_all",
+      "args": "message",
+      "shortcut": "petsay_all",
+      "wiki": "https://homecoming.wiki/wiki/Petsay_all_(Slash_Command)"
+    },
+    {
+      "command": "petsay_name",
+      "args": "pet_name message",
+      "shortcut": "petsay_name",
+      "wiki": "https://homecoming.wiki/wiki/Petsay_name_(Slash_Command)"
+    },
+    {
+      "command": "petsay_pow",
+      "args": "power_name message",
+      "shortcut": "petsay_pow",
+      "wiki": "https://homecoming.wiki/wiki/Petsay_pow_(Slash_Command)"
+    },
+    {
+      "command": "pet_select",
+      "args": "integer",
+      "shortcut": "pet_select",
+      "wiki": "https://homecoming.wiki/wiki/Pet_select_(Slash_Command)"
+    },
+    {
+      "command": "pet_select_name",
+      "args": "pet_name",
+      "shortcut": "pet_select_name",
+      "wiki": "https://homecoming.wiki/wiki/Pet_select_name_(Slash_Command)"
+    },
+    {
+      "command": "playernote",
+      "args": "name",
+      "shortcut": "playernote",
+      "wiki": "https://homecoming.wiki/wiki/Playernote_(Slash_Command)"
+    },
+    {
+      "command": "playernotelocal",
+      "args": "name",
+      "shortcut": "playernotelocal",
+      "wiki": "https://homecoming.wiki/wiki/Playernotelocal_(Slash_Command)"
+    },
+    {
+      "command": "playerturn",
+      "args": "",
+      "shortcut": "playerturn",
+      "wiki": "https://homecoming.wiki/wiki/Playerturn_(Slash_Command)"
+    },
+    {
+      "command": "popmenu",
+      "args": "menuname",
+      "shortcut": "popmenu",
+      "wiki": "https://homecoming.wiki/wiki/Popmenu_(Slash_Command)"
+    },
+    {
+      "command": "powers",
+      "args": "",
+      "shortcut": "powers",
+      "wiki": "https://homecoming.wiki/wiki/Powers_(Slash_Command)"
+    },
+    {
+      "command": "powers_togglealloff",
+      "args": "",
+      "shortcut": "powers_togglealloff",
+      "wiki": "https://homecoming.wiki/wiki/Powers_togglealloff_(Slash_Command)"
+    },
+    {
+      "command": "powexec_abort",
+      "args": "",
+      "shortcut": "powexec_abort",
+      "wiki": "https://homecoming.wiki/wiki/Powexec_abort_(Slash_Command)"
+    },
+    {
+      "command": "powexec_alt2slot",
+      "args": "slot_number",
+      "shortcut": "powexec_alt2slot",
+      "wiki": "https://homecoming.wiki/wiki/Powexec_alt2slot_(Slash_Command)"
+    },
+    {
+      "command": "powexec_altslot",
+      "args": "slot_number",
+      "shortcut": "powexec_altslot",
+      "wiki": "https://homecoming.wiki/wiki/Powexec_altslot_(Slash_Command)"
+    },
+    {
+      "command": "powexec_auto",
+      "args": "power_name",
+      "shortcut": "powexec_auto",
+      "wiki": "https://homecoming.wiki/wiki/Powexec_auto_(Slash_Command)"
+    },
+    {
+      "command": "powexec_location",
+      "args": "loc power",
+      "shortcut": "powexec_location",
+      "wiki": "https://homecoming.wiki/wiki/Powexec_location_(Slash_Command)"
+    },
+    {
+      "command": "powexec_name",
+      "args": "power_name",
+      "shortcut": "powexec_name",
+      "wiki": "https://homecoming.wiki/wiki/Powexec_name_(Slash_Command)"
+    },
+    {
+      "command": "powexec_server_slot",
+      "args": "slot",
+      "shortcut": "powexec_server_slot",
+      "wiki": "https://homecoming.wiki/wiki/Powexec_server_slot_(Slash_Command)"
+    },
+    {
+      "command": "powexec_slot",
+      "args": "slot_number",
+      "shortcut": "powexec_slot",
+      "wiki": "https://homecoming.wiki/wiki/Powexec_slot_(Slash_Command)"
+    },
+    {
+      "command": "powexec_toggleoff",
+      "args": "power name",
+      "shortcut": "powexec_toggleoff",
+      "wiki": "https://homecoming.wiki/wiki/Powexec_toggleoff_(Slash_Command)"
+    },
+    {
+      "command": "powexec_toggleon",
+      "args": "power name",
+      "shortcut": "powexec_toggleon",
+      "wiki": "https://homecoming.wiki/wiki/Powexec_toggleon_(Slash_Command)"
+    },
+    {
+      "command": "powexec_tray",
+      "args": "slot# tray#",
+      "shortcut": "powexec_tray",
+      "wiki": "https://homecoming.wiki/wiki/Powexec_tray_(Slash_Command)"
+    },
+    {
+      "command": "powexec_unqueue",
+      "args": "",
+      "shortcut": "powexec_unqueue",
+      "wiki": "https://homecoming.wiki/wiki/Powexec_unqueue_(Slash_Command)"
+    },
+    {
+      "command": "prevshaders",
+      "args": "0-1",
+      "shortcut": "prevshaders",
+      "wiki": "https://homecoming.wiki/wiki/Prevshaders_(Slash_Command)"
+    },
+    {
+      "command": "prev_tray",
+      "args": "",
+      "shortcut": "prev_tray",
+      "wiki": "https://homecoming.wiki/wiki/Prev_tray_(Slash_Command)"
+    },
+    {
+      "command": "prev_tray_alt",
+      "args": "",
+      "shortcut": "prev_tray_alt",
+      "wiki": "https://homecoming.wiki/wiki/Prev_tray_alt_(Slash_Command)"
+    },
+    {
+      "command": "prev_tray_alt2",
+      "args": "",
+      "shortcut": "prev_tray_alt2",
+      "wiki": "https://homecoming.wiki/wiki/Prev_tray_alt2_(Slash_Command)"
+    },
+    {
+      "command": "prev_trays_tray",
+      "args": "",
+      "shortcut": "prev_trays_tray",
+      "wiki": "https://homecoming.wiki/wiki/Prev_trays_tray_(Slash_Command)"
+    },
+    {
+      "command": "private",
+      "args": "player_name, message",
+      "shortcut": "t",
+      "wiki": "https://homecoming.wiki/wiki/Private_(Slash_Command)"
+    },
+    {
+      "command": "profiler_record",
+      "args": "file",
+      "shortcut": "profiler_record",
+      "wiki": "https://homecoming.wiki/wiki/Profiler_record_(Slash_Command)"
+    },
+    {
+      "command": "profiler_stop",
+      "args": "",
+      "shortcut": "profiler_stop",
+      "wiki": "https://homecoming.wiki/wiki/Profiler_stop_(Slash_Command)"
+    },
+    {
+      "command": "profiling_memory",
+      "args": "number",
+      "shortcut": "profiling_memory",
+      "wiki": "https://homecoming.wiki/wiki/Profiling_memory_(Slash_Command)"
+    },
+    {
+      "command": "promote",
+      "args": "character",
+      "shortcut": "promote",
+      "wiki": "https://homecoming.wiki/wiki/Promote_(Slash_Command)"
+    },
+    {
+      "command": "quickchat",
+      "args": "",
+      "shortcut": "quickchat",
+      "wiki": "https://homecoming.wiki/wiki/Quickchat_(Slash_Command)"
+    },
+    {
+      "command": "quit",
+      "args": "",
+      "shortcut": "quit",
+      "wiki": "https://homecoming.wiki/wiki/Quit_(Slash_Command)"
+    },
+    {
+      "command": "quittocharacterselect",
+      "args": "",
+      "shortcut": "quittocharacterselect",
+      "wiki": "https://homecoming.wiki/wiki/Quittocharacterselect_(Slash_Command)"
+    },
+    {
+      "command": "quittologin",
+      "args": "",
+      "shortcut": "quittologin",
+      "wiki": "https://homecoming.wiki/wiki/Quittologin_(Slash_Command)"
+    },
+    {
+      "command": "r",
+      "args": "message",
+      "shortcut": "r",
+      "wiki": "https://homecoming.wiki/wiki/R_(Slash_Command)"
+    },
+    {
+      "command": "recharge_indicator",
+      "args": "[1-3]",
+      "shortcut": "recharge_indicator",
+      "wiki": "https://homecoming.wiki/wiki/Recharge_indicator_(Slash_Command)"
+    },
+    {
+      "command": "recharge_timer_color",
+      "args": "[0-2]",
+      "shortcut": "recharge_timer_color",
+      "wiki": "https://homecoming.wiki/wiki/Recharge_timer_color_(Slash_Command)"
+    },
+    {
+      "command": "recharge_timer_format",
+      "args": "[0-3]",
+      "shortcut": "recharge_timer_format",
+      "wiki": "https://homecoming.wiki/wiki/Recharge_timer_format_(Slash_Command)"
+    },
+    {
+      "command": "recharge_timer_opacity",
+      "args": "[0.1-1.0]",
+      "shortcut": "recharge_timer_opacity",
+      "wiki": "https://homecoming.wiki/wiki/Recharge_timer_opacity_(Slash_Command)"
+    },
+    {
+      "command": "recharge_timer_threshold",
+      "args": "options",
+      "shortcut": "recharge_timer_threshold",
+      "wiki": "https://homecoming.wiki/wiki/Recharge_timer_threshold_(Slash_Command)"
+    },
+    {
+      "command": "reduce_mip",
+      "args": "[-1 to 5]",
+      "shortcut": "reduce_mip",
+      "wiki": "https://homecoming.wiki/wiki/Reduce_mip_(Slash_Command)"
+    },
+    {
+      "command": "release",
+      "args": "",
+      "shortcut": "release",
+      "wiki": "https://homecoming.wiki/wiki/Release_(Slash_Command)"
+    },
+    {
+      "command": "release_pets",
+      "args": "",
+      "shortcut": "release_pets",
+      "wiki": "https://homecoming.wiki/wiki/Release_pets_(Slash_Command)"
+    },
+    {
+      "command": "reloadgfx",
+      "args": "",
+      "shortcut": "reloadgfx",
+      "wiki": "https://homecoming.wiki/wiki/Reloadgfx_(Slash_Command)"
+    },
+    {
+      "command": "renderscale",
+      "args": "[0.01-2.0]",
+      "shortcut": "renderscale",
+      "wiki": "https://homecoming.wiki/wiki/Renderscale_(Slash_Command)"
+    },
+    {
+      "command": "renderscalex",
+      "args": "[0.01-2.0]",
+      "shortcut": "renderscalex",
+      "wiki": "https://homecoming.wiki/wiki/Renderscalex_(Slash_Command)"
+    },
+    {
+      "command": "renderscaley",
+      "args": "[0.01-2.0]",
+      "shortcut": "renderscaley",
+      "wiki": "https://homecoming.wiki/wiki/Renderscaley_(Slash_Command)"
+    },
+    {
+      "command": "rendersize",
+      "args": "x y",
+      "shortcut": "rendersize",
+      "wiki": "https://homecoming.wiki/wiki/Rendersize_(Slash_Command)"
+    },
+    {
+      "command": "reply",
+      "args": "message",
+      "shortcut": "r",
+      "wiki": "https://homecoming.wiki/wiki/Reply_(Slash_Command)"
+    },
+    {
+      "command": "req",
+      "args": "message",
+      "shortcut": "req",
+      "wiki": "https://homecoming.wiki/wiki/Req_(Slash_Command)"
+    },
+    {
+      "command": "request",
+      "args": "message",
+      "shortcut": "request",
+      "wiki": "https://homecoming.wiki/wiki/Request_(Slash_Command)"
+    },
+    {
+      "command": "requestexitmission",
+      "args": "number",
+      "shortcut": "requestexitmission",
+      "wiki": "https://homecoming.wiki/wiki/Requestexitmission_(Slash_Command)"
+    },
+    {
+      "command": "respec",
+      "args": "",
+      "shortcut": "respec",
+      "wiki": "https://homecoming.wiki/wiki/Respec_(Slash_Command)"
+    },
+    {
+      "command": "respec_status",
+      "args": "",
+      "shortcut": "respec_status",
+      "wiki": "https://homecoming.wiki/wiki/Respec_status_(Slash_Command)"
+    },
+    {
+      "command": "right",
+      "args": "+, +, 0-1",
+      "shortcut": "right",
+      "wiki": "https://homecoming.wiki/wiki/Right_(Slash_Command)"
+    },
+    {
+      "command": "roleplaying",
+      "args": "",
+      "shortcut": "roleplaying",
+      "wiki": "https://homecoming.wiki/wiki/Roleplaying_(Slash_Command)"
+    },
+    {
+      "command": "roll",
+      "args": "parameter",
+      "shortcut": "roll",
+      "wiki": "https://homecoming.wiki/wiki/Roll_(Slash_Command)"
+    },
+    {
+      "command": "room_clip",
+      "args": "[0-1]",
+      "shortcut": "room_clip",
+      "wiki": "https://homecoming.wiki/wiki/Room_clip_(Slash_Command)"
+    },
+    {
+      "command": "room_clip_cycle",
+      "args": "",
+      "shortcut": "room_clip_cycle",
+      "wiki": "https://homecoming.wiki/wiki/Room_clip_cycle_(Slash_Command)"
+    },
+    {
+      "command": "rotate",
+      "args": "[0,1]",
+      "shortcut": "rotate",
+      "wiki": "https://homecoming.wiki/wiki/Rotate_(Slash_Command)"
+    },
+    {
+      "command": "s",
+      "args": "message",
+      "shortcut": "s",
+      "wiki": "https://homecoming.wiki/wiki/S_(Slash_Command)"
+    },
+    {
+      "command": "salvage_open",
+      "args": "item",
+      "shortcut": "salvage_open",
+      "wiki": "https://homecoming.wiki/wiki/Salvage_open_(Slash_Command)"
+    },
+    {
+      "command": "say",
+      "args": "message",
+      "shortcut": "s",
+      "wiki": "https://homecoming.wiki/wiki/Say_(Slash_Command)"
+    },
+    {
+      "command": "screen",
+      "args": "Xsize Ysize",
+      "shortcut": "screen",
+      "wiki": "https://homecoming.wiki/wiki/Screen_(Slash_Command)"
+    },
+    {
+      "command": "screenshot",
+      "args": "",
+      "shortcut": "screenshot",
+      "wiki": "https://homecoming.wiki/wiki/Screenshot_(Slash_Command)"
+    },
+    {
+      "command": "screenshottga",
+      "args": "",
+      "shortcut": "screenshottga",
+      "wiki": "https://homecoming.wiki/wiki/Screenshottga_(Slash_Command)"
+    },
+    {
+      "command": "screenshottitle",
+      "args": "title",
+      "shortcut": "screenshottitle",
+      "wiki": "https://homecoming.wiki/wiki/Screenshottitle_(Slash_Command)"
+    },
+    {
+      "command": "screenshotui",
+      "args": "[0-1]",
+      "shortcut": "screenshotui",
+      "wiki": "https://homecoming.wiki/wiki/Screenshotui_(Slash_Command)"
+    },
+    {
+      "command": "sea",
+      "args": "options",
+      "shortcut": "sea",
+      "wiki": "https://homecoming.wiki/wiki/Sea_(Slash_Command)"
+    },
+    {
+      "command": "search",
+      "args": "options",
+      "shortcut": "sea",
+      "wiki": "https://homecoming.wiki/wiki/Search_(Slash_Command)"
+    },
+    {
+      "command": "see_everything",
+      "args": "[1/0]",
+      "shortcut": "see_everything",
+      "wiki": "https://homecoming.wiki/wiki/See_everything_(Slash_Command)"
+    },
+    {
+      "command": "select_build",
+      "args": "[1-3]",
+      "shortcut": "select_build",
+      "wiki": "https://homecoming.wiki/wiki/Select_build_(Slash_Command)"
+    },
+    {
+      "command": "select_last",
+      "args": "",
+      "shortcut": "select_last",
+      "wiki": "https://homecoming.wiki/wiki/Select_last_(Slash_Command)"
+    },
+    {
+      "command": "select_next",
+      "args": "",
+      "shortcut": "select_next",
+      "wiki": "https://homecoming.wiki/wiki/Select_next_(Slash_Command)"
+    },
+    {
+      "command": "sell",
+      "args": "message",
+      "shortcut": "sell",
+      "wiki": "https://homecoming.wiki/wiki/Sell_(Slash_Command)"
+    },
+    {
+      "command": "send",
+      "args": "channel message",
+      "shortcut": "send",
+      "wiki": "https://homecoming.wiki/wiki/Send_(Slash_Command)"
+    },
+    {
+      "command": "servertime",
+      "args": "",
+      "shortcut": "servertime",
+      "wiki": "https://homecoming.wiki/wiki/Servertime_(Slash_Command)"
+    },
+    {
+      "command": "set_difficulty_av",
+      "args": "number",
+      "shortcut": "set_difficulty_av",
+      "wiki": "https://homecoming.wiki/wiki/Set_difficulty_av_(Slash_Command)"
+    },
+    {
+      "command": "set_difficulty_boss",
+      "args": "number",
+      "shortcut": "set_difficulty_boss",
+      "wiki": "https://homecoming.wiki/wiki/Set_difficulty_boss_(Slash_Command)"
+    },
+    {
+      "command": "set_difficulty_level",
+      "args": "number",
+      "shortcut": "set_difficulty_level",
+      "wiki": "https://homecoming.wiki/wiki/Set_difficulty_level_(Slash_Command)"
+    },
+    {
+      "command": "set_difficulty_team_size",
+      "args": "number",
+      "shortcut": "set_difficulty_team_size",
+      "wiki": "https://homecoming.wiki/wiki/Set_difficulty_team_size_(Slash_Command)"
+    },
+    {
+      "command": "sethelperstatus",
+      "args": "[1-4]",
+      "shortcut": "sethelperstatus",
+      "wiki": "https://homecoming.wiki/wiki/Sethelperstatus_(Slash_Command)"
+    },
+    {
+      "command": "set_powerinfo_class",
+      "args": "",
+      "shortcut": "set_powerinfo_class",
+      "wiki": "https://homecoming.wiki/wiki/Set_powerinfo_class_(Slash_Command)"
+    },
+    {
+      "command": "set_title",
+      "args": "integer",
+      "shortcut": "settitle",
+      "wiki": "https://homecoming.wiki/wiki/Set_title_(Slash_Command)"
+    },
+    {
+      "command": "set_title_id",
+      "args": "integer",
+      "shortcut": "settitle",
+      "wiki": "https://homecoming.wiki/wiki/Set_title_id_(Slash_Command)"
+    },
+    {
+      "command": "sg",
+      "args": "message",
+      "shortcut": "sg",
+      "wiki": "https://homecoming.wiki/wiki/Sg_(Slash_Command)"
+    },
+    {
+      "command": "sg_enter_passcode",
+      "args": "",
+      "shortcut": "sg_enter_passcode",
+      "wiki": "https://homecoming.wiki/wiki/Sg_enter_passcode_(Slash_Command)"
+    },
+    {
+      "command": "sgi",
+      "args": "playername",
+      "shortcut": "sgi",
+      "wiki": "https://homecoming.wiki/wiki/Sgi_(Slash_Command)"
+    },
+    {
+      "command": "sginvite",
+      "args": "playername",
+      "shortcut": "sgi",
+      "wiki": "https://homecoming.wiki/wiki/Sginvite_(Slash_Command)"
+    },
+    {
+      "command": "sgk",
+      "args": "character",
+      "shortcut": "sgk",
+      "wiki": "https://homecoming.wiki/wiki/Sgk_(Slash_Command)"
+    },
+    {
+      "command": "sgkick",
+      "args": "character",
+      "shortcut": "sgk",
+      "wiki": "https://homecoming.wiki/wiki/Sgkick_(Slash_Command)"
+    },
+    {
+      "command": "sgkickyes",
+      "args": "name",
+      "shortcut": "sgkickyes",
+      "wiki": "https://homecoming.wiki/wiki/Sgkickyes_(Slash_Command)"
+    },
+    {
+      "command": "sgleave",
+      "args": "",
+      "shortcut": "sgleave",
+      "wiki": "https://homecoming.wiki/wiki/Sgleave_(Slash_Command)"
+    },
+    {
+      "command": "sgmode",
+      "args": "",
+      "shortcut": "sgmode",
+      "wiki": "https://homecoming.wiki/wiki/Sgmode_(Slash_Command)"
+    },
+    {
+      "command": "sgmodeset",
+      "args": "mode",
+      "shortcut": "sgmodeset",
+      "wiki": "https://homecoming.wiki/wiki/Sgmodeset_(Slash_Command)"
+    },
+    {
+      "command": "sg_music",
+      "args": "filename",
+      "shortcut": "sg_music",
+      "wiki": "https://homecoming.wiki/wiki/Sg_music_(Slash_Command)"
+    },
+    {
+      "command": "sgpasscode",
+      "args": "text",
+      "shortcut": "sgpasscode",
+      "wiki": "https://homecoming.wiki/wiki/Sgpasscode_(Slash_Command)"
+    },
+    {
+      "command": "sgsetdemotetimeout",
+      "args": "seconds",
+      "shortcut": "sgsetdemotetimeout",
+      "wiki": "https://homecoming.wiki/wiki/Sgsetdemotetimeout_(Slash_Command)"
+    },
+    {
+      "command": "sgsetdescription",
+      "args": "description",
+      "shortcut": "sgsetdescription",
+      "wiki": "https://homecoming.wiki/wiki/Sgsetdescription_(Slash_Command)"
+    },
+    {
+      "command": "sgsetmotd",
+      "args": "message",
+      "shortcut": "sgsetmotd",
+      "wiki": "https://homecoming.wiki/wiki/Sgsetmotd_(Slash_Command)"
+    },
+    {
+      "command": "sgsetmotto",
+      "args": "motto",
+      "shortcut": "sgsetmotto",
+      "wiki": "https://homecoming.wiki/wiki/Sgsetmotto_(Slash_Command)"
+    },
+    {
+      "command": "sgwho",
+      "args": "",
+      "shortcut": "sgwho",
+      "wiki": "https://homecoming.wiki/wiki/Sgwho_(Slash_Command)"
+    },
+    {
+      "command": "shaderCache",
+      "args": "[0-1]",
+      "shortcut": "shaderCache",
+      "wiki": "https://homecoming.wiki/wiki/ShaderCache_(Slash_Command)"
+    },
+    {
+      "command": "sheathe",
+      "args": "",
+      "shortcut": "sheathe",
+      "wiki": "https://homecoming.wiki/wiki/Sheathe_(Slash_Command)"
+    },
+    {
+      "command": "show",
+      "args": "window_name",
+      "shortcut": "show",
+      "wiki": "https://homecoming.wiki/wiki/Show_(Slash_Command)"
+    },
+    {
+      "command": "show_bind",
+      "args": "key",
+      "shortcut": "show_bind",
+      "wiki": "https://homecoming.wiki/wiki/Show_bind_(Slash_Command)"
+    },
+    {
+      "command": "show_bind_all",
+      "args": "",
+      "shortcut": "show_bind_all",
+      "wiki": "https://homecoming.wiki/wiki/Show_bind_all_(Slash_Command)"
+    },
+    {
+      "command": "show_bind_all_file",
+      "args": "filename",
+      "shortcut": "show_bind_all_file",
+      "wiki": "https://homecoming.wiki/wiki/Show_bind_all_file_(Slash_Command)"
+    },
+    {
+      "command": "showfps",
+      "args": "[0-3]",
+      "shortcut": "showfps",
+      "wiki": "https://homecoming.wiki/wiki/Showfps_(Slash_Command)"
+    },
+    {
+      "command": "shownewtray",
+      "args": "",
+      "shortcut": "shownewtray",
+      "wiki": "https://homecoming.wiki/wiki/Shownewtray_(Slash_Command)"
+    },
+    {
+      "command": "show_petnames",
+      "args": "",
+      "shortcut": "show_petnames",
+      "wiki": "https://homecoming.wiki/wiki/Show_petnames_(Slash_Command)"
+    },
+    {
+      "command": "showtime",
+      "args": "[0-1]",
+      "shortcut": "showtime",
+      "wiki": "https://homecoming.wiki/wiki/Showtime_(Slash_Command)"
+    },
+    {
+      "command": "slashchat",
+      "args": "",
+      "shortcut": "slashchat",
+      "wiki": "https://homecoming.wiki/wiki/Slashchat_(Slash_Command)"
+    },
+    {
+      "command": "speak_range",
+      "args": "number",
+      "shortcut": "speak_range",
+      "wiki": "https://homecoming.wiki/wiki/Speak_range_(Slash_Command)"
+    },
+    {
+      "command": "speed_turn",
+      "args": "number",
+      "shortcut": "speed_turn",
+      "wiki": "https://homecoming.wiki/wiki/Speed_turn_(Slash_Command)"
+    },
+    {
+      "command": "startchat",
+      "args": "",
+      "shortcut": "startchat",
+      "wiki": "https://homecoming.wiki/wiki/Startchat_(Slash_Command)"
+    },
+    {
+      "command": "stopinactivedisplay",
+      "args": "[0-1]",
+      "shortcut": "stopinactivedisplay",
+      "wiki": "https://homecoming.wiki/wiki/Stopinactivedisplay_(Slash_Command)"
+    },
+    {
+      "command": "stopmonitorattribute",
+      "args": "string",
+      "shortcut": "stopmonitorattribute",
+      "wiki": "https://homecoming.wiki/wiki/Stopmonitorattribute_(Slash_Command)"
+    },
+    {
+      "command": "stuck",
+      "args": "",
+      "shortcut": "stuck",
+      "wiki": "https://homecoming.wiki/wiki/Stuck_(Slash_Command)"
+    },
+    {
+      "command": "supergroup",
+      "args": "message",
+      "shortcut": "sg",
+      "wiki": "https://homecoming.wiki/wiki/Supergroup_(Slash_Command)"
+    },
+    {
+      "command": "supporthardwarelights",
+      "args": "[0-1]",
+      "shortcut": "supporthardwarelights",
+      "wiki": "https://homecoming.wiki/wiki/Supporthardwarelights_(Slash_Command)"
+    },
+    {
+      "command": "suppressCloseFx",
+      "args": "suppress",
+      "shortcut": "suppressCloseFx",
+      "wiki": "https://homecoming.wiki/wiki/SuppressCloseFx_(Slash_Command)"
+    },
+    {
+      "command": "suppressCloseFxDist",
+      "args": "distance",
+      "shortcut": "suppressCloseFxDist",
+      "wiki": "https://homecoming.wiki/wiki/SuppressCloseFxDist_(Slash_Command)"
+    },
+    {
+      "command": "sync",
+      "args": "",
+      "shortcut": "sync",
+      "wiki": "https://homecoming.wiki/wiki/Sync_(Slash_Command)"
+    },
+    {
+      "command": "synch",
+      "args": "",
+      "shortcut": "sync",
+      "wiki": "https://homecoming.wiki/wiki/Synch_(Slash_Command)"
+    },
+    {
+      "command": "t",
+      "args": "player_name, message",
+      "shortcut": "t",
+      "wiki": "https://homecoming.wiki/wiki/T_(Slash_Command)"
+    },
+    {
+      "command": "tabclose",
+      "args": "name",
+      "shortcut": "tabclose",
+      "wiki": "https://homecoming.wiki/wiki/Tabclose_(Slash_Command)"
+    },
+    {
+      "command": "tabcreate",
+      "args": "window pane name",
+      "shortcut": "tabcreate",
+      "wiki": "https://homecoming.wiki/wiki/Tabcreate_(Slash_Command)"
+    },
+    {
+      "command": "tabglobalnext",
+      "args": "",
+      "shortcut": "tabglobalnext",
+      "wiki": "https://homecoming.wiki/wiki/Tabglobalnext_(Slash_Command)"
+    },
+    {
+      "command": "tabglobalprev",
+      "args": "",
+      "shortcut": "tabglobalprev",
+      "wiki": "https://homecoming.wiki/wiki/Tabglobalprev_(Slash_Command)"
+    },
+    {
+      "command": "tabnext",
+      "args": "0-4",
+      "shortcut": "tabnext",
+      "wiki": "https://homecoming.wiki/wiki/Tabnext_(Slash_Command)"
+    },
+    {
+      "command": "tabprev",
+      "args": "window",
+      "shortcut": "tabprev",
+      "wiki": "https://homecoming.wiki/wiki/Tabprev_(Slash_Command)"
+    },
+    {
+      "command": "tabselect",
+      "args": "tab_name",
+      "shortcut": "tabselect",
+      "wiki": "https://homecoming.wiki/wiki/Tabselect_(Slash_Command)"
+    },
+    {
+      "command": "tabtoggle",
+      "args": "",
+      "shortcut": "tabtoggle",
+      "wiki": "https://homecoming.wiki/wiki/Tabtoggle_(Slash_Command)"
+    },
+    {
+      "command": "tailor_status",
+      "args": "",
+      "shortcut": "tailor_status",
+      "wiki": "https://homecoming.wiki/wiki/Tailor_status_(Slash_Command)"
+    },
+    {
+      "command": "target",
+      "args": "",
+      "shortcut": "target",
+      "wiki": "https://homecoming.wiki/wiki/Target_(Slash_Command)"
+    },
+    {
+      "command": "target_custom_far",
+      "args": "params",
+      "shortcut": "target_custom_far",
+      "wiki": "https://homecoming.wiki/wiki/Target_custom_far_(Slash_Command)"
+    },
+    {
+      "command": "target_custom_near",
+      "args": "params",
+      "shortcut": "target_custom_near",
+      "wiki": "https://homecoming.wiki/wiki/Target_custom_near_(Slash_Command)"
+    },
+    {
+      "command": "target_custom_next",
+      "args": "parameters",
+      "shortcut": "target_custom_next",
+      "wiki": "https://homecoming.wiki/wiki/Target_custom_next_(Slash_Command)"
+    },
+    {
+      "command": "target_custom_prev",
+      "args": "params",
+      "shortcut": "target_custom_prev",
+      "wiki": "https://homecoming.wiki/wiki/Target_custom_prev_(Slash_Command)"
+    },
+    {
+      "command": "target_distance",
+      "args": "[0-1]",
+      "shortcut": "target_distance",
+      "wiki": "https://homecoming.wiki/wiki/Target_distance_(Slash_Command)"
+    },
+    {
+      "command": "target_enemy_far",
+      "args": "",
+      "shortcut": "target_enemy_far",
+      "wiki": "https://homecoming.wiki/wiki/Target_enemy_far_(Slash_Command)"
+    },
+    {
+      "command": "target_enemy_near",
+      "args": "",
+      "shortcut": "target_enemy_near",
+      "wiki": "https://homecoming.wiki/wiki/Target_enemy_near_(Slash_Command)"
+    },
+    {
+      "command": "target_enemy_next",
+      "args": "",
+      "shortcut": "toggle_enemy",
+      "wiki": "https://homecoming.wiki/wiki/Target_enemy_next_(Slash_Command)"
+    },
+    {
+      "command": "target_enemy_prev",
+      "args": "",
+      "shortcut": "target_enemy_prev",
+      "wiki": "https://homecoming.wiki/wiki/Target_enemy_prev_(Slash_Command)"
+    },
+    {
+      "command": "target_friend_far",
+      "args": "",
+      "shortcut": "target_friend_far",
+      "wiki": "https://homecoming.wiki/wiki/Target_friend_far_(Slash_Command)"
+    },
+    {
+      "command": "target_friend_near",
+      "args": "",
+      "shortcut": "target_friend_near",
+      "wiki": "https://homecoming.wiki/wiki/Target_friend_near_(Slash_Command)"
+    },
+    {
+      "command": "target_friend_next",
+      "args": "",
+      "shortcut": "target_friend_next",
+      "wiki": "https://homecoming.wiki/wiki/Target_friend_next_(Slash_Command)"
+    },
+    {
+      "command": "target_friend_prev",
+      "args": "",
+      "shortcut": "target_friend_prev",
+      "wiki": "https://homecoming.wiki/wiki/Target_friend_prev_(Slash_Command)"
+    },
+    {
+      "command": "target_name",
+      "args": "string",
+      "shortcut": "target_name",
+      "wiki": "https://homecoming.wiki/wiki/Target_name_(Slash_Command)"
+    },
+    {
+      "command": "team",
+      "args": "message",
+      "shortcut": "g",
+      "wiki": "https://homecoming.wiki/wiki/Team_(Slash_Command)"
+    },
+    {
+      "command": "teamMoveToLeague",
+      "args": "LeaderName",
+      "shortcut": "teamMoveToLeague",
+      "wiki": "https://homecoming.wiki/wiki/TeamMoveToLeague_(Slash_Command)"
+    },
+    {
+      "command": "team_quit_internal",
+      "args": "none",
+      "shortcut": "team_quit_internal",
+      "wiki": "https://homecoming.wiki/wiki/Team_quit_internal_(Slash_Command)"
+    },
+    {
+      "command": "team_select",
+      "args": "position_number",
+      "shortcut": "team_select",
+      "wiki": "https://homecoming.wiki/wiki/Team_select_(Slash_Command)"
+    },
+    {
+      "command": "tell",
+      "args": "player_name, message",
+      "shortcut": "t",
+      "wiki": "https://homecoming.wiki/wiki/Tell_(Slash_Command)"
+    },
+    {
+      "command": "tell_last",
+      "args": "",
+      "shortcut": "tl",
+      "wiki": "https://homecoming.wiki/wiki/Tell_last_(Slash_Command)"
+    },
+    {
+      "command": "texaniso",
+      "args": "number",
+      "shortcut": "texaniso",
+      "wiki": "https://homecoming.wiki/wiki/Texaniso_(Slash_Command)"
+    },
+    {
+      "command": "texLodBias",
+      "args": "[0-2]",
+      "shortcut": "texLodBias",
+      "wiki": "https://homecoming.wiki/wiki/TexLodBias_(Slash_Command)"
+    },
+    {
+      "command": "third",
+      "args": "+, ++, or 0-1",
+      "shortcut": "third",
+      "wiki": "https://homecoming.wiki/wiki/Third_(Slash_Command)"
+    },
+    {
+      "command": "thumbtack",
+      "args": "coordinates",
+      "shortcut": "thumbtack",
+      "wiki": "https://homecoming.wiki/wiki/Thumbtack_(Slash_Command)"
+    },
+    {
+      "command": "title_change",
+      "args": "",
+      "shortcut": "title_change",
+      "wiki": "https://homecoming.wiki/wiki/Title_change_(Slash_Command)"
+    },
+    {
+      "command": "tl",
+      "args": "",
+      "shortcut": "tl",
+      "wiki": "https://homecoming.wiki/wiki/Tl_(Slash_Command)"
+    },
+    {
+      "command": "tll",
+      "args": "character_name, message",
+      "shortcut": "tll",
+      "wiki": "https://homecoming.wiki/wiki/Tll_(Slash_Command)"
+    },
+    {
+      "command": "tmtl",
+      "args": "LeaderName",
+      "shortcut": "tmtl",
+      "wiki": "https://homecoming.wiki/wiki/Tmtl_(Slash_Command)"
+    },
+    {
+      "command": "toggle",
+      "args": "window_name",
+      "shortcut": "toggle",
+      "wiki": "https://homecoming.wiki/wiki/Toggle_(Slash_Command)"
+    },
+    {
+      "command": "toggle_enemy",
+      "args": "",
+      "shortcut": "toggle_enemy",
+      "wiki": "https://homecoming.wiki/wiki/Toggle_enemy_(Slash_Command)"
+    },
+    {
+      "command": "toggle_enemy_prev",
+      "args": "",
+      "shortcut": "toggle_enemy_prev",
+      "wiki": "https://homecoming.wiki/wiki/Toggle_enemy_prev_(Slash_Command)"
+    },
+    {
+      "command": "trade",
+      "args": "character",
+      "shortcut": "trade",
+      "wiki": "https://homecoming.wiki/wiki/Trade_(Slash_Command)"
+    },
+    {
+      "command": "trade_accept",
+      "args": "offererName offererDBID receiverDBID receiverName",
+      "shortcut": "trade_accept",
+      "wiki": "https://homecoming.wiki/wiki/Trade_accept_(Slash_Command)"
+    },
+    {
+      "command": "tray",
+      "args": "",
+      "shortcut": "tray",
+      "wiki": "https://homecoming.wiki/wiki/Tray_(Slash_Command)"
+    },
+    {
+      "command": "tray_always_shrink",
+      "args": "[0-1]",
+      "shortcut": "tray_always_shrink",
+      "wiki": "https://homecoming.wiki/wiki/Tray_always_shrink_(Slash_Command)"
+    },
+    {
+      "command": "tray_animations",
+      "args": "[0-1]",
+      "shortcut": "tray_animations",
+      "wiki": "https://homecoming.wiki/wiki/Tray_animations_(Slash_Command)"
+    },
+    {
+      "command": "tray_labels",
+      "args": "[0-2]",
+      "shortcut": "tray_labels",
+      "wiki": "https://homecoming.wiki/wiki/Tray_labels_(Slash_Command)"
+    },
+    {
+      "command": "traysticky",
+      "args": "[1-2] [0-1]",
+      "shortcut": "traysticky",
+      "wiki": "https://homecoming.wiki/wiki/Traysticky_(Slash_Command)"
+    },
+    {
+      "command": "traystickyalt2",
+      "args": "",
+      "shortcut": "traystickyalt2",
+      "wiki": "https://homecoming.wiki/wiki/Traystickyalt2_(Slash_Command)"
+    },
+    {
+      "command": "ttl",
+      "args": "character_name, message",
+      "shortcut": "ttl",
+      "wiki": "https://homecoming.wiki/wiki/Ttl_(Slash_Command)"
+    },
+    {
+      "command": "turnleft",
+      "args": "+, ++, or [0-1]",
+      "shortcut": "turnleft",
+      "wiki": "https://homecoming.wiki/wiki/Turnleft_(Slash_Command)"
+    },
+    {
+      "command": "turnright",
+      "args": "+, ++, or [0-1]",
+      "shortcut": "turnright",
+      "wiki": "https://homecoming.wiki/wiki/Turnright_(Slash_Command)"
+    },
+    {
+      "command": "tut_votekick",
+      "args": "name",
+      "shortcut": "tut_votekick",
+      "wiki": "https://homecoming.wiki/wiki/Tut_votekick_(Slash_Command)"
+    },
+    {
+      "command": "tut_votekick_opinion",
+      "args": "[yes, no]",
+      "shortcut": "tut_votekick_opinion",
+      "wiki": "https://homecoming.wiki/wiki/Tut_votekick_opinion_(Slash_Command)"
+    },
+    {
+      "command": "uiscale",
+      "args": "number",
+      "shortcut": "uiscale",
+      "wiki": "https://homecoming.wiki/wiki/Uiscale_(Slash_Command)"
+    },
+    {
+      "command": "unbind",
+      "args": "keyname",
+      "shortcut": "unbind",
+      "wiki": "https://homecoming.wiki/wiki/Unbind_(Slash_Command)"
+    },
+    {
+      "command": "unbind_all",
+      "args": "",
+      "shortcut": "unbind_all",
+      "wiki": "https://homecoming.wiki/wiki/Unbind_all_(Slash_Command)"
+    },
+    {
+      "command": "unfriend",
+      "args": "name",
+      "shortcut": "unfriend",
+      "wiki": "https://homecoming.wiki/wiki/Unfriend_(Slash_Command)"
+    },
+    {
+      "command": "unhide",
+      "args": "",
+      "shortcut": "hide",
+      "wiki": "https://homecoming.wiki/wiki/Unhide_(Slash_Command)"
+    },
+    {
+      "command": "unhide_all",
+      "args": "",
+      "shortcut": "unhide_all",
+      "wiki": "https://homecoming.wiki/wiki/Unhide_all_(Slash_Command)"
+    },
+    {
+      "command": "unhide_friends",
+      "args": "",
+      "shortcut": "unhide_friends",
+      "wiki": "https://homecoming.wiki/wiki/Unhide_friends_(Slash_Command)"
+    },
+    {
+      "command": "unhide_gchannels",
+      "args": "",
+      "shortcut": "unhide_gchannels",
+      "wiki": "https://homecoming.wiki/wiki/Unhide_gchannels_(Slash_Command)"
+    },
+    {
+      "command": "unhide_gfriends",
+      "args": "",
+      "shortcut": "unhide_gfriends",
+      "wiki": "https://homecoming.wiki/wiki/Unhide_gfriends_(Slash_Command)"
+    },
+    {
+      "command": "unhide_invite",
+      "args": "",
+      "shortcut": "unhide_invite",
+      "wiki": "https://homecoming.wiki/wiki/Unhide_invite_(Slash_Command)"
+    },
+    {
+      "command": "unhide_search",
+      "args": "",
+      "shortcut": "unhide_search",
+      "wiki": "https://homecoming.wiki/wiki/Unhide_search_(Slash_Command)"
+    },
+    {
+      "command": "unhide_sg",
+      "args": "",
+      "shortcut": "unhide_sg",
+      "wiki": "https://homecoming.wiki/wiki/Unhide_sg_(Slash_Command)"
+    },
+    {
+      "command": "unhide_tell",
+      "args": "",
+      "shortcut": "unhide_tell",
+      "wiki": "https://homecoming.wiki/wiki/Unhide_tell_(Slash_Command)"
+    },
+    {
+      "command": "unignore",
+      "args": "character_name or @global_name",
+      "shortcut": "unignore",
+      "wiki": "https://homecoming.wiki/wiki/Unignore_(Slash_Command)"
+    },
+    {
+      "command": "unlevelingpact",
+      "args": "",
+      "shortcut": "unlevelingpact",
+      "wiki": "https://homecoming.wiki/wiki/Unlevelingpact_(Slash_Command)"
+    },
+    {
+      "command": "unloadgfx",
+      "args": "",
+      "shortcut": "unloadgfx",
+      "wiki": "https://homecoming.wiki/wiki/Unloadgfx_(Slash_Command)"
+    },
+    {
+      "command": "unselect",
+      "args": "",
+      "shortcut": "unselect",
+      "wiki": "https://homecoming.wiki/wiki/Unselect_(Slash_Command)"
+    },
+    {
+      "command": "up",
+      "args": "+, ++, or 0-1",
+      "shortcut": "up",
+      "wiki": "https://homecoming.wiki/wiki/Up_(Slash_Command)"
+    },
+    {
+      "command": "usecelshader",
+      "args": "[0-1]",
+      "shortcut": "usecelshader",
+      "wiki": "https://homecoming.wiki/wiki/Usecelshader_(Slash_Command)"
+    },
+    {
+      "command": "useCubemap",
+      "args": "[0-3]",
+      "shortcut": "useCubemap",
+      "wiki": "https://homecoming.wiki/wiki/UseCubemap_(Slash_Command)"
+    },
+    {
+      "command": "usedof",
+      "args": "",
+      "shortcut": "usedof",
+      "wiki": "https://homecoming.wiki/wiki/Usedof_(Slash_Command)"
+    },
+    {
+      "command": "usefp",
+      "args": "[0-1]",
+      "shortcut": "usefp",
+      "wiki": "https://homecoming.wiki/wiki/Usefp_(Slash_Command)"
+    },
+    {
+      "command": "usehdr",
+      "args": "[0-1]",
+      "shortcut": "usehdr",
+      "wiki": "https://homecoming.wiki/wiki/Usehdr_(Slash_Command)"
+    },
+    {
+      "command": "useHQ",
+      "args": "number",
+      "shortcut": "useHQ",
+      "wiki": "https://homecoming.wiki/wiki/UseHQ_(Slash_Command)"
+    },
+    {
+      "command": "userenderscale",
+      "args": "[0-1]",
+      "shortcut": "userenderscale",
+      "wiki": "https://homecoming.wiki/wiki/Userenderscale_(Slash_Command)"
+    },
+    {
+      "command": "usewater",
+      "args": "",
+      "shortcut": "usewater",
+      "wiki": "https://homecoming.wiki/wiki/Usewater_(Slash_Command)"
+    },
+    {
+      "command": "vis_scale",
+      "args": "[0.5-20.0]",
+      "shortcut": "vis_scale",
+      "wiki": "https://homecoming.wiki/wiki/Vis_scale_(Slash_Command)"
+    },
+    {
+      "command": "watching",
+      "args": "",
+      "shortcut": "watching",
+      "wiki": "https://homecoming.wiki/wiki/Watching_(Slash_Command)"
+    },
+    {
+      "command": "wdw_load",
+      "args": "",
+      "shortcut": "wdw_load",
+      "wiki": "https://homecoming.wiki/wiki/Wdw_load_(Slash_Command)"
+    },
+    {
+      "command": "wdw_load_file",
+      "args": "filename",
+      "shortcut": "wdw_load_file",
+      "wiki": "https://homecoming.wiki/wiki/Wdw_load_file_(Slash_Command)"
+    },
+    {
+      "command": "wdw_save",
+      "args": "",
+      "shortcut": "wdw_save",
+      "wiki": "https://homecoming.wiki/wiki/Wdw_save_(Slash_Command)"
+    },
+    {
+      "command": "wdw_save_file",
+      "args": "filename",
+      "shortcut": "wdw_save_file",
+      "wiki": "https://homecoming.wiki/wiki/Wdw_save_file_(Slash_Command)"
+    },
+    {
+      "command": "wentworths",
+      "args": "",
+      "shortcut": "ah",
+      "wiki": "https://homecoming.wiki/wiki/Wentworths_(Slash_Command)"
+    },
+    {
+      "command": "whereami",
+      "args": "",
+      "shortcut": "whereami",
+      "wiki": "https://homecoming.wiki/wiki/Whereami_(Slash_Command)"
+    },
+    {
+      "command": "whisper",
+      "args": "player_name, message",
+      "shortcut": "t",
+      "wiki": "https://homecoming.wiki/wiki/Whisper_(Slash_Command)"
+    },
+    {
+      "command": "who",
+      "args": "options",
+      "shortcut": "who",
+      "wiki": "https://homecoming.wiki/wiki/Who_(Slash_Command)"
+    },
+    {
+      "command": "whoall",
+      "args": "",
+      "shortcut": "whoall",
+      "wiki": "https://homecoming.wiki/wiki/Whoall_(Slash_Command)"
+    },
+    {
+      "command": "window_close_extra",
+      "args": "",
+      "shortcut": "gamereturn",
+      "wiki": "https://homecoming.wiki/wiki/Window_close_extra_(Slash_Command)"
+    },
+    {
+      "command": "window_color",
+      "args": "Red Green Blue Alpha",
+      "shortcut": "window_color",
+      "wiki": "https://homecoming.wiki/wiki/Window_color_(Slash_Command)"
+    },
+    {
+      "command": "window_hide",
+      "args": "window_name",
+      "shortcut": "window_hide",
+      "wiki": "https://homecoming.wiki/wiki/Window_hide_(Slash_Command)"
+    },
+    {
+      "command": "window_names",
+      "args": "",
+      "shortcut": "window_names",
+      "wiki": "https://homecoming.wiki/wiki/Window_names_(Slash_Command)"
+    },
+    {
+      "command": "window_resetall",
+      "args": "",
+      "shortcut": "window_resetall",
+      "wiki": "https://homecoming.wiki/wiki/Window_resetall_(Slash_Command)"
+    },
+    {
+      "command": "window_scale",
+      "args": "window_name scale",
+      "shortcut": "window_scale",
+      "wiki": "https://homecoming.wiki/wiki/Window_scale_(Slash_Command)"
+    },
+    {
+      "command": "window_show",
+      "args": "window_name",
+      "shortcut": "show",
+      "wiki": "https://homecoming.wiki/wiki/Window_show_(Slash_Command)"
+    },
+    {
+      "command": "window_toggle",
+      "args": "window_name",
+      "shortcut": "toggle",
+      "wiki": "https://homecoming.wiki/wiki/Window_toggle_(Slash_Command)"
+    },
+    {
+      "command": "y",
+      "args": "message",
+      "shortcut": "y",
+      "wiki": "https://homecoming.wiki/wiki/Y_(Slash_Command)"
+    },
+    {
+      "command": "yell",
+      "args": "message",
+      "shortcut": "b",
+      "wiki": "https://homecoming.wiki/wiki/Yell_(Slash_Command)"
+    },
+    {
+      "command": "z",
+      "args": "message",
+      "shortcut": "z",
+      "wiki": "https://homecoming.wiki/wiki/Z_(Slash_Command)"
+    },
+    {
+      "command": "zoomin",
+      "args": "+, ++, or [0-1]",
+      "shortcut": "zoomin",
+      "wiki": "https://homecoming.wiki/wiki/Zoomin_(Slash_Command)"
+    },
+    {
+      "command": "zoomout",
+      "args": "+, ++, or [0-1]",
+      "shortcut": "zoomout",
+      "wiki": "https://homecoming.wiki/wiki/Zoomout_(Slash_Command)"
+    }
+  ]
+}

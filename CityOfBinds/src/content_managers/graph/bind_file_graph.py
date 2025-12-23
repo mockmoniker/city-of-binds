@@ -1,13 +1,7 @@
 import networkx as nx
 import copy
 from ...game import BindFile
-
-
-trigger_conditions = {
-    "on_trigger": {"Q", "E", "SPACE"},
-    "fast_triggers": {"Q", "E"},
-    "not_on_trigger": {},
-}
+from ...configs.constants import BFGConstants
 
 
 class BindFileGraph(nx.DiGraph):
@@ -22,30 +16,51 @@ class BindFileGraph(nx.DiGraph):
         self,
         source_bind_file_index: int,
         target_bind_file_index: int,
+        trigger_conditions: dict = None,
         delay: int = 0,
-        **condition,
     ) -> "BindFileGraph":
-        super().add_edge(source_bind_file_index, target_bind_file_index, **condition)
+        super().add_edge(
+            source_bind_file_index,
+            target_bind_file_index,
+            **{BFGConstants.EDGE_DATA_KEY: trigger_conditions} or {},
+        )
         if delay > 0:
             self.add_delay(source_bind_file_index, target_bind_file_index, delay)
         return self
 
     def chain(
-        self, bind_file_indexes: list[int], delay: int = 0, **condition
+        self,
+        bind_file_indexes: list[int],
+        trigger_conditions: dict = None,
+        delay: int = 0,
     ) -> "BindFileGraph":
         for i in bind_file_indexes[:-1]:
-            self.link(i, i + 1, delay=delay, **condition)
+            self.link(i, i + 1, trigger_conditions=trigger_conditions, delay=delay)
         return self
 
-    def loop(self, bind_file_indexes: list[int], delay: int = 0, **conditions):
-        self.chain(bind_file_indexes, delay=delay, **conditions)
+    def loop(
+        self,
+        bind_file_indexes: list[int],
+        trigger_conditions: dict = None,
+        delay: int = 0,
+    ):
+        self.chain(
+            bind_file_indexes, trigger_conditions=trigger_conditions, delay=delay
+        )
         self.link(
-            bind_file_indexes[-1], bind_file_indexes[0], delay=delay, **conditions
+            bind_file_indexes[-1],
+            bind_file_indexes[0],
+            trigger_conditions=trigger_conditions,
+            delay=delay,
         )
         return self
 
     def make_k_regular(
-        self, bind_file_indexes: list[int], k: int, delay: int = 0, **conditions
+        self,
+        bind_file_indexes: list[int],
+        k: int,
+        trigger_conditions: dict = None,
+        delay: int = 0,
     ) -> "BindFileGraph":
         if k > len(bind_file_indexes):
             raise ValueError(
@@ -59,8 +74,8 @@ class BindFileGraph(nx.DiGraph):
                 self.link(
                     bind_file_indexes[i],
                     bind_file_indexes[target_index],
+                    trigger_conditions=trigger_conditions,
                     delay=delay,
-                    **conditions,
                 )
         return self
 
@@ -123,4 +138,4 @@ class BindFileGraph(nx.DiGraph):
         return list(self.predecessors(bind_file_index))
 
     def get_bind_file(self, bind_file_index: int) -> BindFile:
-        return self.nodes[bind_file_index]["bind_file"]
+        return self.nodes[bind_file_index][BFGConstants.NODE_DATA_KEY]

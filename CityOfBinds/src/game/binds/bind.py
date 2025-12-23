@@ -1,17 +1,13 @@
 from ..utils import _Trigger, _TriggerMixin
 from ..utils import _CommandsMixin, _CommandGroup
-
-
-class BindConstants:
-    MAX_BIND_LENGTH = (
-        255  # TODO: verify if 255 is command max or full bind max (2025/11/27)
-    )
+from ...configs.constants import GameConstants
 
 
 class Bind(_TriggerMixin, _CommandsMixin):
     def __init__(self, trigger: str, commands: list[str] = None):
         _TriggerMixin.__init__(self, trigger)
         _CommandsMixin.__init__(self, commands)
+        self.trigger_on_key_up = False
 
     # region Bind Properties
     @property
@@ -29,21 +25,27 @@ class Bind(_TriggerMixin, _CommandsMixin):
         self._throw_error_if_empty_bind()
         self._throw_error_if_bind_too_long()
 
+    def is_valid(self) -> bool:
+        return not self.is_empty() and not self.is_over_bind_length()
+
     def is_empty(self) -> bool:
         """Helper function to ensure the bind is not empty."""
         return len(self.commands) == 0
 
     def is_over_bind_length(self) -> bool:
         """Helper function to ensure the total bind string does not exceed max character length."""
-        return self.bind_length > BindConstants.MAX_BIND_LENGTH
+        return self.bind_length > GameConstants.MAX_BIND_LENGTH
 
     # endregion
 
     # region Helper Methods
     def _build_bind_string(self) -> str:
-        """Helper function to build the bind string."""
+        commands = self.commands
+        if self.trigger_on_key_up and not commands[0].prefix:
+            modifier_command = _CommandGroup("+")
+            commands = modifier_command + commands
         return self._build_bind_string_from_components(
-            trigger=self.trigger, commands=self.commands
+            trigger=self.trigger, commands=commands
         )
 
     def _build_bind_string_from_components(
@@ -64,7 +66,7 @@ class Bind(_TriggerMixin, _CommandsMixin):
         """Helper function to ensure the bind does not exceed max length."""
         if self.is_over_bind_length():
             raise ValueError(
-                f"Bind exceeds maximum length of {BindConstants.MAX_BIND_LENGTH} characters. Current length is '{self.bind_length}'."
+                f"Bind exceeds maximum length of {GameConstants.MAX_BIND_LENGTH} characters. Current length is '{self.bind_length}'."
             )
 
     # endregion

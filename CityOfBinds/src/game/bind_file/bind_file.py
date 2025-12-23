@@ -1,6 +1,6 @@
 from pathlib import Path
 from ..utils import _Comment
-from .constants import BindFileConstants
+from ...configs.constants import FileExtensions
 from ...game import Bind
 from ....utils import StrPath
 
@@ -66,10 +66,10 @@ class BindFile:
 
         # Auto-add .txt extension if missing
         if not file_path.suffix:
-            file_path = file_path.with_suffix(BindFileConstants.EXTENSION)
-        elif file_path.suffix != BindFileConstants.EXTENSION:
+            file_path = file_path.with_suffix(FileExtensions.BIND_FILE)
+        elif file_path.suffix != FileExtensions.BIND_FILE:
             raise ValueError(
-                f"File must have '{BindFileConstants.EXTENSION}' extension, got '{file_path.suffix}'"
+                f"File must have '{FileExtensions.BIND_FILE}' extension, got '{file_path.suffix}'"
             )
 
         # Validate before writing

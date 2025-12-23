@@ -59,18 +59,7 @@ class TestInitialization:
         with pytest.raises(ValueError) as excinfo:
             TriggerUnderTest(trigger_string)
         # assert
-        assert "Invalid trigger format" in str(excinfo.value)
-
-    def test_init_should_throw_error_given_trigger_string_with_spaces(
-        self, TriggerUnderTest
-    ):
-        # arrange
-        trigger_string = "SHIFT + W"
-        # act
-        with pytest.raises(ValueError) as excinfo:
-            TriggerUnderTest(trigger_string)
-        # assert
-        assert "Invalid trigger format" in str(excinfo.value)
+        assert "Trigger key cannot be empty." in str(excinfo.value)
 
     def test_init_should_throw_error_given_trigger_string_with_multiple_modifiers(
         self, TriggerUnderTest

@@ -4,12 +4,12 @@ from .powers.power import _Power
 from .triggers.trigger import _Trigger
 from .triggers.wasd_trigger import _WASDTrigger
 from .triggers.trigger_mixin import _TriggerMixin
-from .slash_commands.slash_command import SlashCommand
-from .slash_commands.command_group.command_group import (
+from .commands.command import _Command
+from .commands.command_group import (
     _CommandGroup,
     CommandGroupConstants,
 )
-from .slash_commands.command_group.commands_mixin import _CommandsMixin
+from .commands.commands_mixin import _CommandsMixin
 
 
 __all__ = [
@@ -19,7 +19,7 @@ __all__ = [
     "_Trigger",
     "_WASDTrigger",
     "_TriggerMixin",
-    "SlashCommand",
+    "_Command",
     "_CommandGroup",
     "CommandGroupConstants",
     "_CommandsMixin",

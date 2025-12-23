@@ -7,9 +7,10 @@ from ...content_managers import BindFileGraph
 from ...content_managers import BindTemplate
 from ...content_managers import (
     BindFileTemplate,
-    AdvanceOnTriggerType,
+    RotationPolicy,
 )
 from ....utils.types import StrPath
+from ...configs.constants import BFGConstants
 
 
 class _GenericRotatingBind(ABC):
@@ -29,15 +30,28 @@ class _GenericRotatingBind(ABC):
         self, parent_folder_name: str = "", directory: StrPath = "."
     ):
         indexed_bind_files = self._create_indexed_bind_files()
-        bfg = self._create_bind_file_graph(indexed_bind_files)
-        self.bfg_publisher.publish_files(
-            indexed_bind_files, bfg, directory, parent_folder_name
+        trigger_conditions = self._get_trigger_conditions()
+        bfg = self._create_bind_file_graph(indexed_bind_files, trigger_conditions)
+        self.bfg_publisher.publish_files(bfg, directory, parent_folder_name)
+
+    # TODO: make this reuse logic w/ publish bind files method (2025/12/07)
+    def archive_bind_files(
+        self,
+        parent_folder_name: str = "",
+        archive_directory: StrPath = ".",
+        archive_format: str = "zip",
+    ):
+        indexed_bind_files = self._create_indexed_bind_files()
+        trigger_conditions = self._get_trigger_conditions()
+        bfg = self._create_bind_file_graph(indexed_bind_files, trigger_conditions)
+        self.bfg_publisher.publish_to_archive(
+            bfg, archive_directory, parent_folder_name, archive_format
         )
 
     def add_bind_template(
         self,
         bind_template: BindTemplate,
-        advance_on_trigger: AdvanceOnTriggerType = AdvanceOnTriggerType.DEFAULT,
+        advance_on_trigger: RotationPolicy = RotationPolicy.DEFAULT,
     ):
         self.bind_file_template.add_bind_template(bind_template, advance_on_trigger)
         return self
@@ -53,12 +67,26 @@ class _GenericRotatingBind(ABC):
     def _index_bind_files(self, bind_files: list[BindFile]):
         return bind_files
 
+    def _get_trigger_conditions(self) -> dict:
+        conditions = {}
+        if self.bind_file_template.include_triggers:
+            conditions[BFGConstants.INCLUSIVE_KEY] = (
+                self.bind_file_template.include_triggers
+            )
+        if self.bind_file_template.exclude_triggers:
+            conditions[BFGConstants.EXCLUSIVE_KEY] = (
+                self.bind_file_template.exclude_triggers
+            )
+        return conditions
+
     def _create_bind_file_graph(
-        self, indexed_bind_files: list[BindFile]
+        self, indexed_bind_files: list[BindFile], trigger_conditions: dict
     ) -> BindFileGraph:
         bfg = BindFileGraph()
         self._add_bind_files_to_graph(bfg, indexed_bind_files)
-        self._connect_bind_file_graph(bfg, range(len(indexed_bind_files)))
+        self._connect_bind_file_graph(
+            bfg, range(len(indexed_bind_files)), trigger_conditions
+        )
         return bfg
 
     def _add_bind_files_to_graph(self, bfg: BindFileGraph, bind_files: list[BindFile]):
@@ -68,9 +96,9 @@ class _GenericRotatingBind(ABC):
 
 class _LoopTopology:
     def _connect_bind_file_graph(
-        self, bfg: BindFileGraph, bind_file_indexes: list[int]
+        self, bfg: BindFileGraph, bind_file_indexes: list[int], trigger_conditions: dict
     ):
-        bfg.loop(bind_file_indexes)
+        bfg.loop(bind_file_indexes, trigger_conditions=trigger_conditions)
 
 
 class _RandomOrder:
