@@ -21,7 +21,7 @@ class Bind(_TriggerMixin, _CommandsMixin):
     # endregion
 
     # region Bind Methods
-    def _validate(self):
+    def validate(self):
         self._throw_error_if_empty_bind()
         self._throw_error_if_bind_too_long()
 
