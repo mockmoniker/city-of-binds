@@ -10,12 +10,12 @@ class _WASDTrigger(_Trigger):
         "D": "right",
         "SPACE": "up",
     }
-    VALID_KEYS: Set[str] = set(KEY_TO_DIRECTION_MAP.keys())
+    VALID_TRIGGER_KEYS: Set[str] = set(KEY_TO_DIRECTION_MAP.keys())
 
     # region Validation and Error Checking
     def _throw_invalid_key_error(self, key: str):
         raise ValueError(
-            f"Unknown trigger key '{key}'. Valid WASD keys are: {', '.join(self.VALID_KEYS)}"
+            f"Unknown trigger key '{key}'. Valid WASD keys are: {', '.join(self.VALID_TRIGGER_KEYS)}"
         )
 
     # endregion
