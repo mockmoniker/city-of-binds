@@ -31,6 +31,7 @@ class _GenericRotatingBind(ABC):
     ):
         indexed_bind_files = self._create_indexed_bind_files()
         trigger_conditions = self._get_trigger_conditions()
+        # TODO: add "safe install/instructions here? potentially create one more macro file with instructions and macros to help load and unload new bind" (2025/12/23)
         bfg = self._create_bind_file_graph(indexed_bind_files, trigger_conditions)
         self.bfg_publisher.publish_files(bfg, directory, parent_folder_name)
 
@@ -91,7 +92,7 @@ class _GenericRotatingBind(ABC):
 
     def _add_bind_files_to_graph(self, bfg: BindFileGraph, bind_files: list[BindFile]):
         for bind_file in bind_files:
-            bfg.add_bind_file(copy.deepcopy(bind_file))
+            bfg.add_bind_file(bind_file)
 
 
 class _LoopTopology:
