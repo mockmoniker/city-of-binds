@@ -1,5 +1,5 @@
-from .generic_rotating_binds import _GenericRotatingBind, _LoopTopology
 from ....utils.types import StrPath
+from .generic_rotating_binds import _GenericRotatingBind, _LoopTopology
 
 
 class RotatingBind(_LoopTopology, _GenericRotatingBind):

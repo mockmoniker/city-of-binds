@@ -1,9 +1,10 @@
 from pathlib import Path
-from ..game import Bind
-from ..game import BindFile
-from ...utils import StrPath
-from ...utils import _FileGraphPublisher
-from ..configs.constants import FileExtensions, BFGConstants
+
+from ...utils.file_graph_publisher import _FileGraphPublisher
+from ...utils.types.str_path import StrPath
+from ..configs.constants import BFGConstants, FileExtensions
+from ..game.bind_file.bind_file import BindFile
+from ..game.binds.bind import Bind
 
 
 class BFGPublisher(_FileGraphPublisher):

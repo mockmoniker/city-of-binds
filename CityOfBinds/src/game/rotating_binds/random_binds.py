@@ -1,9 +1,14 @@
+from typing import TYPE_CHECKING
+
+from ...configs.constants import BFGConstants
+from ...content_managers.graph.bind_file_graph import BindFileGraph
+from ..bind_file.bind_file import BindFile
+from .generic_rotating_binds import _RandomOrder
 from .rotating_bind import RotatingBind
 from .wasd_rotating_bind import WASDRotatingBind
-from .generic_rotating_binds import _RandomOrder
-from ...game import BindFile
-from ...content_managers import BindFileGraph
-from ...configs.constants import BFGConstants
+
+if TYPE_CHECKING:
+    pass
 
 
 class RandomBinds(RotatingBind, _RandomOrder):

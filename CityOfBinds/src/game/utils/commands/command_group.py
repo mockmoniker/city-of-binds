@@ -1,7 +1,8 @@
 from typing import Self
-from .command import _Command
-from .. import _Power
+
 from ....configs.constants import GameConstants
+from ..powers.power import _Power
+from .command import _Command
 
 
 class _CommandGroup:

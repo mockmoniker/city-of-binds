@@ -1,8 +1,9 @@
-import re
 import math
+import re
 from abc import ABC, abstractmethod
-from .pool import Pool
+
 from .constants import TemplateConstants
+from .pool import Pool
 
 
 class _Template(ABC):

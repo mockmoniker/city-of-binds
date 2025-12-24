@@ -1,7 +1,8 @@
+from ....utils.templates.pool import Pool
+from ....utils.templates.templates import ListTemplate
+from ...game.utils.commands.command_group import CommandGroupConstants, _CommandGroup
+from ...game.utils.powers.power import _Power
 from .command_factory import _CommandFactory
-from ...game.utils import _Power
-from ...game.utils import _CommandGroup, CommandGroupConstants
-from ....utils import ListTemplate, Pool
 
 
 class _CommandsTemplate(_CommandGroup, ListTemplate):

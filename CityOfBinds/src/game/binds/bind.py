@@ -1,6 +1,8 @@
-from ..utils import _Trigger, _TriggerMixin
-from ..utils import _CommandsMixin, _CommandGroup
 from ...configs.constants import GameConstants
+from ..utils.commands.command_group import _CommandGroup
+from ..utils.commands.commands_mixin import _CommandsMixin
+from ..utils.triggers.trigger import _Trigger
+from ..utils.triggers.trigger_mixin import _TriggerMixin
 
 
 class Bind(_TriggerMixin, _CommandsMixin):

@@ -4,9 +4,8 @@ Generate valid_slash_commands.py directly from JSON data
 """
 
 import json
-from pathlib import Path
 from datetime import datetime, timezone
-
+from pathlib import Path
 
 COMMENT_BANNER = f'''"""
 DO NOT EDIT - Run scripts/{Path(__file__).name} to regenerate

@@ -5,9 +5,11 @@ Provides common fixtures for unit tests, integration tests, and examples.
 """
 
 import os
-import pytest
 from pathlib import Path
-from CityOfBinds import Bind, WASDBind, BindFile, BindTemplate, RotatingBind
+
+import pytest
+
+from CityOfBinds import Bind, BindFile, BindTemplate, RotatingBind, WASDBind
 
 
 @pytest.fixture

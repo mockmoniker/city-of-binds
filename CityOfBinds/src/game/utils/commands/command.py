@@ -1,7 +1,4 @@
-from ....configs.valid_input import (
-    VALID_SLASH_COMMANDS,
-    VALID_SLASH_COMMAND_PREFIXES,
-)
+from ....configs.valid_input import VALID_SLASH_COMMAND_PREFIXES, VALID_SLASH_COMMANDS
 
 
 class _Command:

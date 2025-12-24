@@ -1,6 +1,8 @@
-from ...game import Bind, WASDBind
-from ..utils import _CommandsTemplate
-from ...game.utils import _WASDTrigger, _TriggerMixin
+from ...game.binds.bind import Bind
+from ...game.binds.wasd_binds import WASDBind
+from ...game.utils.triggers.trigger_mixin import _TriggerMixin
+from ...game.utils.triggers.wasd_trigger import _WASDTrigger
+from ..utils.commands_template import _CommandsTemplate
 
 
 class BindTemplate(_TriggerMixin, _CommandsTemplate):

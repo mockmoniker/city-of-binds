@@ -1,5 +1,5 @@
-from ....configs.valid_input import TRIGGER_MODIFIERS, TRIGGER_KEYS
 from ....configs.constants import GameConstants
+from ....configs.valid_input import TRIGGER_KEYS, TRIGGER_MODIFIERS
 
 
 class _Trigger:

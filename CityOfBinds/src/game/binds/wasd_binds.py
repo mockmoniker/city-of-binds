@@ -1,6 +1,6 @@
+from ..utils.commands.command_group import _CommandGroup
+from ..utils.triggers.wasd_trigger import _WASDTrigger
 from .bind import Bind
-from ..utils import _WASDTrigger
-from ..utils import _CommandGroup
 
 
 class WASDBind(Bind):

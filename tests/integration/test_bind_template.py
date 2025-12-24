@@ -6,8 +6,8 @@ including power pools and command generation.
 """
 
 import pytest
-from CityOfBinds import Bind
-from CityOfBinds import BindTemplate
+
+from CityOfBinds import Bind, BindTemplate
 
 
 class TestBindTemplateCreation:

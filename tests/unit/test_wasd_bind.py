@@ -6,6 +6,7 @@ for basic bind functionality inherited from the base Bind class.
 """
 
 import pytest
+
 from CityOfBinds import WASDBind
 
 

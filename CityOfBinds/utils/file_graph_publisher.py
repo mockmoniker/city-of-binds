@@ -1,10 +1,11 @@
-import tempfile
 import shutil
+import tempfile
 from abc import ABC, abstractmethod
-from typing import Protocol, Iterator, Callable, TypeAlias
 from pathlib import Path
+from typing import Callable, Iterator, Protocol, TypeAlias
+
 from .pathgenerator import PathGenerator
-from .types import StrPath
+from .types.str_path import StrPath
 
 PathFactoryConstructor: TypeAlias = Callable[[int, StrPath], "PathFactoryProtocol"]
 

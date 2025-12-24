@@ -1,4 +1,5 @@
 import pytest
+
 from CityOfBinds.src.game.utils import _Command
 
 
