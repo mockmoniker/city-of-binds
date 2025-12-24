@@ -230,6 +230,22 @@ class TestBindCommandsModification:
         assert bind.commands[1] == "powexectoggleon dark nova"
         assert bind.commands[2] == "powexecauto dark nova blast"
 
+    def test_insert_commands_at_index(self):
+        """Should allow inserting commands at specific indices."""
+        bind = Bind("F1", ["say hi", "say hello", "say konichiwa"])
+        # act
+        bind.commands.add_command("say aloha", index=1)
+        bind.commands.add_command("say bonjour", index=-1)
+        bind.commands.add_command("say hola", index=999)
+        # assert
+        assert len(bind.commands) == 6
+        assert bind.commands[0] == "say hi"
+        assert bind.commands[1] == "say aloha"
+        assert bind.commands[2] == "say hello"
+        assert bind.commands[3] == "say bonjour"
+        assert bind.commands[4] == "say konichiwa"
+        assert bind.commands[5] == "say hola"
+
 
 class TestBindRepresentation:
     """Test Bind representation."""

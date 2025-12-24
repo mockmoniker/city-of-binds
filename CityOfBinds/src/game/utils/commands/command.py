@@ -140,8 +140,10 @@ class _Command:
         return self._build_command_string()
 
     def __eq__(self, other):
-        if not isinstance(other, _Command):
-            return False
-        return str(self) == str(other)
+        if isinstance(other, _Command):
+            return str(self) == str(other)
+        elif isinstance(other, str):
+            return str(self) == other
+        return False
 
     # endregion
