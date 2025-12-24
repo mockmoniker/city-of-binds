@@ -16,7 +16,6 @@ class TestBindFileCreation:
     def test_empty_bind_file(self):
         """Should create empty bind file."""
         bf = BindFile()
-        assert bf.is_empty()
         assert len(bf.contents) == 0
         assert len(bf.binds) == 0
 
@@ -24,7 +23,6 @@ class TestBindFileCreation:
         """Should create bind file with single bind."""
         bind = Bind("Q", ["powexectoggleon dark nova"])
         bf = BindFile([bind])
-        assert not bf.is_empty()
         assert len(bf.contents) == 1
         assert len(bf.binds) == 1
 
@@ -40,7 +38,6 @@ class TestBindFileCreation:
         """Should create bind file with single comment."""
         comment = _Comment("This is a comment")
         bf = BindFile([comment])
-        assert not bf.is_empty()
         assert len(bf.contents) == 1
         assert len(bf.binds) == 0
 
@@ -49,7 +46,6 @@ class TestBindFileCreation:
         comment1 = _Comment("First comment")
         comment2 = _Comment("Second comment")
         bf = BindFile([comment1, comment2])
-        assert not bf.is_empty()
         assert len(bf.contents) == 2
         assert len(bf.binds) == 0
 
@@ -57,7 +53,6 @@ class TestBindFileCreation:
         """Should create bind file with comment banner."""
         comment = _CommentBanner("This is a banner")
         bf = BindFile([comment])
-        assert not bf.is_empty()
         assert len(bf.contents) == 1
         assert len(bf.binds) == 0
 
@@ -151,21 +146,6 @@ class TestBindFileModification:
         bf.contents = [comment_banner, comment1, bind1, comment2, bind2]
         assert len(bf.contents) == 5
         assert len(bf.binds) == 2
-
-
-class TestBindFileRepresentation:
-    """Test BindFile representation methods."""
-
-    def test_is_empty_true(self):
-        """Should return True for empty bind file."""
-        bf = BindFile()
-        assert bf.is_empty()
-
-    def test_is_empty_false(self):
-        """Should return False for non-empty bind file."""
-        bind = Bind("Q", ["powexectoggleon dark nova"])
-        bf = BindFile([bind])
-        assert not bf.is_empty()
 
 
 class TestBindFilePreviewRepresentation:
@@ -352,6 +332,17 @@ class TestBindFileWriteRepresentation:
 # TODO: write error tests (2025/12/23)
 class TestBindFileValidation:
     """Test BindFile validation methods."""
+
+    def test_is_empty_true(self):
+        """Should return True for empty bind file."""
+        bf = BindFile()
+        assert bf.is_empty()
+
+    def test_is_empty_false(self):
+        """Should return False for non-empty bind file."""
+        bind = Bind("Q", ["powexectoggleon dark nova"])
+        bf = BindFile([bind])
+        assert not bf.is_empty()
 
     def test_invalid_content_type_in_constructor(self):
         """Should reject invalid content types."""

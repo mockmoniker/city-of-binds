@@ -4,7 +4,7 @@ from ...content_managers import WASDBindTemplate
 from ...content_managers import RotationPolicy
 
 
-class WASDRotatingBind(_GenericRotatingBind, _LoopTopology):
+class WASDRotatingBind(_LoopTopology, _GenericRotatingBind):
     def __init__(
         self,
         include_jump: bool = False,

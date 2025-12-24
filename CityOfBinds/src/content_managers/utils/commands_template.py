@@ -19,6 +19,17 @@ class _CommandsTemplate(_CommandGroup, ListTemplate):
             CommandGroupConstants.POWEXEC_TOGGLE_ON, [_Power(power) for power in powers]
         )
 
+    def add_toggle_off_power_pool(self, powers: list[str]) -> "_CommandsTemplate":
+        return self.add_command_arguments_pool(
+            CommandGroupConstants.POWEXEC_TOGGLE_OFF,
+            [_Power(power) for power in powers],
+        )
+
+    def add_auto_power_pool(self, powers: list[str]) -> "_CommandsTemplate":
+        return self.add_command_arguments_pool(
+            CommandGroupConstants.POWEXEC_AUTO, [_Power(power) for power in powers]
+        )
+
     def add_command_arguments_pool(
         self, command: str, *arg_lists: list
     ) -> "_CommandsTemplate":

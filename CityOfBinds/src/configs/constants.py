@@ -8,6 +8,7 @@ class GameConstants:
     COMMANDS_DELIM = "$$"
     OPTIONAL_COMMAND_UNDERSCORE = "_"
     TRIGGER_DELIM = "+"
+    ENABLE_KEY_UP_PREFIX = "+"
 
 
 class BFGConstants:
