@@ -17,15 +17,17 @@ class Pool:
     def __init__(
         self,
         name: str,
-        items: list,
+        items,
         select_behavior: SelectionType = DEFAULT_SELECT_BEHAVIOR,
         is_finite: bool = DEFAULT_IS_FINITE,
         random_seed: int = DEFAULT_RANDOM_SEED,
     ):
         self.name: str = name
-        self.items: list = (
-            items  # TODO: verify list input, decide if it should be mutable (2025/11/27)
-        )
+        # Ensure items is always a list
+        if isinstance(items, list):
+            self.items: list = items
+        else:
+            self.items: list = [items]
         self.is_finite: bool = is_finite
         self._select_type: SelectionType = select_behavior
         self.random_seed: int = random_seed

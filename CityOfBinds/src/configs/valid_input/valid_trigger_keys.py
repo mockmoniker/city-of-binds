@@ -1,6 +1,4 @@
-VALID_WASD_KEYS: set[str] = {"W", "A", "S", "D", "SPACE"}
-
-VALID_LETTER_KEYS: set[str] = {
+LETTER_KEYS: set[str] = {
     "A",
     "B",
     "C",
@@ -29,7 +27,7 @@ VALID_LETTER_KEYS: set[str] = {
     "Z",
 }
 
-VALID_NUMBER_KEYS: set[str] = {
+NUMBER_KEYS: set[str] = {
     "0",
     "1",
     "2",
@@ -42,7 +40,7 @@ VALID_NUMBER_KEYS: set[str] = {
     "9",
 }
 
-VALID_FUNCTION_KEYS: set[str] = {
+FUNCTION_KEYS: set[str] = {
     "F1",
     "F2",
     "F3",
@@ -57,7 +55,7 @@ VALID_FUNCTION_KEYS: set[str] = {
     "F12",
 }
 
-VALID_SYMBOL_KEYS: set[str] = {
+SYMBOL_KEYS: set[str] = {
     "`",
     "TILDE",
     "-",
@@ -84,7 +82,7 @@ VALID_SYMBOL_KEYS: set[str] = {
     "SPACE",
 }
 
-VALID_SYSTEM_KEYS: set[str] = {
+SYSTEM_KEYS: set[str] = {
     "ESC",
     "ESCAPE",
     "APPS",
@@ -95,7 +93,7 @@ VALID_SYSTEM_KEYS: set[str] = {
     "DELETE",
 }
 
-VALID_NAVIGATION_KEYS: set[str] = {
+NAVIGATION_KEYS: set[str] = {
     "HOME",
     "END",
     "PAGEUP",
@@ -104,7 +102,7 @@ VALID_NAVIGATION_KEYS: set[str] = {
     "NEXT",
 }
 
-VALID_ARROW_KEYS: set[str] = {
+ARROW_KEYS: set[str] = {
     "UPARROW",
     "UP",
     "DOWNARROW",
@@ -115,7 +113,7 @@ VALID_ARROW_KEYS: set[str] = {
     "RIGHT",
 }
 
-VALID_MODIFIER_KEYS: set[str] = {
+MODIFIER_KEYS: set[str] = {
     "LSHIFT",
     "RSHIFT",
     "LALT",
@@ -130,13 +128,13 @@ VALID_MODIFIER_KEYS: set[str] = {
     "LWIN",
 }
 
-VALID_INTERNATIONAL_KEYS: set[str] = {
+INTERNATIONAL_KEYS: set[str] = {
     "KANJI",
     "CONVERT",
     "KANA",
 }
 
-VALID_NUMPAD_KEYS: set[str] = {
+NUMPAD_KEYS: set[str] = {
     "NUMPAD0",
     "NUMPAD1",
     "NUMPAD2",
@@ -156,7 +154,7 @@ VALID_NUMPAD_KEYS: set[str] = {
     "NUMPADENTER",
 }
 
-VALID_MOUSE_KEYS: set[str] = {
+MOUSE_KEYS: set[str] = {
     "LBUTTON",
     "LEFTCLICK",
     "LCLICK",
@@ -189,7 +187,7 @@ VALID_MOUSE_KEYS: set[str] = {
     "MOUSEWHEEL_BACKWARD",
 }
 
-VALID_CONTROLLER_KEYS: set[str] = {
+CONTROLLER_KEYS: set[str] = {
     "JOY1",
     "ABUTTON",
     "CROSSBUTTON",
@@ -277,17 +275,17 @@ VALID_CONTROLLER_KEYS: set[str] = {
     "POV3_RIGHT",
 }
 
-VALID_TRIGGER_KEYS: set[str] = (
-    VALID_LETTER_KEYS
-    | VALID_NUMBER_KEYS
-    | VALID_FUNCTION_KEYS
-    | VALID_SYMBOL_KEYS
-    | VALID_SYSTEM_KEYS
-    | VALID_NAVIGATION_KEYS
-    | VALID_ARROW_KEYS
-    | VALID_MODIFIER_KEYS
-    | VALID_INTERNATIONAL_KEYS
-    | VALID_NUMPAD_KEYS
-    | VALID_MOUSE_KEYS
-    | VALID_CONTROLLER_KEYS
+TRIGGER_KEYS: set[str] = (
+    LETTER_KEYS
+    | NUMBER_KEYS
+    | FUNCTION_KEYS
+    | SYMBOL_KEYS
+    | SYSTEM_KEYS
+    | NAVIGATION_KEYS
+    | ARROW_KEYS
+    | MODIFIER_KEYS
+    | INTERNATIONAL_KEYS
+    | NUMPAD_KEYS
+    | MOUSE_KEYS
+    | CONTROLLER_KEYS
 )
