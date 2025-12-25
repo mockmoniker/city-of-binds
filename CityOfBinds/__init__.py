@@ -1,4 +1,5 @@
 # /CityOfBinds/__init__.py
+from ._version import __author__, __email__, __version__
 from .src.content_managers.graph.bind_file_graph import BindFileGraph
 from .src.content_managers.templates.bind_file_template import (
     BindFileTemplate,

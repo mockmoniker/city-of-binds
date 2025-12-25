@@ -1,8 +1,7 @@
-import copy
 import random
 from abc import ABC, abstractmethod
 
-from ....utils.types import StrPath
+from ....utils.types.str_path import StrPath
 from ...configs.constants import BFGConstants
 from ...content_managers.graph.bind_file_graph import BindFileGraph
 from ...content_managers.templates.bind_file_template import (

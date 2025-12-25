@@ -17,14 +17,7 @@ A Python library for creating advanced key binds for City of Heroes. Whether you
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
-   
-   source/modules
-
-
-.. toctree::
-   :maxdepth: 2
    :caption: API Reference:
    
-   source/CityOfBinds
+   source/modules
 

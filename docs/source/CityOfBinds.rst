@@ -1,14 +1,6 @@
 CityOfBinds package
 ===================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   CityOfBinds.utils
-
 Module contents
 ---------------
 

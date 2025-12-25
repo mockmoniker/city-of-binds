@@ -11,10 +11,13 @@ sys.path.insert(0, os.path.abspath("../"))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
+# Read version and metadata from package
+import CityOfBinds
+
 project = "CityOfBinds"
-copyright = "2025, brandon wade"
-author = "brandon wade"
-release = "0.0.1"
+author = CityOfBinds.__author__
+copyright = f"2025, {author}"
+release = CityOfBinds.__version__
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
