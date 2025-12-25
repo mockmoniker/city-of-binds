@@ -1,0 +1,424 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CityOfBinds.utils package &mdash; CityOfBinds 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CityOfBinds.utils.types package" href="CityOfBinds.utils.types.html" />
+    <link rel="prev" title="CityOfBinds package" href="CityOfBinds.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CityOfBinds
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">CityOfBinds</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="CityOfBinds.html">CityOfBinds package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="CityOfBinds.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">CityOfBinds.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#module-CityOfBinds">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="CityOfBinds.html">CityOfBinds package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="CityOfBinds.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">CityOfBinds.utils package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-CityOfBinds.utils.baseconverter">CityOfBinds.utils.baseconverter module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-CityOfBinds.utils.file_graph_publisher">CityOfBinds.utils.file_graph_publisher module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-CityOfBinds.utils.pathgenerator">CityOfBinds.utils.pathgenerator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-CityOfBinds.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CityOfBinds.html#module-CityOfBinds">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CityOfBinds</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">CityOfBinds</a></li>
+          <li class="breadcrumb-item"><a href="CityOfBinds.html">CityOfBinds package</a></li>
+      <li class="breadcrumb-item active">CityOfBinds.utils package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/CityOfBinds.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cityofbinds-utils-package">
+<h1>CityOfBinds.utils package<a class="headerlink" href="#cityofbinds-utils-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="CityOfBinds.utils.types.html">CityOfBinds.utils.types package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CityOfBinds.utils.types.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CityOfBinds.utils.types.html#module-CityOfBinds.utils.types.str_path">CityOfBinds.utils.types.str_path module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CityOfBinds.utils.types.html#module-CityOfBinds.utils.types">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-CityOfBinds.utils.baseconverter">
+<span id="cityofbinds-utils-baseconverter-module"></span><h2>CityOfBinds.utils.baseconverter module<a class="headerlink" href="#module-CityOfBinds.utils.baseconverter" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.utils.baseconverter.BaseConverter">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.utils.baseconverter.</span></span><span class="sig-name descname"><span class="pre">BaseConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alphabet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'0123456789ABCDEF'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/utils/baseconverter.html#BaseConverter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.baseconverter.BaseConverter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Converts numerical indices to string representations using a configurable alphabet.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.baseconverter.BaseConverter.DEFAULT_ALPHABET">
+<span class="sig-name descname"><span class="pre">DEFAULT_ALPHABET</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'0123456789ABCDEF'</span></span><a class="headerlink" href="#CityOfBinds.utils.baseconverter.BaseConverter.DEFAULT_ALPHABET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="CityOfBinds.utils.baseconverter.BaseConverter.alphabet">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">alphabet</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#CityOfBinds.utils.baseconverter.BaseConverter.alphabet" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="CityOfBinds.utils.baseconverter.BaseConverter.base">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">base</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#CityOfBinds.utils.baseconverter.BaseConverter.base" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.utils.baseconverter.BaseConverter.convert">
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_alphabet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/CityOfBinds/utils/baseconverter.html#BaseConverter.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.baseconverter.BaseConverter.convert" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-CityOfBinds.utils.file_graph_publisher">
+<span id="cityofbinds-utils-file-graph-publisher-module"></span><h2>CityOfBinds.utils.file_graph_publisher module<a class="headerlink" href="#module-CityOfBinds.utils.file_graph_publisher" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.utils.file_graph_publisher.FileGraphDefaults">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.utils.file_graph_publisher.</span></span><span class="sig-name descname"><span class="pre">FileGraphDefaults</span></span><a class="reference internal" href="../_modules/CityOfBinds/utils/file_graph_publisher.html#FileGraphDefaults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.file_graph_publisher.FileGraphDefaults" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.ABSOLUTE_PATH_LINKS">
+<span class="sig-name descname"><span class="pre">ABSOLUTE_PATH_LINKS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.ABSOLUTE_PATH_LINKS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.ARCHIVE_FORMAT">
+<span class="sig-name descname"><span class="pre">ARCHIVE_FORMAT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'zip'</span></span><a class="headerlink" href="#CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.ARCHIVE_FORMAT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.FILE_GRAPH_KEY">
+<span class="sig-name descname"><span class="pre">FILE_GRAPH_KEY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'file'</span></span><a class="headerlink" href="#CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.FILE_GRAPH_KEY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.PARENT_FOLDER">
+<span class="sig-name descname"><span class="pre">PARENT_FOLDER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'file_graph'</span></span><a class="headerlink" href="#CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.PARENT_FOLDER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.PATH_FACTORY">
+<span class="sig-name descname"><span class="pre">PATH_FACTORY</span></span><a class="headerlink" href="#CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.PATH_FACTORY" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#CityOfBinds.utils.pathgenerator.PathGenerator" title="CityOfBinds.utils.pathgenerator.PathGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathGenerator</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.PUBLISH_DIRECTORY">
+<span class="sig-name descname"><span class="pre">PUBLISH_DIRECTORY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.'</span></span><a class="headerlink" href="#CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.PUBLISH_DIRECTORY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.utils.file_graph_publisher.FileGraphProtocol">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.utils.file_graph_publisher.</span></span><span class="sig-name descname"><span class="pre">FileGraphProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/utils/file_graph_publisher.html#FileGraphProtocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.file_graph_publisher.FileGraphProtocol" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.utils.file_graph_publisher.FileGraphProtocol.nodes">
+<span class="sig-name descname"><span class="pre">nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span></span></span><a class="reference internal" href="../_modules/CityOfBinds/utils/file_graph_publisher.html#FileGraphProtocol.nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.file_graph_publisher.FileGraphProtocol.nodes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.utils.file_graph_publisher.FileGraphProtocol.out_edges">
+<span class="sig-name descname"><span class="pre">out_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/CityOfBinds/utils/file_graph_publisher.html#FileGraphProtocol.out_edges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.file_graph_publisher.FileGraphProtocol.out_edges" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.utils.file_graph_publisher.PathFactoryProtocol">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.utils.file_graph_publisher.</span></span><span class="sig-name descname"><span class="pre">PathFactoryProtocol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/utils/file_graph_publisher.html#PathFactoryProtocol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.file_graph_publisher.PathFactoryProtocol" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Protocol</span></code></p>
+</dd></dl>
+
+</section>
+<section id="module-CityOfBinds.utils.pathgenerator">
+<span id="cityofbinds-utils-pathgenerator-module"></span><h2>CityOfBinds.utils.pathgenerator module<a class="headerlink" href="#module-CityOfBinds.utils.pathgenerator" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.utils.pathgenerator.PathGenerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.utils.pathgenerator.</span></span><span class="sig-name descname"><span class="pre">PathGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_folder_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_files_per_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_padding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_alphabet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/utils/pathgenerator.html#PathGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.pathgenerator.PathGenerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.pathgenerator.PathGenerator.DEFAULT_MAX_FILES_PER_FOLDER">
+<span class="sig-name descname"><span class="pre">DEFAULT_MAX_FILES_PER_FOLDER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">256</span></span><a class="headerlink" href="#CityOfBinds.utils.pathgenerator.PathGenerator.DEFAULT_MAX_FILES_PER_FOLDER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.pathgenerator.PathGenerator.DEFAULT_PADDING_BEHAVIOR">
+<span class="sig-name descname"><span class="pre">DEFAULT_PADDING_BEHAVIOR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#CityOfBinds.utils.pathgenerator.PathGenerator.DEFAULT_PADDING_BEHAVIOR" title="Link to this definition"></a></dt>
+<dd><p>Generates a folder/file path based off maximum files and max files per folder.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.pathgenerator.PathGenerator.DEFAULT_PARENT_FOLDER_NAME">
+<span class="sig-name descname"><span class="pre">DEFAULT_PARENT_FOLDER_NAME</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#CityOfBinds.utils.pathgenerator.PathGenerator.DEFAULT_PARENT_FOLDER_NAME" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="CityOfBinds.utils.pathgenerator.PathGenerator.folder_depth">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">folder_depth</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#CityOfBinds.utils.pathgenerator.PathGenerator.folder_depth" title="Link to this definition"></a></dt>
+<dd><p>Public property to get the folder depth (excluding file level).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.utils.pathgenerator.PathGenerator.get_path">
+<span class="sig-name descname"><span class="pre">get_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="../_modules/CityOfBinds/utils/pathgenerator.html#PathGenerator.get_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.pathgenerator.PathGenerator.get_path" title="Link to this definition"></a></dt>
+<dd><p>Generate the folder/file path for a specific file index.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="CityOfBinds.utils.pathgenerator.PathGenerator.max_path_length">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">max_path_length</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#CityOfBinds.utils.pathgenerator.PathGenerator.max_path_length" title="Link to this definition"></a></dt>
+<dd><p>Public property to get the maximum length of the entire file path.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-CityOfBinds.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-CityOfBinds.utils" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.utils.BaseConverter">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.utils.</span></span><span class="sig-name descname"><span class="pre">BaseConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alphabet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'0123456789ABCDEF'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/utils/baseconverter.html#BaseConverter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.BaseConverter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Converts numerical indices to string representations using a configurable alphabet.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.BaseConverter.DEFAULT_ALPHABET">
+<span class="sig-name descname"><span class="pre">DEFAULT_ALPHABET</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'0123456789ABCDEF'</span></span><a class="headerlink" href="#CityOfBinds.utils.BaseConverter.DEFAULT_ALPHABET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="CityOfBinds.utils.BaseConverter.alphabet">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">alphabet</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#CityOfBinds.utils.BaseConverter.alphabet" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="CityOfBinds.utils.BaseConverter.base">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">base</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#CityOfBinds.utils.BaseConverter.base" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.utils.BaseConverter.convert">
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_alphabet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/CityOfBinds/utils/baseconverter.html#BaseConverter.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.BaseConverter.convert" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.utils.ListTemplate">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.utils.</span></span><span class="sig-name descname"><span class="pre">ListTemplate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/utils/templates/templates.html#ListTemplate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.ListTemplate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_Template</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.utils.PathGenerator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.utils.</span></span><span class="sig-name descname"><span class="pre">PathGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_folder_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_files_per_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_padding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_alphabet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/utils/pathgenerator.html#PathGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.PathGenerator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.PathGenerator.DEFAULT_MAX_FILES_PER_FOLDER">
+<span class="sig-name descname"><span class="pre">DEFAULT_MAX_FILES_PER_FOLDER</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">256</span></span><a class="headerlink" href="#CityOfBinds.utils.PathGenerator.DEFAULT_MAX_FILES_PER_FOLDER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.PathGenerator.DEFAULT_PADDING_BEHAVIOR">
+<span class="sig-name descname"><span class="pre">DEFAULT_PADDING_BEHAVIOR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#CityOfBinds.utils.PathGenerator.DEFAULT_PADDING_BEHAVIOR" title="Link to this definition"></a></dt>
+<dd><p>Generates a folder/file path based off maximum files and max files per folder.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.PathGenerator.DEFAULT_PARENT_FOLDER_NAME">
+<span class="sig-name descname"><span class="pre">DEFAULT_PARENT_FOLDER_NAME</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></span><a class="headerlink" href="#CityOfBinds.utils.PathGenerator.DEFAULT_PARENT_FOLDER_NAME" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="CityOfBinds.utils.PathGenerator.folder_depth">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">folder_depth</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#CityOfBinds.utils.PathGenerator.folder_depth" title="Link to this definition"></a></dt>
+<dd><p>Public property to get the folder depth (excluding file level).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.utils.PathGenerator.get_path">
+<span class="sig-name descname"><span class="pre">get_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Path</span></span></span><a class="reference internal" href="../_modules/CityOfBinds/utils/pathgenerator.html#PathGenerator.get_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.PathGenerator.get_path" title="Link to this definition"></a></dt>
+<dd><p>Generate the folder/file path for a specific file index.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="CityOfBinds.utils.PathGenerator.max_path_length">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">max_path_length</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#CityOfBinds.utils.PathGenerator.max_path_length" title="Link to this definition"></a></dt>
+<dd><p>Public property to get the maximum length of the entire file path.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.utils.Pool">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.utils.</span></span><span class="sig-name descname"><span class="pre">Pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">items</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_behavior</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SelectionType</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">SelectionType.SEQUENTIAL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_finite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3735928559</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/utils/templates/pool.html#Pool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.Pool" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.Pool.DEFAULT_IS_FINITE">
+<span class="sig-name descname"><span class="pre">DEFAULT_IS_FINITE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#CityOfBinds.utils.Pool.DEFAULT_IS_FINITE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.Pool.DEFAULT_RANDOM_SEED">
+<span class="sig-name descname"><span class="pre">DEFAULT_RANDOM_SEED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3735928559</span></span><a class="headerlink" href="#CityOfBinds.utils.Pool.DEFAULT_RANDOM_SEED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.utils.Pool.DEFAULT_SELECT_BEHAVIOR">
+<span class="sig-name descname"><span class="pre">DEFAULT_SELECT_BEHAVIOR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#CityOfBinds.utils.Pool.DEFAULT_SELECT_BEHAVIOR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="CityOfBinds.utils.Pool.access_count">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">access_count</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#CityOfBinds.utils.Pool.access_count" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.utils.Pool.peek">
+<span class="sig-name descname"><span class="pre">peek</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/utils/templates/pool.html#Pool.peek"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.Pool.peek" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.utils.Pool.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/utils/templates/pool.html#Pool.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.Pool.pop" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.utils.Pool.set_select_behavior">
+<span class="sig-name descname"><span class="pre">set_select_behavior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">behavior</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SelectionType</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/utils/templates/pool.html#Pool.set_select_behavior"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.Pool.set_select_behavior" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.utils.StringTemplate">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.utils.</span></span><span class="sig-name descname"><span class="pre">StringTemplate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pools</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#CityOfBinds.utils.Pool" title="CityOfBinds.utils.templates.pool.Pool"><span class="pre">Pool</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/utils/templates/templates.html#StringTemplate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.StringTemplate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_Template</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.utils.StringTemplate.add_pool">
+<span class="sig-name descname"><span class="pre">add_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pool</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#CityOfBinds.utils.Pool" title="CityOfBinds.utils.templates.pool.Pool"><span class="pre">Pool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#CityOfBinds.utils.StringTemplate" title="CityOfBinds.utils.templates.templates.StringTemplate"><span class="pre">StringTemplate</span></a></span></span><a class="reference internal" href="../_modules/CityOfBinds/utils/templates/templates.html#StringTemplate.add_pool"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.StringTemplate.add_pool" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.utils.StringTemplate.add_pools">
+<span class="sig-name descname"><span class="pre">add_pools</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pools</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#CityOfBinds.utils.Pool" title="CityOfBinds.utils.templates.pool.Pool"><span class="pre">Pool</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#CityOfBinds.utils.StringTemplate" title="CityOfBinds.utils.templates.templates.StringTemplate"><span class="pre">StringTemplate</span></a></span></span><a class="reference internal" href="../_modules/CityOfBinds/utils/templates/templates.html#StringTemplate.add_pools"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.utils.StringTemplate.add_pools" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="CityOfBinds.html" class="btn btn-neutral float-left" title="CityOfBinds package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="CityOfBinds.utils.types.html" class="btn btn-neutral float-right" title="CityOfBinds.utils.types package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, brandon wade.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

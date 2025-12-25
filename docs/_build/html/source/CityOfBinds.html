@@ -1,0 +1,1180 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CityOfBinds package &mdash; CityOfBinds 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CityOfBinds.utils package" href="CityOfBinds.utils.html" />
+    <link rel="prev" title="CityOfBinds" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CityOfBinds
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">CityOfBinds</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">CityOfBinds package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html">CityOfBinds.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-CityOfBinds">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BFGPublisher"><code class="docutils literal notranslate"><span class="pre">BFGPublisher</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.Bind"><code class="docutils literal notranslate"><span class="pre">Bind</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFile"><code class="docutils literal notranslate"><span class="pre">BindFile</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileGraph"><code class="docutils literal notranslate"><span class="pre">BindFileGraph</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileTemplate"><code class="docutils literal notranslate"><span class="pre">BindFileTemplate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindTemplate"><code class="docutils literal notranslate"><span class="pre">BindTemplate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.RandomBinds"><code class="docutils literal notranslate"><span class="pre">RandomBinds</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.RandomWalk"><code class="docutils literal notranslate"><span class="pre">RandomWalk</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.RotatingBind"><code class="docutils literal notranslate"><span class="pre">RotatingBind</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.WASDBind"><code class="docutils literal notranslate"><span class="pre">WASDBind</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.WASDBindTemplate"><code class="docutils literal notranslate"><span class="pre">WASDBindTemplate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.WASDRotatingBind"><code class="docutils literal notranslate"><span class="pre">WASDRotatingBind</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.iWASDBind"><code class="docutils literal notranslate"><span class="pre">iWASDBind</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CityOfBinds package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.utils.html">CityOfBinds.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-CityOfBinds">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#CityOfBinds.BFGPublisher"><code class="docutils literal notranslate"><span class="pre">BFGPublisher</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BFGPublisher.is_silent"><code class="docutils literal notranslate"><span class="pre">BFGPublisher.is_silent</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#CityOfBinds.Bind"><code class="docutils literal notranslate"><span class="pre">Bind</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.Bind.trigger_on_key_up"><code class="docutils literal notranslate"><span class="pre">Bind.trigger_on_key_up</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.Bind.bind_length"><code class="docutils literal notranslate"><span class="pre">Bind.bind_length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.Bind.bind_string"><code class="docutils literal notranslate"><span class="pre">Bind.bind_string</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.Bind.is_empty"><code class="docutils literal notranslate"><span class="pre">Bind.is_empty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.Bind.is_over_bind_length"><code class="docutils literal notranslate"><span class="pre">Bind.is_over_bind_length()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.Bind.is_valid"><code class="docutils literal notranslate"><span class="pre">Bind.is_valid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.Bind.validate"><code class="docutils literal notranslate"><span class="pre">Bind.validate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#CityOfBinds.BindFile"><code class="docutils literal notranslate"><span class="pre">BindFile</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFile.contents"><code class="docutils literal notranslate"><span class="pre">BindFile.contents</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFile.add_bind"><code class="docutils literal notranslate"><span class="pre">BindFile.add_bind()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFile.add_comment"><code class="docutils literal notranslate"><span class="pre">BindFile.add_comment()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFile.binds"><code class="docutils literal notranslate"><span class="pre">BindFile.binds</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFile.clear"><code class="docutils literal notranslate"><span class="pre">BindFile.clear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">BindFile.contents</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFile.is_empty"><code class="docutils literal notranslate"><span class="pre">BindFile.is_empty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFile.preview"><code class="docutils literal notranslate"><span class="pre">BindFile.preview()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFile.validate_binds"><code class="docutils literal notranslate"><span class="pre">BindFile.validate_binds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFile.write_to_directory"><code class="docutils literal notranslate"><span class="pre">BindFile.write_to_directory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFile.write_to_file"><code class="docutils literal notranslate"><span class="pre">BindFile.write_to_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#CityOfBinds.BindFileGraph"><code class="docutils literal notranslate"><span class="pre">BindFileGraph</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileGraph.add_bind_file"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.add_bind_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileGraph.add_delay"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.add_delay()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileGraph.chain"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.chain()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileGraph.get_bind_file"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.get_bind_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileGraph.get_incoming_links"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.get_incoming_links()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileGraph.get_outgoing_links"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.get_outgoing_links()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileGraph.get_trigger_conditions"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.get_trigger_conditions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileGraph.link"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.link()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileGraph.loop"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.loop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileGraph.make_k_regular"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.make_k_regular()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#CityOfBinds.BindFileTemplate"><code class="docutils literal notranslate"><span class="pre">BindFileTemplate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileTemplate.include_triggers"><code class="docutils literal notranslate"><span class="pre">BindFileTemplate.include_triggers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileTemplate.exclude_triggers"><code class="docutils literal notranslate"><span class="pre">BindFileTemplate.exclude_triggers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileTemplate.quick_triggers"><code class="docutils literal notranslate"><span class="pre">BindFileTemplate.quick_triggers</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileTemplate.add_bind_template"><code class="docutils literal notranslate"><span class="pre">BindFileTemplate.add_bind_template()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#CityOfBinds.BindTemplate"><code class="docutils literal notranslate"><span class="pre">BindTemplate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindTemplate.BIND_TYPE"><code class="docutils literal notranslate"><span class="pre">BindTemplate.BIND_TYPE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#CityOfBinds.RandomBinds"><code class="docutils literal notranslate"><span class="pre">RandomBinds</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#CityOfBinds.RandomWalk"><code class="docutils literal notranslate"><span class="pre">RandomWalk</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#CityOfBinds.RotatingBind"><code class="docutils literal notranslate"><span class="pre">RotatingBind</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#CityOfBinds.WASDBind"><code class="docutils literal notranslate"><span class="pre">WASDBind</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.WASDBind.TRIGGER_TYPE"><code class="docutils literal notranslate"><span class="pre">WASDBind.TRIGGER_TYPE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#CityOfBinds.WASDBindTemplate"><code class="docutils literal notranslate"><span class="pre">WASDBindTemplate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.WASDBindTemplate.BIND_TYPE"><code class="docutils literal notranslate"><span class="pre">WASDBindTemplate.BIND_TYPE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.WASDBindTemplate.TRIGGER_TYPE"><code class="docutils literal notranslate"><span class="pre">WASDBindTemplate.TRIGGER_TYPE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#CityOfBinds.WASDRotatingBind"><code class="docutils literal notranslate"><span class="pre">WASDRotatingBind</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#CityOfBinds.iWASDBind"><code class="docutils literal notranslate"><span class="pre">iWASDBind</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CityOfBinds</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">CityOfBinds</a></li>
+      <li class="breadcrumb-item active">CityOfBinds package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/CityOfBinds.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cityofbinds-package">
+<h1>CityOfBinds package<a class="headerlink" href="#cityofbinds-package" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="CityOfBinds.utils.html">CityOfBinds.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CityOfBinds.utils.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.utils.types.html">CityOfBinds.utils.types package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.types.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.types.html#module-CityOfBinds.utils.types.str_path">CityOfBinds.utils.types.str_path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.types.html#module-CityOfBinds.utils.types">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CityOfBinds.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CityOfBinds.utils.html#module-CityOfBinds.utils.baseconverter">CityOfBinds.utils.baseconverter module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.baseconverter.BaseConverter"><code class="docutils literal notranslate"><span class="pre">BaseConverter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.baseconverter.BaseConverter.DEFAULT_ALPHABET"><code class="docutils literal notranslate"><span class="pre">BaseConverter.DEFAULT_ALPHABET</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.baseconverter.BaseConverter.alphabet"><code class="docutils literal notranslate"><span class="pre">BaseConverter.alphabet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.baseconverter.BaseConverter.base"><code class="docutils literal notranslate"><span class="pre">BaseConverter.base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.baseconverter.BaseConverter.convert"><code class="docutils literal notranslate"><span class="pre">BaseConverter.convert()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CityOfBinds.utils.html#module-CityOfBinds.utils.file_graph_publisher">CityOfBinds.utils.file_graph_publisher module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.file_graph_publisher.FileGraphDefaults"><code class="docutils literal notranslate"><span class="pre">FileGraphDefaults</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.ABSOLUTE_PATH_LINKS"><code class="docutils literal notranslate"><span class="pre">FileGraphDefaults.ABSOLUTE_PATH_LINKS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.ARCHIVE_FORMAT"><code class="docutils literal notranslate"><span class="pre">FileGraphDefaults.ARCHIVE_FORMAT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.FILE_GRAPH_KEY"><code class="docutils literal notranslate"><span class="pre">FileGraphDefaults.FILE_GRAPH_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.PARENT_FOLDER"><code class="docutils literal notranslate"><span class="pre">FileGraphDefaults.PARENT_FOLDER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.PATH_FACTORY"><code class="docutils literal notranslate"><span class="pre">FileGraphDefaults.PATH_FACTORY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.file_graph_publisher.FileGraphDefaults.PUBLISH_DIRECTORY"><code class="docutils literal notranslate"><span class="pre">FileGraphDefaults.PUBLISH_DIRECTORY</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.file_graph_publisher.FileGraphProtocol"><code class="docutils literal notranslate"><span class="pre">FileGraphProtocol</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.file_graph_publisher.FileGraphProtocol.nodes"><code class="docutils literal notranslate"><span class="pre">FileGraphProtocol.nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.file_graph_publisher.FileGraphProtocol.out_edges"><code class="docutils literal notranslate"><span class="pre">FileGraphProtocol.out_edges()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.file_graph_publisher.PathFactoryProtocol"><code class="docutils literal notranslate"><span class="pre">PathFactoryProtocol</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CityOfBinds.utils.html#module-CityOfBinds.utils.pathgenerator">CityOfBinds.utils.pathgenerator module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.pathgenerator.PathGenerator"><code class="docutils literal notranslate"><span class="pre">PathGenerator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.pathgenerator.PathGenerator.DEFAULT_MAX_FILES_PER_FOLDER"><code class="docutils literal notranslate"><span class="pre">PathGenerator.DEFAULT_MAX_FILES_PER_FOLDER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.pathgenerator.PathGenerator.DEFAULT_PADDING_BEHAVIOR"><code class="docutils literal notranslate"><span class="pre">PathGenerator.DEFAULT_PADDING_BEHAVIOR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.pathgenerator.PathGenerator.DEFAULT_PARENT_FOLDER_NAME"><code class="docutils literal notranslate"><span class="pre">PathGenerator.DEFAULT_PARENT_FOLDER_NAME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.pathgenerator.PathGenerator.folder_depth"><code class="docutils literal notranslate"><span class="pre">PathGenerator.folder_depth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.pathgenerator.PathGenerator.get_path"><code class="docutils literal notranslate"><span class="pre">PathGenerator.get_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.pathgenerator.PathGenerator.max_path_length"><code class="docutils literal notranslate"><span class="pre">PathGenerator.max_path_length</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CityOfBinds.utils.html#module-CityOfBinds.utils">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.BaseConverter"><code class="docutils literal notranslate"><span class="pre">BaseConverter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.BaseConverter.DEFAULT_ALPHABET"><code class="docutils literal notranslate"><span class="pre">BaseConverter.DEFAULT_ALPHABET</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.BaseConverter.alphabet"><code class="docutils literal notranslate"><span class="pre">BaseConverter.alphabet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.BaseConverter.base"><code class="docutils literal notranslate"><span class="pre">BaseConverter.base</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.BaseConverter.convert"><code class="docutils literal notranslate"><span class="pre">BaseConverter.convert()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.ListTemplate"><code class="docutils literal notranslate"><span class="pre">ListTemplate</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.PathGenerator"><code class="docutils literal notranslate"><span class="pre">PathGenerator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.PathGenerator.DEFAULT_MAX_FILES_PER_FOLDER"><code class="docutils literal notranslate"><span class="pre">PathGenerator.DEFAULT_MAX_FILES_PER_FOLDER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.PathGenerator.DEFAULT_PADDING_BEHAVIOR"><code class="docutils literal notranslate"><span class="pre">PathGenerator.DEFAULT_PADDING_BEHAVIOR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.PathGenerator.DEFAULT_PARENT_FOLDER_NAME"><code class="docutils literal notranslate"><span class="pre">PathGenerator.DEFAULT_PARENT_FOLDER_NAME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.PathGenerator.folder_depth"><code class="docutils literal notranslate"><span class="pre">PathGenerator.folder_depth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.PathGenerator.get_path"><code class="docutils literal notranslate"><span class="pre">PathGenerator.get_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.PathGenerator.max_path_length"><code class="docutils literal notranslate"><span class="pre">PathGenerator.max_path_length</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.Pool"><code class="docutils literal notranslate"><span class="pre">Pool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.Pool.DEFAULT_IS_FINITE"><code class="docutils literal notranslate"><span class="pre">Pool.DEFAULT_IS_FINITE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.Pool.DEFAULT_RANDOM_SEED"><code class="docutils literal notranslate"><span class="pre">Pool.DEFAULT_RANDOM_SEED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.Pool.DEFAULT_SELECT_BEHAVIOR"><code class="docutils literal notranslate"><span class="pre">Pool.DEFAULT_SELECT_BEHAVIOR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.Pool.access_count"><code class="docutils literal notranslate"><span class="pre">Pool.access_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.Pool.peek"><code class="docutils literal notranslate"><span class="pre">Pool.peek()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.Pool.pop"><code class="docutils literal notranslate"><span class="pre">Pool.pop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.Pool.set_select_behavior"><code class="docutils literal notranslate"><span class="pre">Pool.set_select_behavior()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.StringTemplate"><code class="docutils literal notranslate"><span class="pre">StringTemplate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.StringTemplate.add_pool"><code class="docutils literal notranslate"><span class="pre">StringTemplate.add_pool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.StringTemplate.add_pools"><code class="docutils literal notranslate"><span class="pre">StringTemplate.add_pools()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-CityOfBinds">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-CityOfBinds" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.BFGPublisher">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.</span></span><span class="sig-name descname"><span class="pre">BFGPublisher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_silent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absolute_path_links</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/content_publisher/bfg_publisher.html#BFGPublisher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BFGPublisher" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_FileGraphPublisher</span></code></p>
+<p>Publisher for Bind File Graph (BFG) systems with file linking and cross-referencing.</p>
+<p>BFGPublisher specializes in publishing collections of interconnected bind files that
+can reference and load each other through bind commands. It handles the complex task
+of linking bind files together with conditional trigger-based loading, silent/verbose
+file transitions, and key up press activation.</p>
+<p>The publisher processes bind file graphs where nodes contain BindFile objects and edges
+define linking conditions between files. It automatically injects “bind_load_file”
+commands into appropriate binds based on trigger conditions, enabling sophisticated
+bind file rotation and navigation systems.</p>
+<dl class="simple">
+<dt>Key Features:</dt><dd><ul class="simple">
+<li><p>Conditional bind file linking based on trigger inclusion/exclusion</p></li>
+<li><p>Silent vs verbose file loading modes</p></li>
+<li><p>Key up press activation for quick triggers</p></li>
+<li><p>Automatic file path resolution with proper extensions</p></li>
+<li><p>Integration with file graph publishing infrastructure</p></li>
+</ul>
+</dd>
+<dt>Publisher Behavior:</dt><dd><ul class="simple">
+<li><p>Source files get “bind_load_file” commands added to specified binds</p></li>
+<li><p>Target files get key up press activation for designated quick triggers</p></li>
+<li><p>Linking conditions control which binds receive loading commands</p></li>
+<li><p>File paths automatically receive .txt extensions for game compatibility</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.BFGPublisher.is_silent">
+<span class="sig-name descname"><span class="pre">is_silent</span></span><a class="headerlink" href="#CityOfBinds.BFGPublisher.is_silent" title="Link to this definition"></a></dt>
+<dd><p>Controls whether file transitions use silent mode (no chat messages)</p>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">publisher</span> <span class="o">=</span> <span class="n">BFGPublisher</span><span class="p">(</span><span class="n">is_silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Publish a graph where combat.txt links to travel.txt on F1 press</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span> <span class="o">=</span> <span class="n">create_bind_file_graph</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">publisher</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="s2">&quot;/path/to/output/&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.Bind">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.</span></span><span class="sig-name descname"><span class="pre">Bind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trigger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">commands</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/game/binds/bind.html#Bind"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.Bind" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TriggerMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">_CommandsMixin</span></code></p>
+<p>Represents a game bind that maps a trigger (key + optional modifier) to one or more commands.</p>
+<p>A Bind combines a trigger (like “F1” or “SHIFT+F1”) with a list of slash commands
+to create a bind string that can be used in game bind files.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bind</span> <span class="o">=</span> <span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;powexecname heal other&quot;</span><span class="p">,</span> <span class="s2">&quot;say healing!&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">bind</span><span class="p">)</span>  <span class="c1"># &#39;F1 &quot;powexecname heal other$$say healing!&quot;&#39;</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.Bind.trigger_on_key_up">
+<span class="sig-name descname"><span class="pre">trigger_on_key_up</span></span><a class="headerlink" href="#CityOfBinds.Bind.trigger_on_key_up" title="Link to this definition"></a></dt>
+<dd><p>When true, allows the bind to trigger on key release in addition to key press.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="CityOfBinds.Bind.bind_length">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">bind_length</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#CityOfBinds.Bind.bind_length" title="Link to this definition"></a></dt>
+<dd><p>Get the character length of the bind string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of characters in the complete bind string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="CityOfBinds.Bind.bind_string">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">bind_string</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#CityOfBinds.Bind.bind_string" title="Link to this definition"></a></dt>
+<dd><p>Get the complete bind string ready for use in bind files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>‘TRIGGER “command1$$command2”’</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Formatted bind string in the format</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.Bind.is_empty">
+<span class="sig-name descname"><span class="pre">is_empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/game/binds/bind.html#Bind.is_empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.Bind.is_empty" title="Link to this definition"></a></dt>
+<dd><p>Check if the bind has no commands.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the bind has no commands, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.Bind.is_over_bind_length">
+<span class="sig-name descname"><span class="pre">is_over_bind_length</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/game/binds/bind.html#Bind.is_over_bind_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.Bind.is_over_bind_length" title="Link to this definition"></a></dt>
+<dd><p>Check if the bind string exceeds the maximum allowed length.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if bind string is too long, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.Bind.is_valid">
+<span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/game/binds/bind.html#Bind.is_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.Bind.is_valid" title="Link to this definition"></a></dt>
+<dd><p>Check if the bind is valid without raising exceptions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if bind has commands and is within length limits</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.Bind.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/game/binds/bind.html#Bind.validate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.Bind.validate" title="Link to this definition"></a></dt>
+<dd><p>Validate the bind for common issues.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If bind is empty or exceeds maximum length</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.BindFile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.</span></span><span class="sig-name descname"><span class="pre">BindFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#CityOfBinds.Bind" title="CityOfBinds.src.game.binds.bind.Bind"><span class="pre">Bind</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_Comment</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/game/bind_file/bind_file.html#BindFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFile" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a game bind file containing a collection of Binds and Comments.</p>
+<p>A BindFile manages an ordered collection of bind commands and comments that can be
+written to .txt files for use in City of Heroes/Villains. It provides methods for
+content manipulation, validation, file I/O, and preview generation.</p>
+<p>The BindFile maintains the order of its contents, allowing for precise control over
+how binds and comments appear in the generated file output.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span><span class="o">.</span><span class="n">add_bind</span><span class="p">(</span><span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say hello&quot;</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span><span class="o">.</span><span class="n">add_comment</span><span class="p">(</span><span class="n">_Comment</span><span class="p">(</span><span class="s2">&quot;Greeting binds&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="s2">&quot;my_binds.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.BindFile.contents">
+<span class="sig-name descname"><span class="pre">contents</span></span><a class="headerlink" href="#CityOfBinds.BindFile.contents" title="Link to this definition"></a></dt>
+<dd><p>Ordered list of Bind and Comment instances</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFile.add_bind">
+<span class="sig-name descname"><span class="pre">add_bind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bind</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#CityOfBinds.Bind" title="CityOfBinds.src.game.binds.bind.Bind"><span class="pre">Bind</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#CityOfBinds.BindFile" title="CityOfBinds.src.game.bind_file.bind_file.BindFile"><span class="pre">BindFile</span></a></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/game/bind_file/bind_file.html#BindFile.add_bind"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFile.add_bind" title="Link to this definition"></a></dt>
+<dd><p>Add a Bind instance to the end of the bind file contents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bind</strong> – The Bind instance to add</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Self for method chaining</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>TypeError</strong> – If bind is not a Bind instance</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span><span class="o">.</span><span class="n">add_bind</span><span class="p">(</span><span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say hello&quot;</span><span class="p">]))</span><span class="o">.</span><span class="n">add_bind</span><span class="p">(</span><span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say goodbye&quot;</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">bf</span><span class="o">.</span><span class="n">contents</span><span class="p">)</span>  <span class="c1"># 2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFile.add_comment">
+<span class="sig-name descname"><span class="pre">add_comment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_Comment</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#CityOfBinds.BindFile" title="CityOfBinds.src.game.bind_file.bind_file.BindFile"><span class="pre">BindFile</span></a></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/game/bind_file/bind_file.html#BindFile.add_comment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFile.add_comment" title="Link to this definition"></a></dt>
+<dd><p>Add a Comment instance to the end of the bind file contents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>comment</strong> – The Comment instance to add</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Self for method chaining</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>TypeError</strong> – If comment is not a Comment instance</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span><span class="o">.</span><span class="n">add_comment</span><span class="p">(</span><span class="n">_Comment</span><span class="p">(</span><span class="s2">&quot;This is a header&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">add_bind</span><span class="p">(</span><span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say hi&quot;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="CityOfBinds.BindFile.binds">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">binds</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#CityOfBinds.Bind" title="CityOfBinds.src.game.binds.bind.Bind"><span class="pre">Bind</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#CityOfBinds.BindFile.binds" title="Link to this definition"></a></dt>
+<dd><p>Get only the Bind instances from the contents, filtering out comments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of Bind instances in their current order</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">([</span><span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say hi&quot;</span><span class="p">]),</span> <span class="n">_Comment</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">),</span> <span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say bye&quot;</span><span class="p">])])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">bf</span><span class="o">.</span><span class="n">binds</span><span class="p">)</span>  <span class="c1"># 2 (comments filtered out)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFile.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#CityOfBinds.BindFile" title="CityOfBinds.src.game.bind_file.bind_file.BindFile"><span class="pre">BindFile</span></a></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/game/bind_file/bind_file.html#BindFile.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFile.clear" title="Link to this definition"></a></dt>
+<dd><p>Remove all contents from the bind file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Self for method chaining</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">([</span><span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say hello&quot;</span><span class="p">])])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>  <span class="c1"># True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id0">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">contents</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#CityOfBinds.Bind" title="CityOfBinds.src.game.binds.bind.Bind"><span class="pre">Bind</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_Comment</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd><p>Get the ordered list of all content in the bind file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List containing all Bind and Comment instances in their current order</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">([</span><span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say hi&quot;</span><span class="p">]),</span> <span class="n">_Comment</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">bf</span><span class="o">.</span><span class="n">contents</span><span class="p">)</span>  <span class="c1"># 2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFile.is_empty">
+<span class="sig-name descname"><span class="pre">is_empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/game/bind_file/bind_file.html#BindFile.is_empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFile.is_empty" title="Link to this definition"></a></dt>
+<dd><p>Check if the bind file contains any content.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the bind file has no Binds or Comments, False otherwise</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>  <span class="c1"># True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span><span class="o">.</span><span class="n">add_bind</span><span class="p">(</span><span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say hello&quot;</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span>  <span class="c1"># False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFile.preview">
+<span class="sig-name descname"><span class="pre">preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/game/bind_file/bind_file.html#BindFile.preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFile.preview" title="Link to this definition"></a></dt>
+<dd><p>Generate a preview of the bind file content as it would appear when written to disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String representation of all contents joined with newlines.
+Empty string if the bind file has no content.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">([</span><span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say hello&quot;</span><span class="p">]),</span> <span class="n">_Comment</span><span class="p">(</span><span class="s2">&quot;test comment&quot;</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">bf</span><span class="o">.</span><span class="n">preview</span><span class="p">())</span>
+<span class="go"># F1 &quot;say hello&quot;</span>
+<span class="go"># # test comment #</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFile.validate_binds">
+<span class="sig-name descname"><span class="pre">validate_binds</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/game/bind_file/bind_file.html#BindFile.validate_binds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFile.validate_binds" title="Link to this definition"></a></dt>
+<dd><p>Validate all Bind instances in the bind file.</p>
+<p>Calls the validate() method on each Bind instance, which checks for
+common issues like empty binds or binds that exceed length limits.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If any bind fails validation</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Comments are not validated as they have no validation requirements.</p>
+</div>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">([</span><span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F1&quot;</span><span class="p">,</span> <span class="p">[])])</span>  <span class="c1"># Empty bind</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span><span class="o">.</span><span class="n">validate_binds</span><span class="p">()</span>  <span class="c1"># Raises ValueError</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFile.write_to_directory">
+<span class="sig-name descname"><span class="pre">write_to_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/game/bind_file/bind_file.html#BindFile.write_to_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFile.write_to_directory" title="Link to this definition"></a></dt>
+<dd><p>Convenience method to write the bind file to a specific directory with a filename.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – Name of the file to create (extension will be auto-added if missing)</p></li>
+<li><p><strong>directory</strong> – Directory path where the file should be created (defaults to current directory)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">([</span><span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say hello&quot;</span><span class="p">])])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span><span class="o">.</span><span class="n">write_to_directory</span><span class="p">(</span><span class="s2">&quot;my_binds&quot;</span><span class="p">,</span> <span class="s2">&quot;/home/user/binds&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Creates /home/user/binds/my_binds.txt</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFile.write_to_file">
+<span class="sig-name descname"><span class="pre">write_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/game/bind_file/bind_file.html#BindFile.write_to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFile.write_to_file" title="Link to this definition"></a></dt>
+<dd><p>Write the bind file contents to a disk file.</p>
+<p>Automatically adds .txt extension if not present and validates that the
+extension is .txt. Creates parent directories as needed. Validates all
+binds before writing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> – Path where the bind file should be written (string or Path)</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If file extension is not .txt or binds fail validation</p></li>
+<li><p><strong>IOError</strong> – If file cannot be written</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">([</span><span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say hello&quot;</span><span class="p">])])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="s2">&quot;my_binds.txt&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bf</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="s2">&quot;my_binds&quot;</span><span class="p">)</span>  <span class="c1"># Auto-adds .txt extension</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileGraph">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.</span></span><span class="sig-name descname"><span class="pre">BindFileGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">incoming_graph_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/content_managers/graph/bind_file_graph.html#BindFileGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFileGraph" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">DiGraph</span></code></p>
+<p>A wrapper around NetworkX DiGraph for managing logical connections between BindFile objects.</p>
+<p>This class enables the creation of complex rotating bind patterns by establishing directed
+relationships between bind files with optional trigger conditions and delays.</p>
+<dl class="simple">
+<dt>Terminology:</dt><dd><ul class="simple">
+<li><p>Link: A directed connection from a source bind file to a target bind file</p></li>
+<li><p>Trigger Conditions: Optional metadata describing when/how bind files are connected</p></li>
+<li><p>Node Index: Integer identifier for each bind file in the graph (auto-assigned)</p></li>
+<li><p>Edge: The connection between two bind files with optional trigger conditions</p></li>
+</ul>
+</dd>
+<dt>Common Patterns:</dt><dd><ul class="simple">
+<li><p>Chain: bf1 -&gt; bf2 -&gt; bf3 (linear sequence)</p></li>
+<li><p>Loop: bf1 -&gt; bf2 -&gt; bf3 -&gt; bf1 (circular sequence)</p></li>
+<li><p>K-Regular: Each bind file connects to k other bind files</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileGraph.add_bind_file">
+<span class="sig-name descname"><span class="pre">add_bind_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bind_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#CityOfBinds.BindFile" title="CityOfBinds.src.game.bind_file.bind_file.BindFile"><span class="pre">BindFile</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#CityOfBinds.BindFileGraph" title="CityOfBinds.src.content_managers.graph.bind_file_graph.BindFileGraph"><span class="pre">BindFileGraph</span></a></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/content_managers/graph/bind_file_graph.html#BindFileGraph.add_bind_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFileGraph.add_bind_file" title="Link to this definition"></a></dt>
+<dd><p>Add a copy of a BindFile as a new node in the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bind_file</strong> – The BindFile to add to the graph</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Self for method chaining</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span> <span class="o">=</span> <span class="n">BindFileGraph</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bf1</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">([</span><span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say hello&quot;</span><span class="p">])])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">add_bind_file</span><span class="p">(</span><span class="n">bf1</span><span class="p">)</span>  <span class="c1"># Node 0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>  <span class="c1"># 1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileGraph.add_delay">
+<span class="sig-name descname"><span class="pre">add_delay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_bind_file_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_bind_file_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#CityOfBinds.BindFileGraph" title="CityOfBinds.src.content_managers.graph.bind_file_graph.BindFileGraph"><span class="pre">BindFileGraph</span></a></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/content_managers/graph/bind_file_graph.html#BindFileGraph.add_delay"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFileGraph.add_delay" title="Link to this definition"></a></dt>
+<dd><p>Insert copies of source node between two connected nodes. Maintains trigger conditions.</p>
+<p>This method subdivides an existing edge by inserting intermediate nodes,
+effectively creating a delay in the bind file sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_bind_file_index</strong> – Starting node index</p></li>
+<li><p><strong>target_bind_file_index</strong> – Ending node index</p></li>
+<li><p><strong>steps</strong> – Number of delay nodes to insert</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Self for method chaining</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># bf0 -&gt; bf1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">add_delay</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># bf0 -&gt; copy(bf0) -&gt; copy(bf0) -&gt; bf1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileGraph.chain">
+<span class="sig-name descname"><span class="pre">chain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bind_file_indexes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_conditions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#CityOfBinds.BindFileGraph" title="CityOfBinds.src.content_managers.graph.bind_file_graph.BindFileGraph"><span class="pre">BindFileGraph</span></a></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/content_managers/graph/bind_file_graph.html#BindFileGraph.chain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFileGraph.chain" title="Link to this definition"></a></dt>
+<dd><p>Create a linear chain of bind files in sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bind_file_indexes</strong> – List of node indexes to chain in list order</p></li>
+<li><p><strong>trigger_conditions</strong> – Conditions applied to all links in the chain</p></li>
+<li><p><strong>delay</strong> – Delay applied to all links in the chain</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Self for method chaining</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">chain</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>  <span class="c1"># Creates: bf0 -&gt; bf1 -&gt; bf2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">chain</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">{</span><span class="s2">&quot;on_triggers&quot;</span><span class="p">:</span> <span class="s2">&quot;F1&quot;</span><span class="p">})</span>  <span class="c1"># bf4 -&gt; bf3 -&gt; bf5 (all on F1)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileGraph.get_bind_file">
+<span class="sig-name descname"><span class="pre">get_bind_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bind_file_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#CityOfBinds.BindFile" title="CityOfBinds.src.game.bind_file.bind_file.BindFile"><span class="pre">BindFile</span></a></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/content_managers/graph/bind_file_graph.html#BindFileGraph.get_bind_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFileGraph.get_bind_file" title="Link to this definition"></a></dt>
+<dd><p>Retrieve the BindFile object stored at a specific node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bind_file_index</strong> – Node index to retrieve BindFile from</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>BindFile object stored at the specified node</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileGraph.get_incoming_links">
+<span class="sig-name descname"><span class="pre">get_incoming_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bind_file_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/content_managers/graph/bind_file_graph.html#BindFileGraph.get_incoming_links"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFileGraph.get_incoming_links" title="Link to this definition"></a></dt>
+<dd><p>Get all node indexes that link to this bind file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bind_file_index</strong> – Node index to get incoming links for</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of source node indexes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileGraph.get_outgoing_links">
+<span class="sig-name descname"><span class="pre">get_outgoing_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bind_file_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/content_managers/graph/bind_file_graph.html#BindFileGraph.get_outgoing_links"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFileGraph.get_outgoing_links" title="Link to this definition"></a></dt>
+<dd><p>Get all node indexes that this bind file links to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bind_file_index</strong> – Node index to get outgoing links for</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of target node indexes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileGraph.get_trigger_conditions">
+<span class="sig-name descname"><span class="pre">get_trigger_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_bind_file_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_bind_file_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/content_managers/graph/bind_file_graph.html#BindFileGraph.get_trigger_conditions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFileGraph.get_trigger_conditions" title="Link to this definition"></a></dt>
+<dd><p>Get the trigger conditions for a specific edge.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_bind_file_index</strong> – Source node index</p></li>
+<li><p><strong>target_bind_file_index</strong> – Target node index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of trigger conditions, empty dict if none set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileGraph.link">
+<span class="sig-name descname"><span class="pre">link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_bind_file_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_bind_file_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_conditions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#CityOfBinds.BindFileGraph" title="CityOfBinds.src.content_managers.graph.bind_file_graph.BindFileGraph"><span class="pre">BindFileGraph</span></a></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/content_managers/graph/bind_file_graph.html#BindFileGraph.link"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFileGraph.link" title="Link to this definition"></a></dt>
+<dd><p>Create a directed link from source to target bind file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_bind_file_index</strong> – Index of the source bind file</p></li>
+<li><p><strong>target_bind_file_index</strong> – Index of the target bind file</p></li>
+<li><p><strong>trigger_conditions</strong> – Optional conditions for what triggers this link</p></li>
+<li><p><strong>delay</strong> – Number of copies of source node and intermediate links to insert as delay</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Self for method chaining</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># bf0 -&gt; bf1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;on_triggers&quot;</span><span class="p">:</span> <span class="s2">&quot;SPACE&quot;</span><span class="p">})</span>  <span class="c1"># bf0 -&gt; bf2 (on SPACE press only)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># bf1 -&gt; copy(bf1) -&gt; copy(bf1) -&gt; bf2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileGraph.loop">
+<span class="sig-name descname"><span class="pre">loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bind_file_indexes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_conditions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#CityOfBinds.BindFileGraph" title="CityOfBinds.src.content_managers.graph.bind_file_graph.BindFileGraph"><span class="pre">BindFileGraph</span></a></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/content_managers/graph/bind_file_graph.html#BindFileGraph.loop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFileGraph.loop" title="Link to this definition"></a></dt>
+<dd><p>Create a circular loop connecting bind files in list order, with last linking back to first.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bind_file_indexes</strong> – List of node indexes to connect in a loop</p></li>
+<li><p><strong>trigger_conditions</strong> – Conditions applied to all links in the loop</p></li>
+<li><p><strong>delay</strong> – Delay applied to all links in the loop</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Self for method chaining</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">loop</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>  <span class="c1"># Creates: bf0 -&gt; bf1 -&gt; bf2 -&gt; bf0 (circular)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">loop</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>  <span class="c1"># bf6 -&gt; bf4 -&gt; bf5 -&gt; bf3 -&gt; bf6 (circular)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileGraph.make_k_regular">
+<span class="sig-name descname"><span class="pre">make_k_regular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bind_file_indexes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_conditions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#CityOfBinds.BindFileGraph" title="CityOfBinds.src.content_managers.graph.bind_file_graph.BindFileGraph"><span class="pre">BindFileGraph</span></a></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/content_managers/graph/bind_file_graph.html#BindFileGraph.make_k_regular"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFileGraph.make_k_regular" title="Link to this definition"></a></dt>
+<dd><p>Create a k-regular graph where each bind file connects to exactly k other bind files.</p>
+<p>In a k-regular graph, every node has exactly k outgoing edges. Connections are made
+to the next k nodes in circular/list order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bind_file_indexes</strong> – List of node indexes to make k-regular</p></li>
+<li><p><strong>k</strong> – Number of outgoing connections each node should have</p></li>
+<li><p><strong>trigger_conditions</strong> – Conditions applied to all links</p></li>
+<li><p><strong>delay</strong> – Delay applied to all links</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Self for method chaining</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If k &gt;= number of bind files (impossible to create without self links)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">make_k_regular</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="go"># Creates: bf0 -&gt; bf1, bf2</span>
+<span class="go">#          bf1 -&gt; bf2, bf3</span>
+<span class="go">#          bf2 -&gt; bf3, bf0</span>
+<span class="go">#          bf3 -&gt; bf0, bf1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileTemplate">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.</span></span><span class="sig-name descname"><span class="pre">BindFileTemplate</span></span><a class="reference internal" href="../_modules/CityOfBinds/src/content_managers/templates/bind_file_template.html#BindFileTemplate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFileTemplate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="CityOfBinds.utils.html#CityOfBinds.utils.ListTemplate" title="CityOfBinds.utils.templates.templates.ListTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">ListTemplate</span></code></a></p>
+<p>Template for generating rotating bind files with controlled bind file advancement.</p>
+<p>A BindFileTemplate manages collections of bind templates that generate bind files
+capable of rotating to the next bind file in a sequence. It provides sophisticated
+control over which binds receive the “load next bind file” command through rotation policies.</p>
+<p>The template supports advanced rotation patterns:
+- Exclusive advancement (only specific triggers advance)
+- Inclusive advancement (all triggers advance by default)
+- Selective exclusion (all except specific triggers advance)
+- Key up press activation for selected triggers</p>
+<dl class="simple">
+<dt>Key Concepts:</dt><dd><ul class="simple">
+<li><p><strong>Rotation</strong>: Process of loading the next bind file in a sequence</p></li>
+<li><p><strong>Advancement</strong>: Adding the command to load the next bind file</p></li>
+<li><p><strong>Exclusive Mode</strong>: When ON_THIS_TRIGGER is used, only those binds advance</p></li>
+<li><p><strong>Inclusive Mode</strong>: Default behavior where all binds advance</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileTemplate.include_triggers">
+<span class="sig-name descname"><span class="pre">include_triggers</span></span><a class="headerlink" href="#CityOfBinds.BindFileTemplate.include_triggers" title="Link to this definition"></a></dt>
+<dd><p>List of triggers that will exclusively advance to next bind file</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileTemplate.exclude_triggers">
+<span class="sig-name descname"><span class="pre">exclude_triggers</span></span><a class="headerlink" href="#CityOfBinds.BindFileTemplate.exclude_triggers" title="Link to this definition"></a></dt>
+<dd><p>List of triggers that will NOT advance to next bind file</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileTemplate.quick_triggers">
+<span class="sig-name descname"><span class="pre">quick_triggers</span></span><a class="headerlink" href="#CityOfBinds.BindFileTemplate.quick_triggers" title="Link to this definition"></a></dt>
+<dd><p>List of triggers that activate on key up press in addition to key down</p>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">template</span> <span class="o">=</span> <span class="n">BindFileTemplate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Normal bind - advances by default</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">template</span><span class="o">.</span><span class="n">add_bind_template</span><span class="p">(</span><span class="n">combat_bind</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Only F1 will advance (exclusive mode activated)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">template</span><span class="o">.</span><span class="n">add_bind_template</span><span class="p">(</span><span class="n">f1_bind</span><span class="p">,</span> <span class="n">RotationPolicy</span><span class="o">.</span><span class="n">ON_THIS_TRIGGER</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># F2 won&#39;t advance due to exclusive mode from F1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">template</span><span class="o">.</span><span class="n">add_bind_template</span><span class="p">(</span><span class="n">f2_bind</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileTemplate.add_bind_template">
+<span class="sig-name descname"><span class="pre">add_bind_template</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bind_template</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_policy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">RotationPolicy</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">RotationPolicy.DEFAULT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_on_up_press</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/content_managers/templates/bind_file_template.html#BindFileTemplate.add_bind_template"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFileTemplate.add_bind_template" title="Link to this definition"></a></dt>
+<dd><p>Add a bind template with specified rotation policy and quick trigger settings.</p>
+<p>Incorporates a bind template into the rotating bind file with configurable behavior
+for bind file advancement. The rotation policy determines whether this bind will
+receive the “load next bind file” command when the sequence is linked together.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bind_template</strong> – The bind template to add (must have a ‘trigger’ attribute)</p></li>
+<li><p><strong>rotation_policy</strong> – Controls bind file advancement behavior:
+- DEFAULT: Will advance to next file (unless exclusive mode activated)
+- ON_THIS_TRIGGER: Only this trigger advances (activates exclusive mode)
+- NOT_ON_THIS_TRIGGER: This trigger will never advance</p></li>
+<li><p><strong>trigger_on_up_press</strong> – Whether this trigger should also activate on key release</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Self for method chaining</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Rotation Policy Behavior:</dt><dd><ul class="simple">
+<li><p>If any bind uses ON_THIS_TRIGGER, exclusive mode activates</p></li>
+<li><p>In exclusive mode, only ON_THIS_TRIGGER binds get advancement commands</p></li>
+<li><p>Multiple binds can use ON_THIS_TRIGGER to create an inclusive list</p></li>
+<li><p>NOT_ON_THIS_TRIGGER excludes specific triggers from advancement</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">template</span> <span class="o">=</span> <span class="n">BindFileTemplate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Basic bind - will advance by default</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">template</span><span class="o">.</span><span class="n">add_bind_template</span><span class="p">(</span><span class="n">basic_bind</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Exclusive bind - only F1 will advance (activates exclusive mode)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">template</span><span class="o">.</span><span class="n">add_bind_template</span><span class="p">(</span><span class="n">f1_bind</span><span class="p">,</span> <span class="n">RotationPolicy</span><span class="o">.</span><span class="n">ON_THIS_TRIGGER</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># F2 won&#39;t advance due to exclusive mode</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">template</span><span class="o">.</span><span class="n">add_bind_template</span><span class="p">(</span><span class="n">f2_bind</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Multiple exclusive triggers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">template</span><span class="o">.</span><span class="n">add_bind_template</span><span class="p">(</span><span class="n">f3_bind</span><span class="p">,</span> <span class="n">RotationPolicy</span><span class="o">.</span><span class="n">ON_THIS_TRIGGER</span><span class="p">)</span>  <span class="c1"># F3 also advances</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.BindTemplate">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.</span></span><span class="sig-name descname"><span class="pre">BindTemplate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trigger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/content_managers/templates/bind_template.html#BindTemplate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindTemplate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_TriggerMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">_CommandsTemplate</span></code></p>
+<p>Template for generating individual bind objects with configurable commands.</p>
+<p>BindTemplate combines trigger management with command template functionality to
+create individual bind objects. It serves as a factory for generating bind
+instances with specific triggers and collections of slash commands.</p>
+<p>The template inherits from both _TriggerMixin (for trigger validation and management)
+and _CommandsTemplate (for command collection and generation), providing a complete
+solution for bind creation with dynamic command sequences.</p>
+<dl class="simple">
+<dt>Key Features:</dt><dd><ul class="simple">
+<li><p>Trigger validation and storage via _TriggerMixin</p></li>
+<li><p>Command collection and templating via _CommandsTemplate</p></li>
+<li><p>Dynamic bind generation with _build_one()</p></li>
+<li><p>Support for multiple bind variations through unique count calculation</p></li>
+<li><p>Extensible architecture for specialized bind types</p></li>
+</ul>
+</dd>
+<dt>Class Attributes:</dt><dd><p>BIND_TYPE: The type of bind object to create (default: Bind)</p>
+</dd>
+<dt>Inheritance Chain:</dt><dd><dl class="simple">
+<dt>BindTemplate -&gt; _TriggerMixin (trigger management)</dt><dd><p>-&gt; _CommandsTemplate (command collection)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">template</span> <span class="o">=</span> <span class="n">BindTemplate</span><span class="p">(</span><span class="s2">&quot;F1&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">template</span><span class="o">.</span><span class="n">add_power</span><span class="p">(</span><span class="s2">&quot;Hasten&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">template</span><span class="o">.</span><span class="n">add_emote</span><span class="p">(</span><span class="s2">&quot;wave&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bind</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">_build_one</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">bind</span><span class="o">.</span><span class="n">trigger</span><span class="p">)</span>  <span class="c1"># &quot;F1&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bind</span><span class="o">.</span><span class="n">commands</span><span class="p">))</span>  <span class="c1"># 2</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.BindTemplate.BIND_TYPE">
+<span class="sig-name descname"><span class="pre">BIND_TYPE</span></span><a class="headerlink" href="#CityOfBinds.BindTemplate.BIND_TYPE" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#CityOfBinds.Bind" title="CityOfBinds.src.game.binds.bind.Bind"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bind</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.RandomBinds">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.</span></span><span class="sig-name descname"><span class="pre">RandomBinds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">random_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_silent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absolute_path_links</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/game/rotating_binds/random_binds.html#RandomBinds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.RandomBinds" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#CityOfBinds.RotatingBind" title="CityOfBinds.src.game.rotating_binds.rotating_bind.RotatingBind"><code class="xref py py-class docutils literal notranslate"><span class="pre">RotatingBind</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">_RandomOrder</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.RandomWalk">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.</span></span><span class="sig-name descname"><span class="pre">RandomWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_jump</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_silent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absolute_path_links</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/game/rotating_binds/random_binds.html#RandomWalk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.RandomWalk" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#CityOfBinds.WASDRotatingBind" title="CityOfBinds.src.game.rotating_binds.wasd_rotating_bind.WASDRotatingBind"><code class="xref py py-class docutils literal notranslate"><span class="pre">WASDRotatingBind</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">_RandomOrder</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.RotatingBind">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.</span></span><span class="sig-name descname"><span class="pre">RotatingBind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_silent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absolute_path_links</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/game/rotating_binds/rotating_bind.html#RotatingBind"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.RotatingBind" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_LoopTopology</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">_GenericRotatingBind</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.WASDBind">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.</span></span><span class="sig-name descname"><span class="pre">WASDBind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trigger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">commands</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/game/binds/wasd_binds.html#WASDBind"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.WASDBind" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#CityOfBinds.Bind" title="CityOfBinds.src.game.binds.bind.Bind"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bind</span></code></a></p>
+<p>A specialized Bind that automatically injects movement commands for WASD keys.</p>
+<p>WASDBind extends the base Bind class to automatically add movement commands
+(+forward, +left, +backward, +right, +up) when using WASD or SPACE keys.
+The movement command is always inserted first, followed by any user-provided commands.</p>
+<dl class="simple">
+<dt>Supported Keys:</dt><dd><ul class="simple">
+<li><p>W: +forward</p></li>
+<li><p>A: +left</p></li>
+<li><p>S: +backward</p></li>
+<li><p>D: +right</p></li>
+<li><p>SPACE: +up</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wasd_bind</span> <span class="o">=</span> <span class="n">WASDBind</span><span class="p">(</span><span class="s2">&quot;W&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;powexectoggleon super speed&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">wasd_bind</span><span class="p">)</span>  <span class="c1"># &#39;W &quot;+forward$$powexectoggleon super speed&quot;&#39;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wasd_bind</span> <span class="o">=</span> <span class="n">WASDBind</span><span class="p">(</span><span class="s2">&quot;SHIFT+A&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">wasd_bind</span><span class="p">)</span>  <span class="c1"># &#39;SHIFT+A &quot;+left&quot;&#39;</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.WASDBind.TRIGGER_TYPE">
+<span class="sig-name descname"><span class="pre">TRIGGER_TYPE</span></span><a class="headerlink" href="#CityOfBinds.WASDBind.TRIGGER_TYPE" title="Link to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_WASDTrigger</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.WASDBindTemplate">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.</span></span><span class="sig-name descname"><span class="pre">WASDBindTemplate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trigger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/content_managers/templates/bind_template.html#WASDBindTemplate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.WASDBindTemplate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#CityOfBinds.BindTemplate" title="CityOfBinds.src.content_managers.templates.bind_template.BindTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">BindTemplate</span></code></a></p>
+<p>Specialized bind template for WASD movement key binds with enhanced trigger validation.</p>
+<p>WASDBindTemplate extends BindTemplate with specific support for movement key binds
+that use WASD keys (W, A, S, D) and related directional controls. It provides
+enhanced trigger validation through _WASDTrigger and generates WASDBind objects
+optimized for movement-related commands.</p>
+<p>This template is particularly useful for creating movement macros, travel power
+binds, and directional command sequences that need to integrate seamlessly with
+the game’s movement system.</p>
+<dl class="simple">
+<dt>Key Differences from BindTemplate:</dt><dd><ul class="simple">
+<li><p>Uses _WASDTrigger for enhanced movement key validation</p></li>
+<li><p>Generates WASDBind objects instead of standard Bind objects</p></li>
+<li><p>Optimized for movement-related command sequences</p></li>
+<li><p>Supports directional movement patterns and travel powers</p></li>
+</ul>
+</dd>
+<dt>Class Attributes:</dt><dd><p>TRIGGER_TYPE: Specifies _WASDTrigger for movement key validation
+BIND_TYPE: Specifies WASDBind for movement-optimized bind generation</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">template</span> <span class="o">=</span> <span class="n">WASDBindTemplate</span><span class="p">(</span><span class="s2">&quot;W&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">template</span><span class="o">.</span><span class="n">add_power</span><span class="p">(</span><span class="s2">&quot;Super Speed&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">template</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="s2">&quot;++forward&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wasd_bind</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">_build_one</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">(</span><span class="n">wasd_bind</span><span class="p">,</span> <span class="n">WASDBind</span><span class="p">)</span>  <span class="c1"># True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wasd_bind</span><span class="o">.</span><span class="n">trigger</span>  <span class="c1"># &quot;W&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All command template methods (add_power, add_emote, etc.) are inherited
+from the parent classes and work identically to BindTemplate.</p>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.WASDBindTemplate.BIND_TYPE">
+<span class="sig-name descname"><span class="pre">BIND_TYPE</span></span><a class="headerlink" href="#CityOfBinds.WASDBindTemplate.BIND_TYPE" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#CityOfBinds.WASDBind" title="CityOfBinds.src.game.binds.wasd_binds.WASDBind"><code class="xref py py-class docutils literal notranslate"><span class="pre">WASDBind</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CityOfBinds.WASDBindTemplate.TRIGGER_TYPE">
+<span class="sig-name descname"><span class="pre">TRIGGER_TYPE</span></span><a class="headerlink" href="#CityOfBinds.WASDBindTemplate.TRIGGER_TYPE" title="Link to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">_WASDTrigger</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.WASDRotatingBind">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.</span></span><span class="sig-name descname"><span class="pre">WASDRotatingBind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_jump</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_silent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absolute_path_links</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/game/rotating_binds/wasd_rotating_bind.html#WASDRotatingBind"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.WASDRotatingBind" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_LoopTopology</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">_GenericRotatingBind</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CityOfBinds.iWASDBind">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.</span></span><span class="sig-name descname"><span class="pre">iWASDBind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trigger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">commands</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/game/binds/wasd_binds.html#iWASDBind"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.iWASDBind" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#CityOfBinds.WASDBind" title="CityOfBinds.src.game.binds.wasd_binds.WASDBind"><code class="xref py py-class docutils literal notranslate"><span class="pre">WASDBind</span></code></a></p>
+<p>An inverted WASD bind that uses opposite movement directions.</p>
+<p>iWASDBind (inverted WASD) extends WASDBind to use inverted movement controls.
+This is useful for creating binds that move in the opposite direction of
+the key pressed, which can be useful for certain (whacky) gameplay scenarios.</p>
+<dl class="simple">
+<dt>Inverted Mappings:</dt><dd><ul class="simple">
+<li><p>W: +backward (instead of +forward)</p></li>
+<li><p>A: +right (instead of +left)</p></li>
+<li><p>S: +forward (instead of +backward)</p></li>
+<li><p>D: +left (instead of +right)</p></li>
+<li><p>SPACE: +up (unchanged)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">inverted_bind</span> <span class="o">=</span> <span class="n">iWASDBind</span><span class="p">(</span><span class="s2">&quot;W&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;say going backward!&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">inverted_bind</span><span class="p">)</span>  <span class="c1"># &#39;W &quot;+backward$$say going backward!&quot;&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="CityOfBinds" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="CityOfBinds.utils.html" class="btn btn-neutral float-right" title="CityOfBinds.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, brandon wade.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

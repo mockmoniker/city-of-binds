@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CityOfBinds.src.content_publisher.bfg_publisher &mdash; CityOfBinds 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            CityOfBinds
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/modules.html">CityOfBinds</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/CityOfBinds.html">CityOfBinds package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">CityOfBinds</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">CityOfBinds.src.content_publisher.bfg_publisher</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for CityOfBinds.src.content_publisher.bfg_publisher</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">...utils.file_graph_publisher</span><span class="w"> </span><span class="kn">import</span> <span class="n">_FileGraphPublisher</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...utils.types.str_path</span><span class="w"> </span><span class="kn">import</span> <span class="n">StrPath</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..configs.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">BFGConstants</span><span class="p">,</span> <span class="n">FileExtensions</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..game.bind_file.bind_file</span><span class="w"> </span><span class="kn">import</span> <span class="n">BindFile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..game.binds.bind</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bind</span>
+
+
+<div class="viewcode-block" id="BFGPublisher">
+<a class="viewcode-back" href="../../../../source/CityOfBinds.html#CityOfBinds.BFGPublisher">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BFGPublisher</span><span class="p">(</span><span class="n">_FileGraphPublisher</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Publisher for Bind File Graph (BFG) systems with file linking and cross-referencing.</span>
+
+<span class="sd">    BFGPublisher specializes in publishing collections of interconnected bind files that</span>
+<span class="sd">    can reference and load each other through bind commands. It handles the complex task</span>
+<span class="sd">    of linking bind files together with conditional trigger-based loading, silent/verbose</span>
+<span class="sd">    file transitions, and key up press activation.</span>
+
+<span class="sd">    The publisher processes bind file graphs where nodes contain BindFile objects and edges</span>
+<span class="sd">    define linking conditions between files. It automatically injects &quot;bind_load_file&quot;</span>
+<span class="sd">    commands into appropriate binds based on trigger conditions, enabling sophisticated</span>
+<span class="sd">    bind file rotation and navigation systems.</span>
+
+<span class="sd">    Key Features:</span>
+<span class="sd">        - Conditional bind file linking based on trigger inclusion/exclusion</span>
+<span class="sd">        - Silent vs verbose file loading modes</span>
+<span class="sd">        - Key up press activation for quick triggers</span>
+<span class="sd">        - Automatic file path resolution with proper extensions</span>
+<span class="sd">        - Integration with file graph publishing infrastructure</span>
+
+<span class="sd">    Publisher Behavior:</span>
+<span class="sd">        - Source files get &quot;bind_load_file&quot; commands added to specified binds</span>
+<span class="sd">        - Target files get key up press activation for designated quick triggers</span>
+<span class="sd">        - Linking conditions control which binds receive loading commands</span>
+<span class="sd">        - File paths automatically receive .txt extensions for game compatibility</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        is_silent: Controls whether file transitions use silent mode (no chat messages)</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; publisher = BFGPublisher(is_silent=True)</span>
+<span class="sd">        &gt;&gt;&gt; # Publish a graph where combat.txt links to travel.txt on F1 press</span>
+<span class="sd">        &gt;&gt;&gt; graph = create_bind_file_graph()</span>
+<span class="sd">        &gt;&gt;&gt; publisher.publish(graph, &quot;/path/to/output/&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">is_silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">absolute_path_links</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a new BFGPublisher with specified linking behavior.</span>
+
+<span class="sd">        Creates a publisher configured for bind file graph processing with control over</span>
+<span class="sd">        file loading verbosity and path resolution. The publisher integrates with the</span>
+<span class="sd">        file graph publishing infrastructure while providing BFG-specific functionality.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            is_silent: Whether to use silent file loading (True) or show chat messages (False)</span>
+<span class="sd">                      Silent mode prevents &quot;Loading bind file...&quot; messages in game chat</span>
+<span class="sd">            absolute_path_links: Whether to use absolute paths in bind_load_file commands</span>
+<span class="sd">                               False uses relative paths for portability</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; # Silent publisher with relative paths (default)</span>
+<span class="sd">            &gt;&gt;&gt; publisher = BFGPublisher()</span>
+<span class="sd">            &gt;&gt;&gt; # Verbose publisher with absolute paths</span>
+<span class="sd">            &gt;&gt;&gt; publisher = BFGPublisher(is_silent=False, absolute_path_links=True)</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            Silent mode is typically preferred to avoid cluttering game chat with</span>
+<span class="sd">            file loading messages during bind file transitions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_silent</span> <span class="o">=</span> <span class="n">is_silent</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">absolute_path_links</span><span class="o">=</span><span class="n">absolute_path_links</span><span class="p">,</span>
+            <span class="n">file_graph_key</span><span class="o">=</span><span class="n">BFGConstants</span><span class="o">.</span><span class="n">NODE_DATA_KEY</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># region File Linking Methods</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_link_file</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">source_bind_file</span><span class="p">:</span> <span class="n">BindFile</span><span class="p">,</span>
+        <span class="n">target_bind_file</span><span class="p">:</span> <span class="n">BindFile</span><span class="p">,</span>
+        <span class="n">source_file_path</span><span class="p">:</span> <span class="n">StrPath</span><span class="p">,</span>
+        <span class="n">target_file_path</span><span class="p">:</span> <span class="n">StrPath</span><span class="p">,</span>
+        <span class="n">edge_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Link two bind files by updating source with load commands and target with key up settings.&quot;&quot;&quot;</span>
+        <span class="n">trigger_conditions</span> <span class="o">=</span> <span class="n">edge_data</span><span class="p">[</span><span class="n">BFGConstants</span><span class="o">.</span><span class="n">EDGE_DATA_KEY</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_source_bind_file</span><span class="p">(</span>
+            <span class="n">source_bind_file</span><span class="p">,</span> <span class="n">target_file_path</span><span class="p">,</span> <span class="n">trigger_conditions</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_target_bind_file</span><span class="p">(</span><span class="n">target_bind_file</span><span class="p">,</span> <span class="n">trigger_conditions</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_source_bind_file</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">source_bind_file</span><span class="p">:</span> <span class="n">BindFile</span><span class="p">,</span>
+        <span class="n">target_file_path</span><span class="p">:</span> <span class="n">StrPath</span><span class="p">,</span>
+        <span class="n">trigger_conditions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add bind_load_file commands to qualifying binds in source file.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">bind</span> <span class="ow">in</span> <span class="n">source_bind_file</span><span class="o">.</span><span class="n">binds</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_link_bind</span><span class="p">(</span><span class="n">bind</span><span class="p">,</span> <span class="n">trigger_conditions</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_link_bind</span><span class="p">(</span><span class="n">bind</span><span class="p">,</span> <span class="n">target_file_path</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_should_link_bind</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">bind</span><span class="p">:</span> <span class="n">Bind</span><span class="p">,</span> <span class="n">trigger_conditions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if bind qualifies for file linking based on inclusion/exclusion conditions.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">trigger_conditions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">BFGConstants</span><span class="o">.</span><span class="n">INCLUSIVE_KEY</span> <span class="ow">in</span> <span class="n">trigger_conditions</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">bind</span><span class="o">.</span><span class="n">trigger</span> <span class="ow">in</span> <span class="n">trigger_conditions</span><span class="p">[</span><span class="n">BFGConstants</span><span class="o">.</span><span class="n">INCLUSIVE_KEY</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">BFGConstants</span><span class="o">.</span><span class="n">EXCLUSIVE_KEY</span> <span class="ow">in</span> <span class="n">trigger_conditions</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">bind</span><span class="o">.</span><span class="n">trigger</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">trigger_conditions</span><span class="p">[</span><span class="n">BFGConstants</span><span class="o">.</span><span class="n">EXCLUSIVE_KEY</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_link_bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bind</span><span class="p">:</span> <span class="n">Bind</span><span class="p">,</span> <span class="n">target_file_path</span><span class="p">:</span> <span class="n">StrPath</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add silent or verbose bind_load_file command to bind.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_silent</span><span class="p">:</span>
+            <span class="n">bind</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_bind_load_file_silent</span><span class="p">(</span>
+                <span class="n">Path</span><span class="p">(</span><span class="n">target_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="n">FileExtensions</span><span class="o">.</span><span class="n">BIND_FILE</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bind</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_bind_load_file</span><span class="p">(</span>
+                <span class="n">Path</span><span class="p">(</span><span class="n">target_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="n">FileExtensions</span><span class="o">.</span><span class="n">BIND_FILE</span><span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_update_target_bind_file</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">target_bind_file</span><span class="p">:</span> <span class="n">BindFile</span><span class="p">,</span> <span class="n">trigger_conditions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Enable key up press activation for specified quick triggers.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">BFGConstants</span><span class="o">.</span><span class="n">QUICK_TRIGGER_KEY</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">trigger_conditions</span>
+            <span class="ow">or</span> <span class="ow">not</span> <span class="n">trigger_conditions</span><span class="p">[</span><span class="n">BFGConstants</span><span class="o">.</span><span class="n">QUICK_TRIGGER_KEY</span><span class="p">]</span>
+        <span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="k">for</span> <span class="n">bind</span> <span class="ow">in</span> <span class="n">target_bind_file</span><span class="o">.</span><span class="n">binds</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">bind</span><span class="o">.</span><span class="n">trigger</span> <span class="ow">in</span> <span class="n">trigger_conditions</span><span class="p">[</span><span class="n">BFGConstants</span><span class="o">.</span><span class="n">QUICK_TRIGGER_KEY</span><span class="p">]:</span>
+                <span class="n">bind</span><span class="o">.</span><span class="n">trigger_on_key_up</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># endregion</span>
+
+    <span class="c1"># region File Output Methods</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_write_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bind_file</span><span class="p">:</span> <span class="n">BindFile</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">StrPath</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write bind file to disk.&quot;&quot;&quot;</span>
+        <span class="n">bind_file</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">))</span></div>
+
+
+    <span class="c1"># endregion</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, brandon wade.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
