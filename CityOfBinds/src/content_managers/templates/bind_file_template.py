@@ -155,24 +155,7 @@ class BindFileTemplate(ListTemplate):
         return self._add_content(bind_template)
 
     def _add_content(self, item) -> Self:
-        """
-        Internal method to add a bind template to the collection.
-
-        Appends the bind template to the internal template list for later processing
-        during bind file generation. This method handles the core template storage
-        without applying rotation policies or trigger management.
-
-        Args:
-            item: The bind template to add to the collection
-
-        Returns:
-            Self for method chaining
-
-        Note:
-            This is an internal method used by add_bind_template. Direct usage
-            bypasses rotation policy and quick trigger management, which may result
-            in incorrect bind file advancement behavior in rotating sequences.
-        """
+        """Add bind template to collection without applying rotation policies."""
         self.template.append(item)
         return self
 
@@ -180,58 +163,14 @@ class BindFileTemplate(ListTemplate):
 
     # region Template Generation Methods
     def _build_one(self) -> BindFile:
-        """
-        Generate a single bind file from all collected bind templates.
-
-        Processes all bind templates in the collection and combines them into a
-        complete BindFile. Each bind template's _build_one() method is called to
-        generate individual binds, which are then assembled into the final file.
-
-        Returns:
-            Complete BindFile containing all generated binds
-
-        Example:
-            >>> template = BindFileTemplate()
-            >>> template.add_bind_template(combat_bind)
-            >>> template.add_bind_template(travel_bind)
-            >>> bind_file = template._build_one()
-            >>> len(bind_file.binds)  # 2
-
-        Note:
-            This method implements the core generation logic. For multiple variations,
-            use the inherited build() method which calls this method iteratively.
-        """
+        """Generate single bind file by processing all bind templates."""
         bind_file = BindFile()
         for bind_template in self.template:
             bind_file.add_bind(bind_template._build_one())
         return bind_file
 
     def _get_unique_count(self) -> int:
-        """
-        Calculate the total number of unique bind file variations possible.
-
-        Determines how many different bind files can be generated from the current
-        collection of bind templates by analyzing each template's unique count and
-        calculating the Least Common Multiple (LCM) of all template lengths.
-
-        Since bind templates iterate in parallel rather than cross-product style,
-        the unique count is the LCM - the point where all templates sync back to
-        their starting positions after cycling through their variations.
-
-        Returns:
-            Integer representing total unique variations (LCM of all template lengths)
-
-        Example:
-            >>> # Template with bind templates having 4, 2, and 6 unique counts each
-            >>> template._get_unique_count()  # Returns LCM(4, 2, 6) = 12
-            >>> # The 2-count template cycles 6 times, 4-count cycles 3 times,
-            >>> # 6-count cycles 2 times before all sync up at iteration 12
-
-        Note:
-            This calculation is used by the ListTemplate generation system to
-            determine iteration bounds for comprehensive bind file generation.
-            Uses inherited _calculate_unique_count_from_lengths() method.
-        """
+        """Calculate LCM of all template lengths for parallel iteration."""
         content_lengths = [content.unique_count for content in self.template]
         return self._calculate_unique_count_from_lengths(content_lengths)
 

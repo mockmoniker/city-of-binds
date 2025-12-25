@@ -30,16 +30,7 @@ class WASDBind(Bind):
 
     # region Override Methods
     def _build_bind_string(self) -> str:
-        """
-        Build the WASD bind string with automatic movement command injection.
-
-        Overrides the base Bind method to automatically prepend the appropriate
-        movement command based on the trigger key before any user commands.
-
-        Returns:
-            Complete bind string with movement command first, then user commands
-        """
-        # Get the movement command for this WASD key
+        """Build WASD bind string with automatic movement command injection."""
         movement_command = _CommandGroup().add_movement(
             self._get_direction(self.trigger)
         )
@@ -53,15 +44,7 @@ class WASDBind(Bind):
 
     # region Helper Methods
     def _get_direction(self, trigger: _WASDTrigger) -> str:
-        """
-        Get the movement direction string for a WASD trigger key.
-
-        Args:
-            trigger: WASD trigger containing the key to map to movement
-
-        Returns:
-            Movement direction string (e.g., "forward", "left", "backward", "right", "up")
-        """
+        """Get movement direction string for WASD trigger key."""
         return _WASDTrigger.KEY_TO_DIRECTION_MAP[trigger.key]
 
     # endregion
@@ -89,20 +72,8 @@ class iWASDBind(WASDBind):
 
     # region Override Methods
     def _get_direction(self, trigger: _WASDTrigger) -> str:
-        """
-        Get the inverted movement direction string for a WASD trigger key.
-
-        Overrides the parent method to return the opposite direction for
-        inverted movement controls. SPACE (up) remains unchanged.
-
-        Args:
-            trigger: WASD trigger containing the key to map to inverted movement
-
-        Returns:
-            Inverted movement direction string
-        """
+        """Get inverted movement direction string for WASD trigger key."""
         direction = super()._get_direction(trigger)
-        # Map each direction to its opposite
         opposite_directions = {
             "forward": "backward",
             "backward": "forward",

@@ -423,18 +423,7 @@ class _CommandGroup:
         return CommandGroupConstants.DIRECTION_TO_MOVEMENT_MAP[direction]
 
     def _throw_error_if_wrong_direction(self, direction_string: str):
-        """
-        Internal helper to validate movement directions.
-
-        Args:
-            direction_string: Direction string to validate
-
-        Raises:
-            ValueError: If direction is not in the supported directions map
-
-        Note:
-            Provides helpful error message with all valid directions.
-        """
+        """Validate movement direction string."""
         if direction_string not in CommandGroupConstants.DIRECTION_TO_MOVEMENT_MAP:
             valid_directions = ", ".join(
                 CommandGroupConstants.DIRECTION_TO_MOVEMENT_MAP.keys()
@@ -710,64 +699,19 @@ class _CommandGroup:
 
     # region Magic Methods and Collection Interface
     def __iter__(self):
-        """
-        Enable iteration over the command collection.
-
-        Returns:
-            Iterator over _Command objects
-
-        Example:
-            >>> cmd_group = CommandGroup(["say hello", "say world"])
-            >>> for cmd in cmd_group:
-            ...     print(str(cmd))
-            # say hello
-            # say world
-        """
+        """Enable iteration over commands."""
         return iter(self._commands)
 
     def __getitem__(self, index):
-        """
-        Enable index-based access to commands.
-
-        Args:
-            index: Integer index or slice object
-
-        Returns:
-            _Command object at the specified index
-
-        Example:
-            >>> cmd_group = CommandGroup(["say hello", "say world"])
-            >>> str(cmd_group[0])  # "say hello"
-            >>> str(cmd_group[-1]) # "say world"
-        """
+        """Enable index-based access to commands."""
         return self._commands[index]
 
     def __setitem__(self, index, value):
-        """
-        Enable index-based assignment of commands.
-
-        Args:
-            index: Integer index to assign to
-            value: String command to assign (automatically wrapped in _Command)
-
-        Example:
-            >>> cmd_group = CommandGroup(["say hello"])
-            >>> cmd_group[0] = "say goodbye"
-            >>> str(cmd_group[0])  # "say goodbye"
-        """
+        """Enable index-based assignment of commands."""
         self._commands[index] = _Command(value)
 
     def __len__(self):
-        """
-        Return the number of commands in the group.
-
-        Returns:
-            Integer count of commands
-
-        Example:
-            >>> cmd_group = CommandGroup(["say hello", "say world"])
-            >>> len(cmd_group)  # 2
-        """
+        """Return number of commands."""
         return len(self._commands)
 
     def __add__(self, other: "_CommandGroup") -> Self:

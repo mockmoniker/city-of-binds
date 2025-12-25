@@ -68,29 +68,7 @@ class BindTemplate(_TriggerMixin, _CommandsTemplate):
 
     # region Template Generation Methods
     def _build_one(self) -> Bind:
-        """
-        Generate a single bind object from the current template configuration.
-
-        Creates a bind instance using the stored trigger and all commands that have
-        been added to the template. The generated bind is ready for use in bind files
-        and will execute all template commands when triggered.
-
-        Returns:
-            Bind object containing the trigger and all template commands
-
-        Example:
-            >>> template = BindTemplate("TAB")
-            >>> template.add_power("Super Speed")
-            >>> template.add_command("follow")
-            >>> bind = template._build_one()
-            >>> isinstance(bind, Bind)  # True
-            >>> bind.trigger  # "TAB"
-            >>> len(bind.commands)  # 2
-
-        Note:
-            This method delegates command generation to the parent _CommandsTemplate
-            class via super()._build_one(), which returns the command collection.
-        """
+        """Generate bind object with current trigger and commands."""
         return self.BIND_TYPE(self.trigger, super()._build_one())
 
     # endregion

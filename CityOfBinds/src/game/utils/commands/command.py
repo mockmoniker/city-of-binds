@@ -114,14 +114,14 @@ class _Command:
 
     # region Error Checking Methods
     def _throw_error_if_invalid_prefix(self, prefix: str):
-        """Helper function to validate the prefix portion of the command string."""
+        """Validate prefix portion of command string."""
         if prefix and prefix not in VALID_SLASH_COMMAND_PREFIXES:
             raise ValueError(
                 f"Invalid prefix '{prefix}'. Valid prefixes are: {', '.join(VALID_SLASH_COMMAND_PREFIXES)}"
             )
 
     def _throw_error_if_unknown_slash_command(self, slash_command: str):
-        """Helper function to validate the command portion of the command string."""
+        """Validate command portion of command string."""
         if slash_command not in VALID_SLASH_COMMANDS:
             raise ValueError(
                 f"Unknown slash command '{slash_command}'. Please see https://homecoming.wiki/wiki/List_of_Slash_Commands for a list of valid commands."

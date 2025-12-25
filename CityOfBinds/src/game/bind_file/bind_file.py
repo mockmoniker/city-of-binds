@@ -283,18 +283,7 @@ class BindFile:
 
     # region Private Helper Methods
     def _build_file_contents(self) -> str:
-        """
-        Build the complete file contents as a string.
-
-        Joins all content items with newlines to create the final file output.
-        Each Bind and Comment's __str__ method is used for string representation.
-
-        Returns:
-            Complete file contents as a string, or empty string if no content
-
-        Note:
-            This is an internal method used by preview() and write operations.
-        """
+        """Build complete file contents as string by joining all content items."""
         if self.is_empty():
             return ""
         return "\n".join(str(content) for content in self._contents)
@@ -303,15 +292,7 @@ class BindFile:
 
     # region Validation and Error Handling
     def _throw_error_on_invalid_content_list(self, content_list: list[BindContent]):
-        """
-        Validate that content_list is a proper list of valid content types.
-
-        Args:
-            content_list: List to validate
-
-        Raises:
-            TypeError: If content_list is not a list or contains invalid types
-        """
+        """Validate content_list is a proper list of valid content types."""
         if not isinstance(content_list, list):
             raise TypeError("Contents must be a list of Bind or Comment instances")
         for content in content_list:
@@ -321,16 +302,7 @@ class BindFile:
                 )
 
     def _throw_error_on_invalid_content_type(self, expected_type, content):
-        """
-        Validate that content is of the expected type.
-
-        Args:
-            expected_type: The expected class type (Bind or _Comment)
-            content: The content instance to validate
-
-        Raises:
-            TypeError: If content is not of the expected type
-        """
+        """Validate content is of the expected type."""
         if not isinstance(content, expected_type):
             raise TypeError(
                 f"Expected content of type {expected_type.__name__}, got {type(content).__name__}"
@@ -340,16 +312,7 @@ class BindFile:
 
     # region Magic Methods
     def __repr__(self):
-        """
-        Return a developer-friendly string representation of the BindFile.
-
-        Returns:
-            String in the format: BindFile(contents=[...])
-
-        Example:
-            >>> bf = BindFile([Bind("F1", ["say hi"])])
-            >>> repr(bf)  # "BindFile(contents=[Bind('F1', ['say hi'])])"
-        """
+        """Return developer-friendly string representation."""
         return f"BindFile(contents={self._contents})"
 
     # endregion

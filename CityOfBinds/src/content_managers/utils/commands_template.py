@@ -220,29 +220,7 @@ class _CommandsTemplate(_CommandGroup, ListTemplate):
 
     # region Template Generation Methods
     def _build_one(self) -> _CommandGroup:
-        """
-        Generate a single command group from the current template state.
-
-        Creates a _CommandGroup instance containing all commands generated from the
-        current pool configuration. The generation uses the ListTemplate's _build_one()
-        method to iterate through pools in parallel and combine commands.
-
-        Returns:
-            _CommandGroup containing all commands for this template variation
-
-        Example:
-            >>> template = _CommandsTemplate()
-            >>> template.add_power_pool(["Hasten"])
-            >>> template.add_command_arguments_pool("emote", ["wave"])
-            >>> command_group = template._build_one()
-            >>> len(command_group.commands)  # 2 - one power, one emote
-            >>> isinstance(command_group, _CommandGroup)  # True
-
-        Note:
-            This method is called internally by template generation systems.
-            The parent ListTemplate._build_one() handles the actual pool iteration
-            and command collection logic.
-        """
+        """Generate command group from current pool configuration."""
         return _CommandGroup(super()._build_one())
 
     # endregion
