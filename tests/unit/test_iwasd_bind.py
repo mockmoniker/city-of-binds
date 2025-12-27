@@ -6,6 +6,7 @@ minimal sanity checks for basic bind functionality inherited from the base class
 """
 
 import pytest
+
 from CityOfBinds import iWASDBind
 
 

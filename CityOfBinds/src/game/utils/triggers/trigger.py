@@ -1,15 +1,91 @@
-from ....configs.valid_input import TRIGGER_MODIFIERS, TRIGGER_KEYS
 from ....configs.constants import GameConstants
+from ....configs.valid_input import TRIGGER_KEYS, TRIGGER_MODIFIERS
 
 
 class _Trigger:
+    """
+    Represents a game input trigger consisting of an optional modifier and a key.
+
+    A Trigger encapsulates key combinations used to activate binds in City of Heroes/Villains.
+    It handles parsing, validation, and normalization of trigger strings in the format
+    [MODIFIER+]KEY, such as "F1", "SHIFT+F1", or "SPACE".
+
+    The trigger system supports all standard game keys and modifiers, providing validation
+    against the game's accepted input combinations. Trigger strings are automatically
+    normalized to uppercase for consistency.
+
+    Key Features:
+        - Automatic parsing of modifier+key combinations
+        - Case-insensitive input with normalized output
+        - Comprehensive validation against game-accepted keys/modifiers
+        - Property-based access to individual components
+        - String representation ready for bind file output
+
+    Supported Modifiers:
+        - SHIFT, CTRL, ALT (single modifiers only)
+
+    Supported Keys:
+        - Function keys (F1-F12), letters (A-Z), numbers (0-9)
+        - Special keys (SPACE, TAB, ENTER, etc.)
+        - Mouse buttons (LBUTTON, RBUTTON, MBUTTON, etc.)
+
+    Example:
+        >>> trigger = _Trigger("shift+f1")
+        >>> trigger.modifier  # "SHIFT"
+        >>> trigger.key       # "F1"
+        >>> str(trigger)      # "SHIFT+F1"
+        >>>
+        >>> simple_trigger = _Trigger("w")
+        >>> simple_trigger.key       # "W"
+        >>> simple_trigger.modifier  # ""
+        >>> str(simple_trigger)      # "W"
+
+    Raises:
+        ValueError: If trigger format is invalid or contains unsupported keys/modifiers
+    """
 
     VALID_TRIGGER_KEYS = TRIGGER_KEYS
     VALID_TRIGGER_MODIFIERS = TRIGGER_MODIFIERS
 
     ### Initialization
     def __init__(self, trigger_string: str):
-        """Initialize the trigger with a key and optional modifier."""
+        """
+        Initialize a new Trigger by parsing a trigger string.
+
+        Parses a trigger string in the format [MODIFIER+]KEY and creates a validated
+        trigger object. Only a single modifier is supported - multiple modifiers like
+        Multiple modifiers are not supported. The string is automatically normalized
+        (trimmed and uppercased) and validated against supported game keys and modifiers.
+
+        Args:
+            trigger_string: Key combination string to parse
+                          Format: [MODIFIER+]KEY (e.g., "F1", "SHIFT+F1", "CTRL+Q")
+                          Case-insensitive, will be normalized to uppercase
+                          Only single modifiers supported
+
+        Raises:
+            ValueError: If trigger format is invalid, contains unsupported keys/modifiers,
+                       has invalid structure, or attempts to use multiple modifiers
+
+        Example:
+            >>> # Simple key triggers
+            >>> trigger1 = _Trigger("f1")        # Normalized to "F1"
+            >>> trigger2 = _Trigger(" W ")       # Normalized to "W" (trimmed)
+            >>>
+            >>> # Single modifier triggers
+            >>> trigger3 = _Trigger("shift+f1")     # Normalized to "SHIFT+F1"
+            >>> trigger4 = _Trigger("CTRL+q")      # Normalized to "CTRL+Q"
+            >>>
+            >>> # Invalid triggers (will raise ValueError)
+            >>> _Trigger("")              # Empty string
+            >>> _Trigger("invalid+key")   # Unsupported key
+            >>> _Trigger("CTRL+SHIFT+Q")  # Multiple modifiers not supported
+            >>> _Trigger("f1+f2+f3")      # Too many parts
+
+        Note:
+            Validation occurs against VALID_TRIGGER_KEYS and VALID_TRIGGER_MODIFIERS
+            constants, which contain all keys/modifiers accepted by the game.
+        """
         self._modifier = None
         self._key = None
 
@@ -22,27 +98,111 @@ class _Trigger:
     # region Trigger Properties
     @property
     def modifier(self) -> str:
+        """
+        Get the modifier portion of the trigger (e.g., "SHIFT", "CTRL", "ALT").
+
+        Returns:
+            String containing the normalized single modifier, or empty string
+            if no modifier is present. Always in uppercase.
+
+        Example:
+            >>> trigger = _Trigger("shift+f1")
+            >>> trigger.modifier  # "SHIFT"
+            >>>
+            >>> trigger2 = _Trigger("f1")
+            >>> trigger2.modifier  # ""
+        """
         return self._modifier
 
     @modifier.setter
     def modifier(self, modifier: str):
+        """
+        Set the modifier portion of the trigger with validation.
+
+        Args:
+            modifier: Single modifier string to set (e.g., "SHIFT", "CTRL", "ALT")
+                     Will be normalized to uppercase and validated
+                     Multiple modifiers are not supported
+
+        Raises:
+            ValueError: If modifier contains unsupported modifier keys
+
+        Example:
+            >>> trigger = _Trigger("f1")
+            >>> trigger.modifier = "shift"  # Normalized to "SHIFT"
+            >>> trigger.modifier = "CTRL"   # Single modifiers only
+        """
         self._modifier = self._normalize_and_validate_modifier(modifier)
 
     @property
     def key(self) -> str:
+        """
+        Get the key portion of the trigger (e.g., "F1", "W", "SPACE").
+
+        Returns:
+            String containing the normalized key name, always in uppercase
+
+        Example:
+            >>> trigger = _Trigger("shift+f1")
+            >>> trigger.key  # "F1"
+            >>>
+            >>> trigger2 = _Trigger(" w ")
+            >>> trigger2.key  # "W"  (trimmed and uppercased)
+        """
         return self._key
 
     @key.setter
     def key(self, key: str):
+        """
+        Set the key portion of the trigger with validation.
+
+        Args:
+            key: Key string to set (e.g., "F1", "w", "space")
+                 Will be normalized to uppercase and validated
+
+        Raises:
+            ValueError: If key is empty, contains spaces, or is not a supported game key
+
+        Example:
+            >>> trigger = _Trigger("f1")
+            >>> trigger.key = "f2"     # Normalized to "F2"
+            >>> trigger.key = "space"  # Normalized to "SPACE"
+        """
         self._key = self._normalize_and_validate_key(key)
 
     # endregion
 
     # region Trigger Methods
     def has_modifier(self) -> bool:
+        """
+        Check if the trigger has a modifier component.
+
+        Returns:
+            True if the trigger includes a modifier (e.g., SHIFT, CTRL), False otherwise
+
+        Example:
+            >>> trigger1 = _Trigger("F1")
+            >>> trigger1.has_modifier()  # False
+            >>>
+            >>> trigger2 = _Trigger("SHIFT+F1")
+            >>> trigger2.has_modifier()  # True
+        """
         return bool(self._modifier)
 
     def clear_modifier(self):
+        """
+        Remove the modifier from the trigger, leaving only the key.
+
+        After calling this method, the trigger will represent a simple key press
+        without any modifier keys.
+
+        Example:
+            >>> trigger = _Trigger("SHIFT+F1")
+            >>> str(trigger)        # "SHIFT+F1"
+            >>> trigger.clear_modifier()
+            >>> str(trigger)        # "F1"
+            >>> trigger.has_modifier()  # False
+        """
         self._modifier = ""
 
     # endregion
@@ -135,18 +295,18 @@ class _Trigger:
 
     # region Dunder Methods
     def __repr__(self):
-        """Override the default representation."""
+        """Return string representation for debugging."""
         if self.modifier:
             return f"{self.__class__.__name__}(key='{self.key}', modifier='{self.modifier}')"
         else:
             return f"{self.__class__.__name__}(key='{self.key}')"
 
     def __str__(self):
-        """Override the default string representation."""
+        """Return string representation for bind files."""
         return self._build_trigger_string()
 
     def __eq__(self, other):
-        """Override the default equality operator."""
+        """Enable equality comparison between triggers."""
         if not isinstance(other, _Trigger):
             return False
         return str(self) == str(other)

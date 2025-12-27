@@ -1,7 +1,8 @@
 import copy
+
+from ...content_managers.templates.bind_file_template import RotationPolicy
+from ...content_managers.templates.bind_template import WASDBindTemplate
 from .generic_rotating_binds import _GenericRotatingBind, _LoopTopology
-from ...content_managers import WASDBindTemplate
-from ...content_managers import RotationPolicy
 
 
 class WASDRotatingBind(_LoopTopology, _GenericRotatingBind):

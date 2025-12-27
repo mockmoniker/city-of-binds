@@ -1,4 +1,5 @@
 from typing import Set
+
 from .trigger import _Trigger
 
 

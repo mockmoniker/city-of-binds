@@ -1,9 +1,10 @@
 import math
-from typing import Union
-from pathlib import Path
 from functools import cache
+from pathlib import Path
+from typing import Union
+
 from .baseconverter import BaseConverter
-from ..utils.types import StrPath
+from .types.str_path import StrPath
 
 
 class PathGenerator:

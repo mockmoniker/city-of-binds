@@ -4,8 +4,10 @@ Unit tests for BindFile class.
 These tests focus on BindFile creation, modification, representation, and validation.
 """
 
-import pytest
 from pathlib import Path
+
+import pytest
+
 from CityOfBinds import Bind, BindFile
 from CityOfBinds.src.game.utils import _Comment, _CommentBanner
 

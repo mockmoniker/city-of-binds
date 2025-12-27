@@ -1,6 +1,8 @@
-from ..utils import _Trigger, _TriggerMixin
-from ..utils import _CommandsMixin, _CommandGroup
 from ...configs.constants import GameConstants
+from ..utils.commands.command_group import _CommandGroup
+from ..utils.commands.commands_mixin import _CommandsMixin
+from ..utils.triggers.trigger import _Trigger
+from ..utils.triggers.trigger_mixin import _TriggerMixin
 
 
 class Bind(_TriggerMixin, _CommandsMixin):
@@ -92,20 +94,17 @@ class Bind(_TriggerMixin, _CommandsMixin):
     # endregion
 
     # region Helper Methods
+    def _add_key_up_prefix(self, commands: _CommandGroup) -> _CommandGroup:
+        """Adds a '+' to beginning of commands list to enable key-up triggering."""
+        prefix_only_command = _CommandGroup(GameConstants.ENABLE_KEY_UP_PREFIX)
+        commands = prefix_only_command + commands
+        return commands
+
     def _build_bind_string(self) -> str:
-        """
-        Build the complete bind string from trigger and commands.
-
-        Handles special cases like key-up triggers by adding "+" prefix when needed.
-
-        Returns:
-            Complete bind string ready for bind file output
-        """
+        """Build complete bind string, handling key-up triggers."""
         commands = self.commands
-        # Add "+" prefix for key-up triggers if first command doesn't have a prefix
         if self.trigger_on_key_up and not commands[0].prefix:
-            modifier_command = _CommandGroup(GameConstants.ENABLE_KEY_UP_PREFIX)
-            commands = modifier_command + commands
+            commands = self._add_key_up_prefix(commands)
         return self._build_bind_string_from_components(
             trigger=self.trigger, commands=commands
         )
@@ -113,38 +112,19 @@ class Bind(_TriggerMixin, _CommandsMixin):
     def _build_bind_string_from_components(
         self, trigger: _Trigger, commands: _CommandGroup
     ) -> str:
-        """
-        Combine trigger and commands into a properly formatted bind string.
-
-        Args:
-            trigger: The trigger object containing key/modifier information
-            commands: The command group containing all commands to execute
-
-        Returns:
-            Formatted string in the format: 'TRIGGER "commands"'
-        """
+        """Combine trigger and commands into formatted bind string."""
         return f"{str(trigger)} {str(commands)}"
 
     # endregion
 
     # region Error Checking Methods
     def _throw_error_if_empty_bind(self):
-        """
-        Raise ValueError if the bind has no commands.
-
-        Raises:
-            ValueError: If bind is empty (no commands)
-        """
+        """Raise ValueError if bind has no commands."""
         if self.is_empty():
             raise ValueError("Bind must contain one or more commands.")
 
     def _throw_error_if_bind_too_long(self):
-        """
-        Raise ValueError if the bind exceeds maximum character length.
-
-        Raises:
-            ValueError: If bind string is longer than MAX_BIND_LENGTH
-        """
+        """Raise ValueError if bind exceeds maximum length."""
         if self.is_over_bind_length():
             raise ValueError(
                 f"Bind exceeds maximum length of {GameConstants.MAX_BIND_LENGTH} characters. Current length is '{self.bind_length}'."
@@ -163,24 +143,11 @@ class Bind(_TriggerMixin, _CommandsMixin):
         return f"{self.__class__.__name__}(trigger={self.trigger}, commands={self.commands})"
 
     def __str__(self) -> str:
-        """
-        Return the bind string representation for use in bind files.
-
-        Returns:
-            Complete bind string ready for bind file output
-        """
+        """Return bind string for use in bind files."""
         return self.bind_string
 
     def __eq__(self, other):
-        """
-        Compare two Bind objects for equality based on their bind strings.
-
-        Args:
-            other: Another object to compare against
-
-        Returns:
-            True if both objects are Binds with identical bind strings
-        """
+        """Compare Bind objects for equality based on bind strings."""
         if not isinstance(other, Bind):
             return False
         return self.bind_string == other.bind_string

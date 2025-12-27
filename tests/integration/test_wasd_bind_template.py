@@ -6,7 +6,8 @@ including WASD movement command injection and WASDBind object creation.
 """
 
 import pytest
-from CityOfBinds import WASDBindTemplate, WASDBind
+
+from CityOfBinds import WASDBind, WASDBindTemplate
 
 
 class TestWASDBindTemplateCreation:

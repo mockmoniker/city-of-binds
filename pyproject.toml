@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "CityOfBinds"
-version = "0.0.1"
+dynamic = ["version"]
 description = "Library to help create binds as simple or advanced as you'd like."
 readme = "README.rst"
 license = {text = "MIT"}
@@ -52,3 +52,6 @@ line_length = 88
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
+
+[tool.setuptools.dynamic]
+version = {attr = "CityOfBinds.__version__"}

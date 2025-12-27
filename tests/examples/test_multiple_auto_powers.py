@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from CityOfBinds import WASDRotatingBind
 
 
@@ -37,7 +38,6 @@ def test_set_multiple_powers_on_auto_via_wasd_rotating_bind(in_tmp_dir):
     """
 
     # region setup
-
     # initialize the WASDRotatingBind with jump included
     wasd_rotating_bind = WASDRotatingBind(include_jump=True)
 
@@ -54,7 +54,6 @@ def test_set_multiple_powers_on_auto_via_wasd_rotating_bind(in_tmp_dir):
     # endregion
 
     # region validation
-
     # expected binds in each file
     expected_file_contents = {
         "binds_folder/auto_powers/0.txt": [

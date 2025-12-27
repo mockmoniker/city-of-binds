@@ -1,0 +1,221 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CityOfBinds.src.content_managers.templates.bind_template &mdash; CityOfBinds 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../../_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            CityOfBinds
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../source/modules.html">CityOfBinds</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">CityOfBinds</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">CityOfBinds.src.content_managers.templates.bind_template</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for CityOfBinds.src.content_managers.templates.bind_template</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">...game.binds.bind</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bind</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...game.binds.wasd_binds</span><span class="w"> </span><span class="kn">import</span> <span class="n">WASDBind</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...game.utils.triggers.trigger_mixin</span><span class="w"> </span><span class="kn">import</span> <span class="n">_TriggerMixin</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...game.utils.triggers.wasd_trigger</span><span class="w"> </span><span class="kn">import</span> <span class="n">_WASDTrigger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils.commands_template</span><span class="w"> </span><span class="kn">import</span> <span class="n">_CommandsTemplate</span>
+
+
+<div class="viewcode-block" id="BindTemplate">
+<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.BindTemplate">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BindTemplate</span><span class="p">(</span><span class="n">_TriggerMixin</span><span class="p">,</span> <span class="n">_CommandsTemplate</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Template for generating individual bind objects with configurable commands.</span>
+
+<span class="sd">    BindTemplate combines trigger management with command template functionality to</span>
+<span class="sd">    create individual bind objects. It serves as a factory for generating bind</span>
+<span class="sd">    instances with specific triggers and collections of slash commands.</span>
+
+<span class="sd">    The template inherits from both _TriggerMixin (for trigger validation and management)</span>
+<span class="sd">    and _CommandsTemplate (for command collection and generation), providing a complete</span>
+<span class="sd">    solution for bind creation with dynamic command sequences.</span>
+
+<span class="sd">    Key Features:</span>
+<span class="sd">        - Trigger validation and storage via _TriggerMixin</span>
+<span class="sd">        - Command collection and templating via _CommandsTemplate</span>
+<span class="sd">        - Dynamic bind generation with _build_one()</span>
+<span class="sd">        - Support for multiple bind variations through unique count calculation</span>
+<span class="sd">        - Extensible architecture for specialized bind types</span>
+
+<span class="sd">    Class Attributes:</span>
+<span class="sd">        BIND_TYPE: The type of bind object to create (default: Bind)</span>
+
+<span class="sd">    Inheritance Chain:</span>
+<span class="sd">        BindTemplate -&gt; _TriggerMixin (trigger management)</span>
+<span class="sd">                    -&gt; _CommandsTemplate (command collection)</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; template = BindTemplate(&quot;F1&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; template.add_power(&quot;Hasten&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; template.add_emote(&quot;wave&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; bind = template._build_one()</span>
+<span class="sd">        &gt;&gt;&gt; print(bind.trigger)  # &quot;F1&quot;</span>
+<span class="sd">        &gt;&gt;&gt; print(len(bind.commands))  # 2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">BIND_TYPE</span> <span class="o">=</span> <span class="n">Bind</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trigger</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a new BindTemplate with the specified trigger.</span>
+
+<span class="sd">        Creates a bind template that can generate bind objects with the given trigger</span>
+<span class="sd">        and any commands added through the inherited command template methods.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            trigger: The key or key combination that will activate the bind</span>
+<span class="sd">                    (e.g., &quot;F1&quot;, &quot;CTRL+ALT+Q&quot;, &quot;LBUTTON&quot;)</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; template = BindTemplate(&quot;SHIFT+F5&quot;)</span>
+<span class="sd">            &gt;&gt;&gt; template.add_command(&quot;say Hello World!&quot;)</span>
+<span class="sd">            &gt;&gt;&gt; bind = template._build_one()</span>
+<span class="sd">            &gt;&gt;&gt; bind.trigger  # &quot;SHIFT+F5&quot;</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            Trigger validation is handled by the _TriggerMixin parent class.</span>
+<span class="sd">            Invalid triggers will raise appropriate exceptions during initialization.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_TriggerMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trigger</span><span class="p">)</span>
+        <span class="n">_CommandsTemplate</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1"># region Template Generation Methods</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_one</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bind</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate bind object with current trigger and commands.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">BIND_TYPE</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trigger</span><span class="p">,</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_build_one</span><span class="p">())</span></div>
+
+
+    <span class="c1"># endregion</span>
+
+
+<div class="viewcode-block" id="WASDBindTemplate">
+<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.WASDBindTemplate">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">WASDBindTemplate</span><span class="p">(</span><span class="n">BindTemplate</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Specialized bind template for WASD movement key binds with enhanced trigger validation.</span>
+
+<span class="sd">    WASDBindTemplate extends BindTemplate with specific support for movement key binds</span>
+<span class="sd">    that use WASD keys (W, A, S, D) and related directional controls. It provides</span>
+<span class="sd">    enhanced trigger validation through _WASDTrigger and generates WASDBind objects</span>
+<span class="sd">    optimized for movement-related commands.</span>
+
+<span class="sd">    This template is particularly useful for creating movement macros, travel power</span>
+<span class="sd">    binds, and directional command sequences that need to integrate seamlessly with</span>
+<span class="sd">    the game&#39;s movement system.</span>
+
+<span class="sd">    Key Differences from BindTemplate:</span>
+<span class="sd">        - Uses _WASDTrigger for enhanced movement key validation</span>
+<span class="sd">        - Generates WASDBind objects instead of standard Bind objects</span>
+<span class="sd">        - Optimized for movement-related command sequences</span>
+<span class="sd">        - Supports directional movement patterns and travel powers</span>
+
+<span class="sd">    Class Attributes:</span>
+<span class="sd">        TRIGGER_TYPE: Specifies _WASDTrigger for movement key validation</span>
+<span class="sd">        BIND_TYPE: Specifies WASDBind for movement-optimized bind generation</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; template = WASDBindTemplate(&quot;W&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; template.add_power(&quot;Super Speed&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; template.add_command(&quot;++forward&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; wasd_bind = template._build_one()</span>
+<span class="sd">        &gt;&gt;&gt; isinstance(wasd_bind, WASDBind)  # True</span>
+<span class="sd">        &gt;&gt;&gt; wasd_bind.trigger  # &quot;W&quot;</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        All command template methods (add_power, add_emote, etc.) are inherited</span>
+<span class="sd">        from the parent classes and work identically to BindTemplate.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">TRIGGER_TYPE</span> <span class="o">=</span> <span class="n">_WASDTrigger</span>
+    <span class="n">BIND_TYPE</span> <span class="o">=</span> <span class="n">WASDBind</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, brandon wade.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

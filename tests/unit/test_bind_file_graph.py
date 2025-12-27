@@ -5,10 +5,10 @@ These tests focus on BindFileGraph functionality as a NetworkX DiGraph wrapper
 for managing logical connections between BindFile objects.
 """
 
-import pytest
 import networkx as nx
-from CityOfBinds import Bind, BindFile
-from CityOfBinds import BindFileGraph
+import pytest
+
+from CityOfBinds import Bind, BindFile, BindFileGraph
 
 
 class TestBindFileGraphCreation:

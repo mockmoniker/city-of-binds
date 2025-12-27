@@ -1,7 +1,9 @@
-import networkx as nx
 import copy
-from ...game import BindFile
+
+import networkx as nx
+
 from ...configs.constants import BFGConstants
+from ...game.bind_file.bind_file import BindFile
 
 
 class BindFileGraph(nx.DiGraph):

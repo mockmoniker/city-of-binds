@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from CityOfBinds import WASDRotatingBind
 
 
@@ -41,7 +42,6 @@ def test_keep_powers_perstent_via_wasd_rotating_bind(in_tmp_dir):
     """
 
     # region setup
-
     # initialize the WASDRotatingBind with jump included
     wasd_rotating_bind = WASDRotatingBind()
 
@@ -65,7 +65,6 @@ def test_keep_powers_perstent_via_wasd_rotating_bind(in_tmp_dir):
     # endregion
 
     # region validation
-
     # expected binds in each file
     expected_file_contents = {
         "binds_folder/wasd/0.txt": [
@@ -101,3 +100,5 @@ def test_keep_powers_perstent_via_wasd_rotating_bind(in_tmp_dir):
             contents = f.read()
         for expected_bind in expected_file_contents[file_path]:
             assert expected_bind in contents
+
+    # endregion

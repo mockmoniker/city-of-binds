@@ -1,6 +1,7 @@
 import zipfile
 from pathlib import Path
-from CityOfBinds import RotatingBind, BindTemplate
+
+from CityOfBinds import BindTemplate, RotatingBind
 from CityOfBinds.src.content_managers import RotationPolicy
 
 
