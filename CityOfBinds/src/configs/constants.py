@@ -17,3 +17,22 @@ class BFGConstants:
     INCLUSIVE_KEY = "on_triggers"
     EXCLUSIVE_KEY = "not_on_triggers"
     QUICK_TRIGGER_KEY = "quick_triggers"
+
+
+class ChangelingConstants:
+    DARK_NOVA = "dark nova"
+    BLACK_DWARF = "black dwarf"
+    BRIGHT_NOVA = "bright nova"
+    WHITE_DWARF = "white dwarf"
+    BOLT = "bolt"
+    BLAST = "blast"
+    DETONATION = "detonation"
+    STRIKE = "strike"
+    SMITE = "smite"
+    ANTAGONIZE = "antagonize"
+    EMMANATION = "emmanation"
+    DRAIN = "drain"
+    MIRE = "mire"
+    SCATTER = "scatter"
+    FLARE = "flare"
+    SUBLIMATION = "sublimation"
