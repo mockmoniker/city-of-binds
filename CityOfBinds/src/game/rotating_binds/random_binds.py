@@ -1,14 +1,9 @@
-from typing import TYPE_CHECKING
-
 from ...configs.constants import BFGConstants
 from ...content_managers.graph.bind_file_graph import BindFileGraph
 from ..bind_file.bind_file import BindFile
 from .generic_rotating_binds import _RandomOrder
 from .rotating_bind import RotatingBind
 from .wasd_rotating_bind import WASDRotatingBind
-
-if TYPE_CHECKING:
-    pass
 
 
 class RandomBinds(RotatingBind, _RandomOrder):
@@ -17,16 +12,15 @@ class RandomBinds(RotatingBind, _RandomOrder):
         random_factor: int = 10,
         is_silent: bool = True,
         absolute_path_links: bool = False,
+        loop_delay: int = 0,
     ):
         RotatingBind.__init__(
-            self, is_silent=is_silent, absolute_path_links=absolute_path_links
+            self,
+            is_silent=is_silent,
+            absolute_path_links=absolute_path_links,
+            loop_delay=loop_delay,
         )
-        self.random_factor = random_factor
-
-    def _build_bind_files(self) -> list[BindFile]:
-        bind_files = super()._build_bind_files()
-        extended_bind_files = bind_files * self.random_factor
-        return extended_bind_files
+        _RandomOrder.__init__(self, random_factor=random_factor)
 
 
 class RandomWalk(WASDRotatingBind, _RandomOrder):
@@ -41,7 +35,9 @@ class RandomWalk(WASDRotatingBind, _RandomOrder):
             include_jump=include_jump,
             is_silent=is_silent,
             absolute_path_links=absolute_path_links,
+            loop_delay=0,
         )
+        _RandomOrder.__init__(self, random_factor=1)
 
     def _connect_bind_file_graph(
         self, bfg: BindFileGraph, bind_file_indexes: list[int], trigger_conditions: dict

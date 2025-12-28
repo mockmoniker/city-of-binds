@@ -100,7 +100,8 @@ class _GenericRotatingBind(ABC):
 
 
 class _LoopTopology:
-    LOOP_DELAY = 0
+    def __init__(self, loop_delay: int = 0):
+        self.loop_delay = loop_delay
 
     def _connect_bind_file_graph(
         self, bfg: BindFileGraph, bind_file_indexes: list[int], trigger_conditions: dict
@@ -108,10 +109,13 @@ class _LoopTopology:
         bfg.loop(
             bind_file_indexes,
             trigger_conditions=trigger_conditions,
-            delay=self.LOOP_DELAY,
+            delay=self.loop_delay,
         )
 
 
 class _RandomOrder:
+    def __init__(self, random_factor: int = 1):
+        self.random_factor = random_factor
+
     def _index_bind_files(self, bind_files: list[BindFile]):
-        random.shuffle(bind_files)
+        random.shuffle(bind_files * self.random_factor)

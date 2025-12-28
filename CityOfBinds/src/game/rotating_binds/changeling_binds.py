@@ -7,7 +7,6 @@ from .rotating_bind import RotatingBind
 
 
 class _ChangelingRotatingBind(_TriggerMixin, RotatingBind):
-    LOOP_DELAY = 1
     NOVA_FORM: str
     DWARF_FORM: str
 
@@ -16,11 +15,14 @@ class _ChangelingRotatingBind(_TriggerMixin, RotatingBind):
     ):
         _TriggerMixin.__init__(self, trigger)
         RotatingBind.__init__(
-            self, is_silent=is_silent, absolute_path_links=absolute_path_links
+            self,
+            is_silent=is_silent,
+            absolute_path_links=absolute_path_links,
+            loop_delay=1,
         )
         self._form_changes: list[str] = []
         self._form_powers: list[str] = []
-        self.bind_template: BindTemplate = BindTemplate(self.trigger)
+        self.changeling_bind_template: BindTemplate = BindTemplate(self.trigger)
 
     def add_bolt(self, count: int = 1) -> Self:
         return self._add_nova_power(ChangelingConstants.BOLT, count)
@@ -41,9 +43,9 @@ class _ChangelingRotatingBind(_TriggerMixin, RotatingBind):
         return self._add_dwarf_power(ChangelingConstants.ANTAGONIZE, count)
 
     def _build_bind_files(self):
-        self._build_changeling_bind_template(self.bind_template)
+        self._build_changeling_bind_template(self.changeling_bind_template)
         self.bind_file_template.add_bind_template(
-            self.bind_template, trigger_on_up_press=True
+            self.changeling_bind_template, trigger_on_up_press=True
         )
         return super()._build_bind_files()
 
