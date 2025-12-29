@@ -12,7 +12,7 @@ PathFactoryConstructor: TypeAlias = Callable[[int, StrPath], "PathFactoryProtoco
 
 class FileGraphDefaults:
     FILE_GRAPH_KEY = "file"
-    PARENT_FOLDER = "file_graph"
+    PARENT_FOLDER = "graph_files"
     PUBLISH_DIRECTORY = "."
     ABSOLUTE_PATH_LINKS = False
     ARCHIVE_FORMAT = "zip"
