@@ -136,10 +136,14 @@ class PathGenerator:
         return depth_capacities
 
     def _calculate_part_width(self, file_count: int, max_files_per_folder: int) -> int:
+        if file_count == 0:
+            return 1
         max_index = min(file_count, max_files_per_folder) - 1
         return len(self._base_converter[max_index])
 
     def _calculate_root_width(self, file_count: int, capacity: int) -> int:
+        if file_count == 0:
+            return 1
         num_root_folders = math.ceil(file_count / capacity)
         max_root_index = num_root_folders - 1
         return len(self._base_converter[max_root_index])

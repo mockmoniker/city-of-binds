@@ -3,6 +3,7 @@ from pathlib import Path
 from ...utils.file_graph_publisher import _FileGraphPublisher
 from ...utils.types.str_path import StrPath
 from ..configs.constants import BFGConstants, FileExtensions
+from ..content_managers.graph.bind_file_graph import BindFileGraph
 from ..game.bind_file.bind_file import BindFile
 from ..game.binds.bind import Bind
 
@@ -77,6 +78,22 @@ class BFGPublisher(_FileGraphPublisher):
             absolute_path_links=absolute_path_links,
             file_graph_key=BFGConstants.NODE_DATA_KEY,
         )
+
+    def publish_files(
+        self,
+        file_graph: BindFileGraph,
+        directory: StrPath = "",
+        parent_folder: str = "",
+    ):
+        super().publish_files(file_graph, directory, parent_folder)
+        self._publish_install_files(directory, parent_folder)
+
+    def _publish_install_files(
+        self,
+        directory: StrPath,
+        parent_folder: str,
+    ):
+        pass
 
     # region File Linking Methods
     def _link_file(

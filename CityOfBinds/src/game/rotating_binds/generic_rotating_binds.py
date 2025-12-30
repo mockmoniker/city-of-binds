@@ -78,6 +78,10 @@ class _GenericRotatingBind(ABC):
             conditions[BFGConstants.EXCLUSIVE_KEY] = (
                 self.bind_file_template.exclude_triggers
             )
+        if self.bind_file_template.quick_triggers:
+            conditions[BFGConstants.QUICK_TRIGGER_KEY] = (
+                self.bind_file_template.quick_triggers
+            )
         return conditions
 
     def _create_bind_file_graph(
@@ -96,12 +100,22 @@ class _GenericRotatingBind(ABC):
 
 
 class _LoopTopology:
+    def __init__(self, loop_delay: int = 0):
+        self.loop_delay = loop_delay
+
     def _connect_bind_file_graph(
         self, bfg: BindFileGraph, bind_file_indexes: list[int], trigger_conditions: dict
     ):
-        bfg.loop(bind_file_indexes, trigger_conditions=trigger_conditions)
+        bfg.loop(
+            bind_file_indexes,
+            trigger_conditions=trigger_conditions,
+            delay=self.loop_delay,
+        )
 
 
 class _RandomOrder:
+    def __init__(self, random_factor: int = 1):
+        self.random_factor = random_factor
+
     def _index_bind_files(self, bind_files: list[BindFile]):
-        random.shuffle(bind_files)
+        random.shuffle(bind_files * self.random_factor)

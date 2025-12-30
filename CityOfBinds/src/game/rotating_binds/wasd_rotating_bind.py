@@ -2,6 +2,9 @@ import copy
 
 from ...content_managers.templates.bind_file_template import RotationPolicy
 from ...content_managers.templates.bind_template import WASDBindTemplate
+from ...content_managers.utils.commands_template import (
+    _CommandsTemplate,  # TODO: implement base wasd bind to use commandstemplate (2025/12/27)
+)
 from .generic_rotating_binds import _GenericRotatingBind, _LoopTopology
 
 
@@ -11,7 +14,9 @@ class WASDRotatingBind(_LoopTopology, _GenericRotatingBind):
         include_jump: bool = False,
         is_silent: bool = True,
         absolute_path_links: bool = False,
+        loop_delay: int = 0,
     ):
+        _LoopTopology.__init__(self, loop_delay=loop_delay)
         _GenericRotatingBind.__init__(
             self, is_silent=is_silent, absolute_path_links=absolute_path_links
         )
