@@ -1,15 +1,22 @@
 from pathlib import Path
+from typing import Union
 
 from ....utils.types.str_path import StrPath
-from ...configs.constants import FileExtensions
+from ...configs.constants import BindFileConstants, GameConstants
 from ..binds.bind import Bind
+from ..macros.macro import Macro
+from ..utils.commands.command_group import _CommandGroup
 from ..utils.comments.comment import _Comment
 
-# Type alias for supported content types in bind files
-BindContent = Bind | _Comment
+# Centralized list of supported content types
+_BIND_FILE_CONTENT_TYPES = (Bind, _Comment, Macro, _CommandGroup)
+
+# Type alias derived from the centralized list
+BindFileContentType = Union[*_BIND_FILE_CONTENT_TYPES]
 
 
 class BindFile:
+    BIND_STUB = Bind(BindFileConstants.STUB_TRIGGER, [BindFileConstants.STUB_COMMAND])
     """
     Represents a game bind file containing a collection of Binds and Comments.
 
@@ -30,13 +37,18 @@ class BindFile:
         contents: Ordered list of Bind and Comment instances
     """
 
-    def __init__(self, content_list: list[BindContent] = None):
+    def __init__(
+        self,
+        content_list: list[BindFileContentType] = None,
+        supress_load_errors: bool = True,
+    ):
         """
         Initialize a new BindFile with optional starting content.
 
         Args:
             content_list: Optional list of Bind and/or Comment instances to initialize with.
                          If None, creates an empty BindFile.
+            supress_load_errors: Whether to suppress errors during loading of content
 
         Raises:
             TypeError: If content_list is not a list or contains invalid content types
@@ -53,7 +65,7 @@ class BindFile:
 
     # region Properties
     @property
-    def contents(self) -> list[BindContent]:
+    def contents(self) -> list[BindFileContentType]:
         """
         Get the ordered list of all content in the bind file.
 
@@ -67,7 +79,7 @@ class BindFile:
         return self._contents
 
     @contents.setter
-    def contents(self, content_list: list[BindContent]):
+    def contents(self, content_list: list[BindFileContentType]):
         """
         Set the contents of the bind file, replacing all existing content.
 
@@ -88,20 +100,70 @@ class BindFile:
     @property
     def binds(self) -> list[Bind]:
         """
-        Get only the Bind instances from the contents, filtering out comments.
+        Get all Bind instances from the contents, filtering out all other items.
 
         Returns:
             List of Bind instances in their current order
-
-        Example:
-            >>> bf = BindFile([Bind("F1", ["say hi"]), _Comment("test"), Bind("F2", ["say bye"])])
-            >>> len(bf.binds)  # 2 (comments filtered out)
         """
-        return [content for content in self._contents if isinstance(content, Bind)]
+        return self._get_content_type(Bind)
+
+    @property
+    def macros(self) -> list[Macro]:
+        """
+        Get all Macro instances from the contents, filtering out all other items.
+
+        Returns:
+            List of Macro instances in their current order
+        """
+        return self._get_content_type(Macro)
+
+    @property
+    def command_groups(self) -> list[_CommandGroup]:
+        """
+        Get all CommandGroup instances from the contents, filtering out all other items.
+
+        Returns:
+            List of CommandGroup instances in their current order
+        """
+        return self._get_content_type(_CommandGroup)
+
+    def _get_content_type(self, content_type: type) -> list[BindFileContentType]:
+        """Get all content items of a specific type."""
+        return [
+            content for content in self._contents if isinstance(content, content_type)
+        ]
 
     # endregion
 
     # region Content Management Methods
+    def _add_content(
+        self, content: BindFileContentType, expected_type: type
+    ) -> "BindFile":
+        """Helper method to validate and add content to the bind file."""
+        self._throw_error_on_invalid_content_type(
+            expected_type=expected_type, content=content
+        )
+        self._contents.append(content)
+        return self
+
+    def add_content(self, content: BindFileContentType) -> "BindFile":
+        """
+        Add a content item (Bind, Comment, Macro, or CommandGroup) to the end of the bind file.
+
+        Args:
+            content: The content item to add
+
+        Returns:
+            Self for method chaining
+
+        Raises:
+            TypeError: If content is not a supported type
+        """
+        if not isinstance(content, _BIND_FILE_CONTENT_TYPES):
+            raise TypeError(f"Expected BindFileContent, got {type(content).__name__}")
+        self._contents.append(content)
+        return self
+
     def add_bind(self, bind: Bind) -> "BindFile":
         """
         Add a Bind instance to the end of the bind file contents.
@@ -120,9 +182,7 @@ class BindFile:
             >>> bf.add_bind(Bind("F1", ["say hello"])).add_bind(Bind("F2", ["say goodbye"]))
             >>> len(bf.contents)  # 2
         """
-        self._throw_error_on_invalid_content_type(expected_type=Bind, content=bind)
-        self._contents.append(bind)
-        return self
+        return self._add_content(bind, Bind)
 
     def add_comment(self, comment: _Comment) -> "BindFile":
         """
@@ -136,16 +196,38 @@ class BindFile:
 
         Raises:
             TypeError: If comment is not a Comment instance
-
-        Example:
-            >>> bf = BindFile()
-            >>> bf.add_comment(_Comment("This is a header")).add_bind(Bind("F1", ["say hi"]))
         """
-        self._throw_error_on_invalid_content_type(
-            expected_type=_Comment, content=comment
-        )
-        self._contents.append(comment)
-        return self
+        return self._add_content(comment, _Comment)
+
+    def add_macro(self, macro: Macro) -> "BindFile":
+        """
+        Add a Macro instance to the end of the bind file contents.
+
+        Args:
+            macro: The Macro instance to add
+
+        Returns:
+            Self for method chaining
+
+        Raises:
+            TypeError: If macro is not a Macro instance
+        """
+        return self._add_content(macro, Macro)
+
+    def add_command_group(self, command_group: _CommandGroup) -> "BindFile":
+        """
+        Add a CommandGroup instance to the end of the bind file contents.
+
+        Args:
+            command_group: The CommandGroup instance to add
+
+        Returns:
+            Self for method chaining
+
+        Raises:
+            TypeError: If command_group is not a CommandGroup instance
+        """
+        return self._add_content(command_group, _CommandGroup)
 
     def clear(self) -> "BindFile":
         """
@@ -223,14 +305,14 @@ class BindFile:
 
         # Auto-add .txt extension if missing
         if not file_path.suffix:
-            file_path = file_path.with_suffix(FileExtensions.BIND_FILE)
-        elif file_path.suffix != FileExtensions.BIND_FILE:
+            file_path = file_path.with_suffix(BindFileConstants.FILE_EXTENSION)
+        elif file_path.suffix != BindFileConstants.FILE_EXTENSION:
             raise ValueError(
-                f"File must have '{FileExtensions.BIND_FILE}' extension, got '{file_path.suffix}'"
+                f"File must have '{BindFileConstants.FILE_EXTENSION}' extension, got '{file_path.suffix}'"
             )
 
         # Validate before writing
-        self.validate_binds()
+        self.validate()
 
         # Create parent directories if needed
         file_path.parent.mkdir(parents=True, exist_ok=True)
@@ -259,6 +341,17 @@ class BindFile:
     # endregion
 
     # region Validation Methods
+    def validate(self) -> None:
+        """
+        Validate the entire BindFile for common issues.
+
+        Calls the validate_binds() method to check all Bind instances for validity.
+
+        Raises:
+            ValueError: If any bind fails validation
+        """
+        self.validate_binds()
+
     def validate_binds(self):
         """
         Validate all Bind instances in the bind file.
@@ -286,19 +379,36 @@ class BindFile:
         """Build complete file contents as string by joining all content items."""
         if self.is_empty():
             return ""
-        return "\n".join(str(content) for content in self._contents)
+        return "\n".join(self._bf_str_repr(content) for content in self._contents)
+
+    def _bf_str_repr(self, content: BindFileContentType) -> str:
+        """Get the string representation of the content for bind file publishing"""
+        if isinstance(content, (Macro, _CommandGroup)):
+            return self._add_execute_stub(content)
+        return str(content)
+
+    def _add_execute_stub(self, content: BindFileContentType) -> str:
+        """Return the command with an execute stub to allow execution on bind file load"""
+        stub = ""
+        if self.supress_load_errors:
+            stub = self.BIND_STUB.bind_string
+        return GameConstants.COMMAND_DELIMITER.join([stub, str(content)])
 
     # endregion
 
     # region Validation and Error Handling
-    def _throw_error_on_invalid_content_list(self, content_list: list[BindContent]):
+    def _throw_error_on_invalid_content_list(
+        self, content_list: list[BindFileContentType]
+    ):
         """Validate content_list is a proper list of valid content types."""
         if not isinstance(content_list, list):
-            raise TypeError("Contents must be a list of Bind or Comment instances")
+            raise TypeError(
+                "Contents must be a list of supported BindFileContent types"
+            )
         for content in content_list:
-            if not isinstance(content, (Bind, _Comment)):
+            if not isinstance(content, _BIND_FILE_CONTENT_TYPES):
                 raise TypeError(
-                    "All items in contents must be instances of Bind or Comment"
+                    f"All items in contents must be instances of supported types: {[t.__name__ for t in _BIND_FILE_CONTENT_TYPES]}"
                 )
 
     def _throw_error_on_invalid_content_type(self, expected_type, content):

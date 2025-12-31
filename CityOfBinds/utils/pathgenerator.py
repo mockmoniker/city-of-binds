@@ -10,6 +10,7 @@ from .types.str_path import StrPath
 class PathGenerator:
     DEFAULT_PARENT_FOLDER_NAME = ""
     DEFAULT_MAX_FILES_PER_FOLDER = 256
+    DEFAULT_FILE_EXTENSION = ""
     DEFAULT_PADDING_BEHAVIOR = True
 
     """ Generates a folder/file path based off maximum files and max files per folder."""
@@ -19,12 +20,14 @@ class PathGenerator:
         file_count: int,
         parent_folder_name: StrPath = DEFAULT_PARENT_FOLDER_NAME,
         max_files_per_folder: int = DEFAULT_MAX_FILES_PER_FOLDER,
+        file_extension: str = DEFAULT_FILE_EXTENSION,
         enable_padding: bool = DEFAULT_PADDING_BEHAVIOR,
         path_alphabet: str = None,
     ):
         self._file_count = file_count
         self._parent_folder = Path(parent_folder_name)
         self._max_files_per_folder = max_files_per_folder
+        self._file_extension = self._normalize_extension(file_extension)
         self._enable_padding = enable_padding
         self._base_converter = (
             BaseConverter(path_alphabet) if path_alphabet else BaseConverter()
@@ -64,7 +67,9 @@ class PathGenerator:
 
     @cache
     def _get_full_path(self, file_index: int) -> Path:
-        return self._parent_folder / self._get_relative_path(file_index)
+        return self._parent_folder / self._get_relative_path(file_index).with_suffix(
+            self._file_extension
+        )
 
     def _get_relative_path(self, file_index: int) -> Path:
         path_parts = self._make_path_parts(file_index)
@@ -147,6 +152,15 @@ class PathGenerator:
         num_root_folders = math.ceil(file_count / capacity)
         max_root_index = num_root_folders - 1
         return len(self._base_converter[max_root_index])
+
+    # endregion
+
+    # region Extension Handling Methods
+    def _normalize_extension(self, extension: str) -> str:
+        """Normalize file extension to always include leading dot."""
+        if not extension:
+            return ""
+        return extension if extension.startswith(".") else f".{extension}"
 
     # endregion
 

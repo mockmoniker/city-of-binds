@@ -17,7 +17,7 @@ class _GenericRotatingBind(ABC):
     def __init__(self, is_silent: bool = True, absolute_path_links: bool = False):
         self.bind_file_template: BindFileTemplate = BindFileTemplate()
         self.bfg_publisher: BFGPublisher = BFGPublisher(
-            is_silent=is_silent, absolute_path_links=absolute_path_links
+            is_silent=is_silent, use_absolute_paths=absolute_path_links
         )
 
     @abstractmethod

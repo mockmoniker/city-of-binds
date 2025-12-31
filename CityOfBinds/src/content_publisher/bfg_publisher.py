@@ -1,8 +1,6 @@
-from pathlib import Path
-
 from ...utils.file_graph_publisher import _FileGraphPublisher
 from ...utils.types.str_path import StrPath
-from ..configs.constants import BFGConstants, FileExtensions
+from ..configs.constants import BFGConstants, BindFileConstants
 from ..content_managers.graph.bind_file_graph import BindFileGraph
 from ..game.bind_file.bind_file import BindFile
 from ..game.binds.bind import Bind
@@ -48,7 +46,7 @@ class BFGPublisher(_FileGraphPublisher):
     def __init__(
         self,
         is_silent: bool = True,
-        absolute_path_links: bool = False,
+        use_absolute_paths: bool = False,
     ):
         """
         Initialize a new BFGPublisher with specified linking behavior.
@@ -60,23 +58,25 @@ class BFGPublisher(_FileGraphPublisher):
         Args:
             is_silent: Whether to use silent file loading (True) or show chat messages (False)
                       Silent mode prevents "Loading bind file..." messages in game chat
-            absolute_path_links: Whether to use absolute paths in bind_load_file commands
+            use_absolute_paths: Whether to use absolute paths in bind_load_file commands
                                False uses relative paths for portability
 
         Example:
             >>> # Silent publisher with relative paths (default)
             >>> publisher = BFGPublisher()
             >>> # Verbose publisher with absolute paths
-            >>> publisher = BFGPublisher(is_silent=False, absolute_path_links=True)
+            >>> publisher = BFGPublisher(is_silent=False, use_absolute_paths=True)
 
         Note:
             Silent mode is typically preferred to avoid cluttering game chat with
             file loading messages during bind file transitions.
         """
         self.is_silent = is_silent
+        bfg_path_kwargs = {"file_extension": BindFileConstants.FILE_EXTENSION}
         super().__init__(
-            absolute_path_links=absolute_path_links,
+            use_absolute_paths=use_absolute_paths,
             file_graph_key=BFGConstants.NODE_DATA_KEY,
+            path_kwargs=bfg_path_kwargs,
         )
 
     def publish_files(
@@ -140,13 +140,9 @@ class BFGPublisher(_FileGraphPublisher):
     def _link_bind(self, bind: Bind, target_file_path: StrPath):
         """Add silent or verbose bind_load_file command to bind."""
         if self.is_silent:
-            bind.commands.add_bind_load_file_silent(
-                Path(target_file_path).with_suffix(FileExtensions.BIND_FILE)
-            )
+            bind.commands.add_bind_load_file_silent(target_file_path)
         else:
-            bind.commands.add_bind_load_file(
-                Path(target_file_path).with_suffix(FileExtensions.BIND_FILE)
-            )
+            bind.commands.add_bind_load_file(target_file_path)
 
     def _update_target_bind_file(
         self, target_bind_file: BindFile, trigger_conditions: dict[str, list[str]]
@@ -167,6 +163,6 @@ class BFGPublisher(_FileGraphPublisher):
     # region File Output Methods
     def _write_file(self, bind_file: BindFile, path: StrPath):
         """Write bind file to disk."""
-        bind_file.write_to_file(Path(path))
+        bind_file.write_to_file(path)
 
     # endregion
