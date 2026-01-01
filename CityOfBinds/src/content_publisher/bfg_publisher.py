@@ -74,7 +74,7 @@ class BFGPublisher(_FileGraphPublisher):
         self.is_silent = is_silent
         bfg_path_kwargs = {"file_extension": BindFileConstants.FILE_EXTENSION}
         super().__init__(
-            use_absolute_paths=use_absolute_paths,
+            use_abs_path_links=use_absolute_paths,
             file_graph_key=BFGConstants.NODE_DATA_KEY,
             path_kwargs=bfg_path_kwargs,
         )

@@ -36,13 +36,13 @@ class _FileGraphPublisher(ABC):
         self,
         path_constructor: PathFactoryConstructor = FileGraphDefaults.PATH_FACTORY,
         path_kwargs: dict = FileGraphDefaults.PATH_KWARGS,
-        use_absolute_paths: bool = FileGraphDefaults.ABSOLUTE_PATH_LINKS,
+        use_abs_path_links: bool = FileGraphDefaults.ABSOLUTE_PATH_LINKS,
         file_graph_key: str = FileGraphDefaults.FILE_GRAPH_KEY,
     ):
         self.file_paths = None
         self._path_constructor = path_constructor
         self._path_kwargs = path_kwargs or {}
-        self.use_absolute_paths = use_absolute_paths
+        self.use_abs_path_links = use_abs_path_links
         self.file_graph_key = file_graph_key
 
     def publish_files(
@@ -86,7 +86,7 @@ class _FileGraphPublisher(ABC):
     def _create_paths(
         self, file_count: int, directory: StrPath, parent_folder: str
     ) -> PathFactoryProtocol:
-        if self.use_absolute_paths:
+        if self.use_abs_path_links:
             # TODO: test this resolve function, see if needed in my scenario (2025/12/01)
             parent_folder = Path(directory).resolve() / parent_folder
         return self._path_constructor(file_count, parent_folder, **self._path_kwargs)
@@ -94,7 +94,7 @@ class _FileGraphPublisher(ABC):
     def _link_files(self, file_graph: FileGraphProtocol, node_to_index: dict, paths):
         for source_node_id in file_graph.nodes():
             source_file = file_graph.nodes[source_node_id][self.file_graph_key]
-            source_file_path = node_to_index[source_node_id]
+            source_file_path = paths[node_to_index[source_node_id]]
 
             for _, target_node_id, edge_data in file_graph.out_edges(
                 source_node_id, data=True
