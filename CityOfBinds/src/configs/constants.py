@@ -16,7 +16,7 @@ class BindFileConstants:
 
 class BFGConstants:
     NODE_DATA_KEY = "bind_file"
-    EDGE_DATA_KEY = "trigger_conditions"  # TODO: verify edge structure (2025/12/08)
+    EDGE_DATA_KEY = "trigger_conditions"
     INCLUSIVE_KEY = "on_triggers"
     EXCLUSIVE_KEY = "not_on_triggers"
     QUICK_TRIGGER_KEY = "quick_triggers"

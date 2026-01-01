@@ -130,9 +130,9 @@ class TestMacroCommandsHandling:
 
     def test_modify_commands_after_creation(self):
         """Should allow modifying commands after creation."""
-        macro = Macro("test_macro", ["initial_command"])
+        macro = Macro("test_macro", ["e dance"])
         # act
-        macro.commands = ["new_command1", "new_command2"]
+        macro.commands = ["e popdance", "l hi"]
         # assert
         assert len(macro.commands) == 2
 
