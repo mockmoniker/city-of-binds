@@ -17,6 +17,7 @@ class FileGraphDefaults:
     ABSOLUTE_PATH_LINKS = False
     ARCHIVE_FORMAT = "zip"
     PATH_FACTORY = PathGenerator
+    PATH_KWARGS = {}
 
 
 class FileGraphProtocol(Protocol):
@@ -33,12 +34,15 @@ class PathFactoryProtocol(Protocol):
 class _FileGraphPublisher(ABC):
     def __init__(
         self,
-        path_factory: PathFactoryConstructor = FileGraphDefaults.PATH_FACTORY,
-        absolute_path_links: bool = FileGraphDefaults.ABSOLUTE_PATH_LINKS,
+        path_constructor: PathFactoryConstructor = FileGraphDefaults.PATH_FACTORY,
+        path_kwargs: dict = FileGraphDefaults.PATH_KWARGS,
+        use_abs_path_links: bool = FileGraphDefaults.ABSOLUTE_PATH_LINKS,
         file_graph_key: str = FileGraphDefaults.FILE_GRAPH_KEY,
     ):
-        self._Path_Factory = path_factory
-        self.absolute_path_links = absolute_path_links
+        self.file_paths = None
+        self._path_constructor = path_constructor
+        self._path_kwargs = path_kwargs or {}
+        self.use_abs_path_links = use_abs_path_links
         self.file_graph_key = file_graph_key
 
     def publish_files(
@@ -48,9 +52,11 @@ class _FileGraphPublisher(ABC):
         parent_folder: str = FileGraphDefaults.PARENT_FOLDER,
     ):
         node_to_index = self._create_node_to_index_map(file_graph)
-        paths = self._create_paths(len(node_to_index), directory, parent_folder)
-        self._link_files(file_graph, node_to_index, paths)
-        self._write_files(file_graph, node_to_index, directory, paths)
+        self.file_paths = self._create_paths(
+            len(node_to_index), directory, parent_folder
+        )
+        self._link_files(file_graph, node_to_index, self.file_paths)
+        self._write_files(file_graph, node_to_index, directory, self.file_paths)
 
     def publish_to_archive(
         self,
@@ -80,15 +86,15 @@ class _FileGraphPublisher(ABC):
     def _create_paths(
         self, file_count: int, directory: StrPath, parent_folder: str
     ) -> PathFactoryProtocol:
-        if self.absolute_path_links:
+        if self.use_abs_path_links:
             # TODO: test this resolve function, see if needed in my scenario (2025/12/01)
             parent_folder = Path(directory).resolve() / parent_folder
-        return self._Path_Factory(file_count, parent_folder)
+        return self._path_constructor(file_count, parent_folder, **self._path_kwargs)
 
     def _link_files(self, file_graph: FileGraphProtocol, node_to_index: dict, paths):
         for source_node_id in file_graph.nodes():
             source_file = file_graph.nodes[source_node_id][self.file_graph_key]
-            source_file_path = node_to_index[source_node_id]
+            source_file_path = paths[node_to_index[source_node_id]]
 
             for _, target_node_id, edge_data in file_graph.out_edges(
                 source_node_id, data=True

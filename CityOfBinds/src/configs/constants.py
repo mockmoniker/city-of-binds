@@ -1,19 +1,22 @@
-class FileExtensions:
-    BIND_FILE = ".txt"
-    POP_MENU = ".mnu"
-
-
 class GameConstants:
     MAX_BIND_LENGTH = 255  # TODO: validate and check if this is full bind length or just commands (2025/12/06)
     COMMANDS_DELIM = "$$"
     OPTIONAL_COMMAND_UNDERSCORE = "_"
     TRIGGER_DELIM = "+"
     ENABLE_KEY_UP_PREFIX = "+"
+    SLOTS_PER_TRAY = 10
+    TRAY_COUNT = 9
+
+
+class BindFileConstants:
+    FILE_EXTENSION = ".txt"
+    STUB_TRIGGER = "KANA"
+    STUB_COMMAND = "nop"
 
 
 class BFGConstants:
     NODE_DATA_KEY = "bind_file"
-    EDGE_DATA_KEY = "trigger_conditions"  # TODO: verify edge structure (2025/12/08)
+    EDGE_DATA_KEY = "trigger_conditions"
     INCLUSIVE_KEY = "on_triggers"
     EXCLUSIVE_KEY = "not_on_triggers"
     QUICK_TRIGGER_KEY = "quick_triggers"
@@ -36,3 +39,9 @@ class ChangelingConstants:
     SCATTER = "scatter"
     FLARE = "flare"
     SUBLIMATION = "sublimation"
+
+
+class MacroCommands:
+    MACRO = "macro"
+    MACRO_SLOT = "macroslot"
+    MACRO_IMAGE = "macroimage"
