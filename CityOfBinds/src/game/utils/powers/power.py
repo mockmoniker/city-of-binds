@@ -5,9 +5,9 @@ class _Power:
     ### Initialization
     def __init__(self, power_string: str):
         formatted_power_string = power_string.lower().strip()
-        self._throw_error_if_invalid_power_string_format(
-            power_string=formatted_power_string
-        )
+        # self._throw_error_if_invalid_power_string_format(
+        #    power_string=formatted_power_string
+        # )
         self._power = formatted_power_string
 
     # region Validation and Error Checking
