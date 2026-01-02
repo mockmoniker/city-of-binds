@@ -23,7 +23,7 @@ class RandomBinds(RotatingBind, _RandomOrder):
         _RandomOrder.__init__(self, random_factor=random_factor)
 
 
-class RandomWalk(WASDRotatingBind, _RandomOrder):
+class RandomWalk(_RandomOrder, WASDRotatingBind):
     def __init__(
         self,
         include_jump: bool = False,
@@ -42,7 +42,11 @@ class RandomWalk(WASDRotatingBind, _RandomOrder):
     def _connect_bind_file_graph(
         self, bfg: BindFileGraph, bind_file_indexes: list[int], trigger_conditions: dict
     ):
-        bfg.make_k_regular(bind_file_indexes, k=len(self.direction_keys))
+        bfg.make_k_regular(
+            bind_file_indexes,
+            k=len(self.direction_keys),
+            trigger_conditions=trigger_conditions,
+        )
         self._set_wasd_trigger_conditions(bfg, bind_file_indexes)
 
     def _set_wasd_trigger_conditions(

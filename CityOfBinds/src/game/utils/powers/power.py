@@ -12,7 +12,7 @@ class _Power:
 
     # region Validation and Error Checking
     def _throw_error_if_invalid_power_string_format(self, power_string: str):
-        if not re.match(r"^[a-z]+( [a-z]+)*$", power_string):
+        if not re.match(r"^[a-z:]+( [a-z:]+)*$", power_string):
             raise ValueError(
                 f"Invalid power format: '{power_string}'. Power must only contain letters and spaces."
             )

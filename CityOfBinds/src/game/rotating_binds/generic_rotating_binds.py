@@ -66,7 +66,7 @@ class _GenericRotatingBind(ABC):
         return bind_files
 
     def _index_bind_files(self, bind_files: list[BindFile]):
-        return bind_files
+        pass
 
     def _get_trigger_conditions(self) -> dict:
         conditions = {}
@@ -99,6 +99,7 @@ class _GenericRotatingBind(ABC):
             bfg.add_bind_file(bind_file)
 
 
+# TODO: deprecate and just making this rotatingbind? (2026/01/02)
 class _LoopTopology:
     def __init__(self, loop_delay: int = 0):
         self.loop_delay = loop_delay
@@ -118,4 +119,5 @@ class _RandomOrder:
         self.random_factor = random_factor
 
     def _index_bind_files(self, bind_files: list[BindFile]):
-        random.shuffle(bind_files * self.random_factor)
+        bind_files.extend(bind_files * (self.random_factor - 1))
+        random.shuffle(bind_files)
