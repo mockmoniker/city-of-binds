@@ -1,6 +1,7 @@
 from typing import Self
 
 from ....configs.constants import GameConstants
+from ....configs.maps import WASDMaps
 from ..powers.power import _Power
 from .command import _Command
 
@@ -420,14 +421,12 @@ class _CommandGroup:
         """
         direction = direction_string.lower()
         self._throw_error_if_wrong_direction(direction)
-        return CommandGroupConstants.DIRECTION_TO_MOVEMENT_MAP[direction]
+        return WASDMaps.DIRECTION_TO_MOVEMENT_MAP[direction]
 
     def _throw_error_if_wrong_direction(self, direction_string: str):
         """Validate movement direction string."""
-        if direction_string not in CommandGroupConstants.DIRECTION_TO_MOVEMENT_MAP:
-            valid_directions = ", ".join(
-                CommandGroupConstants.DIRECTION_TO_MOVEMENT_MAP.keys()
-            )
+        if direction_string not in WASDMaps.DIRECTION_TO_MOVEMENT_MAP:
+            valid_directions = ", ".join(WASDMaps.DIRECTION_TO_MOVEMENT_MAP.keys())
             raise ValueError(
                 f"Invalid movement direction: '{direction_string}'. "
                 f"Valid directions are: {valid_directions}"
@@ -840,13 +839,3 @@ class CommandGroupConstants:
     # Emote commands
     EMOTE = "e"  # Standard emote command
     CC_EMOTE = "cce"  # Costume change emote command
-
-    # Movement commands mapping
-    # Maps human-readable direction names to game movement commands
-    DIRECTION_TO_MOVEMENT_MAP = {
-        "forward": "+forward",  # Move forward (typically W key)
-        "left": "+left",  # Strafe left (typically A key)
-        "backward": "+backward",  # Move backward (typically S key)
-        "right": "+right",  # Strafe right (typically D key)
-        "up": "+up",  # Move up - jump or fly (typically SPACE key)
-    }
