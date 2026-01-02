@@ -306,9 +306,7 @@ class _Trigger:
         return self._build_trigger_string()
 
     def __eq__(self, other):
-        """Enable equality comparison between triggers."""
-        if not isinstance(other, _Trigger):
-            return False
+        """Enable equality comparison between triggers and strings."""
         return str(self) == str(other)
 
     # endregion
