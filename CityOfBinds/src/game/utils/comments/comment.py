@@ -16,7 +16,7 @@ class _Comment:
         alignment: str = DEFAULT_ALIGNMENT,
         minimum_comment_width: int = MINIMUM_COMMENT_WIDTH,
     ):
-        self._text = None
+        self._text: str = None
         self._alignment = None
         self._minimum_width = None
 
