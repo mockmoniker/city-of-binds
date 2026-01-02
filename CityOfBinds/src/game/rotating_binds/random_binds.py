@@ -29,6 +29,7 @@ class RandomWalk(_RandomOrder, WASDRotatingBind):
         include_jump: bool = False,
         is_silent: bool = True,
         absolute_path_links: bool = False,
+        random_factor: int = 1,
     ):
         WASDRotatingBind.__init__(
             self,
@@ -37,7 +38,7 @@ class RandomWalk(_RandomOrder, WASDRotatingBind):
             absolute_path_links=absolute_path_links,
             loop_delay=0,
         )
-        _RandomOrder.__init__(self, random_factor=1)
+        _RandomOrder.__init__(self, random_factor=random_factor)
 
     def _connect_bind_file_graph(
         self, bfg: BindFileGraph, bind_file_indexes: list[int], trigger_conditions: dict
