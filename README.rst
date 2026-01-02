@@ -12,7 +12,7 @@ A Python library for creating advanced key binds for City of Heroes. Whether you
 - Custom bind file generation without manual editing
 
 🎮 **New to Programming?**
-~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Don't worry! You don't need to be a programmer to use this. If you're new to Python, check out these beginner-friendly resources:
 
@@ -185,7 +185,7 @@ The library creates multiple bind files that link to each other, creating smooth
     )
 
 📄 License
-~~~~~~~~~~
+~~~~~~~~~~~
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
@@ -195,7 +195,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
 🐛 Issues and Support
-~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 
 If you encounter any issues or have questions:
 
@@ -204,7 +204,7 @@ If you encounter any issues or have questions:
 3. Include the error message and your Python version
 
 🎊 Acknowledgments
-~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 Created for the City of Heroes community. Special thanks to all the players who helped test and provide feedback on complex bind scenarios.
 
