@@ -8,8 +8,7 @@ from pathlib import Path
 
 import pytest
 
-from CityOfBinds import Bind, BindFile
-from CityOfBinds.src.game.utils import _Comment, _CommentBanner
+from CityOfBinds import Bind, BindFile, Comment, CommentBanner
 
 
 class TestBindFileCreation:
@@ -38,22 +37,22 @@ class TestBindFileCreation:
 
     def test_with_single_comment(self):
         """Should create bind file with single comment."""
-        comment = _Comment("This is a comment")
+        comment = Comment("This is a comment")
         bf = BindFile([comment])
         assert len(bf.contents) == 1
         assert len(bf.binds) == 0
 
     def test_with_multiple_comments(self):
         """Should create bind file with multiple comments."""
-        comment1 = _Comment("First comment")
-        comment2 = _Comment("Second comment")
+        comment1 = Comment("First comment")
+        comment2 = Comment("Second comment")
         bf = BindFile([comment1, comment2])
         assert len(bf.contents) == 2
         assert len(bf.binds) == 0
 
     def test_with_comment_banner(self):
         """Should create bind file with comment banner."""
-        comment = _CommentBanner("This is a banner")
+        comment = CommentBanner("This is a banner")
         bf = BindFile([comment])
         assert len(bf.contents) == 1
         assert len(bf.binds) == 0
@@ -61,7 +60,7 @@ class TestBindFileCreation:
     def test_with_comments_and_binds(self):
         """Should create bind file with mixed content."""
         bind = Bind("Q", ["powexectoggleon dark nova"])
-        comment = _Comment("This is a comment")
+        comment = Comment("This is a comment")
         bf = BindFile([comment, bind])
         assert len(bf.contents) == 2
         assert len(bf.binds) == 1
@@ -84,7 +83,7 @@ class TestBindFileModification:
     def test_add_comment(self):
         """Should add comment to file."""
         bf = BindFile()
-        comment = _Comment("Test comment")
+        comment = Comment("Test comment")
         # act
         bf.add_comment(comment)
         # assert
@@ -94,7 +93,7 @@ class TestBindFileModification:
     def test_add_mixed_content(self):
         """Should add both binds and comments."""
         bf = BindFile()
-        comment = _Comment("Test comment")
+        comment = Comment("Test comment")
         bind = Bind("Q", ["powexectoggleon dark nova"])
         # act
         bf.add_comment(comment)
@@ -107,10 +106,10 @@ class TestBindFileModification:
     def test_chain_content(self):
         """Should chain adding binds and comments."""
         bf = BindFile()
-        comment_banner = _CommentBanner("Bind File Banner")
-        comment1 = _Comment("Squid Form")
+        comment_banner = CommentBanner("Bind File Banner")
+        comment1 = Comment("Squid Form")
         bind1 = Bind("Q", ["powexectoggleon dark nova"])
-        comment2 = _Comment("Lobster Form")
+        comment2 = Comment("Lobster Form")
         bind2 = Bind("E", ["powexectoggleon black dwarf"])
         # act
         (
@@ -139,10 +138,10 @@ class TestBindFileModification:
     def test_set_contents(self):
         """Should replace all contents."""
         bf = BindFile()
-        comment_banner = _CommentBanner("Bind File Banner")
-        comment1 = _Comment("Squid Form")
+        comment_banner = CommentBanner("Bind File Banner")
+        comment1 = Comment("Squid Form")
         bind1 = Bind("Q", ["powexectoggleon dark nova"])
-        comment2 = _Comment("Lobster Form")
+        comment2 = Comment("Lobster Form")
         bind2 = Bind("E", ["powexectoggleon black dwarf"])
 
         bf.contents = [comment_banner, comment1, bind1, comment2, bind2]
@@ -175,14 +174,14 @@ class TestBindFilePreviewRepresentation:
 
     def test_single_comment_preview(self):
         """Should return correct string for single comment."""
-        comment = _Comment("This is a comment")
+        comment = Comment("This is a comment")
         bf = BindFile([comment])
         expected = "# This is a comment #"
         assert bf.preview() == expected
 
     def test_banner_only_preview(self):
         """Should return correct string for banner comment."""
-        comment = _CommentBanner("This is a\nmulti-line banner")
+        comment = CommentBanner("This is a\nmulti-line banner")
         bf = BindFile([comment])
         expected = (
             "# ----------------- #\n"
@@ -194,10 +193,10 @@ class TestBindFilePreviewRepresentation:
 
     def test_mixed_content_preview(self):
         """Should return correct string for mixed content."""
-        comment_banner = _CommentBanner("binds!\nBinds!!\nBINDS!!!")
-        comment1 = _Comment("Squid Form")
+        comment_banner = CommentBanner("binds!\nBinds!!\nBINDS!!!")
+        comment1 = Comment("Squid Form")
         bind1 = Bind("Q", ["powexectoggleon dark nova"])
-        comment2 = _Comment("Lobster Form")
+        comment2 = Comment("Lobster Form")
         bind2 = Bind("E", ["powexectoggleon black dwarf"])
         bf = BindFile([comment_banner, comment1, bind1, comment2, bind2])
         expected = (
@@ -256,7 +255,7 @@ class TestBindFileWriteRepresentation:
 
     def test_banner_only_write(self, in_tmp_dir):
         """Should write only banner comment to file."""
-        comment = _CommentBanner("These files were\ngenerated by\nCity of Binds!")
+        comment = CommentBanner("These files were\ngenerated by\nCity of Binds!")
         bf = BindFile([comment])
         # act
         bf.write_to_file("banner_only.txt")
@@ -275,10 +274,10 @@ class TestBindFileWriteRepresentation:
 
     def test_mixed_content_write(self, in_tmp_dir):
         """Should write mixed content to file."""
-        comment_banner = _CommentBanner("binds!\nBinds!!\nBINDS!!!")
-        comment1 = _Comment("Squid Form")
+        comment_banner = CommentBanner("binds!\nBinds!!\nBINDS!!!")
+        comment1 = Comment("Squid Form")
         bind1 = Bind("Q", ["powexectoggleon dark nova"])
-        comment2 = _Comment("Lobster Form")
+        comment2 = Comment("Lobster Form")
         bind2 = Bind("E", ["powexectoggleon black dwarf"])
         bf = BindFile([comment_banner, comment1, bind1, comment2, bind2])
         # act
@@ -365,7 +364,7 @@ class TestBindFileValidation:
     def test_add_invalid_comment_type(self):
         """Should reject invalid comment type."""
         bf = BindFile()
-        with pytest.raises(TypeError, match="Expected content of type _Comment"):
+        with pytest.raises(TypeError, match="Expected content of type Comment"):
             bf.add_comment("not a comment")
 
     def test_validate_binds_success(self):

@@ -1,6 +1,7 @@
 import pytest
 
-from CityOfBinds.src.game.utils import _Trigger, _WASDTrigger
+from CityOfBinds.src.game.utils.triggers.trigger import _Trigger
+from CityOfBinds.src.game.utils.triggers.wasd_trigger import _WASDTrigger
 
 
 @pytest.fixture(params=[_Trigger, _WASDTrigger])

@@ -8,6 +8,8 @@ from .src.content_managers.templates.bind_file_template import (
 from .src.content_managers.templates.bind_template import BindTemplate, WASDBindTemplate
 from .src.content_publisher.bfg_publisher import BFGPublisher
 from .src.game.bind_file.bind_file import BindFile
+from .src.game.bind_file.comments.comment import Comment
+from .src.game.bind_file.comments.comment_banner import CommentBanner
 from .src.game.binds.bind import Bind
 from .src.game.binds.wasd_binds import WASDBind, iWASDBind
 from .src.game.rotating_binds.changeling_binds import (
@@ -23,6 +25,8 @@ __all__ = [
     "WASDBind",
     "iWASDBind",
     "BindFile",
+    "Comment",
+    "CommentBanner",
     "RotatingBind",
     "RandomBinds",
     "RandomWalk",

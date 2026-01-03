@@ -1,10 +1,10 @@
 import pytest
 
-from CityOfBinds.src.game.utils import _Comment, _CommentBanner
+from CityOfBinds import Comment, CommentBanner
 
 
 class TestCommentInitialization:
-    COMMENT_UNDER_TEST = _Comment
+    COMMENT_UNDER_TEST = Comment
 
     def test_init_should_set_internal_text_given_valid_comment_text(self):
         # arrange
@@ -42,7 +42,7 @@ class TestCommentInitialization:
         comment = self.COMMENT_UNDER_TEST(comment_text="This is a comment")
 
         # assert
-        assert comment._minimum_width == _Comment.MINIMUM_COMMENT_WIDTH
+        assert comment._minimum_width == Comment.MINIMUM_COMMENT_WIDTH
 
     def test_init_should_set_internal_minimum_width_given_valid_minimum_width(self):
         # arrange
@@ -56,7 +56,7 @@ class TestCommentInitialization:
 
 
 class TestCommentBannerInitialization:
-    COMMENT_BANNER_UNDER_TEST = _CommentBanner
+    COMMENT_BANNER_UNDER_TEST = CommentBanner
     VALID_COMMENT_TEXT = "This is a comment"
 
     def test_init_should_set_internal_text_given_valid_comment_text(self):
@@ -92,7 +92,7 @@ class TestCommentBannerInitialization:
 
 
 class TestCommentBannerCommentTextProperty:
-    COMMENT_BANNER_UNDER_TEST = _CommentBanner
+    COMMENT_BANNER_UNDER_TEST = CommentBanner
     VALID_COMMENT_TEXT = "This is a comment"
 
     def test_text_getter_should_return_comment_text(self):
@@ -139,7 +139,7 @@ class TestCommentBannerCommentTextProperty:
 
 
 class TestCommentBannerBorderStyleProperty:
-    COMMENT_BANNER_UNDER_TEST = _CommentBanner
+    COMMENT_BANNER_UNDER_TEST = CommentBanner
     VALID_COMMENT_TEXT = "This is a comment"
 
     def test_border_style_getter_should_return_border_style(self):
@@ -187,7 +187,7 @@ class TestCommentBannerBorderStyleProperty:
 
 
 class TestCommentBannerCommentBannerStringProperty:
-    COMMENT_BANNER_UNDER_TEST = _CommentBanner
+    COMMENT_BANNER_UNDER_TEST = CommentBanner
 
     def test_comment_string_getter_should_return_properly_formatted_comment_banner_string_given_single_line_comment(
         self,

@@ -1,4 +1,4 @@
-class _Comment:
+class Comment:
     DEFAULT_ALIGNMENT = "left"
     TEXT_ALIGNMENT_MAPPINGS = {
         "left": str.ljust,

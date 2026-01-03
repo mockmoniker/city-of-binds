@@ -2,7 +2,7 @@ import zipfile
 from pathlib import Path
 
 from CityOfBinds import BindTemplate, RotatingBind
-from CityOfBinds.src.content_managers import RotationPolicy
+from CityOfBinds.src.content_managers.templates.bind_file_template import RotationPolicy
 
 
 class TestFileCreation:

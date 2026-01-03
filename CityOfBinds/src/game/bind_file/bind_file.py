@@ -6,10 +6,10 @@ from ...configs.constants import BindFileConstants, GameConstants
 from ..binds.bind import Bind
 from ..macros.macro import Macro
 from ..utils.commands.command_group import _CommandGroup
-from ..utils.comments.comment import _Comment
+from .comments.comment import Comment
 
 # Centralized list of supported content types
-_BIND_FILE_CONTENT_TYPES = (Bind, _Comment, Macro, _CommandGroup)
+_BIND_FILE_CONTENT_TYPES = (Bind, Comment, Macro, _CommandGroup)
 
 # Type alias derived from the centralized list
 BindFileContentType = Union[*_BIND_FILE_CONTENT_TYPES]
@@ -185,7 +185,7 @@ class BindFile:
         """
         return self._add_content(bind, Bind)
 
-    def add_comment(self, comment: _Comment) -> "BindFile":
+    def add_comment(self, comment: Comment) -> "BindFile":
         """
         Add a Comment instance to the end of the bind file contents.
 
@@ -198,7 +198,7 @@ class BindFile:
         Raises:
             TypeError: If comment is not a Comment instance
         """
-        return self._add_content(comment, _Comment)
+        return self._add_content(comment, Comment)
 
     def add_macro(self, macro: Macro) -> "BindFile":
         """

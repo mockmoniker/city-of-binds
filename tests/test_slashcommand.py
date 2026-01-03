@@ -1,6 +1,6 @@
 import pytest
 
-from CityOfBinds.src.game.utils import _Command
+from CityOfBinds.src.game.utils.commands.command import _Command
 
 
 class TestInitialization:
