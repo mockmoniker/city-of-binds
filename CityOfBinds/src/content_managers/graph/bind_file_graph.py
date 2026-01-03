@@ -380,9 +380,6 @@ class BindFileGraph(nx.DiGraph):
         if merge_on is None:
             merge_on = []
 
-        # Calculate offset for new node IDs
-        offset = self.number_of_nodes()
-
         # Create mapping for node ID translation
         # Format: {other_graph_node_id: self_graph_node_id}
         node_id_mapping = {}
