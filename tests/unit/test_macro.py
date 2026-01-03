@@ -6,9 +6,8 @@ These tests focus on individual Macro creation, modification, representation, an
 
 import pytest
 
+from CityOfBinds import CommandGroup, Macro
 from CityOfBinds.src.configs.constants import MacroCommands
-from CityOfBinds.src.game.macros.macro import Macro
-from CityOfBinds.src.game.utils.commands.command_group import _CommandGroup
 
 
 class TestMacroCreation:
@@ -100,7 +99,7 @@ class TestMacroCommandsHandling:
         """Should return commands as CommandGroup instance."""
         commands = ["powexecname heal", "say Healing!"]
         macro = Macro("heal_macro", commands)
-        assert isinstance(macro.commands, _CommandGroup)
+        assert isinstance(macro.commands, CommandGroup)
 
     def test_set_commands_with_list(self):
         """Should allow setting commands with a list."""
@@ -114,7 +113,7 @@ class TestMacroCommandsHandling:
     def test_set_commands_with_command_group(self):
         """Should allow setting commands with a CommandGroup."""
         macro = Macro("test_macro")
-        command_group = _CommandGroup(["powexecname heal", "say Healing!"])
+        command_group = CommandGroup(["powexecname heal", "say Healing!"])
         # act
         macro.commands = command_group
         # assert

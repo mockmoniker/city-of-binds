@@ -1,6 +1,6 @@
 import pytest
 
-from CityOfBinds.src.game.utils.powers.power import _Power
+from CityOfBinds.src.game.utils.power import _Power
 
 
 class TestInitialization:

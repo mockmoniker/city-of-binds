@@ -1,11 +1,11 @@
 from ....utils.templates.pool import Pool
 from ....utils.templates.templates import ListTemplate
-from ...game.utils.commands.command_group import CommandGroupConstants, _CommandGroup
-from ...game.utils.powers.power import _Power
+from ...game.command_group.command_group import CommandGroup, CommandGroupConstants
+from ...game.utils.power import _Power
 from .command_factory import _CommandFactory
 
 
-class _CommandsTemplate(_CommandGroup, ListTemplate):
+class _CommandsTemplate(CommandGroup, ListTemplate):
     """
     Template for generating command groups with pool-based command variations.
 
@@ -56,7 +56,7 @@ class _CommandsTemplate(_CommandGroup, ListTemplate):
             >>> template.add_power_pool(["Hasten"])
             >>> len(template._commands)  # 1 - one pool added
         """
-        _CommandGroup.__init__(self)
+        CommandGroup.__init__(self)
         ListTemplate.__init__(self, self._commands)
 
     # region Power Pool Methods
@@ -219,8 +219,8 @@ class _CommandsTemplate(_CommandGroup, ListTemplate):
     # endregion
 
     # region Template Generation Methods
-    def _build_one(self) -> _CommandGroup:
+    def _build_one(self) -> CommandGroup:
         """Generate command group from current pool configuration."""
-        return _CommandGroup(super()._build_one())
+        return CommandGroup(super()._build_one())
 
     # endregion

@@ -12,6 +12,10 @@ from .src.game.bind_file.comments.comment import Comment
 from .src.game.bind_file.comments.comment_banner import CommentBanner
 from .src.game.binds.bind import Bind
 from .src.game.binds.wasd_binds import WASDBind, iWASDBind
+from .src.game.command_group.command_group import CommandGroup
+from .src.game.macros.macro import Macro
+from .src.game.macros.macro_image import MacroImage
+from .src.game.macros.macro_slot import MacroSlot
 from .src.game.rotating_binds.changeling_binds import (
     ChangelingRotatingBindWS,
     ChangelingRotatingPB,
@@ -24,6 +28,10 @@ __all__ = [
     "Bind",
     "WASDBind",
     "iWASDBind",
+    "CommandGroup",
+    "Macro",
+    "MacroImage",
+    "MacroSlot",
     "BindFile",
     "Comment",
     "CommentBanner",

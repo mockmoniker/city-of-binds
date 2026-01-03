@@ -1,12 +1,12 @@
 from typing import Self
 
-from ....configs.constants import GameConstants
-from ....configs.maps import WASDMaps
-from ..powers.power import _Power
-from .command import _Command
+from ...configs.constants import GameConstants
+from ...configs.maps import WASDMaps
+from ..utils.power import _Power
+from ..utils.slash_command import _SlashCommand
 
 
-class _CommandGroup:
+class CommandGroup:
     """
     Manages an ordered collection of slash commands for City of Heroes/Villains binds.
 
@@ -50,7 +50,7 @@ class _CommandGroup:
             >>> # Pre-populated command group
             >>> cmd_group = CommandGroup(["say hello", "powexecname hasten"])
         """
-        self._commands = [_Command(cmd) for cmd in commands] if commands else []
+        self._commands = [_SlashCommand(cmd) for cmd in commands] if commands else []
 
     # region Core Command Management Methods
     def add_command(self, command_string: str, index: int = None) -> Self:
@@ -137,7 +137,7 @@ class _CommandGroup:
         """
         method = getattr(self._commands, list_method_name)
         if command_string is not None:
-            method(*args, _Command(command_string))
+            method(*args, _SlashCommand(command_string))
         else:
             method(*args)
         return self
@@ -688,7 +688,9 @@ class _CommandGroup:
         """
         return self._build_command_string_from_components(self._commands)
 
-    def _build_command_string_from_components(self, commands: list[_Command]) -> str:
+    def _build_command_string_from_components(
+        self, commands: list[_SlashCommand]
+    ) -> str:
         """
         Build a command string from a list of _Command objects.
 
@@ -724,13 +726,13 @@ class _CommandGroup:
 
     def __setitem__(self, index, value):
         """Enable index-based assignment of commands."""
-        self._commands[index] = _Command(value)
+        self._commands[index] = _SlashCommand(value)
 
     def __len__(self):
         """Return number of commands."""
         return len(self._commands)
 
-    def __add__(self, other: "_CommandGroup") -> Self:
+    def __add__(self, other: "CommandGroup") -> Self:
         """
         Enable concatenation of CommandGroups using the + operator.
 
@@ -771,7 +773,7 @@ class _CommandGroup:
             >>> group2 = CommandGroup(["say hello", "say world"])
             >>> group1 == group2  # True
         """
-        if not isinstance(other, _CommandGroup):
+        if not isinstance(other, CommandGroup):
             return False
         if len(self) != len(other):
             return False

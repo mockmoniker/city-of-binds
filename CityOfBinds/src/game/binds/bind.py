@@ -1,6 +1,6 @@
 from ...configs.constants import GameConstants
-from ..utils.commands.command_group import _CommandGroup
-from ..utils.commands.commands_mixin import _CommandsMixin
+from ..command_group.command_group import CommandGroup
+from ..command_group.commands_mixin import _CommandsMixin
 from ..utils.triggers.trigger import _Trigger
 from ..utils.triggers.trigger_mixin import _TriggerMixin
 
@@ -94,9 +94,9 @@ class Bind(_TriggerMixin, _CommandsMixin):
     # endregion
 
     # region Helper Methods
-    def _add_key_up_prefix(self, commands: _CommandGroup) -> _CommandGroup:
+    def _add_key_up_prefix(self, commands: CommandGroup) -> CommandGroup:
         """Adds a '+' to beginning of commands list to enable key-up triggering."""
-        prefix_only_command = _CommandGroup(GameConstants.ENABLE_KEY_UP_PREFIX)
+        prefix_only_command = CommandGroup(GameConstants.ENABLE_KEY_UP_PREFIX)
         commands = prefix_only_command + commands
         return commands
 
@@ -110,7 +110,7 @@ class Bind(_TriggerMixin, _CommandsMixin):
         )
 
     def _build_bind_string_from_components(
-        self, trigger: _Trigger, commands: _CommandGroup
+        self, trigger: _Trigger, commands: CommandGroup
     ) -> str:
         """Combine trigger and commands into formatted bind string."""
         return f"{str(trigger)} {str(commands)}"

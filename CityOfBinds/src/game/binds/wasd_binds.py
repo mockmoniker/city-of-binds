@@ -1,5 +1,5 @@
 from ...configs.maps import WASDMaps
-from ..utils.commands.command_group import _CommandGroup
+from ..command_group.command_group import CommandGroup
 from ..utils.triggers.wasd_trigger import _WASDTrigger
 from .bind import Bind
 
@@ -32,7 +32,7 @@ class WASDBind(Bind):
     # region Override Methods
     def _build_bind_string(self) -> str:
         """Build WASD bind string with automatic movement command injection."""
-        movement_command = _CommandGroup().add_movement(
+        movement_command = CommandGroup().add_movement(
             self._get_direction(self.trigger)
         )
         # Combine movement with user commands (movement comes first)

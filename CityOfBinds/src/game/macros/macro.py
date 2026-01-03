@@ -1,5 +1,5 @@
 from ...configs.constants import MacroCommands
-from ..utils.commands.commands_mixin import _CommandsMixin
+from ..command_group.commands_mixin import _CommandsMixin
 
 
 class Macro(_CommandsMixin):

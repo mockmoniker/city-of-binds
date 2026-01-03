@@ -4,12 +4,12 @@ from typing import Union
 from ....utils.types.str_path import StrPath
 from ...configs.constants import BindFileConstants, GameConstants
 from ..binds.bind import Bind
+from ..command_group.command_group import CommandGroup
 from ..macros.macro import Macro
-from ..utils.commands.command_group import _CommandGroup
 from .comments.comment import Comment
 
 # Centralized list of supported content types
-_BIND_FILE_CONTENT_TYPES = (Bind, Comment, Macro, _CommandGroup)
+_BIND_FILE_CONTENT_TYPES = (Bind, Comment, Macro, CommandGroup)
 
 # Type alias derived from the centralized list
 BindFileContentType = Union[*_BIND_FILE_CONTENT_TYPES]
@@ -119,14 +119,14 @@ class BindFile:
         return self._get_content_type(Macro)
 
     @property
-    def command_groups(self) -> list[_CommandGroup]:
+    def command_groups(self) -> list[CommandGroup]:
         """
         Get all CommandGroup instances from the contents, filtering out all other items.
 
         Returns:
             List of CommandGroup instances in their current order
         """
-        return self._get_content_type(_CommandGroup)
+        return self._get_content_type(CommandGroup)
 
     def _get_content_type(self, content_type: type) -> list[BindFileContentType]:
         """Get all content items of a specific type."""
@@ -215,7 +215,7 @@ class BindFile:
         """
         return self._add_content(macro, Macro)
 
-    def add_command_group(self, command_group: _CommandGroup) -> "BindFile":
+    def add_command_group(self, command_group: CommandGroup) -> "BindFile":
         """
         Add a CommandGroup instance to the end of the bind file contents.
 
@@ -228,7 +228,7 @@ class BindFile:
         Raises:
             TypeError: If command_group is not a CommandGroup instance
         """
-        return self._add_content(command_group, _CommandGroup)
+        return self._add_content(command_group, CommandGroup)
 
     def remove_bind(self, trigger: str) -> "BindFile":
         """
@@ -406,7 +406,7 @@ class BindFile:
 
     def _bf_str_repr(self, content: BindFileContentType) -> str:
         """Get the string representation of the content for bind file publishing"""
-        if isinstance(content, (Macro, _CommandGroup)):
+        if isinstance(content, (Macro, CommandGroup)):
             return self._add_execute_stub(content)
         return str(content)
 

@@ -1,6 +1,6 @@
 import pytest
 
-from CityOfBinds.src.game.utils.commands.command import _Command
+from CityOfBinds.src.game.utils.slash_command import _SlashCommand
 
 
 class TestInitialization:
@@ -9,7 +9,7 @@ class TestInitialization:
         # arrange
         command_string = "nop"
         # act
-        action = _Command(command_string)
+        action = _SlashCommand(command_string)
         # assert
         assert str(action) == "nop"
 
@@ -17,7 +17,7 @@ class TestInitialization:
         # arrange
         command_string = "bind_load"
         # act
-        action = _Command(command_string)
+        action = _SlashCommand(command_string)
         # assert
         assert str(action) == "bindload"
 
@@ -25,7 +25,7 @@ class TestInitialization:
         # arrange
         command_string = "unbind T"
         # act
-        action = _Command(command_string)
+        action = _SlashCommand(command_string)
         # assert
         assert str(action) == "unbind T"
 
@@ -33,7 +33,7 @@ class TestInitialization:
         # arrange
         command_string = "powexectoggleon sprint"
         # act
-        action = _Command(command_string)
+        action = _SlashCommand(command_string)
         # assert
         assert str(action) == "powexectoggleon sprint"
 
@@ -41,7 +41,7 @@ class TestInitialization:
         # arrange
         command_string = "powexecauto super speed"
         # act
-        action = _Command(command_string)
+        action = _SlashCommand(command_string)
         # assert
         assert str(action) == "powexecauto super speed"
 
@@ -49,7 +49,7 @@ class TestInitialization:
         # arrange
         command_string = "+forward"
         # act
-        action = _Command(command_string)
+        action = _SlashCommand(command_string)
         # assert
         assert str(action) == "+forward"
 
@@ -57,7 +57,7 @@ class TestInitialization:
         # arrange
         command_string = "++forward"
         # act
-        action = _Command(command_string)
+        action = _SlashCommand(command_string)
         # assert
         assert str(action) == "++forward"
 
@@ -65,7 +65,7 @@ class TestInitialization:
         # arrange
         command_string = "PETSAYALL hello world"
         # act
-        action = _Command(command_string)
+        action = _SlashCommand(command_string)
         # assert
         assert str(action) == "petsayall hello world"
 
@@ -73,7 +73,7 @@ class TestInitialization:
         # arrange
         command_string = "petsayall Hello WORLD"
         # act
-        action = _Command(command_string)
+        action = _SlashCommand(command_string)
         # assert
         assert str(action) == "petsayall Hello WORLD"
 
@@ -81,7 +81,7 @@ class TestInitialization:
         # arrange
         command_string = "petsayall H3LL0 W0R1D"
         # act
-        action = _Command(command_string)
+        action = _SlashCommand(command_string)
         # assert
         assert str(action) == "petsayall H3LL0 W0R1D"
 
@@ -89,7 +89,7 @@ class TestInitialization:
         # arrange
         command_string = "petsayall Hello_World!"
         # act
-        action = _Command(command_string)
+        action = _SlashCommand(command_string)
         # assert
         assert str(action) == "petsayall Hello_World!"
 
@@ -97,7 +97,7 @@ class TestInitialization:
         # arrange
         command_string = "petsayall Hello     World"
         # act
-        action = _Command(command_string)
+        action = _SlashCommand(command_string)
         # assert
         assert str(action) == "petsayall Hello     World"
 
@@ -109,7 +109,7 @@ class TestInitialization:
         command_string = "+++forward"
         # act
         with pytest.raises(ValueError) as excinfo:
-            _Command(command_string)
+            _SlashCommand(command_string)
         # assert
         assert "Unknown slash command" in str(excinfo.value)
 
@@ -118,7 +118,7 @@ class TestInitialization:
         command_string = "for!ward"
         # act
         with pytest.raises(ValueError) as excinfo:
-            _Command(command_string)
+            _SlashCommand(command_string)
         # assert
         assert "Unknown slash command" in str(excinfo.value)
 
@@ -126,7 +126,7 @@ class TestInitialization:
 
 
 class TestValidSlashCommandInitialization:
-    action_under_test = _Command
+    action_under_test = _SlashCommand
 
     def test_init_should_set_command_string_given_valid_command_string(self):
         # arrange

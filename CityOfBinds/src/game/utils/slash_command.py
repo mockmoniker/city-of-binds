@@ -1,7 +1,7 @@
-from ....configs.valid_input import VALID_SLASH_COMMAND_PREFIXES, VALID_SLASH_COMMANDS
+from ...configs.valid_input import VALID_SLASH_COMMAND_PREFIXES, VALID_SLASH_COMMANDS
 
 
-class _Command:
+class _SlashCommand:
     ### Initialization
     def __init__(self, command: str):
         """Initialize the command with a string."""
@@ -140,10 +140,6 @@ class _Command:
         return self._build_command_string()
 
     def __eq__(self, other):
-        if isinstance(other, _Command):
-            return str(self) == str(other)
-        elif isinstance(other, str):
-            return str(self) == other
-        return False
+        return str(self) == str(other)
 
     # endregion
