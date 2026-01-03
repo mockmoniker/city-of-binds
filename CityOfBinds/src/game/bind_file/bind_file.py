@@ -62,6 +62,7 @@ class BindFile:
         """
         self._contents = []
         self.contents = content_list if content_list is not None else []
+        self.supress_load_errors = supress_load_errors
 
     # region Properties
     @property
@@ -413,7 +414,7 @@ class BindFile:
         """Return the command with an execute stub to allow execution on bind file load"""
         stub = ""
         if self.supress_load_errors:
-            stub = self.BIND_STUB.bind_string
+            stub = str(self.BIND_STUB)
         return GameConstants.COMMAND_DELIMITER.join([stub, str(content)])
 
     # endregion
