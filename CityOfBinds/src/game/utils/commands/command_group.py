@@ -83,6 +83,23 @@ class _CommandGroup:
         else:
             return self._do_list_method("insert", index, command_string)
 
+    def remove_command(self, index: int) -> Self:
+        """
+        Remove a command from the command group by index.
+
+        Args:
+            index: Position of the command to remove. Supports negative indexing.
+
+        Returns:
+            Self for method chaining
+
+        Example:
+            >>> cmd_group = CommandGroup(["say hello", "say world"])
+            >>> cmd_group.remove_command(0)
+            >>> len(cmd_group)  # 1
+        """
+        return self._do_list_method("pop", index)
+
     def clear_commands(self) -> Self:
         """
         Remove all commands from the command group.

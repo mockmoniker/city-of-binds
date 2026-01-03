@@ -28,6 +28,16 @@ format:  ## Format code with black and isort
 	black .
 	isort .
 
+docs: docs-clean  ## Build Sphinx documentation
+	cd docs && make html
+
+docs-clean:  ## Clean documentation build artifacts
+	cd docs && make clean
+
+docs-serve: docs  ## Build docs and serve locally for development
+	@echo "📖 Documentation server starting at http://localhost:8000"
+	cd docs && python -m http.server 8000 --directory _build/html
+
 check: build  ## Validate package for PyPI upload
 	twine check dist/*
 
@@ -41,5 +51,5 @@ deploy: check  ## Deploy to PyPI
 dev-setup:  ## Set up development environment
 	pip install -e .[dev]
 
-release: clean lint test build check  ## Full release workflow (build + validate, but don't upload)
+release: clean lint test build docs check  ## Full release workflow (build + validate, but don't upload)
 	@echo "✅ Release ready! Run 'make deploy-test' or 'make deploy' to upload."

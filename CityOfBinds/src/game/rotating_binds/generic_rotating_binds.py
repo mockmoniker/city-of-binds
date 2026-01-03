@@ -29,10 +29,7 @@ class _GenericRotatingBind(ABC):
     def publish_bind_files(
         self, parent_folder_name: str = "", directory: StrPath = "."
     ):
-        indexed_bind_files = self._create_indexed_bind_files()
-        trigger_conditions = self._get_trigger_conditions()
-        # TODO: add "safe install/instructions here? potentially create one more macro file with instructions and macros to help load and unload new bind" (2025/12/23)
-        bfg = self._create_bind_file_graph(indexed_bind_files, trigger_conditions)
+        bfg = self.get_bfg()
         self.bfg_publisher.publish_files(bfg, directory, parent_folder_name)
 
     # TODO: make this reuse logic w/ publish bind files method (2025/12/07)
@@ -42,9 +39,7 @@ class _GenericRotatingBind(ABC):
         archive_directory: StrPath = ".",
         archive_format: str = "zip",
     ):
-        indexed_bind_files = self._create_indexed_bind_files()
-        trigger_conditions = self._get_trigger_conditions()
-        bfg = self._create_bind_file_graph(indexed_bind_files, trigger_conditions)
+        bfg = self.get_bfg()
         self.bfg_publisher.publish_to_archive(
             bfg, archive_directory, parent_folder_name, archive_format
         )
@@ -56,6 +51,12 @@ class _GenericRotatingBind(ABC):
     ):
         self.bind_file_template.add_bind_template(bind_template, advance_on_trigger)
         return self
+
+    def get_bfg(self) -> BindFileGraph:
+        indexed_bind_files = self._create_indexed_bind_files()
+        trigger_conditions = self._get_trigger_conditions()
+        bfg = self._create_bind_file_graph(indexed_bind_files, trigger_conditions)
+        return bfg
 
     def _build_bind_files(self) -> list[BindFile]:
         return self.bind_file_template.build_all()

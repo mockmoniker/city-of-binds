@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CityOfBinds.src.game.bind_file.bind_file &mdash; CityOfBinds 0.0.1 documentation</title>
+  <title>CityOfBinds.src.game.bind_file.bind_file &mdash; CityOfBinds 0.1.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../../../_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="../../../../../_static/documentation_options.js?v=360bc84d"></script>
       <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/js/theme.js"></script>
@@ -70,19 +70,26 @@
              
   <h1>Source code for CityOfBinds.src.game.bind_file.bind_file</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">....utils.types.str_path</span><span class="w"> </span><span class="kn">import</span> <span class="n">StrPath</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">...configs.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileExtensions</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...configs.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">BindFileConstants</span><span class="p">,</span> <span class="n">GameConstants</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">..binds.bind</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bind</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..macros.macro</span><span class="w"> </span><span class="kn">import</span> <span class="n">Macro</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils.commands.command_group</span><span class="w"> </span><span class="kn">import</span> <span class="n">_CommandGroup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">..utils.comments.comment</span><span class="w"> </span><span class="kn">import</span> <span class="n">_Comment</span>
 
-<span class="c1"># Type alias for supported content types in bind files</span>
-<span class="n">BindContent</span> <span class="o">=</span> <span class="n">Bind</span> <span class="o">|</span> <span class="n">_Comment</span>
+<span class="c1"># Centralized list of supported content types</span>
+<span class="n">_BIND_FILE_CONTENT_TYPES</span> <span class="o">=</span> <span class="p">(</span><span class="n">Bind</span><span class="p">,</span> <span class="n">_Comment</span><span class="p">,</span> <span class="n">Macro</span><span class="p">,</span> <span class="n">_CommandGroup</span><span class="p">)</span>
+
+<span class="c1"># Type alias derived from the centralized list</span>
+<span class="n">BindFileContentType</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="o">*</span><span class="n">_BIND_FILE_CONTENT_TYPES</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="BindFile">
 <a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.BindFile">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BindFile</span><span class="p">:</span>
+    <span class="n">BIND_STUB</span> <span class="o">=</span> <span class="n">Bind</span><span class="p">(</span><span class="n">BindFileConstants</span><span class="o">.</span><span class="n">STUB_TRIGGER</span><span class="p">,</span> <span class="p">[</span><span class="n">BindFileConstants</span><span class="o">.</span><span class="n">STUB_COMMAND</span><span class="p">])</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a game bind file containing a collection of Binds and Comments.</span>
 
@@ -103,13 +110,18 @@
 <span class="sd">        contents: Ordered list of Bind and Comment instances</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BindContent</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">content_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BindFileContentType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">supress_load_errors</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a new BindFile with optional starting content.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            content_list: Optional list of Bind and/or Comment instances to initialize with.</span>
 <span class="sd">                         If None, creates an empty BindFile.</span>
+<span class="sd">            supress_load_errors: Whether to suppress errors during loading of content</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            TypeError: If content_list is not a list or contains invalid content types</span>
@@ -126,7 +138,7 @@
 
     <span class="c1"># region Properties</span>
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">contents</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">BindContent</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">contents</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">BindFileContentType</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the ordered list of all content in the bind file.</span>
 
@@ -140,7 +152,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span>
 
     <span class="nd">@contents</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">contents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BindContent</span><span class="p">]):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">contents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BindFileContentType</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the contents of the bind file, replacing all existing content.</span>
 
@@ -161,20 +173,73 @@
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">binds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Bind</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get only the Bind instances from the contents, filtering out comments.</span>
+<span class="sd">        Get all Bind instances from the contents, filtering out all other items.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            List of Bind instances in their current order</span>
-
-<span class="sd">        Example:</span>
-<span class="sd">            &gt;&gt;&gt; bf = BindFile([Bind(&quot;F1&quot;, [&quot;say hi&quot;]), _Comment(&quot;test&quot;), Bind(&quot;F2&quot;, [&quot;say bye&quot;])])</span>
-<span class="sd">            &gt;&gt;&gt; len(bf.binds)  # 2 (comments filtered out)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">content</span> <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">Bind</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_content_type</span><span class="p">(</span><span class="n">Bind</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">macros</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Macro</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get all Macro instances from the contents, filtering out all other items.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of Macro instances in their current order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_content_type</span><span class="p">(</span><span class="n">Macro</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">command_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">_CommandGroup</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get all CommandGroup instances from the contents, filtering out all other items.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of CommandGroup instances in their current order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_content_type</span><span class="p">(</span><span class="n">_CommandGroup</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_content_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">BindFileContentType</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get all content items of a specific type.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">content</span> <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">content_type</span><span class="p">)</span>
+        <span class="p">]</span>
 
     <span class="c1"># endregion</span>
 
     <span class="c1"># region Content Management Methods</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_content</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="n">BindFileContentType</span><span class="p">,</span> <span class="n">expected_type</span><span class="p">:</span> <span class="nb">type</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BindFile&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Helper method to validate and add content to the bind file.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_throw_error_on_invalid_content_type</span><span class="p">(</span>
+            <span class="n">expected_type</span><span class="o">=</span><span class="n">expected_type</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">content</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+<div class="viewcode-block" id="BindFile.add_content">
+<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.BindFile.add_content">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="n">BindFileContentType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BindFile&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a content item (Bind, Comment, Macro, or CommandGroup) to the end of the bind file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            content: The content item to add</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            TypeError: If content is not a supported type</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">_BIND_FILE_CONTENT_TYPES</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected BindFileContent, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
 <div class="viewcode-block" id="BindFile.add_bind">
 <a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.BindFile.add_bind">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bind</span><span class="p">:</span> <span class="n">Bind</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BindFile&quot;</span><span class="p">:</span>
@@ -195,9 +260,7 @@
 <span class="sd">            &gt;&gt;&gt; bf.add_bind(Bind(&quot;F1&quot;, [&quot;say hello&quot;])).add_bind(Bind(&quot;F2&quot;, [&quot;say goodbye&quot;]))</span>
 <span class="sd">            &gt;&gt;&gt; len(bf.contents)  # 2</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_throw_error_on_invalid_content_type</span><span class="p">(</span><span class="n">expected_type</span><span class="o">=</span><span class="n">Bind</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">bind</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bind</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_content</span><span class="p">(</span><span class="n">bind</span><span class="p">,</span> <span class="n">Bind</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="BindFile.add_comment">
@@ -214,15 +277,68 @@
 
 <span class="sd">        Raises:</span>
 <span class="sd">            TypeError: If comment is not a Comment instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_content</span><span class="p">(</span><span class="n">comment</span><span class="p">,</span> <span class="n">_Comment</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BindFile.add_macro">
+<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.BindFile.add_macro">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_macro</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">macro</span><span class="p">:</span> <span class="n">Macro</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BindFile&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a Macro instance to the end of the bind file contents.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            macro: The Macro instance to add</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            TypeError: If macro is not a Macro instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_content</span><span class="p">(</span><span class="n">macro</span><span class="p">,</span> <span class="n">Macro</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BindFile.add_command_group">
+<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.BindFile.add_command_group">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_command_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command_group</span><span class="p">:</span> <span class="n">_CommandGroup</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BindFile&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a CommandGroup instance to the end of the bind file contents.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            command_group: The CommandGroup instance to add</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            TypeError: If command_group is not a CommandGroup instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_content</span><span class="p">(</span><span class="n">command_group</span><span class="p">,</span> <span class="n">_CommandGroup</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BindFile.remove_bind">
+<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.BindFile.remove_bind">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trigger</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BindFile&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove all Bind instances with the specified trigger from the bind file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            trigger: The trigger key of the Bind(s) to remove</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
 
 <span class="sd">        Example:</span>
-<span class="sd">            &gt;&gt;&gt; bf = BindFile()</span>
-<span class="sd">            &gt;&gt;&gt; bf.add_comment(_Comment(&quot;This is a header&quot;)).add_bind(Bind(&quot;F1&quot;, [&quot;say hi&quot;]))</span>
+<span class="sd">            &gt;&gt;&gt; bf = BindFile([Bind(&quot;F1&quot;, [&quot;say hello&quot;]), Bind(&quot;F2&quot;, [&quot;say goodbye&quot;])])</span>
+<span class="sd">            &gt;&gt;&gt; bf.remove_bind(&quot;F1&quot;)</span>
+<span class="sd">            &gt;&gt;&gt; len(bf.contents)  # 1</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_throw_error_on_invalid_content_type</span><span class="p">(</span>
-            <span class="n">expected_type</span><span class="o">=</span><span class="n">_Comment</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">comment</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">comment</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">content</span>
+            <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">Bind</span><span class="p">)</span> <span class="ow">and</span> <span class="n">content</span><span class="o">.</span><span class="n">trigger</span> <span class="o">==</span> <span class="n">trigger</span><span class="p">)</span>
+        <span class="p">]</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
 
@@ -313,14 +429,14 @@
 
         <span class="c1"># Auto-add .txt extension if missing</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="o">.</span><span class="n">suffix</span><span class="p">:</span>
-            <span class="n">file_path</span> <span class="o">=</span> <span class="n">file_path</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="n">FileExtensions</span><span class="o">.</span><span class="n">BIND_FILE</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">file_path</span><span class="o">.</span><span class="n">suffix</span> <span class="o">!=</span> <span class="n">FileExtensions</span><span class="o">.</span><span class="n">BIND_FILE</span><span class="p">:</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="n">file_path</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="n">BindFileConstants</span><span class="o">.</span><span class="n">FILE_EXTENSION</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">file_path</span><span class="o">.</span><span class="n">suffix</span> <span class="o">!=</span> <span class="n">BindFileConstants</span><span class="o">.</span><span class="n">FILE_EXTENSION</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;File must have &#39;</span><span class="si">{</span><span class="n">FileExtensions</span><span class="o">.</span><span class="n">BIND_FILE</span><span class="si">}</span><span class="s2">&#39; extension, got &#39;</span><span class="si">{</span><span class="n">file_path</span><span class="o">.</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;File must have &#39;</span><span class="si">{</span><span class="n">BindFileConstants</span><span class="o">.</span><span class="n">FILE_EXTENSION</span><span class="si">}</span><span class="s2">&#39; extension, got &#39;</span><span class="si">{</span><span class="n">file_path</span><span class="o">.</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
             <span class="p">)</span>
 
         <span class="c1"># Validate before writing</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">validate_binds</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
 
         <span class="c1"># Create parent directories if needed</span>
         <span class="n">file_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -353,6 +469,20 @@
     <span class="c1"># endregion</span>
 
     <span class="c1"># region Validation Methods</span>
+<div class="viewcode-block" id="BindFile.validate">
+<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.BindFile.validate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validate the entire BindFile for common issues.</span>
+
+<span class="sd">        Calls the validate_binds() method to check all Bind instances for validity.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If any bind fails validation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validate_binds</span><span class="p">()</span></div>
+
+
 <div class="viewcode-block" id="BindFile.validate_binds">
 <a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.BindFile.validate_binds">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">validate_binds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -383,19 +513,36 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Build complete file contents as string by joining all content items.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
             <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bf_str_repr</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_bf_str_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="n">BindFileContentType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the string representation of the content for bind file publishing&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="p">(</span><span class="n">Macro</span><span class="p">,</span> <span class="n">_CommandGroup</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_execute_stub</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_execute_stub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="n">BindFileContentType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the command with an execute stub to allow execution on bind file load&quot;&quot;&quot;</span>
+        <span class="n">stub</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">supress_load_errors</span><span class="p">:</span>
+            <span class="n">stub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">BIND_STUB</span><span class="o">.</span><span class="n">bind_string</span>
+        <span class="k">return</span> <span class="n">GameConstants</span><span class="o">.</span><span class="n">COMMAND_DELIMITER</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">stub</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">content</span><span class="p">)])</span>
 
     <span class="c1"># endregion</span>
 
     <span class="c1"># region Validation and Error Handling</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_throw_error_on_invalid_content_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BindContent</span><span class="p">]):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_throw_error_on_invalid_content_list</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">content_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BindFileContentType</span><span class="p">]</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate content_list is a proper list of valid content types.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Contents must be a list of Bind or Comment instances&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s2">&quot;Contents must be a list of supported BindFileContent types&quot;</span>
+            <span class="p">)</span>
         <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">content_list</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="p">(</span><span class="n">Bind</span><span class="p">,</span> <span class="n">_Comment</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">_BIND_FILE_CONTENT_TYPES</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                    <span class="s2">&quot;All items in contents must be instances of Bind or Comment&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;All items in contents must be instances of supported types: </span><span class="si">{</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="vm">__name__</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">_BIND_FILE_CONTENT_TYPES</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_throw_error_on_invalid_content_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expected_type</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>

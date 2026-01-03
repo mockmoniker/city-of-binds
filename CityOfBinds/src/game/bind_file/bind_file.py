@@ -229,6 +229,28 @@ class BindFile:
         """
         return self._add_content(command_group, _CommandGroup)
 
+    def remove_bind(self, trigger: str) -> "BindFile":
+        """
+        Remove all Bind instances with the specified trigger from the bind file.
+
+        Args:
+            trigger: The trigger key of the Bind(s) to remove
+
+        Returns:
+            Self for method chaining
+
+        Example:
+            >>> bf = BindFile([Bind("F1", ["say hello"]), Bind("F2", ["say goodbye"])])
+            >>> bf.remove_bind("F1")
+            >>> len(bf.contents)  # 1
+        """
+        self._contents = [
+            content
+            for content in self._contents
+            if not (isinstance(content, Bind) and content.trigger == trigger)
+        ]
+        return self
+
     def clear(self) -> "BindFile":
         """
         Remove all contents from the bind file.

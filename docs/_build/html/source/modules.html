@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CityOfBinds &mdash; CityOfBinds 0.0.1 documentation</title>
+  <title>CityOfBinds &mdash; CityOfBinds 0.1.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="../_static/documentation_options.js?v=360bc84d"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/js/theme.js"></script>
@@ -81,6 +81,7 @@
 <li class="toctree-l1"><a class="reference internal" href="CityOfBinds.html">CityOfBinds package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BFGPublisher"><code class="docutils literal notranslate"><span class="pre">BFGPublisher</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BFGPublisher.is_silent"><code class="docutils literal notranslate"><span class="pre">BFGPublisher.is_silent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BFGPublisher.publish_files"><code class="docutils literal notranslate"><span class="pre">BFGPublisher.publish_files()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.Bind"><code class="docutils literal notranslate"><span class="pre">Bind</span></code></a><ul>
@@ -94,14 +95,24 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile"><code class="docutils literal notranslate"><span class="pre">BindFile</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.contents"><code class="docutils literal notranslate"><span class="pre">BindFile.contents</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.BIND_STUB"><code class="docutils literal notranslate"><span class="pre">BindFile.BIND_STUB</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.contents"><code class="docutils literal notranslate"><span class="pre">BindFile.contents</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.add_bind"><code class="docutils literal notranslate"><span class="pre">BindFile.add_bind()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.add_command_group"><code class="docutils literal notranslate"><span class="pre">BindFile.add_command_group()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.add_comment"><code class="docutils literal notranslate"><span class="pre">BindFile.add_comment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.add_content"><code class="docutils literal notranslate"><span class="pre">BindFile.add_content()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.add_macro"><code class="docutils literal notranslate"><span class="pre">BindFile.add_macro()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.binds"><code class="docutils literal notranslate"><span class="pre">BindFile.binds</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.clear"><code class="docutils literal notranslate"><span class="pre">BindFile.clear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.command_groups"><code class="docutils literal notranslate"><span class="pre">BindFile.command_groups</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#id0"><code class="docutils literal notranslate"><span class="pre">BindFile.contents</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.is_empty"><code class="docutils literal notranslate"><span class="pre">BindFile.is_empty()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.macros"><code class="docutils literal notranslate"><span class="pre">BindFile.macros</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.preview"><code class="docutils literal notranslate"><span class="pre">BindFile.preview()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.remove_bind"><code class="docutils literal notranslate"><span class="pre">BindFile.remove_bind()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.validate"><code class="docutils literal notranslate"><span class="pre">BindFile.validate()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.validate_binds"><code class="docutils literal notranslate"><span class="pre">BindFile.validate_binds()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.write_to_directory"><code class="docutils literal notranslate"><span class="pre">BindFile.write_to_directory()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFile.write_to_file"><code class="docutils literal notranslate"><span class="pre">BindFile.write_to_file()</span></code></a></li>
@@ -111,6 +122,7 @@
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFileGraph.add_bind_file"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.add_bind_file()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFileGraph.add_delay"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.add_delay()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFileGraph.chain"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.chain()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFileGraph.extend"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.extend()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFileGraph.get_bind_file"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.get_bind_file()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFileGraph.get_incoming_links"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.get_incoming_links()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindFileGraph.get_outgoing_links"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.get_outgoing_links()</span></code></a></li>
@@ -129,6 +141,22 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindTemplate"><code class="docutils literal notranslate"><span class="pre">BindTemplate</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.BindTemplate.BIND_TYPE"><code class="docutils literal notranslate"><span class="pre">BindTemplate.BIND_TYPE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.ChangelingRotatingBindWS"><code class="docutils literal notranslate"><span class="pre">ChangelingRotatingBindWS</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.ChangelingRotatingBindWS.DWARF_FORM"><code class="docutils literal notranslate"><span class="pre">ChangelingRotatingBindWS.DWARF_FORM</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.ChangelingRotatingBindWS.NOVA_FORM"><code class="docutils literal notranslate"><span class="pre">ChangelingRotatingBindWS.NOVA_FORM</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.ChangelingRotatingBindWS.add_drain"><code class="docutils literal notranslate"><span class="pre">ChangelingRotatingBindWS.add_drain()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.ChangelingRotatingBindWS.add_emmanation"><code class="docutils literal notranslate"><span class="pre">ChangelingRotatingBindWS.add_emmanation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.ChangelingRotatingBindWS.add_mire"><code class="docutils literal notranslate"><span class="pre">ChangelingRotatingBindWS.add_mire()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.ChangelingRotatingPB"><code class="docutils literal notranslate"><span class="pre">ChangelingRotatingPB</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.ChangelingRotatingPB.DWARF_FORM"><code class="docutils literal notranslate"><span class="pre">ChangelingRotatingPB.DWARF_FORM</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.ChangelingRotatingPB.NOVA_FORM"><code class="docutils literal notranslate"><span class="pre">ChangelingRotatingPB.NOVA_FORM</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.ChangelingRotatingPB.add_flare"><code class="docutils literal notranslate"><span class="pre">ChangelingRotatingPB.add_flare()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.ChangelingRotatingPB.add_scatter"><code class="docutils literal notranslate"><span class="pre">ChangelingRotatingPB.add_scatter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.ChangelingRotatingPB.add_sublimation"><code class="docutils literal notranslate"><span class="pre">ChangelingRotatingPB.add_sublimation()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="CityOfBinds.html#CityOfBinds.RandomBinds"><code class="docutils literal notranslate"><span class="pre">RandomBinds</span></code></a></li>

@@ -346,3 +346,79 @@ class BindFileGraph(nx.DiGraph):
             BindFile object stored at the specified node
         """
         return self.nodes[bind_file_index][BFGConstants.NODE_DATA_KEY]
+
+    def extend(
+        self, other_graph: "BindFileGraph", merge_on: list[tuple[int, int]] = None
+    ) -> "BindFileGraph":
+        """
+        Extend this graph with nodes and edges from another graph.
+
+        All nodes from other_graph are added with updated indexes (offset by current node count).
+        Edges are preserved with updated node references. Optionally merge specific nodes.
+
+        Args:
+            other_graph: The BindFileGraph to merge into this one
+            merge_on: List of (self_node_index, other_node_index) tuples specifying nodes to merge.
+                     For merged nodes, self's BindFile is kept but all edges are combined.
+
+        Returns:
+            Self for method chaining
+
+        Example:
+            >>> bfg1 = BindFileGraph()
+            >>> bfg1.add_bind_file(bf1).add_bind_file(bf2)  # nodes 0, 1
+            >>> bfg2 = BindFileGraph()
+            >>> bfg2.add_bind_file(bf3).add_bind_file(bf4)  # nodes 0, 1
+            >>> bfg2.link(0, 1)
+            >>>
+            >>> # Extend without merging: bfg1 gets nodes 0,1,2,3 with edge 2->3
+            >>> bfg1.extend(bfg2)
+            >>>
+            >>> # Extend with merging: node 1 from bfg1 merges with node 0 from bfg2
+            >>> bfg1.extend(bfg2, merge_on=[(1, 0)])
+        """
+        if merge_on is None:
+            merge_on = []
+
+        # Calculate offset for new node IDs
+        offset = self.number_of_nodes()
+
+        # Create mapping for node ID translation
+        # Format: {other_graph_node_id: self_graph_node_id}
+        node_id_mapping = {}
+        merge_dict = {
+            other_node: self_node for self_node, other_node in merge_on
+        }  # Swap tuple elements
+
+        # Step 1: Add nodes and build ID mapping
+        for node_id in other_graph.nodes():
+            if node_id in merge_dict:
+                # This node should be merged - map to existing node in self
+                node_id_mapping[node_id] = merge_dict[node_id]
+            else:
+                # Add as new node - add_bind_file assigns ID based on current node count
+                other_bind_file = other_graph.get_bind_file(node_id)
+                actual_new_node_id = (
+                    self.number_of_nodes()
+                )  # This will be the assigned ID
+                self.add_bind_file(other_bind_file)
+                node_id_mapping[node_id] = actual_new_node_id
+
+        # Step 2: Add edges with translated node IDs
+        for source, target, edge_data in other_graph.edges(data=True):
+            mapped_source = node_id_mapping[source]
+            mapped_target = node_id_mapping[target]
+
+            # Add edge with preserved edge data
+            trigger_conditions = edge_data.get(BFGConstants.EDGE_DATA_KEY)
+            self.add_edge(
+                mapped_source,
+                mapped_target,
+                **(
+                    {BFGConstants.EDGE_DATA_KEY: trigger_conditions}
+                    if trigger_conditions
+                    else {}
+                ),
+            )
+
+        return self

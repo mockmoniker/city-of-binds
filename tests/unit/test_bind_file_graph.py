@@ -483,3 +483,207 @@ class TestBindFileGraphValidation:
             ValueError, match="k must be less than the number of bind files"
         ):
             graph.make_k_regular([0, 1, 2], k=3)
+
+
+class TestBindFileGraphExtend:
+    """Test BindFileGraph extend functionality."""
+
+    def test_extend_without_merging(self):
+        """Should extend graph with offset node IDs and preserved edges."""
+        # Setup first graph
+        bfg1 = BindFileGraph()
+        bf1 = BindFile([Bind("F1", ["say one"])])
+        bf2 = BindFile([Bind("F2", ["say two"])])
+        bfg1.add_bind_file(bf1).add_bind_file(bf2)
+        bfg1.link(0, 1)
+
+        # Setup second graph
+        bfg2 = BindFileGraph()
+        bf3 = BindFile([Bind("F3", ["say three"])])
+        bf4 = BindFile([Bind("F4", ["say four"])])
+        bfg2.add_bind_file(bf3).add_bind_file(bf4)
+        bfg2.link(0, 1)
+
+        # act
+        bfg1.extend(bfg2)
+
+        # assert
+        assert len(bfg1.nodes) == 4  # 2 + 2
+        assert set(bfg1.nodes) == {0, 1, 2, 3}
+        assert len(bfg1.edges) == 2  # Original edge + extended edge
+        assert (0, 1) in bfg1.edges  # Original edge preserved
+        assert (2, 3) in bfg1.edges  # Extended edge with offset IDs
+
+    def test_extend_with_single_merge(self):
+        """Should merge specified nodes and combine their edges."""
+        # Setup first graph
+        bfg1 = BindFileGraph()
+        bf1 = BindFile([Bind("F1", ["say one"])])
+        bf2 = BindFile([Bind("F2", ["say two"])])
+        bfg1.add_bind_file(bf1).add_bind_file(bf2)
+        bfg1.link(0, 1)
+
+        # Setup second graph
+        bfg2 = BindFileGraph()
+        bf3 = BindFile([Bind("F2", ["say two"])])
+        bf4 = BindFile([Bind("F3", ["say three"])])
+        bfg2.add_bind_file(bf3).add_bind_file(bf4)
+        bfg2.link(0, 1)
+
+        # act - merge node 1 from bfg1 with node 0 from bfg2
+        bfg1.extend(bfg2, merge_on=[(1, 0)])
+
+        # assert
+        assert len(bfg1.nodes) == 3  # 2 + 2 - 1 (merged node)
+        assert set(bfg1.nodes) == {0, 1, 2}
+        assert len(bfg1.edges) == 2  # Original edge + extended edge
+        assert (0, 1) in bfg1.edges  # Original edge preserved
+        assert (1, 2) in bfg1.edges  # Extended edge now points from merged node
+
+    def test_extend_preserves_trigger_conditions(self):
+        """Should preserve trigger conditions during extend."""
+        # Setup first graph
+        bfg1 = BindFileGraph()
+        bf1 = BindFile([Bind("F1", ["say one"])])
+        bf2 = BindFile([Bind("F2", ["say two"])])
+        bfg1.add_bind_file(bf1).add_bind_file(bf2)
+        conditions1 = {"on_triggers": "F1"}
+        bfg1.link(0, 1, trigger_conditions=conditions1)
+
+        # Setup second graph with different conditions
+        bfg2 = BindFileGraph()
+        bf3 = BindFile([Bind("F3", ["say three"])])
+        bf4 = BindFile([Bind("F4", ["say four"])])
+        bfg2.add_bind_file(bf3).add_bind_file(bf4)
+        conditions2 = {"on_triggers": "SPACE"}
+        bfg2.link(0, 1, trigger_conditions=conditions2)
+
+        # act
+        bfg1.extend(bfg2)
+
+        # assert
+        assert bfg1.get_trigger_conditions(0, 1) == conditions1
+        assert bfg1.get_trigger_conditions(2, 3) == conditions2
+
+    def test_extend_with_multiple_merges(self):
+        """Should handle multiple node merges correctly."""
+        # Setup first graph with 3 nodes
+        bfg1 = BindFileGraph()
+        for i in range(3):
+            bfg1.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
+        bfg1.loop([0, 1, 2])  # 0->1->2->0
+
+        # Setup second graph with 3 nodes
+        bfg2 = BindFileGraph()
+        for i in range(3):
+            bfg2.add_bind_file(BindFile([Bind(f"{i+1}", [f"say g{i+1}"])]))
+        bfg2.chain([0, 1, 2])  # 0->1->2
+
+        # act - merge (1,0) and (2,1)
+        bfg1.extend(bfg2, merge_on=[(1, 0), (2, 1)])
+
+        # assert
+        assert len(bfg1.nodes) == 4  # 3 + 3 - 2 (two merged nodes)
+        assert set(bfg1.nodes) == {0, 1, 2, 3}
+        # Original edges: 0->1, 1->2, 2->0
+        # Extended edges: merged(1,0)->merged(2,1), merged(2,1)->node3
+        # Result: 0->1, 1->2, 2->0, 1->2, 2->3
+        assert (0, 1) in bfg1.edges
+        assert (1, 2) in bfg1.edges
+        assert (2, 0) in bfg1.edges
+        assert (2, 3) in bfg1.edges  # merged(2,1) -> node3
+
+    def test_extend_preserves_bind_files_on_merge(self):
+        """Should keep original bind files when merging nodes."""
+        # Setup graphs
+        bfg1 = BindFileGraph()
+        original_bind = Bind("F1", ["say original"])
+        bf1 = BindFile([original_bind])
+        bfg1.add_bind_file(bf1)
+
+        bfg2 = BindFileGraph()
+        other_bind = Bind("F2", ["say other"])
+        bf2 = BindFile([other_bind])
+        bfg2.add_bind_file(bf2)
+
+        # act
+        bfg1.extend(bfg2, merge_on=[(0, 0)])
+
+        # assert - should keep bfg1's bind file
+        merged_bind_file = bfg1.get_bind_file(0)
+        assert len(merged_bind_file.binds) == 1
+        assert str(merged_bind_file.binds[0]) == 'F1 "say original"'
+
+    def test_extend_empty_graph(self):
+        """Should handle extending with empty graph."""
+        bfg1 = BindFileGraph()
+        bfg1.add_bind_file(BindFile([Bind("F1", ["say hello"])]))
+
+        bfg2 = BindFileGraph()  # Empty
+
+        # act
+        bfg1.extend(bfg2)
+
+        # assert
+        assert len(bfg1.nodes) == 1  # No change
+        assert len(bfg1.edges) == 0  # No change
+
+    def test_extend_to_empty_graph(self):
+        """Should handle extending empty graph with non-empty graph."""
+        bfg1 = BindFileGraph()  # Empty
+
+        bfg2 = BindFileGraph()
+        bf1 = BindFile([Bind("F1", ["say hello"])])
+        bf2 = BindFile([Bind("F2", ["say world"])])
+        bfg2.add_bind_file(bf1).add_bind_file(bf2)
+        bfg2.link(0, 1)
+
+        # act
+        bfg1.extend(bfg2)
+
+        # assert
+        assert len(bfg1.nodes) == 2  # 0 + 2
+        assert len(bfg1.edges) == 1  # 0 + 1
+        assert (0, 1) in bfg1.edges
+
+    def test_extend_complex_topology(self):
+        """Should handle extending graphs with complex topologies."""
+        # Setup k-regular graph
+        bfg1 = BindFileGraph()
+        for i in range(4):
+            bfg1.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
+        bfg1.make_k_regular([0, 1, 2, 3], k=2)
+
+        # Setup loop graph
+        bfg2 = BindFileGraph()
+        for i in range(3):
+            bfg2.add_bind_file(BindFile([Bind(f"{i+1}", [f"say g{i+1}"])]))
+        bfg2.loop([0, 1, 2])
+
+        # act
+        bfg1.extend(bfg2)
+
+        # assert
+        assert len(bfg1.nodes) == 7  # 4 + 3
+        assert len(bfg1.edges) == 11  # 8 (k-regular) + 3 (loop)
+        # Check that k-regular structure is preserved
+        for i in range(4):
+            assert len(bfg1.get_outgoing_links(i)) == 2
+        # Check that loop structure is preserved (with offset)
+        assert set(bfg1.get_outgoing_links(4)) == {5}  # 0+4 -> 1+4
+        assert set(bfg1.get_outgoing_links(5)) == {6}  # 1+4 -> 2+4
+        assert set(bfg1.get_outgoing_links(6)) == {4}  # 2+4 -> 0+4
+
+    def test_extend_chain_returns_self(self):
+        """Should return self for method chaining."""
+        bfg1 = BindFileGraph()
+        bfg1.add_bind_file(BindFile([Bind("F1", ["say hello"])]))
+
+        bfg2 = BindFileGraph()
+        bfg2.add_bind_file(BindFile([Bind("F2", ["say world"])]))
+
+        # act
+        result = bfg1.extend(bfg2)
+
+        # assert
+        assert result is bfg1

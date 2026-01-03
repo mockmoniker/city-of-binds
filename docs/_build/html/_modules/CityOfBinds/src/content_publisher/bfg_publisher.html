@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CityOfBinds.src.content_publisher.bfg_publisher &mdash; CityOfBinds 0.0.1 documentation</title>
+  <title>CityOfBinds.src.content_publisher.bfg_publisher &mdash; CityOfBinds 0.1.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../../_static/documentation_options.js?v=d45e8c67"></script>
+      <script src="../../../../_static/documentation_options.js?v=360bc84d"></script>
       <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../_static/js/theme.js"></script>
@@ -69,11 +69,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for CityOfBinds.src.content_publisher.bfg_publisher</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">...utils.file_graph_publisher</span><span class="w"> </span><span class="kn">import</span> <span class="n">_FileGraphPublisher</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">...utils.file_graph_publisher</span><span class="w"> </span><span class="kn">import</span> <span class="n">_FileGraphPublisher</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">...utils.types.str_path</span><span class="w"> </span><span class="kn">import</span> <span class="n">StrPath</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">..configs.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">BFGConstants</span><span class="p">,</span> <span class="n">FileExtensions</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..configs.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">BFGConstants</span><span class="p">,</span> <span class="n">BindFileConstants</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..content_managers.graph.bind_file_graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">BindFileGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">..game.bind_file.bind_file</span><span class="w"> </span><span class="kn">import</span> <span class="n">BindFile</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">..game.binds.bind</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bind</span>
 
@@ -120,7 +119,7 @@
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">is_silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">absolute_path_links</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">use_absolute_paths</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a new BFGPublisher with specified linking behavior.</span>
@@ -132,24 +131,45 @@
 <span class="sd">        Args:</span>
 <span class="sd">            is_silent: Whether to use silent file loading (True) or show chat messages (False)</span>
 <span class="sd">                      Silent mode prevents &quot;Loading bind file...&quot; messages in game chat</span>
-<span class="sd">            absolute_path_links: Whether to use absolute paths in bind_load_file commands</span>
+<span class="sd">            use_absolute_paths: Whether to use absolute paths in bind_load_file commands</span>
 <span class="sd">                               False uses relative paths for portability</span>
 
 <span class="sd">        Example:</span>
 <span class="sd">            &gt;&gt;&gt; # Silent publisher with relative paths (default)</span>
 <span class="sd">            &gt;&gt;&gt; publisher = BFGPublisher()</span>
 <span class="sd">            &gt;&gt;&gt; # Verbose publisher with absolute paths</span>
-<span class="sd">            &gt;&gt;&gt; publisher = BFGPublisher(is_silent=False, absolute_path_links=True)</span>
+<span class="sd">            &gt;&gt;&gt; publisher = BFGPublisher(is_silent=False, use_absolute_paths=True)</span>
 
 <span class="sd">        Note:</span>
 <span class="sd">            Silent mode is typically preferred to avoid cluttering game chat with</span>
 <span class="sd">            file loading messages during bind file transitions.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_silent</span> <span class="o">=</span> <span class="n">is_silent</span>
+        <span class="n">bfg_path_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;file_extension&quot;</span><span class="p">:</span> <span class="n">BindFileConstants</span><span class="o">.</span><span class="n">FILE_EXTENSION</span><span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">absolute_path_links</span><span class="o">=</span><span class="n">absolute_path_links</span><span class="p">,</span>
+            <span class="n">use_abs_path_links</span><span class="o">=</span><span class="n">use_absolute_paths</span><span class="p">,</span>
             <span class="n">file_graph_key</span><span class="o">=</span><span class="n">BFGConstants</span><span class="o">.</span><span class="n">NODE_DATA_KEY</span><span class="p">,</span>
+            <span class="n">path_kwargs</span><span class="o">=</span><span class="n">bfg_path_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
+
+<div class="viewcode-block" id="BFGPublisher.publish_files">
+<a class="viewcode-back" href="../../../../source/CityOfBinds.html#CityOfBinds.BFGPublisher.publish_files">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">publish_files</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">file_graph</span><span class="p">:</span> <span class="n">BindFileGraph</span><span class="p">,</span>
+        <span class="n">directory</span><span class="p">:</span> <span class="n">StrPath</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">parent_folder</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">publish_files</span><span class="p">(</span><span class="n">file_graph</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">parent_folder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_publish_install_files</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">parent_folder</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_publish_install_files</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">directory</span><span class="p">:</span> <span class="n">StrPath</span><span class="p">,</span>
+        <span class="n">parent_folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">pass</span>
 
     <span class="c1"># region File Linking Methods</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_link_file</span><span class="p">(</span>
@@ -196,13 +216,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">_link_bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bind</span><span class="p">:</span> <span class="n">Bind</span><span class="p">,</span> <span class="n">target_file_path</span><span class="p">:</span> <span class="n">StrPath</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Add silent or verbose bind_load_file command to bind.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_silent</span><span class="p">:</span>
-            <span class="n">bind</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_bind_load_file_silent</span><span class="p">(</span>
-                <span class="n">Path</span><span class="p">(</span><span class="n">target_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="n">FileExtensions</span><span class="o">.</span><span class="n">BIND_FILE</span><span class="p">)</span>
-            <span class="p">)</span>
+            <span class="n">bind</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_bind_load_file_silent</span><span class="p">(</span><span class="n">target_file_path</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">bind</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_bind_load_file</span><span class="p">(</span>
-                <span class="n">Path</span><span class="p">(</span><span class="n">target_file_path</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="n">FileExtensions</span><span class="o">.</span><span class="n">BIND_FILE</span><span class="p">)</span>
-            <span class="p">)</span>
+            <span class="n">bind</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_bind_load_file</span><span class="p">(</span><span class="n">target_file_path</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_update_target_bind_file</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">target_bind_file</span><span class="p">:</span> <span class="n">BindFile</span><span class="p">,</span> <span class="n">trigger_conditions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
@@ -223,7 +239,7 @@
     <span class="c1"># region File Output Methods</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_write_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bind_file</span><span class="p">:</span> <span class="n">BindFile</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="n">StrPath</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Write bind file to disk.&quot;&quot;&quot;</span>
-        <span class="n">bind_file</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">))</span></div>
+        <span class="n">bind_file</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
 
 
     <span class="c1"># endregion</span>
