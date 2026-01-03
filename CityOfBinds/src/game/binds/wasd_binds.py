@@ -1,4 +1,4 @@
-from ...configs.maps import WASDMaps
+from ...configs.maps import MovementMaps, WASDMaps
 from ..command_group.command_group import CommandGroup
 from ..utils.triggers.wasd_trigger import _WASDTrigger
 from .bind import Bind
@@ -75,6 +75,6 @@ class iWASDBind(WASDBind):
     def _get_direction(self, trigger: _WASDTrigger) -> str:
         """Get inverted movement direction string for WASD trigger key."""
         direction = super()._get_direction(trigger)
-        return WASDMaps.OPPOSITE_DIRECTION[direction]
+        return MovementMaps.OPPOSITE_DIRECTION[direction]
 
     # endregion

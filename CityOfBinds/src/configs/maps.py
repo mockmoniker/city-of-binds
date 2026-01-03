@@ -8,6 +8,8 @@ class WASDMaps:
         "X": "down",
     }
 
+
+class MovementMaps:
     DIRECTION_TO_MOVEMENT_MAP = {
         "forward": "+forward",
         "left": "+left",

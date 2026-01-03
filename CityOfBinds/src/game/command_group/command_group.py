@@ -1,7 +1,7 @@
 from typing import Self
 
 from ...configs.constants import GameConstants
-from ...configs.maps import WASDMaps
+from ...configs.maps import MovementMaps, WASDMaps
 from ..utils.power import _Power
 from ..utils.slash_command import _SlashCommand
 
@@ -438,12 +438,12 @@ class CommandGroup:
         """
         direction = direction_string.lower()
         self._throw_error_if_wrong_direction(direction)
-        return WASDMaps.DIRECTION_TO_MOVEMENT_MAP[direction]
+        return MovementMaps.DIRECTION_TO_MOVEMENT_MAP[direction]
 
     def _throw_error_if_wrong_direction(self, direction_string: str):
         """Validate movement direction string."""
-        if direction_string not in WASDMaps.DIRECTION_TO_MOVEMENT_MAP:
-            valid_directions = ", ".join(WASDMaps.DIRECTION_TO_MOVEMENT_MAP.keys())
+        if direction_string not in MovementMaps.DIRECTION_TO_MOVEMENT_MAP:
+            valid_directions = ", ".join(MovementMaps.DIRECTION_TO_MOVEMENT_MAP.keys())
             raise ValueError(
                 f"Invalid movement direction: '{direction_string}'. "
                 f"Valid directions are: {valid_directions}"
