@@ -1,9 +1,9 @@
 from ...configs.constants import MacroCommands
 from ..command_group.commands_mixin import _CommandsMixin
-from ..utils.game_string import _GameString
+from ..utils.string_things import _CommandString
 
 
-class Macro(_CommandsMixin, _GameString):
+class Macro(_CommandsMixin, _CommandString):
     MACRO_COMMAND = MacroCommands.MACRO
 
     def __init__(self, name: str, commands: list[str] = None):

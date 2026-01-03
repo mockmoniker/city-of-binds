@@ -1,7 +1,8 @@
 from ...configs.valid_input import VALID_SLASH_COMMAND_PREFIXES, VALID_SLASH_COMMANDS
+from .string_things import _StringThing
 
 
-class _SlashCommand:
+class _SlashCommand(_StringThing):
     ### Initialization
     def __init__(self, command: str):
         """Initialize the command with a string."""
@@ -42,6 +43,12 @@ class _SlashCommand:
 
     def clear_prefix(self):
         self._prefix = ""
+
+    def str(self) -> str:
+        if self.args:
+            return f"{self.prefix}{self.slash_command} {self.args}"
+        else:
+            return f"{self.prefix}{self.slash_command}"
 
     # endregion
 
@@ -104,12 +111,6 @@ class _SlashCommand:
     def _normalize_args(self, args: str) -> str:
         return args.lstrip()
 
-    def _build_command_string(self) -> str:
-        if self.args:
-            return f"{self.prefix}{self.slash_command} {self.args}"
-        else:
-            return f"{self.prefix}{self.slash_command}"
-
     # endregion
 
     # region Error Checking Methods
@@ -135,11 +136,5 @@ class _SlashCommand:
             return f"{self.__class__.__name__}(command='{self.slash_command}', args='{self.args}')"
         else:
             return f"{self.__class__.__name__}(command='{self.slash_command}')"
-
-    def __str__(self):
-        return self._build_command_string()
-
-    def __eq__(self, other):
-        return str(self) == str(other)
 
     # endregion

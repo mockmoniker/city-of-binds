@@ -1,12 +1,12 @@
 from ...configs.constants import GameConstants
 from ..command_group.command_group import CommandGroup
 from ..command_group.commands_mixin import _CommandsMixin
-from ..utils.game_string import _GameString
+from ..utils.string_things import _GenericGameString
 from ..utils.triggers.trigger import _Trigger
 from ..utils.triggers.trigger_mixin import _TriggerMixin
 
 
-class Bind(_TriggerMixin, _CommandsMixin, _GameString):
+class Bind(_TriggerMixin, _CommandsMixin, _GenericGameString):
     """
     Represents a game bind that maps a trigger (key + optional modifier) to one or more commands.
 
@@ -54,6 +54,9 @@ class Bind(_TriggerMixin, _CommandsMixin, _GameString):
         return self._build_bind_string_from_components(
             trigger=self.trigger, commands=commands
         )
+
+    def game_str(self):
+        return f"/bind {self.str()}"
 
     def validate(self):
         """

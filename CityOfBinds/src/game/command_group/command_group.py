@@ -2,12 +2,12 @@ from typing import Self
 
 from ...configs.constants import GameConstants
 from ...configs.maps import MovementMaps
-from ..utils.game_string import _GameString
 from ..utils.power import _Power
 from ..utils.slash_command import _SlashCommand
+from ..utils.string_things import _CommandString
 
 
-class CommandGroup(_GameString):
+class CommandGroup(_CommandString):
     """
     Manages an ordered collection of slash commands for City of Heroes/Villains binds.
 

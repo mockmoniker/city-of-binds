@@ -1,8 +1,9 @@
 from ....configs.constants import GameConstants
 from ....configs.valid_input import TRIGGER_KEYS, TRIGGER_MODIFIERS
+from ..string_things import _StringThing
 
 
-class _Trigger:
+class _Trigger(_StringThing):
     """
     Represents a game input trigger consisting of an optional modifier and a key.
 
@@ -205,6 +206,12 @@ class _Trigger:
         """
         self._modifier = ""
 
+    def str(self) -> str:
+        """Build the complete trigger string from parts."""
+        if self._modifier:
+            return f"{self._modifier}{GameConstants.TRIGGER_DELIM}{self._key}"
+        return self._key
+
     # endregion
 
     # region Helper Methods
@@ -242,12 +249,6 @@ class _Trigger:
 
     def _normalize_key(self, key: str) -> str:
         return key.strip().upper()
-
-    def _build_trigger_string(self) -> str:
-        """Build the complete trigger string from parts."""
-        if self._modifier:
-            return f"{self._modifier}{GameConstants.TRIGGER_DELIM}{self._key}"
-        return self._key
 
     # endregion
 
@@ -300,13 +301,5 @@ class _Trigger:
             return f"{self.__class__.__name__}(key='{self.key}', modifier='{self.modifier}')"
         else:
             return f"{self.__class__.__name__}(key='{self.key}')"
-
-    def __str__(self):
-        """Return string representation for bind files."""
-        return self._build_trigger_string()
-
-    def __eq__(self, other):
-        """Enable equality comparison between triggers and strings."""
-        return str(self) == str(other)
 
     # endregion
