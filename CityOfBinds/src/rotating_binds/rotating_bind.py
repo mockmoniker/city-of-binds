@@ -1,4 +1,3 @@
-from ....utils.types.str_path import StrPath
 from .generic_rotating_binds import _GenericRotatingBind, _LoopTopology
 
 

@@ -1,6 +1,7 @@
 from ...configs.constants import GameConstants
 from ..command_group.command_group import CommandGroup
 from ..command_group.commands_mixin import _CommandsMixin
+from ..utils.game_string import _GameString
 from ..utils.triggers.trigger import _Trigger
 from ..utils.triggers.trigger_mixin import _TriggerMixin
 

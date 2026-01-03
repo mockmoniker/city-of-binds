@@ -1,12 +1,13 @@
 from typing import Self
 
 from ...configs.constants import GameConstants
-from ...configs.maps import MovementMaps, WASDMaps
+from ...configs.maps import MovementMaps
+from ..utils.game_string import _GameString
 from ..utils.power import _Power
 from ..utils.slash_command import _SlashCommand
 
 
-class CommandGroup:
+class CommandGroup(_GameString):
     """
     Manages an ordered collection of slash commands for City of Heroes/Villains binds.
 
@@ -674,43 +675,25 @@ class CommandGroup:
     # endregion
 
     # region String Building and Output Methods
-    def _build_command_string(self) -> str:
+    def str(self) -> str:
         """
-        Build the complete command string for use in bind files.
+        Return the command string ready for use in bind files.
+
+        This is the primary output method that produces the formatted command string
+        suitable for use in City of Heroes/Villains bind files.
 
         Returns:
-            Formatted command string enclosed in quotes with commands separated by $$
+            Formatted command string in quotes with $$ separators
 
         Example:
-            >>> # For commands: ["say hello", "powexecname hasten"]
-            >>> cmd_group._build_command_string()
-            # '"say hello$$powexecname hasten"'
+            >>> cmd_group = CommandGroup(["say hello", "powexecname hasten"])
+            >>> str(cmd_group)  # '"say hello$$powexecname hasten"'
         """
         return self._build_command_string_from_components(self._commands)
 
     def _build_command_string_from_components(
         self, commands: list[_SlashCommand]
     ) -> str:
-        """
-        Build a command string from a list of _Command objects.
-
-        Takes a list of _Command objects and formats them into a single string
-        suitable for use in bind files, with proper delimiters and quoting.
-
-        Args:
-            commands: List of _Command objects to format
-
-        Returns:
-            Formatted command string enclosed in quotes
-
-        Example:
-            >>> commands = [_Command("say hello"), _Command("powexecname hasten")]
-            >>> _build_command_string_from_components(commands)
-            # '"say hello$$powexecname hasten"'
-
-        Note:
-            Uses GameConstants.COMMANDS_DELIM ($$) as the command separator.
-        """
         return f'"{GameConstants.COMMANDS_DELIM.join(str(cmd) for cmd in commands)}"'
 
     # endregion
@@ -755,33 +738,6 @@ class CommandGroup:
         new_command_group._commands = self._commands + other._commands
         return new_command_group
 
-    def __eq__(self, other):
-        """
-        Enable equality comparison between CommandGroups.
-
-        Two CommandGroups are equal if they have the same commands in the same order.
-        Commands are compared using their string representations.
-
-        Args:
-            other: Another object to compare with
-
-        Returns:
-            True if both are CommandGroups with identical commands, False otherwise
-
-        Example:
-            >>> group1 = CommandGroup(["say hello", "say world"])
-            >>> group2 = CommandGroup(["say hello", "say world"])
-            >>> group1 == group2  # True
-        """
-        if not isinstance(other, CommandGroup):
-            return False
-        if len(self) != len(other):
-            return False
-        for cmd_self, cmd_other in zip(self, other):
-            if str(cmd_self) != str(cmd_other):
-                return False
-        return True
-
     def __repr__(self) -> str:
         """
         Return a developer-friendly string representation of the CommandGroup.
@@ -794,22 +750,6 @@ class CommandGroup:
             >>> repr(group)  # "_CommandGroup(commands=[_Command('say hello')])"
         """
         return f"{self.__class__.__name__}(commands={self._commands})"
-
-    def __str__(self) -> str:
-        """
-        Return the command string ready for use in bind files.
-
-        This is the primary output method that produces the formatted command string
-        suitable for use in City of Heroes/Villains bind files.
-
-        Returns:
-            Formatted command string in quotes with $$ separators
-
-        Example:
-            >>> group = CommandGroup(["say hello", "powexecname hasten"])
-            >>> str(group)  # '"say hello$$powexecname hasten"'
-        """
-        return self._build_command_string()
 
     # endregion
 

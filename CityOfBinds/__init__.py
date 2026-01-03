@@ -16,13 +16,13 @@ from .src.game.command_group.command_group import CommandGroup
 from .src.game.macros.macro import Macro
 from .src.game.macros.macro_image import MacroImage
 from .src.game.macros.macro_slot import MacroSlot
-from .src.game.rotating_binds.changeling_binds import (
+from .src.rotating_binds.changeling_binds import (
     ChangelingRotatingBindWS,
     ChangelingRotatingPB,
 )
-from .src.game.rotating_binds.random_binds import RandomBinds, RandomWalk
-from .src.game.rotating_binds.rotating_bind import RotatingBind
-from .src.game.rotating_binds.wasd_rotating_bind import WASDRotatingBind
+from .src.rotating_binds.random_binds import RandomBinds, RandomWalk
+from .src.rotating_binds.rotating_bind import RotatingBind
+from .src.rotating_binds.wasd_rotating_bind import WASDRotatingBind
 
 __all__ = [
     "Bind",
