@@ -6,7 +6,7 @@ from ..utils.triggers.trigger import _Trigger
 from ..utils.triggers.trigger_mixin import _TriggerMixin
 
 
-class Bind(_TriggerMixin, _CommandsMixin):
+class Bind(_TriggerMixin, _CommandsMixin, _GameString):
     """
     Represents a game bind that maps a trigger (key + optional modifier) to one or more commands.
 
@@ -35,26 +35,26 @@ class Bind(_TriggerMixin, _CommandsMixin):
 
     # region Bind Properties
     @property
-    def bind_string(self) -> str:
-        """Get the complete bind string ready for use in bind files.
-
-        Returns:
-            Formatted bind string in the format: 'TRIGGER "command1$$command2"'
-        """
-        return self._build_bind_string()
-
-    @property
     def bind_length(self) -> int:
         """Get the character length of the bind string.
 
         Returns:
             Number of characters in the complete bind string
         """
-        return len(self.bind_string)
+        return len(self.str())
 
     # endregion
 
     # region Bind Methods
+    def str(self) -> str:
+        """Build complete bind string, handling key-up triggers."""
+        commands = self.commands
+        if self.trigger_on_key_up and not commands[0].prefix:
+            commands = self._add_key_up_prefix(commands)
+        return self._build_bind_string_from_components(
+            trigger=self.trigger, commands=commands
+        )
+
     def validate(self):
         """
         Validate the bind for common issues.
@@ -101,15 +101,6 @@ class Bind(_TriggerMixin, _CommandsMixin):
         commands = prefix_only_command + commands
         return commands
 
-    def _build_bind_string(self) -> str:
-        """Build complete bind string, handling key-up triggers."""
-        commands = self.commands
-        if self.trigger_on_key_up and not commands[0].prefix:
-            commands = self._add_key_up_prefix(commands)
-        return self._build_bind_string_from_components(
-            trigger=self.trigger, commands=commands
-        )
-
     def _build_bind_string_from_components(
         self, trigger: _Trigger, commands: CommandGroup
     ) -> str:
@@ -142,15 +133,5 @@ class Bind(_TriggerMixin, _CommandsMixin):
             String showing class name, trigger, and commands
         """
         return f"{self.__class__.__name__}(trigger={self.trigger}, commands={self.commands})"
-
-    def __str__(self) -> str:
-        """Return bind string for use in bind files."""
-        return self.bind_string
-
-    def __eq__(self, other):
-        """Compare Bind objects for equality based on bind strings."""
-        if not isinstance(other, Bind):
-            return False
-        return self.bind_string == other.bind_string
 
     # endregion

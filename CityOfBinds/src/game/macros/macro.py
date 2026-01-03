@@ -1,8 +1,9 @@
 from ...configs.constants import MacroCommands
 from ..command_group.commands_mixin import _CommandsMixin
+from ..utils.game_string import _GameString
 
 
-class Macro(_CommandsMixin):
+class Macro(_CommandsMixin, _GameString):
     MACRO_COMMAND = MacroCommands.MACRO
 
     def __init__(self, name: str, commands: list[str] = None):
@@ -16,16 +17,10 @@ class Macro(_CommandsMixin):
         _CommandsMixin.__init__(self, commands)
         self.name = name
 
-    def macro_string(self) -> str:
-        return self._build_macro_string()
-
-    def _build_macro_string(self) -> str:
+    def str(self) -> str:
         return self._build_macro_string_from_components(self.name, self.commands)
 
     def _build_macro_string_from_components(self, *args) -> str:
         """Build macro string"""
         # TODO: handle checking if args need quotations (2025/12/30)
         return f"{self.MACRO_COMMAND} {" ".join(str(arg) for arg in args)}"
-
-    def __str__(self):
-        return self.macro_string()

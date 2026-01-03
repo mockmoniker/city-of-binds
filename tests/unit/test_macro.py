@@ -51,7 +51,7 @@ class TestMacroStringGeneration:
     def test_macro_string_name_only(self):
         """Should generate macro string with name only."""
         macro = Macro("test_macro")
-        result = macro._build_macro_string()
+        result = macro.str()
         expected = f"{MacroCommands.MACRO} test_macro {macro.commands}"
         assert result == expected
 
@@ -59,7 +59,7 @@ class TestMacroStringGeneration:
         """Should generate macro string with name and commands."""
         commands = ["powexecname heal", "say Healing!"]
         macro = Macro("heal_macro", commands)
-        result = macro._build_macro_string()
+        result = macro.str()
         expected = f"{MacroCommands.MACRO} heal_macro {macro.commands}"
         assert result == expected
 
@@ -88,7 +88,7 @@ class TestMacroStringGeneration:
         """Should return macro string when converted to string."""
         macro = Macro("test_macro", ["say hello"])
         result = str(macro)
-        expected = macro._build_macro_string()
+        expected = macro.str()
         assert result == expected
 
 
@@ -151,7 +151,7 @@ class TestMacroIntegration:
     def test_empty_macro_string_generation(self):
         """Should generate valid macro string even with no commands."""
         macro = Macro("empty_macro")
-        result = macro._build_macro_string()
+        result = macro.str()
         # Should contain the macro command and name at minimum
         assert MacroCommands.MACRO in result
         assert "empty_macro" in result
