@@ -9,7 +9,7 @@ class WASDBind(Bind):
     A specialized Bind that automatically injects movement commands for WASD keys.
 
     WASDBind extends the base Bind class to automatically add movement commands
-    (+forward, +left, +backward, +right, +up) when using WASD or SPACE keys.
+    (+forward, +left, +backward, +right, +up, +down) when using WASD or SPACE/X keys.
     The movement command is always inserted first, followed by any user-provided commands.
 
     Supported Keys:
@@ -18,6 +18,7 @@ class WASDBind(Bind):
         - S: +backward
         - D: +right
         - SPACE: +up
+        - X: +down
 
     Example:
         >>> wasd_bind = WASDBind("W", ["powexectoggleon super speed"])
