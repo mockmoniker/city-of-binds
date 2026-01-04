@@ -25,6 +25,10 @@ class BFGConstants:
     INCLUSIVE_KEY = "on_triggers"
     EXCLUSIVE_KEY = "not_on_triggers"
     QUICK_TRIGGER_KEY = "quick_triggers"
+    SIDE_EFFECT_KEY = "side_effect"
+    SIDE_EFFECT_TARGET_KEY = "side_effect_target"
+    BACKUP_SIDE_EFFECT_COMMAND = "showbindallfile"
+    RESTORE_SIDE_EFFECT_COMMAND = "bindloadfilesilent"
 
 
 class ChangelingConstants:
@@ -50,3 +54,9 @@ class MacroCommands:
     MACRO = "macro"
     MACRO_SLOT = "macroslot"
     MACRO_IMAGE = "macroimage"
+
+
+class InstallFileNames:
+    INSTALL_FILE_NAME = "_install.txt"
+    LOAD_FILE_NAME = "_load.txt"
+    UNLOAD_FILE_NAME = "_unload.txt"

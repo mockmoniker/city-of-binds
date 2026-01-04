@@ -2,6 +2,7 @@ import copy
 
 import networkx as nx
 
+from ....utils.types.str_path import StrPath
 from ...configs.constants import BFGConstants
 from ...game.bind_file.bind_file import BindFile
 
@@ -418,4 +419,48 @@ class BindFileGraph(nx.DiGraph):
                 ),
             )
 
+        return self
+
+    def add_backup_side_effect(
+        self, node_index: int, backup_target: int | StrPath
+    ) -> "BindFileGraph":
+        """
+        Add a side-effect to a bind file node that creates a backup of all binds when bind file is loaded.
+
+        Args:
+            node_index: Index of the bind file node to add the side-effect to
+            backup_target: Path or index of the bind file to back up to
+
+        Returns:
+            Self for method chaining
+        """
+        return self._add_side_efftect(
+            node_index,
+            BFGConstants.BACKUP_SIDE_EFFECT_COMMAND,
+            backup_target,
+        )
+
+    def add_restore_side_effect(
+        self, node_index: int, restore_source: int | StrPath
+    ) -> "BindFileGraph":
+        """
+        Add a side-effect to a bind file node that restores binds from a backup when bind file is loaded.
+
+        Args:
+            node_index: Index of the bind file node to add the side-effect to
+            restore_source: Path or index of the bind file to restore from
+
+        Returns:
+            Self for method chaining
+        """
+        return self._add_side_efftect(
+            node_index,
+            BFGConstants.RESTORE_SIDE_EFFECT_COMMAND,
+            restore_source,
+        )
+
+    def _add_side_efftect(self, node_index: int, file_command: str, target: StrPath):
+        """Internal method to add a generic side-effect command to a bind file node."""
+        self.nodes[node_index][BFGConstants.SIDE_EFFECT_KEY] = file_command
+        self.nodes[node_index][BFGConstants.SIDE_EFFECT_TARGET_KEY] = target
         return self

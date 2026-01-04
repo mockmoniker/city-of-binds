@@ -1,7 +1,6 @@
 import math
 from functools import cache
 from pathlib import Path
-from typing import Union
 
 from .baseconverter import BaseConverter
 from .types.str_path import StrPath
@@ -64,6 +63,12 @@ class PathGenerator:
         self._throw_error_if_index_out_of_range(file_index)
 
         return self._get_full_path(file_index)
+
+    def get_override_path(self, relative_path: StrPath) -> Path:
+        """Generate a full path using a provided relative path."""
+        return self._parent_folder / Path(relative_path).with_suffix(
+            self._file_extension
+        )
 
     @cache
     def _get_full_path(self, file_index: int) -> Path:

@@ -86,14 +86,6 @@ class BFGPublisher(_FileGraphPublisher):
         parent_folder: str = "",
     ):
         super().publish_files(file_graph, directory, parent_folder)
-        self._publish_install_files(directory, parent_folder)
-
-    def _publish_install_files(
-        self,
-        directory: StrPath,
-        parent_folder: str,
-    ):
-        pass
 
     # region File Linking Methods
     def _link_file(
@@ -161,8 +153,8 @@ class BFGPublisher(_FileGraphPublisher):
     # endregion
 
     # region File Output Methods
-    def _write_file(self, bind_file: BindFile, path: StrPath):
+    def _write_file(self, bind_file: BindFile, bind_file_path: StrPath):
         """Write bind file to disk."""
-        bind_file.write_to_file(path)
+        bind_file.write_to_file(bind_file_path)
 
     # endregion
