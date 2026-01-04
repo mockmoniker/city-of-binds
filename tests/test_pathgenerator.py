@@ -1,10 +1,10 @@
-from CityOfBinds.utils.pathgenerator import PathGenerator
+from CityOfBinds.utils.file_path_generator import FilePathGenerator
 
 
 class TestPathGenerator:
     def test_default_generator_should_return_correct_files_without_folders(self):
         # arrange
-        path_generator = PathGenerator(file_count=256)  # No folders
+        path_generator = FilePathGenerator(file_count=256)  # No folders
         # act / assert
         assert str(path_generator[0]) == "00"
         assert str(path_generator[1]) == "01"
@@ -16,7 +16,7 @@ class TestPathGenerator:
 
     def test_default_generator_should_return_correct_files_with_folders(self):
         # arrange
-        path_generator = PathGenerator(file_count=65536)
+        path_generator = FilePathGenerator(file_count=65536)
         # act / assert
         assert str(path_generator[0]) == "00/00"
         assert str(path_generator[1]) == "00/01"
@@ -28,7 +28,7 @@ class TestPathGenerator:
 
     def test_default_generator_should_return_efficiently_padded_paths(self):
         # arrange
-        path_generator = PathGenerator(file_count=4096)
+        path_generator = FilePathGenerator(file_count=4096)
         # act / assert
         assert str(path_generator[0]) == "0/00"
         assert str(path_generator[1]) == "0/01"
@@ -40,7 +40,7 @@ class TestPathGenerator:
 
     def test_default_generator_should_return_efficiently_padded_paths_edge_case(self):
         # arrange
-        path_generator = PathGenerator(file_count=257)
+        path_generator = FilePathGenerator(file_count=257)
         # act / assert
         assert str(path_generator[0]) == "0/00"
         assert str(path_generator[1]) == "0/01"
@@ -49,7 +49,7 @@ class TestPathGenerator:
 
     def test_default_generator_should_return_correct_root_folder_length_edge_case(self):
         # arrange
-        path_generator = PathGenerator(file_count=4097)
+        path_generator = FilePathGenerator(file_count=4097)
         # act / assert
         assert str(path_generator[0]) == "00/00"
         assert str(path_generator[1]) == "00/01"
@@ -64,7 +64,7 @@ class TestPathGenerator:
         self,
     ):
         # arrange
-        path_generator = PathGenerator(file_count=20, max_files_per_folder=5)
+        path_generator = FilePathGenerator(file_count=20, max_files_per_folder=5)
         # act / assert
         assert str(path_generator[0]) == "0/0"
         assert str(path_generator[1]) == "0/1"
@@ -79,7 +79,7 @@ class TestPathGenerator:
         self,
     ):
         # arrange
-        path_generator = PathGenerator(file_count=256, max_files_per_folder=1000)
+        path_generator = FilePathGenerator(file_count=256, max_files_per_folder=1000)
         # act / assert
         assert str(path_generator[0]) == "00"
         assert str(path_generator[1]) == "01"

@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Callable, Iterator, Protocol, TypeAlias
 
-from .pathgenerator import PathGenerator
+from .file_path_generator import FilePathGenerator
 from .types.str_path import StrPath
 
 PathFactoryConstructor: TypeAlias = Callable[[int, StrPath], "PathFactoryProtocol"]
@@ -16,7 +16,7 @@ class FileGraphDefaults:
     PUBLISH_DIRECTORY = "."
     ABSOLUTE_PATH_LINKS = False
     ARCHIVE_FORMAT = "zip"
-    PATH_FACTORY = PathGenerator
+    PATH_FACTORY = FilePathGenerator
     PATH_KWARGS = {}
 
 

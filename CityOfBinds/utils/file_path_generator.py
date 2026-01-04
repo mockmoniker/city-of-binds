@@ -6,7 +6,7 @@ from .baseconverter import BaseConverter
 from .types.str_path import StrPath
 
 
-class PathGenerator:
+class FilePathGenerator:
     DEFAULT_PARENT_FOLDER_NAME = ""
     DEFAULT_MAX_FILES_PER_FOLDER = 256
     DEFAULT_FILE_EXTENSION = ""
@@ -179,7 +179,12 @@ class PathGenerator:
     # endregion
 
     # region Dunder Methods
-    def __getitem__(self, file_index: int) -> Path:
-        return self.get_path(file_index)
+    def __getitem__(self, file_id: int | StrPath) -> Path:
+        # TODO: convert this to happy path try/except? (2026/01/04)
+        if isinstance(file_id, int):
+            return self.get_path(file_id)
+        if isinstance(file_id, StrPath):
+            return self.get_override_path(file_id)
+        raise TypeError(f"file_id must be an int or StrPath, got {type(file_id)}")
 
     # endregion
