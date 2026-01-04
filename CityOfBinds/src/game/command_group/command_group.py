@@ -2,9 +2,9 @@ from typing import Self
 
 from ...configs.constants import GameConstants
 from ...configs.maps import MovementMaps
+from ..utils.game_strings import _CommandString
 from ..utils.power import _Power
 from ..utils.slash_command import _SlashCommand
-from ..utils.string_things import _CommandString
 
 
 class CommandGroup(_CommandString):

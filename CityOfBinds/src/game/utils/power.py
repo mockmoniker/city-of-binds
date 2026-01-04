@@ -1,4 +1,4 @@
-from .string_things import _StringThing
+from ....utils.string_thing import _StringThing
 
 
 class _Power(_StringThing):

@@ -1,6 +1,6 @@
 from ...configs.constants import MacroCommands
 from ..command_group.commands_mixin import _CommandsMixin
-from ..utils.string_things import _CommandString
+from ..utils.game_strings import _CommandString
 
 
 class Macro(_CommandsMixin, _CommandString):

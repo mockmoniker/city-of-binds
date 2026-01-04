@@ -8,6 +8,11 @@ class GameConstants:
     TRAY_COUNT = 9
 
 
+class GameExecutionCommands:
+    EXECUTE_COMMAND = "/"
+    EXECUTE_BIND = "/bind"
+
+
 class BindFileConstants:
     FILE_EXTENSION = ".txt"
     STUB_TRIGGER = "KANA"

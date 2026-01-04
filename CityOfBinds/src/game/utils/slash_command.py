@@ -1,5 +1,5 @@
+from ....utils.string_thing import _StringThing
 from ...configs.valid_input import VALID_SLASH_COMMAND_PREFIXES, VALID_SLASH_COMMANDS
-from .string_things import _StringThing
 
 
 class _SlashCommand(_StringThing):
