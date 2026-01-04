@@ -69,8 +69,8 @@
            <div itemprop="articleBody">
              
   <h1>Source code for CityOfBinds.src.game.binds.wasd_binds</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">...configs.maps</span><span class="w"> </span><span class="kn">import</span> <span class="n">WASDMaps</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">..utils.commands.command_group</span><span class="w"> </span><span class="kn">import</span> <span class="n">_CommandGroup</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">...configs.maps</span><span class="w"> </span><span class="kn">import</span> <span class="n">MovementMaps</span><span class="p">,</span> <span class="n">WASDMaps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..command_group.command_group</span><span class="w"> </span><span class="kn">import</span> <span class="n">CommandGroup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">..utils.triggers.wasd_trigger</span><span class="w"> </span><span class="kn">import</span> <span class="n">_WASDTrigger</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.bind</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bind</span>
 
@@ -82,7 +82,7 @@
 <span class="sd">    A specialized Bind that automatically injects movement commands for WASD keys.</span>
 
 <span class="sd">    WASDBind extends the base Bind class to automatically add movement commands</span>
-<span class="sd">    (+forward, +left, +backward, +right, +up) when using WASD or SPACE keys.</span>
+<span class="sd">    (+forward, +left, +backward, +right, +up, +down) when using WASD or SPACE/X keys.</span>
 <span class="sd">    The movement command is always inserted first, followed by any user-provided commands.</span>
 
 <span class="sd">    Supported Keys:</span>
@@ -91,6 +91,7 @@
 <span class="sd">        - S: +backward</span>
 <span class="sd">        - D: +right</span>
 <span class="sd">        - SPACE: +up</span>
+<span class="sd">        - X: +down</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; wasd_bind = WASDBind(&quot;W&quot;, [&quot;powexectoggleon super speed&quot;])</span>
@@ -103,16 +104,19 @@
     <span class="n">TRIGGER_TYPE</span> <span class="o">=</span> <span class="n">_WASDTrigger</span>
 
     <span class="c1"># region Override Methods</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">_build_bind_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="WASDBind.str">
+<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.WASDBind.str">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Build WASD bind string with automatic movement command injection.&quot;&quot;&quot;</span>
-        <span class="n">movement_command</span> <span class="o">=</span> <span class="n">_CommandGroup</span><span class="p">()</span><span class="o">.</span><span class="n">add_movement</span><span class="p">(</span>
+        <span class="n">movement_command</span> <span class="o">=</span> <span class="n">CommandGroup</span><span class="p">()</span><span class="o">.</span><span class="n">add_movement</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_get_direction</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trigger</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="c1"># Combine movement with user commands (movement comes first)</span>
         <span class="n">commands_with_movement</span> <span class="o">=</span> <span class="n">movement_command</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">commands</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_bind_string_from_components</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">trigger</span><span class="p">,</span> <span class="n">commands_with_movement</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
+
 
     <span class="c1"># endregion</span>
 
@@ -151,7 +155,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trigger</span><span class="p">:</span> <span class="n">_WASDTrigger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get inverted movement direction string for WASD trigger key.&quot;&quot;&quot;</span>
         <span class="n">direction</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get_direction</span><span class="p">(</span><span class="n">trigger</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">WASDMaps</span><span class="o">.</span><span class="n">OPPOSITE_DIRECTION</span><span class="p">[</span><span class="n">direction</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="n">MovementMaps</span><span class="o">.</span><span class="n">OPPOSITE_DIRECTION</span><span class="p">[</span><span class="n">direction</span><span class="p">]</span></div>
 
 
     <span class="c1"># endregion</span>

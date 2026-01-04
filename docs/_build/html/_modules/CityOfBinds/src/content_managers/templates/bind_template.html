@@ -115,6 +115,8 @@
 
     <span class="n">BIND_TYPE</span> <span class="o">=</span> <span class="n">Bind</span>
 
+<div class="viewcode-block" id="BindTemplate.__init__">
+<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.BindTemplate.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trigger</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a new BindTemplate with the specified trigger.</span>
@@ -137,7 +139,8 @@
 <span class="sd">            Invalid triggers will raise appropriate exceptions during initialization.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_TriggerMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trigger</span><span class="p">)</span>
-        <span class="n">_CommandsTemplate</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">_CommandsTemplate</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
 
     <span class="c1"># region Template Generation Methods</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_build_one</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bind</span><span class="p">:</span>

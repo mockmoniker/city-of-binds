@@ -485,9 +485,6 @@
         <span class="k">if</span> <span class="n">merge_on</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">merge_on</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="c1"># Calculate offset for new node IDs</span>
-        <span class="n">offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
-
         <span class="c1"># Create mapping for node ID translation</span>
         <span class="c1"># Format: {other_graph_node_id: self_graph_node_id}</span>
         <span class="n">node_id_mapping</span> <span class="o">=</span> <span class="p">{}</span>

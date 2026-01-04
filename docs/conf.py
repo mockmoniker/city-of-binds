@@ -28,6 +28,15 @@ extensions = [
     "sphinx.ext.napoleon",
 ]
 
+# Autodoc configuration to show inherited members
+autodoc_default_options = {
+    "members": True,
+    "inherited-members": True,
+    "show-inheritance": True,
+    "special-members": "__init__",
+    "undoc-members": True,
+}
+
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
