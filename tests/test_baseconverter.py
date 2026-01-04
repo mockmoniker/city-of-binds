@@ -1,4 +1,4 @@
-from CityOfBinds.utils.baseconverter import BaseConverter
+from CityOfBinds.utils.base_converter import BaseConverter
 
 
 class TestInitialization:

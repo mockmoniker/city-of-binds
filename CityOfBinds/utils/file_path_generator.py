@@ -2,7 +2,7 @@ import math
 from functools import cache
 from pathlib import Path
 
-from .baseconverter import BaseConverter
+from .base_converter import BaseConverter
 from .types.str_path import StrPath
 
 
