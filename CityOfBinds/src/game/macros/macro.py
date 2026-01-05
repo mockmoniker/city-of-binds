@@ -18,9 +18,7 @@ class Macro(_CommandsMixin, _CommandString):
         self.name = name
 
     def str(self) -> str:
-        return self._build_macro_string_from_components(self.name, self.commands)
+        return self._build_macro_string()
 
-    def _build_macro_string_from_components(self, *args) -> str:
-        """Build macro string"""
-        # TODO: handle checking if args need quotations (2025/12/30)
-        return f"{self.MACRO_COMMAND} {" ".join(str(arg) for arg in args)}"
+    def _build_macro_string(self) -> str:
+        return f'{self.MACRO_COMMAND} "{self.name}" {self.commands.str()}'

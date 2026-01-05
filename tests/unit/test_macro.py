@@ -52,7 +52,7 @@ class TestMacroStringGeneration:
         """Should generate macro string with name only."""
         macro = Macro("test_macro")
         result = macro.str()
-        expected = f"{MacroCommands.MACRO} test_macro {macro.commands}"
+        expected = f'{MacroCommands.MACRO} "test_macro" {macro.commands}'
         assert result == expected
 
     def test_macro_string_with_commands(self):
@@ -60,28 +60,7 @@ class TestMacroStringGeneration:
         commands = ["powexecname heal", "say Healing!"]
         macro = Macro("heal_macro", commands)
         result = macro.str()
-        expected = f"{MacroCommands.MACRO} heal_macro {macro.commands}"
-        assert result == expected
-
-    def test_build_macro_string_from_components_single_arg(self):
-        """Should handle single argument in _build_macro_string_from_components."""
-        macro = Macro("test")
-        result = macro._build_macro_string_from_components("single_arg")
-        expected = f"{MacroCommands.MACRO} single_arg"
-        assert result == expected
-
-    def test_build_macro_string_from_components_multiple_args(self):
-        """Should handle multiple arguments in _build_macro_string_from_components."""
-        macro = Macro("test")
-        result = macro._build_macro_string_from_components("arg1", "arg2", "arg3")
-        expected = f"{MacroCommands.MACRO} arg1 arg2 arg3"
-        assert result == expected
-
-    def test_build_macro_string_from_components_mixed_types(self):
-        """Should convert arguments to strings in _build_macro_string_from_components."""
-        macro = Macro("test")
-        result = macro._build_macro_string_from_components("text", 123, ["list"])
-        expected = f"{MacroCommands.MACRO} text 123 ['list']"
+        expected = f'{MacroCommands.MACRO} "heal_macro" {macro.commands}'
         assert result == expected
 
     def test_str_representation(self):

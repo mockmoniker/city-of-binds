@@ -2,10 +2,13 @@ from pathlib import Path
 
 from ...utils.file_graph_publisher import _FileGraphPublisher
 from ...utils.types.str_path import StrPath
-from ..configs.constants import BFGConstants, BindFileConstants
+from ..configs.constants import BFGConstants, BindFileConstants, SafeInstallValues
 from ..content_managers.graph.bind_file_graph import BindFileGraph
 from ..game.bind_file.bind_file import BindFile
 from ..game.binds.bind import Bind
+from ..game.command_group.command_group import CommandGroup
+from ..game.macros.macro import Macro
+from .safe_install import InstallFiles
 
 
 class BFGPublisher(_FileGraphPublisher):
@@ -88,23 +91,60 @@ class BFGPublisher(_FileGraphPublisher):
         directory: StrPath = "",
         parent_folder: str = "",
     ):
-        # self._create_safe_install(file_graph)
+        self._create_safe_install(file_graph)
         super().publish_files(file_graph, directory, parent_folder)
 
     def _create_safe_install(self, file_graph: BindFileGraph):
-        file_graph.add_bind_file("install")
-        file_graph.add_bind_file("load")
-        file_graph.add_bind_file("unload")
+        ordered_files = self._create_ordered_files()
+        (install_index, load_index, unload_index) = self._add_install_files_to_bfg(
+            file_graph, ordered_files
+        )
+        self._connect_install_files(file_graph, install_index, load_index, unload_index)
 
-        # Get indexes of the last 3 files added
-        total_nodes = file_graph.number_of_nodes()
-        install_index = total_nodes - 3
-        load_index = total_nodes - 2
-        unload_index = total_nodes - 1
+    def _create_ordered_files(self) -> dict[str, BindFile]:
+        # TODO: find better way to resolve ordering, maybe done in safe_install.py? (2026/01/04)
+        install_files_generator = InstallFiles()
+        install_files_dict = {}
+        install_files_dict[SafeInstallValues.INSTALL_FILE_NAME] = (
+            install_files_generator.create_install_file()
+        )
+        install_files_dict[SafeInstallValues.LOAD_FILE_NAME] = (
+            install_files_generator.create_load_file()
+        )
+        install_files_dict[SafeInstallValues.UNLOAD_FILE_NAME] = (
+            install_files_generator.create_unload_file()
+        )
+        return install_files_dict
 
-        file_graph.link(install_index, load_index)
-        file_graph.link(install_index, unload_index)
+    def _add_install_files_to_bfg(
+        self, file_graph: BindFileGraph, install_files: dict[str, BindFile]
+    ) -> tuple[int, int, int]:
+        indexes = []
+        for file_name, bind_file in install_files.items():
+            file_graph.add_bind_file(bind_file=bind_file, file_path_override=file_name)
+            file_index = file_graph.number_of_nodes() - 1
+            indexes.append(file_index)
+        return tuple(indexes)
+
+    def _connect_install_files(
+        self,
+        file_graph: BindFileGraph,
+        install_index: int,
+        load_index: int,
+        unload_index: int,
+    ):
+        file_graph.link(
+            install_index,
+            load_index,
+            trigger_conditions={"on_triggers": [SafeInstallValues.LOAD_MACRO_NAME]},
+        )
+        file_graph.link(
+            install_index,
+            unload_index,
+            trigger_conditions={"on_triggers": [SafeInstallValues.UNLOAD_MACRO_NAME]},
+        )
         file_graph.add_backup_side_effect(install_index, install_index)
+        file_graph.add_restore_side_effect(install_index, load_index)
         file_graph.add_restore_side_effect(load_index, 0)
         file_graph.add_restore_side_effect(unload_index, install_index)
 
@@ -116,11 +156,16 @@ class BFGPublisher(_FileGraphPublisher):
         source_file_path: Path,
         target_file_path: Path,
         edge_data: dict,
+        source_node_attributes: dict,
+        target_node_attributes: dict,
     ):
         """Link two bind files by updating source with load commands and target with key up settings."""
         trigger_conditions = edge_data[BFGConstants.EDGE_DATA_KEY]
         self._update_source_bind_file(
-            source_bind_file, target_file_path, trigger_conditions
+            source_bind_file,
+            target_file_path,
+            trigger_conditions,
+            source_node_attributes,
         )
         self._update_target_bind_file(target_bind_file, trigger_conditions)
 
@@ -129,11 +174,16 @@ class BFGPublisher(_FileGraphPublisher):
         source_bind_file: BindFile,
         target_file_path: Path,
         trigger_conditions: dict[str, list[str]],
+        source_node_attributes: dict,
     ):
         """Add bind_load_file commands to qualifying binds in source file."""
         for bind in source_bind_file.binds:
             if self._should_link_bind(bind, trigger_conditions):
                 self._link_bind(bind, target_file_path)
+
+        for macro in source_bind_file.macros:
+            if self._should_link_macro(macro, trigger_conditions):
+                self._link_macro(macro, target_file_path)
 
     def _should_link_bind(
         self, bind: Bind, trigger_conditions: dict[str, list[str]]
@@ -157,6 +207,28 @@ class BFGPublisher(_FileGraphPublisher):
         else:
             bind.commands.add_bind_load_file(target_file_path)
 
+    def _should_link_macro(
+        self, macro: Macro, trigger_conditions: dict[str, list[str]]
+    ) -> bool:
+        """Check if macro qualifies for file linking based on inclusion/exclusion conditions."""
+        if trigger_conditions is None:
+            return True
+
+        if BFGConstants.INCLUSIVE_KEY in trigger_conditions:
+            return macro.name in trigger_conditions[BFGConstants.INCLUSIVE_KEY]
+
+        if BFGConstants.EXCLUSIVE_KEY in trigger_conditions:
+            return macro.name not in trigger_conditions[BFGConstants.EXCLUSIVE_KEY]
+
+        return True
+
+    def _link_macro(self, macro: Macro, target_file_path: Path):
+        """Add silent or verbose bind_load_file command to macro."""
+        if self.is_silent:
+            macro.commands.add_bind_load_file_silent(target_file_path)
+        else:
+            macro.commands.add_bind_load_file(target_file_path)
+
     def _update_target_bind_file(
         self, target_bind_file: BindFile, trigger_conditions: dict[str, list[str]]
     ):
@@ -179,3 +251,27 @@ class BFGPublisher(_FileGraphPublisher):
         bind_file.write_to_file(bind_file_path)
 
     # endregion
+
+    # TODO: resolve how I want to pass paths/nodemap (2026/01/04)
+    def _post_link_files(self, file_graph, node_to_paths_id, directory, file_paths):
+        for node_id in file_graph.nodes():
+            self._resolve_side_effects(
+                file_graph.nodes[node_id][self._file_graph_key],
+                file_graph.nodes[node_id],
+            )
+
+    def _resolve_side_effects(
+        self, source_bind_file: BindFile, source_node_attributes: dict
+    ):
+        """Add side effect commands to source bind file based on node attributes."""
+        if BFGConstants.SIDE_EFFECTS_KEY not in source_node_attributes:
+            return
+
+        side_effects = source_node_attributes[BFGConstants.SIDE_EFFECTS_KEY]
+        commands = CommandGroup()
+        for side_effect in side_effects:
+            command, target = side_effect
+            target_file_path = self.file_paths[self.node_to_paths_id[target]]
+            commands.add_command(f"{command} {target_file_path}")
+
+        source_bind_file.add_command_group(commands)
