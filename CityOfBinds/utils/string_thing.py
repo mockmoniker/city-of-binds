@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class _StringThing(ABC):
+    # TODO: rename this to something that isn't str (2026/01/04)
     @abstractmethod
     def str(self) -> str:
         """Return the object's string representation."""

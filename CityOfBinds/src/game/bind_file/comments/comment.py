@@ -1,4 +1,7 @@
-class Comment:
+from .....utils.string_thing import _StringThing
+
+
+class Comment(_StringThing):
     DEFAULT_ALIGNMENT = "left"
     TEXT_ALIGNMENT_MAPPINGS = {
         "left": str.ljust,
@@ -57,7 +60,7 @@ class Comment:
     def comment_string(self) -> str:
         if not self.text:
             return ""
-        return self._build_comment_string()
+        return self.str()
 
     ### Helpers
     def _sanitize_comment_text(self, comment_text: str) -> str:
@@ -66,7 +69,7 @@ class Comment:
     def _sanitize_comment_line(self, comment_line: str) -> str:
         return comment_line.strip()
 
-    def _build_comment_string(self) -> str:
+    def str(self) -> str:
         text_width = self._get_text_width(
             text_width=len(self.text), minimum_width=self.minimum_width
         )
@@ -102,6 +105,3 @@ class Comment:
             raise ValueError(
                 f"Invalid text alignment '{alignment}'. Valid options are: {', '.join(self.TEXT_ALIGNMENT_MAPPINGS.keys())}"
             )
-
-    def __str__(self):
-        return self.comment_string

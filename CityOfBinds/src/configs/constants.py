@@ -25,8 +25,7 @@ class BFGConstants:
     INCLUSIVE_KEY = "on_triggers"
     EXCLUSIVE_KEY = "not_on_triggers"
     QUICK_TRIGGER_KEY = "quick_triggers"
-    SIDE_EFFECT_KEY = "side_effect"
-    SIDE_EFFECT_TARGET_KEY = "side_effect_target"
+    SIDE_EFFECTS_KEY = "side_effects"
     BACKUP_SIDE_EFFECT_COMMAND = "showbindallfile"
     RESTORE_SIDE_EFFECT_COMMAND = "bindloadfilesilent"
     FILE_PATH_OVERRIDE_KEY = "use_bind_file_path"
@@ -57,7 +56,11 @@ class MacroCommands:
     MACRO_IMAGE = "macroimage"
 
 
-class InstallFileNames:
+class SafeInstallValues:
     INSTALL_FILE_NAME = "_install.txt"
     LOAD_FILE_NAME = "_load.txt"
     UNLOAD_FILE_NAME = "_unload.txt"
+    LOAD_MACRO_IMAGE = "InherentBase_Fury"
+    UNLOAD_MACRO_IMAGE = "InherentBase_Anger"
+    LOAD_MACRO_NAME = "Safe Load"
+    UNLOAD_MACRO_NAME = "Safe Unload"

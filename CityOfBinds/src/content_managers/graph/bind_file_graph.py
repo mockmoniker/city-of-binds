@@ -53,7 +53,8 @@ class BindFileGraph(nx.DiGraph):
                     BFGConstants.FILE_PATH_OVERRIDE_KEY: file_path_override,
                 },
             )
-        super().add_node(self.number_of_nodes(), bind_file=copy.deepcopy(bind_file))
+        else:
+            super().add_node(self.number_of_nodes(), bind_file=copy.deepcopy(bind_file))
         return self
 
     def link(
@@ -471,6 +472,9 @@ class BindFileGraph(nx.DiGraph):
 
     def _add_side_efftect(self, node_index: int, file_command: str, target: StrPath):
         """Internal method to add a generic side-effect command to a bind file node."""
-        self.nodes[node_index][BFGConstants.SIDE_EFFECT_KEY] = file_command
-        self.nodes[node_index][BFGConstants.SIDE_EFFECT_TARGET_KEY] = target
+        if BFGConstants.SIDE_EFFECTS_KEY not in self.nodes[node_index]:
+            self.nodes[node_index][BFGConstants.SIDE_EFFECTS_KEY] = []
+        self.nodes[node_index][BFGConstants.SIDE_EFFECTS_KEY].append(
+            (file_command, target)
+        )
         return self

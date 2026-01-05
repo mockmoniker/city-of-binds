@@ -47,7 +47,7 @@ class CommentBanner(Comment):
             ]
         )
 
-    def _build_comment_string(self):
+    def str(self):
         longest_line_width = self._get_longest_line_width(comment_text=self.text)
         text_width = self._get_text_width(
             text_width=longest_line_width, minimum_width=self.minimum_width

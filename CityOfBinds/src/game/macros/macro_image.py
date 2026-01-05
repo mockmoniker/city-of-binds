@@ -18,8 +18,6 @@ class MacroImage(Macro):
         self.image = image
 
     def _build_macro_string(self) -> str:
-        self._build_macro_string_from_components(
-            self.image, self.tooltip, self.commands
-        )
+        return f'{self.MACRO_COMMAND} "{self.image}" "{self.tooltip}" {self.commands.str()}'
 
     # TODO: provide error checking for image string? (2025/12/30)

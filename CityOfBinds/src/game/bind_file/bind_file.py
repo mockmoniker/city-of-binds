@@ -406,16 +406,18 @@ class BindFile:
 
     def _bf_str_repr(self, content: BindFileContentType) -> str:
         """Get the string representation of the content for bind file publishing"""
-        if isinstance(content, (Macro, CommandGroup)):
-            return self._add_execute_stub(content)
-        return str(content)
+        if isinstance(content, Macro):
+            return self._add_execute_stub(content.str())
+        if isinstance(content, CommandGroup):
+            return self._add_execute_stub(content.str().strip('"'))
+        return content.str()
 
-    def _add_execute_stub(self, content: BindFileContentType) -> str:
+    def _add_execute_stub(self, content_str: str) -> str:
         """Return the command with an execute stub to allow execution on bind file load"""
         stub = ""
         if self.supress_load_errors:
-            stub = str(self.BIND_STUB)
-        return GameConstants.COMMAND_DELIMITER.join([stub, str(content)])
+            stub = self.BIND_STUB.str()
+        return GameConstants.COMMANDS_DELIM.join([stub, content_str])
 
     # endregion
 
