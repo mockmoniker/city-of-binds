@@ -29,6 +29,7 @@ class BFGConstants:
     SIDE_EFFECT_TARGET_KEY = "side_effect_target"
     BACKUP_SIDE_EFFECT_COMMAND = "showbindallfile"
     RESTORE_SIDE_EFFECT_COMMAND = "bindloadfilesilent"
+    FILE_PATH_OVERRIDE_KEY = "use_bind_file_path"
 
 
 class ChangelingConstants:

@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from ...utils.file_graph_publisher import _FileGraphPublisher
 from ...utils.types.str_path import StrPath
 from ..configs.constants import BFGConstants, BindFileConstants
@@ -76,7 +78,8 @@ class BFGPublisher(_FileGraphPublisher):
         super().__init__(
             use_abs_path_links=use_absolute_paths,
             file_graph_key=BFGConstants.NODE_DATA_KEY,
-            path_kwargs=bfg_path_kwargs,
+            file_path_override_key=BFGConstants.FILE_PATH_OVERRIDE_KEY,
+            file_paths_kwargs=bfg_path_kwargs,
         )
 
     def publish_files(
@@ -92,8 +95,8 @@ class BFGPublisher(_FileGraphPublisher):
         self,
         source_bind_file: BindFile,
         target_bind_file: BindFile,
-        source_file_path: StrPath,
-        target_file_path: StrPath,
+        source_file_path: Path,
+        target_file_path: Path,
         edge_data: dict,
     ):
         """Link two bind files by updating source with load commands and target with key up settings."""
@@ -106,7 +109,7 @@ class BFGPublisher(_FileGraphPublisher):
     def _update_source_bind_file(
         self,
         source_bind_file: BindFile,
-        target_file_path: StrPath,
+        target_file_path: Path,
         trigger_conditions: dict[str, list[str]],
     ):
         """Add bind_load_file commands to qualifying binds in source file."""
@@ -129,7 +132,7 @@ class BFGPublisher(_FileGraphPublisher):
 
         return True
 
-    def _link_bind(self, bind: Bind, target_file_path: StrPath):
+    def _link_bind(self, bind: Bind, target_file_path: Path):
         """Add silent or verbose bind_load_file command to bind."""
         if self.is_silent:
             bind.commands.add_bind_load_file_silent(target_file_path)
@@ -153,7 +156,7 @@ class BFGPublisher(_FileGraphPublisher):
     # endregion
 
     # region File Output Methods
-    def _write_file(self, bind_file: BindFile, bind_file_path: StrPath):
+    def _write_file(self, bind_file: BindFile, bind_file_path: Path):
         """Write bind file to disk."""
         bind_file.write_to_file(bind_file_path)
 

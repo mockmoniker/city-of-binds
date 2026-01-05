@@ -2,12 +2,10 @@ import shutil
 import tempfile
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Callable, Iterator, Protocol, TypeAlias
+from typing import Iterator, Protocol
 
 from .file_path_generator import FilePathGenerator
 from .types.str_path import StrPath
-
-PathFactoryConstructor: TypeAlias = Callable[[int, StrPath], "PathFactoryProtocol"]
 
 
 class FileGraphDefaults:
@@ -16,8 +14,8 @@ class FileGraphDefaults:
     PUBLISH_DIRECTORY = "."
     ABSOLUTE_PATH_LINKS = False
     ARCHIVE_FORMAT = "zip"
-    PATH_FACTORY = FilePathGenerator
     PATH_KWARGS = {}
+    FILE_PATH_OVERRIDE_KEY = "FILE_PATH_OVERRIDE"
 
 
 class FileGraphProtocol(Protocol):
@@ -27,23 +25,19 @@ class FileGraphProtocol(Protocol):
     nodes: any
 
 
-class PathFactoryProtocol(Protocol):
-    def __getitem__(self, index: int) -> Path: ...
-
-
 class _FileGraphPublisher(ABC):
     def __init__(
         self,
-        path_constructor: PathFactoryConstructor = FileGraphDefaults.PATH_FACTORY,
-        path_kwargs: dict = FileGraphDefaults.PATH_KWARGS,
         use_abs_path_links: bool = FileGraphDefaults.ABSOLUTE_PATH_LINKS,
         file_graph_key: str = FileGraphDefaults.FILE_GRAPH_KEY,
+        file_path_override_key: str = FileGraphDefaults.FILE_PATH_OVERRIDE_KEY,
+        file_paths_kwargs: dict = FileGraphDefaults.PATH_KWARGS,
     ):
         self.file_paths = None
-        self._path_constructor = path_constructor
-        self._path_kwargs = path_kwargs or {}
         self.use_abs_path_links = use_abs_path_links
-        self.file_graph_key = file_graph_key
+        self._file_graph_key = file_graph_key
+        self._file_path_override_key = file_path_override_key
+        self._file_paths_kwargs = file_paths_kwargs or {}
 
     def publish_files(
         self,
@@ -51,12 +45,15 @@ class _FileGraphPublisher(ABC):
         directory: StrPath = FileGraphDefaults.PUBLISH_DIRECTORY,
         parent_folder: str = FileGraphDefaults.PARENT_FOLDER,
     ):
-        node_to_index = self._create_node_to_index_map(file_graph)
-        self.file_paths = self._create_paths(
-            len(node_to_index), directory, parent_folder
+        node_to_paths_id = self._create_node_to_paths_id(file_graph)
+        self.file_paths = FilePathGenerator(
+            file_count=len(node_to_paths_id),
+            parent_folder_name=parent_folder,
+            **self._file_paths_kwargs,
         )
-        self._link_files(file_graph, node_to_index, self.file_paths)
-        self._write_files(file_graph, node_to_index, directory, self.file_paths)
+        directory = Path(directory)
+        self._link_files(file_graph, node_to_paths_id, directory, self.file_paths)
+        self._write_files(file_graph, node_to_paths_id, directory, self.file_paths)
 
     def publish_to_archive(
         self,
@@ -77,30 +74,43 @@ class _FileGraphPublisher(ABC):
             # Create zip from the temp directory root (includes parent_folder structure)
             shutil.make_archive(str(archive_path), archive_format, temp_dir)
 
-    def _create_node_to_index_map(self, file_graph: FileGraphProtocol) -> dict:
-        node_to_index = {}
-        for index, node_id in enumerate(file_graph.nodes()):
-            node_to_index[node_id] = index
-        return node_to_index
+    def _create_node_to_paths_id(self, file_graph: FileGraphProtocol) -> dict:
+        node_to_paths_id = {}
+        file_paths_count = 0
+        for node_id in file_graph.nodes():
+            if self._has_file_path_override(file_graph, node_id):
+                override_path = file_graph.nodes[node_id][self._file_path_override_key]
+                node_to_paths_id[node_id] = override_path
+                continue
+            node_to_paths_id[node_id] = file_paths_count
+            file_paths_count += 1
+        return node_to_paths_id
 
-    def _create_paths(
-        self, file_count: int, directory: StrPath, parent_folder: str
-    ) -> PathFactoryProtocol:
-        if self.use_abs_path_links:
-            # TODO: test this resolve function, see if needed in my scenario (2025/12/01)
-            parent_folder = Path(directory).resolve() / parent_folder
-        return self._path_constructor(file_count, parent_folder, **self._path_kwargs)
+    def _has_file_path_override(
+        self, file_graph: FileGraphProtocol, node_id: int
+    ) -> bool:
+        return self._file_path_override_key in file_graph.nodes[node_id]
 
-    def _link_files(self, file_graph: FileGraphProtocol, node_to_index: dict, paths):
+    def _link_files(
+        self,
+        file_graph: FileGraphProtocol,
+        node_to_paths_id: dict,
+        directory: Path,
+        file_paths,
+    ):
         for source_node_id in file_graph.nodes():
-            source_file = file_graph.nodes[source_node_id][self.file_graph_key]
-            source_file_path = paths[node_to_index[source_node_id]]
+            source_file = file_graph.nodes[source_node_id][self._file_graph_key]
+            source_file_path = file_paths[node_to_paths_id[source_node_id]]
 
             for _, target_node_id, edge_data in file_graph.out_edges(
                 source_node_id, data=True
             ):
-                target_file = file_graph.nodes[target_node_id][self.file_graph_key]
-                target_file_path = paths[node_to_index[target_node_id]]
+                target_file = file_graph.nodes[target_node_id][self._file_graph_key]
+                target_file_path = file_paths[node_to_paths_id[target_node_id]]
+
+                if self.use_abs_path_links:
+                    source_file_path = directory / source_file_path
+                    target_file_path = directory / target_file_path
 
                 self._link_file(
                     source_file,
@@ -113,13 +123,13 @@ class _FileGraphPublisher(ABC):
     def _write_files(
         self,
         file_graph: FileGraphProtocol,
-        node_to_index: dict,
-        directory: StrPath,
-        paths,
+        node_to_paths_id: dict,
+        directory: Path,
+        file_paths,
     ):
         for node_id in file_graph.nodes():
-            file = file_graph.nodes[node_id][self.file_graph_key]
-            file_path = Path(directory) / paths[node_to_index[node_id]]
+            file = file_graph.nodes[node_id][self._file_graph_key]
+            file_path = directory / file_paths[node_to_paths_id[node_id]]
             self._write_file(file, file_path)
 
     @abstractmethod
@@ -127,12 +137,12 @@ class _FileGraphPublisher(ABC):
         self,
         source_file,
         target_file,
-        source_file_path: StrPath,
-        target_file_path: StrPath,
+        source_file_path: Path,
+        target_file_path: Path,
         edge_data: dict,
     ):
         pass
 
     @abstractmethod
-    def _write_file(self, file, path: StrPath):
+    def _write_file(self, file, path: Path):
         pass
