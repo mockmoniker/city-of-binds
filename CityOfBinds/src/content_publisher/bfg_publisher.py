@@ -88,7 +88,25 @@ class BFGPublisher(_FileGraphPublisher):
         directory: StrPath = "",
         parent_folder: str = "",
     ):
+        # self._create_safe_install(file_graph)
         super().publish_files(file_graph, directory, parent_folder)
+
+    def _create_safe_install(self, file_graph: BindFileGraph):
+        file_graph.add_bind_file("install")
+        file_graph.add_bind_file("load")
+        file_graph.add_bind_file("unload")
+
+        # Get indexes of the last 3 files added
+        total_nodes = file_graph.number_of_nodes()
+        install_index = total_nodes - 3
+        load_index = total_nodes - 2
+        unload_index = total_nodes - 1
+
+        file_graph.link(install_index, load_index)
+        file_graph.link(install_index, unload_index)
+        file_graph.add_backup_side_effect(install_index, install_index)
+        file_graph.add_restore_side_effect(load_index, 0)
+        file_graph.add_restore_side_effect(unload_index, install_index)
 
     # region File Linking Methods
     def _link_file(

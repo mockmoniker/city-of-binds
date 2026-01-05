@@ -26,7 +26,9 @@ class BindFileGraph(nx.DiGraph):
         - K-Regular: Each bind file connects to k other bind files
     """
 
-    def add_bind_file(self, bind_file: BindFile) -> "BindFileGraph":
+    def add_bind_file(
+        self, bind_file: BindFile, file_path_override: str = None
+    ) -> "BindFileGraph":
         """
         Add a copy of a BindFile as a new node in the graph.
 
@@ -43,6 +45,14 @@ class BindFileGraph(nx.DiGraph):
             >>> len(graph.nodes)  # 1
         """
         # Use deep copy to prevent mutating original BindFile during graph operations
+        if file_path_override is not None:
+            super().add_node(
+                self.number_of_nodes(),
+                **{
+                    BFGConstants.NODE_DATA_KEY: copy.deepcopy(bind_file),
+                    BFGConstants.FILE_PATH_OVERRIDE_KEY: file_path_override,
+                },
+            )
         super().add_node(self.number_of_nodes(), bind_file=copy.deepcopy(bind_file))
         return self
 
