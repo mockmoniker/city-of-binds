@@ -1,8 +1,8 @@
 from typing import Self
 
 from ..configs.constants import ChangelingConstants
-from ..content_managers.templates.bind_template import BindTemplate
-from ..game.utils.triggers.trigger_mixin import _TriggerMixin
+from ..core.content_managers.templates.bind_template import BindTemplate
+from ..core.game.utils.triggers.trigger_mixin import _TriggerMixin
 from .rotating_bind import RotatingBind
 
 
