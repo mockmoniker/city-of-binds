@@ -1,16 +1,16 @@
 import random
 from abc import ABC, abstractmethod
 
-from ...utils.types.str_path import StrPath
-from ..configs.constants import BFGConstants
-from ..core.content_managers.graph.bind_file_graph import BindFileGraph
-from ..core.content_managers.templates.bind_file_template import (
+from ....utils.types.str_path import StrPath
+from ...configs.constants import BFGConstants
+from ...core.content_managers.graph.bind_file_graph import BindFileGraph
+from ...core.content_managers.templates.bind_file_template import (
     BindFileTemplate,
     RotationPolicy,
 )
-from ..core.content_managers.templates.bind_template import BindTemplate
-from ..core.content_publisher.bfg_publisher import BFGPublisher
-from ..core.game_content.bind_file.bind_file import BindFile
+from ...core.content_managers.templates.bind_template import BindTemplate
+from ...core.content_publisher.bfg_publisher import BFGPublisher
+from ...core.game_content.bind_file.bind_file import BindFile
 
 
 class _GenericRotatingBind(ABC):
