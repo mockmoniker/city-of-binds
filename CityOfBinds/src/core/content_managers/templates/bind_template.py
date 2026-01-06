@@ -1,7 +1,7 @@
-from ...game.binds.bind import Bind
-from ...game.binds.wasd_binds import WASDBind
-from ...game.utils.triggers.trigger_mixin import _TriggerMixin
-from ...game.utils.triggers.wasd_trigger import _WASDTrigger
+from ...game_content.binds.bind import Bind
+from ...game_content.binds.wasd_binds import WASDBind
+from ...game_content.utils.triggers.trigger_mixin import _TriggerMixin
+from ...game_content.utils.triggers.wasd_trigger import _WASDTrigger
 from ..utils.commands_template import _CommandsTemplate
 
 

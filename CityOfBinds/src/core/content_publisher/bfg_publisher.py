@@ -4,10 +4,10 @@ from ....utils.file_graph_publisher import _FileGraphPublisher
 from ....utils.types.str_path import StrPath
 from ...configs.constants import BFGConstants, BindFileConstants, SafeInstallValues
 from ..content_managers.graph.bind_file_graph import BindFileGraph
-from ..game.bind_file.bind_file import BindFile
-from ..game.binds.bind import Bind
-from ..game.command_group.command_group import CommandGroup
-from ..game.macros.macro import Macro
+from ..game_content.bind_file.bind_file import BindFile
+from ..game_content.binds.bind import Bind
+from ..game_content.command_group.command_group import CommandGroup
+from ..game_content.macros.macro import Macro
 from .safe_install import InstallFiles
 
 

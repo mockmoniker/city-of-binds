@@ -2,7 +2,7 @@ from enum import Enum
 from typing import Self
 
 from .....utils.templates.templates import ListTemplate
-from ...game.bind_file.bind_file import BindFile
+from ...game_content.bind_file.bind_file import BindFile
 
 
 class RotationPolicy(Enum):

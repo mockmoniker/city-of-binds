@@ -4,7 +4,7 @@ import networkx as nx
 
 from .....utils.types.str_path import StrPath
 from ....configs.constants import BFGConstants
-from ...game.bind_file.bind_file import BindFile
+from ...game_content.bind_file.bind_file import BindFile
 
 
 class BindFileGraph(nx.DiGraph):

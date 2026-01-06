@@ -10,7 +10,7 @@ from ..core.content_managers.templates.bind_file_template import (
 )
 from ..core.content_managers.templates.bind_template import BindTemplate
 from ..core.content_publisher.bfg_publisher import BFGPublisher
-from ..core.game.bind_file.bind_file import BindFile
+from ..core.game_content.bind_file.bind_file import BindFile
 
 
 class _GenericRotatingBind(ABC):

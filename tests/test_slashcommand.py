@@ -1,6 +1,6 @@
 import pytest
 
-from CityOfBinds.src.core.game.utils.slash_command import _SlashCommand
+from CityOfBinds.src.core.game_content.utils.slash_command import _SlashCommand
 
 
 class TestInitialization:

@@ -1,6 +1,6 @@
 from ...configs.constants import SafeInstallValues
-from ..game.bind_file.bind_file import BindFile
-from ..game.macros.macro_image import MacroImage
+from ..game_content.bind_file.bind_file import BindFile
+from ..game_content.macros.macro_image import MacroImage
 
 
 class InstallFiles:
