@@ -126,8 +126,6 @@ class _FileGraphPublisher(ABC):
                     source_file_path,
                     target_file_path,
                     edge_data,
-                    file_graph.nodes[source_node_id],
-                    file_graph.nodes[target_node_id],
                 )
 
     def _write_files(

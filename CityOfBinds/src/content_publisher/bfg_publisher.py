@@ -156,8 +156,6 @@ class BFGPublisher(_FileGraphPublisher):
         source_file_path: Path,
         target_file_path: Path,
         edge_data: dict,
-        source_node_attributes: dict,
-        target_node_attributes: dict,
     ):
         """Link two bind files by updating source with load commands and target with key up settings."""
         trigger_conditions = edge_data[BFGConstants.EDGE_DATA_KEY]
@@ -165,7 +163,6 @@ class BFGPublisher(_FileGraphPublisher):
             source_bind_file,
             target_file_path,
             trigger_conditions,
-            source_node_attributes,
         )
         self._update_target_bind_file(target_bind_file, trigger_conditions)
 
@@ -174,7 +171,6 @@ class BFGPublisher(_FileGraphPublisher):
         source_bind_file: BindFile,
         target_file_path: Path,
         trigger_conditions: dict[str, list[str]],
-        source_node_attributes: dict,
     ):
         """Add bind_load_file commands to qualifying binds in source file."""
         for bind in source_bind_file.binds:
