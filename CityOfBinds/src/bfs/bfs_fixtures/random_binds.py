@@ -1,4 +1,4 @@
-from ...configs.constants import BFGConstants
+from ..._configs.constants import BFGConstants
 from ...core.content_managers.graph.bind_file_graph import BindFileGraph
 from ...core.game_content.bind_file.bind_file import BindFile
 from .generic_rotating_binds import _RandomOrder

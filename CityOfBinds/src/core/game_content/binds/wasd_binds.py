@@ -1,4 +1,4 @@
-from ....configs.maps import MovementMaps, WASDMaps
+from ...._configs.maps import MovementMaps, WASDMaps
 from ..command_group.command_group import CommandGroup
 from ..utils.triggers.wasd_trigger import _WASDTrigger
 from .bind import Bind

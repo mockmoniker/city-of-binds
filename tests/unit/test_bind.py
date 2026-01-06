@@ -7,7 +7,7 @@ These tests focus on individual Bind creation, modification, representation, val
 import pytest
 
 from CityOfBinds import Bind
-from CityOfBinds.src.configs.constants import GameConstants
+from CityOfBinds.src._configs.constants import GameConstants
 
 
 class TestBindCreation:

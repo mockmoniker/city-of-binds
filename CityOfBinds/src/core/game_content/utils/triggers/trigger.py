@@ -1,6 +1,6 @@
 from ......utils.string_thing import _StringThing
-from .....configs.constants import GameConstants
-from .....configs.valid_input import TRIGGER_KEYS, TRIGGER_MODIFIERS
+from ....._configs.constants import GameConstants
+from ....._configs.valid_input import TRIGGER_KEYS, TRIGGER_MODIFIERS
 
 
 class _Trigger(_StringThing):

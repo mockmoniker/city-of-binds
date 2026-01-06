@@ -1,6 +1,6 @@
 from typing import Set
 
-from .....configs.maps import WASDMaps
+from ....._configs.maps import WASDMaps
 from .trigger import _Trigger
 
 

@@ -1,4 +1,4 @@
-from ....configs.constants import MacroCommands
+from ...._configs.constants import MacroCommands
 from ..command_group.commands_mixin import _CommandsMixin
 from ..utils.game_strings import _CommandString
 

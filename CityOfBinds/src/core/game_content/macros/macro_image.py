@@ -1,4 +1,4 @@
-from ....configs.constants import MacroCommands
+from ...._configs.constants import MacroCommands
 from .macro import Macro
 
 

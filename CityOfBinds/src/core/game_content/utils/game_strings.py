@@ -1,7 +1,7 @@
 from abc import abstractmethod
 
 from .....utils.string_thing import _StringThing
-from ....configs.constants import GameExecutionCommands
+from ...._configs.constants import GameExecutionCommands
 
 
 class _GenericGameString(_StringThing):

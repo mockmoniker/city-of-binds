@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Union
 
 from .....utils.types.str_path import StrPath
-from ....configs.constants import BindFileConstants, GameConstants
+from ...._configs.constants import BindFileConstants, GameConstants
 from ..binds.bind import Bind
 from ..command_group.command_group import CommandGroup
 from ..macros.macro import Macro

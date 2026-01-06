@@ -7,7 +7,7 @@ These tests focus on individual Macro creation, modification, representation, an
 import pytest
 
 from CityOfBinds import CommandGroup, Macro
-from CityOfBinds.src.configs.constants import MacroCommands
+from CityOfBinds.src._configs.constants import MacroCommands
 
 
 class TestMacroCreation:

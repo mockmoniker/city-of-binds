@@ -1,4 +1,4 @@
-from ....configs.constants import GameConstants
+from ...._configs.constants import GameConstants
 from ..command_group.command_group import CommandGroup
 from ..command_group.commands_mixin import _CommandsMixin
 from ..utils.game_strings import _BindString

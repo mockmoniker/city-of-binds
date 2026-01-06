@@ -1,4 +1,4 @@
-from ....configs.constants import GameConstants, MacroCommands
+from ...._configs.constants import GameConstants, MacroCommands
 from .macro import Macro
 
 

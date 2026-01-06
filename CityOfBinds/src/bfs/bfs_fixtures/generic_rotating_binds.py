@@ -2,7 +2,7 @@ import random
 from abc import ABC, abstractmethod
 
 from ....utils.types.str_path import StrPath
-from ...configs.constants import BFGConstants
+from ..._configs.constants import BFGConstants
 from ...core.content_managers.graph.bind_file_graph import BindFileGraph
 from ...core.content_managers.templates.bind_file_template import (
     BindFileTemplate,

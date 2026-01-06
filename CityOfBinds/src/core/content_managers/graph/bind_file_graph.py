@@ -3,7 +3,7 @@ import copy
 import networkx as nx
 
 from .....utils.types.str_path import StrPath
-from ....configs.constants import BFGConstants
+from ...._configs.constants import BFGConstants
 from ...game_content.bind_file.bind_file import BindFile
 
 
