@@ -16,6 +16,8 @@ from ..bind_file_system import BindFileSystem
 class _GenericBFSFixture(ABC):
     def __init__(self, is_silent: bool = True, absolute_path_links: bool = False):
         self.bind_file_template: BindFileTemplate = BindFileTemplate()
+        self.is_silent = is_silent
+        self.absolute_path_links = absolute_path_links
 
     @abstractmethod
     def _connect_bind_file_graph(
@@ -82,7 +84,7 @@ class _GenericBFSFixture(ABC):
     def _create_bfs(
         self, indexed_bind_files: list[BindFile], trigger_conditions: dict
     ) -> BindFileSystem:
-        bfs = BindFileSystem()
+        bfs = BindFileSystem(self.is_silent, self.absolute_path_links)
         self._add_bind_files_to_graph(bfs.bfg, indexed_bind_files)
         self._connect_bind_file_graph(
             bfs.bfg, range(len(indexed_bind_files)), trigger_conditions
