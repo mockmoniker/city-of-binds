@@ -1,12 +1,12 @@
 # /CityOfBinds/__init__.py
 from ._version import __author__, __email__, __version__
-from .src.bfs.bfs_fixtures.changeling_binds import (
+from .src.bfs.fixtures.changeling_binds import (
     ChangelingRotatingBindWS,
     ChangelingRotatingPB,
 )
-from .src.bfs.bfs_fixtures.random_binds import RandomBinds, RandomWalk
-from .src.bfs.bfs_fixtures.rotating_bind import RotatingBind
-from .src.bfs.bfs_fixtures.wasd_rotating_bind import WASDRotatingBind
+from .src.bfs.fixtures.random_binds import RandomBinds, RandomWalk
+from .src.bfs.fixtures.rotating_bind import RotatingBind
+from .src.bfs.fixtures.wasd_rotating_bind import WASDRotatingBind
 from .src.core.content_managers.graph.bind_file_graph import BindFileGraph
 from .src.core.content_managers.templates.bind_file_template import (
     BindFileTemplate,
