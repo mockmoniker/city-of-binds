@@ -60,7 +60,7 @@ class Comment(_StringThing):
     def comment_string(self) -> str:
         if not self.text:
             return ""
-        return self.str()
+        return self.get_str()
 
     ### Helpers
     def _sanitize_comment_text(self, comment_text: str) -> str:
@@ -69,7 +69,10 @@ class Comment(_StringThing):
     def _sanitize_comment_line(self, comment_line: str) -> str:
         return comment_line.strip()
 
-    def str(self) -> str:
+    def get_str(self) -> str:
+        return self._build_comment_string()
+
+    def _build_comment_string(self) -> str:
         text_width = self._get_text_width(
             text_width=len(self.text), minimum_width=self.minimum_width
         )

@@ -44,7 +44,11 @@ class _SlashCommand(_StringThing):
     def clear_prefix(self):
         self._prefix = ""
 
-    def str(self) -> str:
+    def get_str(self) -> str:
+        """Return the command string ready for use in bind files."""
+        return self._build_command_string()
+
+    def _build_command_string(self) -> str:
         if self.args:
             return f"{self.prefix}{self.slash_command} {self.args}"
         else:

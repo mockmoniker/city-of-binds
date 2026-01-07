@@ -47,7 +47,9 @@ class MacroSlot(Macro):
         return self._calculate_absolute_slot(self.tray, self.slot)
 
     def _build_macro_string(self) -> str:
-        return f'{self.MACRO_COMMAND} {self.absolute_slot} "{self.name}" {self.commands.str()}'
+        return (
+            f'{self.MACRO_COMMAND} {self.absolute_slot} "{self.name}" {self.commands}'
+        )
 
     def _calculate_absolute_slot(self, tray: int, slot: int) -> int:
         """Calculate the absolute slot number based on tray and slot."""

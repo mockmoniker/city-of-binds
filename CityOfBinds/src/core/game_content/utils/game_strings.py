@@ -23,7 +23,7 @@ class _CommandString(_GenericGameString):
         Returns:
             str: The command string as it would appear when executed in the game client.
         """
-        return f"{GameExecutionCommands.EXECUTE_COMMAND}{self.str()}"
+        return f"{GameExecutionCommands.EXECUTE_COMMAND}{self.get_str()}"
 
 
 class _BindString(_GenericGameString):
@@ -37,4 +37,4 @@ class _BindString(_GenericGameString):
         Returns:
             str: The bind string as it would appear in the game client.
         """
-        return f"{GameExecutionCommands.EXECUTE_BIND} {self.str()}"
+        return f"{GameExecutionCommands.EXECUTE_BIND} {self.get_str()}"

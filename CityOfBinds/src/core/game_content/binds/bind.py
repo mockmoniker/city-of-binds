@@ -41,12 +41,16 @@ class Bind(_TriggerMixin, _CommandsMixin, _BindString):
         Returns:
             Number of characters in the complete bind string
         """
-        return len(self.str())
+        return len(self.get_str())
 
     # endregion
 
     # region Bind Methods
-    def str(self) -> str:
+    def get_str(self) -> str:
+        """Get the complete bind string."""
+        return self._build_bind_string()
+
+    def _build_bind_string(self) -> str:
         """Build complete bind string, handling key-up triggers."""
         commands = self.commands
         if self.trigger_on_key_up and not commands[0].prefix:

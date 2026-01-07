@@ -675,7 +675,11 @@ class CommandGroup(_CommandString):
     # endregion
 
     # region String Building and Output Methods
-    def str(self) -> str:
+    def get_str(self) -> str:
+        """Return the command string ready for use in bind files."""
+        return self._build_command_string()
+
+    def _build_command_string(self) -> str:
         """
         Return the command string ready for use in bind files.
 

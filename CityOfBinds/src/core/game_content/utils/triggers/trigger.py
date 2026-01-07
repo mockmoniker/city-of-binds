@@ -206,8 +206,11 @@ class _Trigger(_StringThing):
         """
         self._modifier = ""
 
-    def str(self) -> str:
+    def get_str(self) -> str:
         """Build the complete trigger string from parts."""
+        return self._build_trigger_string()
+
+    def _build_trigger_string(self) -> str:
         if self._modifier:
             return f"{self._modifier}{GameConstants.TRIGGER_DELIM}{self._key}"
         return self._key

@@ -31,7 +31,7 @@ class WASDBind(Bind):
     TRIGGER_TYPE = _WASDTrigger
 
     # region Override Methods
-    def str(self) -> str:
+    def _build_bind_string(self) -> str:
         """Build WASD bind string with automatic movement command injection."""
         movement_command = CommandGroup().add_movement(
             self._get_direction(self.trigger)

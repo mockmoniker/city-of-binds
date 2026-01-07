@@ -17,8 +17,8 @@ class Macro(_CommandsMixin, _CommandString):
         _CommandsMixin.__init__(self, commands)
         self.name = name
 
-    def str(self) -> str:
+    def get_str(self) -> str:
         return self._build_macro_string()
 
     def _build_macro_string(self) -> str:
-        return f'{self.MACRO_COMMAND} "{self.name}" {self.commands.str()}'
+        return f'{self.MACRO_COMMAND} "{self.name}" {self.commands}'
