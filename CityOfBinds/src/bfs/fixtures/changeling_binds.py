@@ -2,18 +2,18 @@ from typing import Self
 
 from ..._configs.constants import ChangelingConstants
 from ...core.content_managers.templates.bind_template import BindTemplate
-from ...core.game_content.utils.triggers.trigger_mixin import _TriggerMixin
+from ...core.game_content.utils.triggers.trigger_mixin import _TriggerEnjoyer
 from .rotating_bind import RotatingBind
 
 
-class _ChangelingRotatingBind(_TriggerMixin, RotatingBind):
+class _ChangelingRotatingBind(_TriggerEnjoyer, RotatingBind):
     NOVA_FORM: str
     DWARF_FORM: str
 
     def __init__(
         self, trigger: str, is_silent: bool = True, absolute_path_links: bool = False
     ):
-        _TriggerMixin.__init__(self, trigger)
+        _TriggerEnjoyer.__init__(self, trigger)
         RotatingBind.__init__(
             self,
             is_silent=is_silent,

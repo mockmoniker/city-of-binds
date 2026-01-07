@@ -7,7 +7,7 @@ including WASD movement command injection and WASDBind object creation.
 
 import pytest
 
-from CityOfBinds import WASDBind, WASDBindTemplate
+from CityOfBinds import BindTemplate, WASDBind
 
 
 class TestWASDBindTemplateCreation:
@@ -20,13 +20,13 @@ class TestWASDBindTemplateCreation:
 
     def test_basic_creation_all_keys(self, wasd_key):
         """Should create template with any valid WASD trigger."""
-        template = WASDBindTemplate(wasd_key)
+        template = BindTemplate(wasd_key, bind_type=WASDBind)
         assert template.trigger.key == wasd_key
         assert len(template.pools) == 0
         assert template.unique_count == 1
 
     def test_with_trigger_modifier(self):
         """Should create template with trigger modifier."""
-        template = WASDBindTemplate("SHIFT+W")
+        template = BindTemplate("SHIFT+W", bind_type=WASDBind)
         assert template.trigger.key == "W"
         assert template.trigger.modifier == "SHIFT"

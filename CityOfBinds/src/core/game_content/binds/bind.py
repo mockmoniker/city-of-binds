@@ -3,10 +3,10 @@ from ..command_group.command_group import CommandGroup
 from ..command_group.commands_mixin import _CommandsMixin
 from ..utils.game_strings import _BindString
 from ..utils.triggers.trigger import _Trigger
-from ..utils.triggers.trigger_mixin import _TriggerMixin
+from ..utils.triggers.trigger_mixin import _TriggerEnjoyer
 
 
-class Bind(_TriggerMixin, _CommandsMixin, _BindString):
+class Bind(_TriggerEnjoyer, _CommandsMixin, _BindString):
     """
     Represents a game bind that maps a trigger (key + optional modifier) to one or more commands.
 
@@ -29,7 +29,7 @@ class Bind(_TriggerMixin, _CommandsMixin, _BindString):
             trigger: Key and optional modifier string (e.g., "F1", "SHIFT+F1", "Q")
             commands: List of slash command strings to execute when triggered
         """
-        _TriggerMixin.__init__(self, trigger)
+        _TriggerEnjoyer.__init__(self, trigger)
         _CommandsMixin.__init__(self, commands)
         self.trigger_on_key_up = False
 

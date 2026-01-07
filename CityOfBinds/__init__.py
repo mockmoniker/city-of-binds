@@ -12,16 +12,13 @@ from .src.core.content_managers.templates.bind_file_template import (
     BindFileTemplate,
     RotationPolicy,
 )
-from .src.core.content_managers.templates.bind_template import (
-    BindTemplate,
-    WASDBindTemplate,
-)
+from .src.core.content_managers.templates.bind_template import BindTemplate
 from .src.core.content_publisher.bfg_publisher import BFGPublisher
 from .src.core.game_content.bind_file.bind_file import BindFile
 from .src.core.game_content.bind_file.comments.comment import Comment
 from .src.core.game_content.bind_file.comments.comment_banner import CommentBanner
 from .src.core.game_content.binds.bind import Bind
-from .src.core.game_content.binds.wasd_binds import WASDBind, iWASDBind
+from .src.core.game_content.binds.move_binds.wasd_bind import WASDBind, iWASDBind
 from .src.core.game_content.command_group.command_group import CommandGroup
 from .src.core.game_content.macros.macro import Macro
 from .src.core.game_content.macros.macro_image import MacroImage
@@ -43,7 +40,6 @@ __all__ = [
     "RandomWalk",
     "WASDRotatingBind",
     "BindTemplate",
-    "WASDBindTemplate",
     "BindFileTemplate",
     "BindFileGraph",
     "BFGPublisher",

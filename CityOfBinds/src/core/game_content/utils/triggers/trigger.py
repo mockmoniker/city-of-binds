@@ -117,22 +117,7 @@ class _Trigger(_StringThing):
 
     @modifier.setter
     def modifier(self, modifier: str):
-        """
-        Set the modifier portion of the trigger with validation.
-
-        Args:
-            modifier: Single modifier string to set (e.g., "SHIFT", "CTRL", "ALT")
-                     Will be normalized to uppercase and validated
-                     Multiple modifiers are not supported
-
-        Raises:
-            ValueError: If modifier contains unsupported modifier keys
-
-        Example:
-            >>> trigger = _Trigger("f1")
-            >>> trigger.modifier = "shift"  # Normalized to "SHIFT"
-            >>> trigger.modifier = "CTRL"   # Single modifiers only
-        """
+        """Sets the trigger modifier after normalization and validation."""
         self._modifier = self._normalize_and_validate_modifier(modifier)
 
     @property
@@ -154,21 +139,7 @@ class _Trigger(_StringThing):
 
     @key.setter
     def key(self, key: str):
-        """
-        Set the key portion of the trigger with validation.
-
-        Args:
-            key: Key string to set (e.g., "F1", "w", "space")
-                 Will be normalized to uppercase and validated
-
-        Raises:
-            ValueError: If key is empty, contains spaces, or is not a supported game key
-
-        Example:
-            >>> trigger = _Trigger("f1")
-            >>> trigger.key = "f2"     # Normalized to "F2"
-            >>> trigger.key = "space"  # Normalized to "SPACE"
-        """
+        """Sets the trigger key after normalization and validation."""
         self._key = self._normalize_and_validate_key(key)
 
     # endregion

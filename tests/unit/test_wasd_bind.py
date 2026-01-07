@@ -90,7 +90,7 @@ class TestWASDBindValidation:
     @pytest.mark.parametrize("invalid_key", ["F", "Q", "E", "R", "T", "F1", "NUMPAD1"])
     def test_rejects_non_wasd_keys(self, invalid_key):
         """Should reject non-WASD keys."""
-        with pytest.raises(ValueError, match="Unknown trigger key"):
+        with pytest.raises(ValueError, match="not allowed"):
             WASDBind(invalid_key)
 
 

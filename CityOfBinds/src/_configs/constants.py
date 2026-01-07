@@ -64,3 +64,12 @@ class SafeInstallValues:
     UNLOAD_MACRO_IMAGE = "InherentBase_Anger"
     LOAD_MACRO_NAME = "Safe Load"
     UNLOAD_MACRO_NAME = "Safe Unload"
+
+
+class Directions:
+    FORWARD = "forward"
+    LEFT = "left"
+    BACKWARD = "backward"
+    RIGHT = "right"
+    UP = "up"
+    DOWN = "down"

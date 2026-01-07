@@ -1,11 +1,9 @@
 from ...game_content.binds.bind import Bind
-from ...game_content.binds.wasd_binds import WASDBind
-from ...game_content.utils.triggers.trigger_mixin import _TriggerMixin
-from ...game_content.utils.triggers.wasd_trigger import _WASDTrigger
+from ...game_content.utils.triggers.trigger_mixin import _TriggerEnjoyer
 from ..utils.commands_template import _CommandsTemplate
 
 
-class BindTemplate(_TriggerMixin, _CommandsTemplate):
+class BindTemplate(_TriggerEnjoyer, _CommandsTemplate):
     """
     Template for generating individual bind objects with configurable commands.
 
@@ -40,9 +38,7 @@ class BindTemplate(_TriggerMixin, _CommandsTemplate):
         >>> print(len(bind.commands))  # 2
     """
 
-    BIND_TYPE = Bind
-
-    def __init__(self, trigger: str):
+    def __init__(self, trigger: str, bind_type: type[Bind] = Bind, **bind_kwargs):
         """
         Initialize a new BindTemplate with the specified trigger.
 
@@ -63,52 +59,14 @@ class BindTemplate(_TriggerMixin, _CommandsTemplate):
             Trigger validation is handled by the _TriggerMixin parent class.
             Invalid triggers will raise appropriate exceptions during initialization.
         """
-        _TriggerMixin.__init__(self, trigger)
+        _TriggerEnjoyer.__init__(self, trigger)
         _CommandsTemplate.__init__(self)
+        self.bind_type = bind_type
+        self.bind_kwargs = bind_kwargs
 
     # region Template Generation Methods
     def _build_one(self) -> Bind:
         """Generate bind object with current trigger and commands."""
-        return self.BIND_TYPE(self.trigger, super()._build_one())
+        return self.bind_type(self.trigger, super()._build_one(), **self.bind_kwargs)
 
     # endregion
-
-
-class WASDBindTemplate(BindTemplate):
-    """
-    Specialized bind template for WASD movement key binds with enhanced trigger validation.
-
-    WASDBindTemplate extends BindTemplate with specific support for movement key binds
-    that use WASD keys (W, A, S, D) and related directional controls. It provides
-    enhanced trigger validation through _WASDTrigger and generates WASDBind objects
-    optimized for movement-related commands.
-
-    This template is particularly useful for creating movement macros, travel power
-    binds, and directional command sequences that need to integrate seamlessly with
-    the game's movement system.
-
-    Key Differences from BindTemplate:
-        - Uses _WASDTrigger for enhanced movement key validation
-        - Generates WASDBind objects instead of standard Bind objects
-        - Optimized for movement-related command sequences
-        - Supports directional movement patterns and travel powers
-
-    Class Attributes:
-        TRIGGER_TYPE: Specifies _WASDTrigger for movement key validation
-        BIND_TYPE: Specifies WASDBind for movement-optimized bind generation
-
-    Example:
-        >>> template = WASDBindTemplate("W")
-        >>> template.add_power("Super Speed")
-        >>> template.add_command("++forward")
-        >>> wasd_bind = template._build_one()
-        >>> isinstance(wasd_bind, WASDBind)  # True
-        >>> wasd_bind.trigger  # "W"
-
-    Note:
-        All command template methods (add_power, add_emote, etc.) are inherited
-        from the parent classes and work identically to BindTemplate.
-    """
-
-    TRIGGER_TYPE = _WASDTrigger
-    BIND_TYPE = WASDBind

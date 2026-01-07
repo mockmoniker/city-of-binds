@@ -1,10 +1,11 @@
 import copy
 
 from ...core.content_managers.templates.bind_file_template import RotationPolicy
-from ...core.content_managers.templates.bind_template import WASDBindTemplate
+from ...core.content_managers.templates.bind_template import BindTemplate
 from ...core.content_managers.utils.commands_template import (
     _CommandsTemplate,  # TODO: implement base wasd bind to use commandstemplate (2025/12/27)
 )
+from ...core.game_content.binds.move_binds.wasd_bind import WASDBind
 from .rotating_bind import RotatingBind
 
 
@@ -25,7 +26,9 @@ class WASDRotatingBind(RotatingBind):
         self.direction_keys = ["W", "A", "S", "D"]
         if include_jump:
             self.direction_keys.append("SPACE")
-        self.wasd_bind_template = WASDBindTemplate(self.direction_keys[0])
+        self.wasd_bind_template = BindTemplate(
+            self.direction_keys[0], bind_type=WASDBind
+        )
 
     def _build_bind_files(self):
         self._append_wasd_binds()
