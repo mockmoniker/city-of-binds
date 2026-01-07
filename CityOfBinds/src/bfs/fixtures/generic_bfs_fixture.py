@@ -13,7 +13,7 @@ from ...core.content_publisher.bfg_publisher import BFGPublisher
 from ...core.game_content.bind_file.bind_file import BindFile
 
 
-class _GenericRotatingBind(ABC):
+class _GenericBFSFixture(ABC):
     def __init__(self, is_silent: bool = True, absolute_path_links: bool = False):
         self.bind_file_template: BindFileTemplate = BindFileTemplate()
         self.bfg_publisher: BFGPublisher = BFGPublisher(
@@ -98,21 +98,6 @@ class _GenericRotatingBind(ABC):
     def _add_bind_files_to_graph(self, bfg: BindFileGraph, bind_files: list[BindFile]):
         for bind_file in bind_files:
             bfg.add_bind_file(bind_file)
-
-
-# TODO: deprecate and just making this rotatingbind? (2026/01/02)
-class _LoopTopology:
-    def __init__(self, loop_delay: int = 0):
-        self.loop_delay = loop_delay
-
-    def _connect_bind_file_graph(
-        self, bfg: BindFileGraph, bind_file_indexes: list[int], trigger_conditions: dict
-    ):
-        bfg.loop(
-            bind_file_indexes,
-            trigger_conditions=trigger_conditions,
-            delay=self.loop_delay,
-        )
 
 
 class _RandomOrder:

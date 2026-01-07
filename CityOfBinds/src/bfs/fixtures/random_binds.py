@@ -1,7 +1,7 @@
 from ..._configs.constants import BFGConstants
 from ...core.content_managers.graph.bind_file_graph import BindFileGraph
 from ...core.game_content.bind_file.bind_file import BindFile
-from .generic_rotating_binds import _RandomOrder
+from .generic_bfs_fixture import _RandomOrder
 from .rotating_bind import RotatingBind
 from .wasd_rotating_bind import WASDRotatingBind
 
