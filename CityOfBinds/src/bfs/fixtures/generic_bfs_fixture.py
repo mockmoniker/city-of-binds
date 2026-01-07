@@ -9,16 +9,13 @@ from ...core.content_managers.templates.bind_file_template import (
     RotationPolicy,
 )
 from ...core.content_managers.templates.bind_template import BindTemplate
-from ...core.content_publisher.bfg_publisher import BFGPublisher
 from ...core.game_content.bind_file.bind_file import BindFile
+from ..bind_file_system import BindFileSystem
 
 
 class _GenericBFSFixture(ABC):
     def __init__(self, is_silent: bool = True, absolute_path_links: bool = False):
         self.bind_file_template: BindFileTemplate = BindFileTemplate()
-        self.bfg_publisher: BFGPublisher = BFGPublisher(
-            is_silent=is_silent, use_absolute_paths=absolute_path_links
-        )
 
     @abstractmethod
     def _connect_bind_file_graph(
@@ -29,20 +26,17 @@ class _GenericBFSFixture(ABC):
     def publish_bind_files(
         self, parent_folder_name: str = "", directory: StrPath = "."
     ):
-        bfg = self.get_bfg()
-        self.bfg_publisher.publish_files(bfg, directory, parent_folder_name)
+        bfs = self.get_bfs()
+        bfs.publish_bind_files(parent_folder_name, directory)
 
-    # TODO: make this reuse logic w/ publish bind files method (2025/12/07)
     def archive_bind_files(
         self,
         parent_folder_name: str = "",
         archive_directory: StrPath = ".",
         archive_format: str = "zip",
     ):
-        bfg = self.get_bfg()
-        self.bfg_publisher.publish_to_archive(
-            bfg, archive_directory, parent_folder_name, archive_format
-        )
+        bfs = self.get_bfs()
+        bfs.archive_bind_files(archive_directory, parent_folder_name, archive_format)
 
     def add_bind_template(
         self,
@@ -52,11 +46,11 @@ class _GenericBFSFixture(ABC):
         self.bind_file_template.add_bind_template(bind_template, advance_on_trigger)
         return self
 
-    def get_bfg(self) -> BindFileGraph:
+    def get_bfs(self) -> BindFileSystem:
         indexed_bind_files = self._create_indexed_bind_files()
         trigger_conditions = self._get_trigger_conditions()
-        bfg = self._create_bind_file_graph(indexed_bind_files, trigger_conditions)
-        return bfg
+        bfs = self._create_bfs(indexed_bind_files, trigger_conditions)
+        return bfs
 
     def _build_bind_files(self) -> list[BindFile]:
         return self.bind_file_template.build_all()
@@ -85,15 +79,15 @@ class _GenericBFSFixture(ABC):
             )
         return conditions
 
-    def _create_bind_file_graph(
+    def _create_bfs(
         self, indexed_bind_files: list[BindFile], trigger_conditions: dict
-    ) -> BindFileGraph:
-        bfg = BindFileGraph()
-        self._add_bind_files_to_graph(bfg, indexed_bind_files)
+    ) -> BindFileSystem:
+        bfs = BindFileSystem()
+        self._add_bind_files_to_graph(bfs.bfg, indexed_bind_files)
         self._connect_bind_file_graph(
-            bfg, range(len(indexed_bind_files)), trigger_conditions
+            bfs.bfg, range(len(indexed_bind_files)), trigger_conditions
         )
-        return bfg
+        return bfs
 
     def _add_bind_files_to_graph(self, bfg: BindFileGraph, bind_files: list[BindFile]):
         for bind_file in bind_files:
