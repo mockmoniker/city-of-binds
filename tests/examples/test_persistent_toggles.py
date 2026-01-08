@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from CityOfBinds import WASDRotatingBind
+from CityOfBinds import RotatingMoveBind
 
 
 def test_keep_powers_perstent_via_wasd_rotating_bind(in_tmp_dir):
@@ -43,7 +43,7 @@ def test_keep_powers_perstent_via_wasd_rotating_bind(in_tmp_dir):
 
     # region setup
     # initialize the WASDRotatingBind with jump included
-    wasd_rotating_bind = WASDRotatingBind()
+    wasd_rotating_bind = RotatingMoveBind()
 
     # add various persistent toggle and auto power pools to the built in wasd_bind_template
     (

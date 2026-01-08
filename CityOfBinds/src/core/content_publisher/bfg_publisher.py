@@ -1,3 +1,4 @@
+import copy
 from pathlib import Path
 
 from ....utils.file_graph_publisher import _FileGraphPublisher
@@ -91,8 +92,9 @@ class BFGPublisher(_FileGraphPublisher):
         directory: StrPath = "",
         parent_folder: str = "",
     ):
-        self._create_safe_install(file_graph)
-        super().publish_files(file_graph, directory, parent_folder)
+        graph_copy = copy.deepcopy(file_graph)
+        self._create_safe_install(graph_copy)
+        super().publish_files(graph_copy, directory, parent_folder)
 
     def _create_safe_install(self, file_graph: BindFileGraph):
         ordered_files = self._create_ordered_files()

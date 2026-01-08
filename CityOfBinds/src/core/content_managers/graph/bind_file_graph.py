@@ -49,12 +49,12 @@ class BindFileGraph(nx.DiGraph):
             super().add_node(
                 self.number_of_nodes(),
                 **{
-                    BFGConstants.NODE_DATA_KEY: copy.deepcopy(bind_file),
+                    BFGConstants.NODE_DATA_KEY: bind_file,
                     BFGConstants.FILE_PATH_OVERRIDE_KEY: file_path_override,
                 },
             )
         else:
-            super().add_node(self.number_of_nodes(), bind_file=copy.deepcopy(bind_file))
+            super().add_node(self.number_of_nodes(), bind_file=bind_file)
         return self
 
     def link(
@@ -298,7 +298,7 @@ class BindFileGraph(nx.DiGraph):
             self._subdivide_edge(
                 source_bind_file_index,
                 target_bind_file_index,
-                original_bind_file,
+                copy.deepcopy(original_bind_file),
                 first_condition=original_trigger_conditions,
                 second_condition=original_trigger_conditions,
             )

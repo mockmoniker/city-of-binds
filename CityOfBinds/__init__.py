@@ -6,7 +6,7 @@ from .src.bfs.fixtures.changeling_binds import (
 )
 from .src.bfs.fixtures.random_binds import RandomBinds, RandomWalk
 from .src.bfs.fixtures.rotating_bind import RotatingBind
-from .src.bfs.fixtures.wasd_rotating_bind import WASDRotatingBind
+from .src.bfs.fixtures.rotating_move_bind import RotatingMoveBind
 from .src.core.content_managers.graph.bind_file_graph import BindFileGraph
 from .src.core.content_managers.templates.bind_file_template import (
     BindFileTemplate,
@@ -38,7 +38,7 @@ __all__ = [
     "RotatingBind",
     "RandomBinds",
     "RandomWalk",
-    "WASDRotatingBind",
+    "RotatingMoveBind",
     "BindTemplate",
     "BindFileTemplate",
     "BindFileGraph",

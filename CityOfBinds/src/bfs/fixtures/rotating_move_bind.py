@@ -9,7 +9,7 @@ from ...core.game_content.binds.move_binds.wasd_bind import WASDBind
 from .rotating_bind import RotatingBind
 
 
-class WASDRotatingBind(RotatingBind):
+class RotatingMoveBind(RotatingBind):
     def __init__(
         self,
         include_jump: bool = False,

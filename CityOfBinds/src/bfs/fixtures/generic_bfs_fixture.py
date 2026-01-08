@@ -15,9 +15,9 @@ from ..bind_file_system import BindFileSystem
 
 class _GenericBFSFixture(ABC):
     def __init__(self, is_silent: bool = True, absolute_path_links: bool = False):
-        self.bind_file_template: BindFileTemplate = BindFileTemplate()
-        self.is_silent = is_silent
-        self.absolute_path_links = absolute_path_links
+        self._bind_file_template: BindFileTemplate = BindFileTemplate()
+        self.use_silent_loads = is_silent
+        self.use_abs_path_loads = absolute_path_links
 
     @abstractmethod
     def _connect_bind_file_graph(
@@ -45,7 +45,7 @@ class _GenericBFSFixture(ABC):
         bind_template: BindTemplate,
         advance_on_trigger: RotationPolicy = RotationPolicy.DEFAULT,
     ):
-        self.bind_file_template.add_bind_template(bind_template, advance_on_trigger)
+        self._bind_file_template.add_bind_template(bind_template, advance_on_trigger)
         return self
 
     def get_bfs(self) -> BindFileSystem:
@@ -55,7 +55,7 @@ class _GenericBFSFixture(ABC):
         return bfs
 
     def _build_bind_files(self) -> list[BindFile]:
-        return self.bind_file_template.build_all()
+        return self._bind_file_template.build_all()
 
     def _create_indexed_bind_files(self) -> list[BindFile]:
         bind_files = self._build_bind_files()
@@ -67,24 +67,24 @@ class _GenericBFSFixture(ABC):
 
     def _get_trigger_conditions(self) -> dict:
         conditions = {}
-        if self.bind_file_template.include_triggers:
+        if self._bind_file_template.include_triggers:
             conditions[BFGConstants.INCLUSIVE_KEY] = (
-                self.bind_file_template.include_triggers
+                self._bind_file_template.include_triggers
             )
-        if self.bind_file_template.exclude_triggers:
+        if self._bind_file_template.exclude_triggers:
             conditions[BFGConstants.EXCLUSIVE_KEY] = (
-                self.bind_file_template.exclude_triggers
+                self._bind_file_template.exclude_triggers
             )
-        if self.bind_file_template.quick_triggers:
+        if self._bind_file_template.quick_triggers:
             conditions[BFGConstants.QUICK_TRIGGER_KEY] = (
-                self.bind_file_template.quick_triggers
+                self._bind_file_template.quick_triggers
             )
         return conditions
 
     def _create_bfs(
         self, indexed_bind_files: list[BindFile], trigger_conditions: dict
     ) -> BindFileSystem:
-        bfs = BindFileSystem(self.is_silent, self.absolute_path_links)
+        bfs = BindFileSystem(self.use_silent_loads, self.use_abs_path_loads)
         self._add_bind_files_to_graph(bfs.bfg, indexed_bind_files)
         self._connect_bind_file_graph(
             bfs.bfg, range(len(indexed_bind_files)), trigger_conditions

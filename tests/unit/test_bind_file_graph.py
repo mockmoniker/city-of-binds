@@ -70,19 +70,6 @@ class TestBindFileAddNodeModification:
         assert len(graph.nodes) == 3
         assert set(graph.nodes) == {0, 1, 2}
 
-    def test_bind_file_deep_copy(self):
-        """Should store deep copies of bind files."""
-        graph = BindFileGraph()
-        original_bind = Bind("F1", ["say original"])
-        bf = BindFile([original_bind])
-        # act
-        graph.add_bind_file(bf)
-        bf.add_bind(Bind("F2", ["say modified"]))
-        # assert
-        stored_bind_file = graph.get_bind_file(0)
-        assert len(stored_bind_file.binds) == 1
-        assert str(stored_bind_file.binds[0]) == 'F1 "say original"'  # Unmodified
-
 
 class TestBindFileGraphLinking:
     """Test BindFileGraph link creation."""

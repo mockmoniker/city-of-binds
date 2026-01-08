@@ -3,7 +3,7 @@ from ...core.content_managers.graph.bind_file_graph import BindFileGraph
 from ...core.game_content.bind_file.bind_file import BindFile
 from .generic_bfs_fixture import _RandomOrder
 from .rotating_bind import RotatingBind
-from .wasd_rotating_bind import WASDRotatingBind
+from .rotating_move_bind import RotatingMoveBind
 
 
 class RandomBinds(RotatingBind, _RandomOrder):
@@ -23,7 +23,7 @@ class RandomBinds(RotatingBind, _RandomOrder):
         _RandomOrder.__init__(self, random_factor=random_factor)
 
 
-class RandomWalk(_RandomOrder, WASDRotatingBind):
+class RandomWalk(_RandomOrder, RotatingMoveBind):
     def __init__(
         self,
         include_jump: bool = False,
@@ -31,7 +31,7 @@ class RandomWalk(_RandomOrder, WASDRotatingBind):
         absolute_path_links: bool = False,
         random_factor: int = 1,
     ):
-        WASDRotatingBind.__init__(
+        RotatingMoveBind.__init__(
             self,
             include_jump=include_jump,
             is_silent=is_silent,
