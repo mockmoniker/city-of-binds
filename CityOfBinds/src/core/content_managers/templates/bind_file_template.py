@@ -1,45 +1,7 @@
-from enum import Enum
 from typing import Self
 
 from .....utils.templates.templates import ListTemplate
 from ...game_content.bind_file.bind_file import BindFile
-
-
-class RotationPolicy(Enum):
-    """
-    Enum defining rotation policies for bind templates within rotating bind file sequences.
-
-    Controls which bind templates receive the additional command to load the next bind file
-    in a rotating sequence. This allows fine-grained control over bind file advancement.
-
-    Values:
-        ON_THIS_TRIGGER: Only binds with this policy will advance to the next bind file.
-                        If ANY bind uses this policy, it becomes EXCLUSIVE - only these binds advance.
-        NOT_ON_THIS_TRIGGER: This trigger will NEVER advance to the next bind file.
-        DEFAULT: By default, the bind will advance to the next bind file, UNLESS there are
-                binds with ON_THIS_TRIGGER policy (which makes advancement exclusive).
-
-    Behavior Logic:
-        - If NO binds have ON_THIS_TRIGGER: All DEFAULT binds advance to next file
-        - If ANY bind has ON_THIS_TRIGGER: Only ON_THIS_TRIGGER binds advance (exclusive mode)
-        - NOT_ON_THIS_TRIGGER: This trigger will never advance to the next file
-
-    Example:
-        >>> # All binds advance by default
-        >>> template.add_bind_template(basic_bind)  # DEFAULT - will advance
-        >>> template.add_bind_template(combat_bind) # DEFAULT - will advance
-
-        >>> # Exclusive advancement - only F1 advances
-        >>> template.add_bind_template(f1_bind, RotationPolicy.ON_THIS_TRIGGER)  # Only this advances
-        >>> template.add_bind_template(f2_bind)  # DEFAULT - will NOT advance (excluded)
-
-        >>> # All except F3 advance
-        >>> template.add_bind_template(f3_bind, RotationPolicy.NOT_ON_THIS_TRIGGER)  # F3 won't advance
-    """
-
-    ON_THIS_TRIGGER = "inclusive"  # Only this trigger advances (exclusive when present)
-    NOT_ON_THIS_TRIGGER = "exclusive"  # Never advances
-    DEFAULT = "default"  # Advances unless ON_THIS_TRIGGER is used
 
 
 class BindFileTemplate(ListTemplate):
@@ -72,7 +34,7 @@ class BindFileTemplate(ListTemplate):
         >>> # Normal bind - advances by default
         >>> template.add_bind_template(combat_bind)
         >>> # Only F1 will advance (exclusive mode activated)
-        >>> template.add_bind_template(f1_bind, RotationPolicy.ON_THIS_TRIGGER)
+        >>> template.add_bind_template(f1_bind, .ON_THIS_TRIGGER)
         >>> # F2 won't advance due to exclusive mode from F1
         >>> template.add_bind_template(f2_bind)
     """
@@ -104,8 +66,8 @@ class BindFileTemplate(ListTemplate):
     def add_bind_template(
         self,
         bind_template,
-        rotation_policy: RotationPolicy = RotationPolicy.DEFAULT,
-        trigger_on_up_press: bool = False,
+        loads_next_file: bool = True,
+        execute_on_up_press: bool = False,
     ) -> Self:
         """
         Add a bind template with specified rotation policy and quick trigger settings.
@@ -136,28 +98,59 @@ class BindFileTemplate(ListTemplate):
             >>> # Basic bind - will advance by default
             >>> template.add_bind_template(basic_bind)
             >>> # Exclusive bind - only F1 will advance (activates exclusive mode)
-            >>> template.add_bind_template(f1_bind, RotationPolicy.ON_THIS_TRIGGER)
+            >>> template.add_bind_template(f1_bind, .ON_THIS_TRIGGER)
             >>> # F2 won't advance due to exclusive mode
             >>> template.add_bind_template(f2_bind)
             >>> # Multiple exclusive triggers
-            >>> template.add_bind_template(f3_bind, RotationPolicy.ON_THIS_TRIGGER)  # F3 also advances
+            >>> template.add_bind_template(f3_bind, .ON_THIS_TRIGGER)  # F3 also advances
         """
         # Apply rotation policy to trigger management
-        if rotation_policy == RotationPolicy.ON_THIS_TRIGGER:
-            self.include_triggers.append(bind_template.trigger)
-        elif rotation_policy == RotationPolicy.NOT_ON_THIS_TRIGGER:
+        if not loads_next_file:
             self.exclude_triggers.append(bind_template.trigger)
 
         # Enable key up press activation if requested
-        if trigger_on_up_press:
+        if execute_on_up_press:
             self.quick_triggers.append(bind_template.trigger)
 
-        return self._add_content(bind_template)
-
-    def _add_content(self, item) -> Self:
-        """Add bind template to collection without applying rotation policies."""
-        self.template.append(item)
+        self.template.append(bind_template)
         return self
+
+    def add_non_loading_bind_template(
+        self,
+        bind_template,
+        execute_on_up_press: bool = False,
+    ) -> Self:
+        """
+        Add a bind template that will NOT load the next bind file, with optional quick trigger.
+
+        Incorporates a bind template into the rotating bind file that will never receive
+        the "load next bind file" command when the sequence is linked together.
+        This is useful for binds that should not affect the rotation sequence.
+
+        Args:
+            bind_template: The bind template to add (must have a 'trigger' attribute)
+            trigger_on_up_press: Whether this trigger should also activate on key release
+        Returns:
+            Self for method chaining
+        # Apply non-loading policy to trigger management
+        """
+        return self.add_bind_template(
+            bind_template,
+            loads_next_file=False,
+            execute_on_up_press=execute_on_up_press,
+        )
+
+    def add_exclusive_loading_bind_template(
+        self,
+        bind_template,
+        execute_on_up_press: bool = False,
+    ) -> Self:
+        self.include_triggers.append(bind_template.trigger)
+        return self.add_bind_template(
+            bind_template,
+            loads_next_file=True,
+            execute_on_up_press=execute_on_up_press,
+        )
 
     # endregion
 

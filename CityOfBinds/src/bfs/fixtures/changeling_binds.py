@@ -45,7 +45,7 @@ class _ChangelingRotatingBind(_TriggerEnjoyer, RotatingBind):
     def _build_bind_files(self):
         self._build_changeling_bind_template(self.changeling_bind_template)
         self._bind_file_template.add_bind_template(
-            self.changeling_bind_template, trigger_on_up_press=True
+            self.changeling_bind_template, execute_on_up_press=True
         )
         return super()._build_bind_files()
 

@@ -281,7 +281,7 @@ class TestBindRepresentation:
     def test_key_up_trigger_string_representation(self):
         """Should return correct string representation for key-up trigger."""
         bind = Bind("Q", ["powexectoggleon dark nova"])
-        bind.trigger_on_key_up = True
+        bind.on_key_up = True
         bind_str = str(bind)
         assert bind_str == 'Q "+$$powexectoggleon dark nova"'
 

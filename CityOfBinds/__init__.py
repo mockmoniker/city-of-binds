@@ -8,10 +8,7 @@ from .src.bfs.fixtures.random_binds import RandomBinds, RandomWalk
 from .src.bfs.fixtures.rotating_bind import RotatingBind
 from .src.bfs.fixtures.rotating_move_bind import RotatingMoveBind
 from .src.core.content_managers.graph.bind_file_graph import BindFileGraph
-from .src.core.content_managers.templates.bind_file_template import (
-    BindFileTemplate,
-    RotationPolicy,
-)
+from .src.core.content_managers.templates.bind_file_template import BindFileTemplate
 from .src.core.content_managers.templates.bind_template import BindTemplate
 from .src.core.content_publisher.bfg_publisher import BFGPublisher
 from .src.core.game_content.bind_file.bind_file import BindFile

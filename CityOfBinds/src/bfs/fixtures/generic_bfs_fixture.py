@@ -4,10 +4,7 @@ from abc import ABC, abstractmethod
 from ....utils.types.str_path import StrPath
 from ..._configs.constants import BFGConstants
 from ...core.content_managers.graph.bind_file_graph import BindFileGraph
-from ...core.content_managers.templates.bind_file_template import (
-    BindFileTemplate,
-    RotationPolicy,
-)
+from ...core.content_managers.templates.bind_file_template import BindFileTemplate
 from ...core.content_managers.templates.bind_template import BindTemplate
 from ...core.game_content.bind_file.bind_file import BindFile
 from ..bind_file_system import BindFileSystem
@@ -43,9 +40,32 @@ class _GenericBFSFixture(ABC):
     def add_bind_template(
         self,
         bind_template: BindTemplate,
-        advance_on_trigger: RotationPolicy = RotationPolicy.DEFAULT,
+        loads_next_file: bool = True,
+        execute_on_up_press: bool = False,
     ):
-        self._bind_file_template.add_bind_template(bind_template, advance_on_trigger)
+        self._bind_file_template.add_bind_template(
+            bind_template, loads_next_file, execute_on_up_press
+        )
+        return self
+
+    def add_non_loading_bind_template(
+        self,
+        bind_template: BindTemplate,
+        execute_on_up_press: bool = False,
+    ):
+        self._bind_file_template.add_non_loading_bind_template(
+            bind_template, execute_on_up_press
+        )
+        return self
+
+    def add_exclusive_loading_bind_template(
+        self,
+        bind_template: BindTemplate,
+        execute_on_up_press: bool = False,
+    ):
+        self._bind_file_template.add_exclusive_loading_bind_template(
+            bind_template, execute_on_up_press
+        )
         return self
 
     def get_bfs(self) -> BindFileSystem:
@@ -68,11 +88,11 @@ class _GenericBFSFixture(ABC):
     def _get_trigger_conditions(self) -> dict:
         conditions = {}
         if self._bind_file_template.include_triggers:
-            conditions[BFGConstants.INCLUSIVE_KEY] = (
+            conditions[BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY] = (
                 self._bind_file_template.include_triggers
             )
         if self._bind_file_template.exclude_triggers:
-            conditions[BFGConstants.EXCLUSIVE_KEY] = (
+            conditions[BFGConstants.NON_LOADING_TRIGGERS_KEY] = (
                 self._bind_file_template.exclude_triggers
             )
         if self._bind_file_template.quick_triggers:

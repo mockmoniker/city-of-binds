@@ -138,12 +138,20 @@ class BFGPublisher(_FileGraphPublisher):
         file_graph.link(
             install_index,
             load_index,
-            trigger_conditions={"on_triggers": [SafeInstallValues.LOAD_MACRO_NAME]},
+            trigger_conditions={
+                BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY: [
+                    SafeInstallValues.LOAD_MACRO_NAME
+                ]
+            },
         )
         file_graph.link(
             install_index,
             unload_index,
-            trigger_conditions={"on_triggers": [SafeInstallValues.UNLOAD_MACRO_NAME]},
+            trigger_conditions={
+                BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY: [
+                    SafeInstallValues.UNLOAD_MACRO_NAME
+                ]
+            },
         )
         file_graph.add_backup_side_effect(install_index, install_index)
         file_graph.add_restore_side_effect(install_index, load_index)
@@ -190,11 +198,17 @@ class BFGPublisher(_FileGraphPublisher):
         if trigger_conditions is None:
             return True
 
-        if BFGConstants.INCLUSIVE_KEY in trigger_conditions:
-            return bind.trigger in trigger_conditions[BFGConstants.INCLUSIVE_KEY]
+        if BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY in trigger_conditions:
+            return (
+                bind.trigger
+                in trigger_conditions[BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY]
+            )
 
-        if BFGConstants.EXCLUSIVE_KEY in trigger_conditions:
-            return bind.trigger not in trigger_conditions[BFGConstants.EXCLUSIVE_KEY]
+        if BFGConstants.NON_LOADING_TRIGGERS_KEY in trigger_conditions:
+            return (
+                bind.trigger
+                not in trigger_conditions[BFGConstants.NON_LOADING_TRIGGERS_KEY]
+            )
 
         return True
 
@@ -212,11 +226,17 @@ class BFGPublisher(_FileGraphPublisher):
         if trigger_conditions is None:
             return True
 
-        if BFGConstants.INCLUSIVE_KEY in trigger_conditions:
-            return macro.name in trigger_conditions[BFGConstants.INCLUSIVE_KEY]
+        if BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY in trigger_conditions:
+            return (
+                macro.name
+                in trigger_conditions[BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY]
+            )
 
-        if BFGConstants.EXCLUSIVE_KEY in trigger_conditions:
-            return macro.name not in trigger_conditions[BFGConstants.EXCLUSIVE_KEY]
+        if BFGConstants.NON_LOADING_TRIGGERS_KEY in trigger_conditions:
+            return (
+                macro.name
+                not in trigger_conditions[BFGConstants.NON_LOADING_TRIGGERS_KEY]
+            )
 
         return True
 
@@ -239,7 +259,7 @@ class BFGPublisher(_FileGraphPublisher):
 
         for bind in target_bind_file.binds:
             if bind.trigger in trigger_conditions[BFGConstants.QUICK_TRIGGER_KEY]:
-                bind.trigger_on_key_up = True
+                bind.on_key_up = True
 
     # endregion
 

@@ -79,7 +79,7 @@ class TestiWASDBindRepresentation:
     def test_key_up_does_nothing(self):
         """Key-up trigger should not alter iWASD command."""
         bind = iWASDBind("W", ["powexectoggleon super speed"])
-        bind.trigger_on_key_up = True
+        bind.on_key_up = True
         bind_str = str(bind)
         assert bind_str == 'W "+backward$$powexectoggleon super speed"'
 

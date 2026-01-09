@@ -6,6 +6,14 @@ from ..bind import Bind
 
 
 class MoveBind(Bind):
+    """
+    Represents a game bind that maps a trigger (key + optional modifier) to directional movement
+    plus zero or more commands.
+
+    Example:
+        >>> bind = MoveBind("W", ["powexectoggleon sprint", "powexecauto hasten"])
+        >>> str(bind)  # 'W "+forward$$powexectoggleon sprint$$powexecauto hasten"'
+    """
 
     def __init__(
         self,
@@ -18,6 +26,31 @@ class MoveBind(Bind):
         jump_key: str = DirectionKeys.UP_KEY,
         down_key: str = DirectionKeys.DOWN_KEY,
     ):
+        """
+        Initialize a new MoveBind with a trigger, optional commands, and movement key mappings.
+
+        Args:
+            trigger: Key and optional modifier string that must match one of the directional keys
+            commands: List of slash command strings to execute after the movement command
+            forward_key: Key to move forward (default: W)
+            left_key: Key to move left (default: A)
+            backward_key: Key to move backwards (default: S)
+            right_key: Key to move right (default: D)
+            jump_key: Key to jump/move upward (default: SPACE)
+            down_key: Key to move downward (default: X)
+
+        Raises:
+            ValueError: If trigger key doesn't match any of the configured movement keys
+
+        Example:
+            >>> # Basic WASD movement with power activation
+            >>> bind = MoveBind("W", ["powexectoggleon sprint"])
+            >>> str(bind)  # 'W "+forward$$powexectoggleon sprint"'
+
+            >>> # Custom key mapping for left-handed layout
+            >>> bind = MoveBind("I", ["powexectoggleon super speed"], forward_key="I")
+            >>> str(bind)  # 'I "+forward$$powexectoggleon super speed"'
+        """
         self.key_to_direction_map = {
             _Trigger(forward_key).key: Directions.FORWARD,
             _Trigger(left_key).key: Directions.LEFT,

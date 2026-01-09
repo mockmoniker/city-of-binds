@@ -31,10 +31,10 @@ class _BindString(_GenericGameString):
         """
         Return the game string representation of the bind.
 
-        The game string is the exact format required by City of Heroes to define
-        a bind, including the "/bind" prefix.
+        The game string is the exact string one would enter into the chat window
+        to load the bind.
 
         Returns:
-            str: The bind string as it would appear in the game client.
+            str: The bind string as it would be entered in the chat window.
         """
         return f"{GameExecutionCommands.EXECUTE_BIND} {self.get_str()}"

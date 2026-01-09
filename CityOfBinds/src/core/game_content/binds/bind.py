@@ -10,38 +10,61 @@ class Bind(_TriggerEnjoyer, _CommandsMixin, _BindString):
     """
     Represents a game bind that maps a trigger (key + optional modifier) to one or more commands.
 
-    A Bind combines a trigger (like "F1" or "SHIFT+F1") with a list of slash commands
-    to create a bind string that can be used in game bind files.
-
     Example:
         >>> bind = Bind("F1", ["powexecname heal other", "say healing!"])
         >>> str(bind)  # 'F1 "powexecname heal other$$say healing!"'
 
     Attributes:
-        trigger_on_key_up: When true, allows the bind to trigger on key release in addition to key press.
+        on_key_up: When true, allows the bind to activate on key release in addition to key press.
     """
 
-    def __init__(self, trigger: str, commands: list[str] = None):
+    def __init__(
+        self, trigger: str, commands: list[str] = None, on_key_up: bool = False
+    ):
         """
         Initialize a new Bind with a trigger and optional commands.
 
         Args:
             trigger: Key and optional modifier string (e.g., "F1", "SHIFT+F1", "Q")
             commands: List of slash command strings to execute when triggered
+            on_key_up: If true, bind activates on key release as well as key press
         """
         _TriggerEnjoyer.__init__(self, trigger)
         _CommandsMixin.__init__(self, commands)
-        self.trigger_on_key_up = False
+        self._on_key_up = on_key_up
 
     # region Bind Properties
     @property
     def bind_length(self) -> int:
-        """Get the character length of the bind string.
+        """Get the character length of the slash commands string.
 
         Returns:
-            Number of characters in the complete bind string
+            Number of characters in the complete slash commands string
         """
         return len(self.get_str())
+
+    @property
+    def on_key_up(self) -> bool:
+        """
+        A property to set whether the bind activates on key release.
+
+        When True, the bind will execute commands both when the key is pressed down
+        and when it's released.
+
+        When False, the bind will execute commands only when the key is pressed down.
+
+        Specifically, this adds a '+' prefix to the front of the command string if
+        there is not already one there.
+
+        Note: If the first command would already contain a '+' prefix, this property
+        has no effect.
+        """
+        return self._on_key_up
+
+    @on_key_up.setter
+    def on_key_up(self, value: bool):
+        """Set whether the bind activates on key release."""
+        self._on_key_up = bool(value)
 
     # endregion
 
@@ -53,7 +76,7 @@ class Bind(_TriggerEnjoyer, _CommandsMixin, _BindString):
     def _build_bind_string(self) -> str:
         """Build complete bind string, handling key-up triggers."""
         commands = self.commands
-        if self.trigger_on_key_up and not commands[0].prefix:
+        if self.on_key_up and not commands[0].prefix:
             commands = self._add_key_up_prefix(commands)
         return self._build_bind_string_from_components(
             trigger=self.trigger, commands=commands
@@ -75,6 +98,7 @@ class Bind(_TriggerEnjoyer, _CommandsMixin, _BindString):
 
         Returns:
             True if bind has commands and is within length limits
+            False if bind has no commands or exceeds length limits
         """
         return not self.is_empty() and not self.is_over_bind_length()
 

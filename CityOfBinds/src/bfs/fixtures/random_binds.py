@@ -58,5 +58,5 @@ class RandomWalk(_RandomOrder, RotatingMoveBind):
 
             for (source, target), trigger in zip(edges, self.direction_keys):
                 bfg.edges[source, target][BFGConstants.EDGE_DATA_KEY] = {
-                    BFGConstants.INCLUSIVE_KEY: [trigger]
+                    BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY: [trigger]
                 }
