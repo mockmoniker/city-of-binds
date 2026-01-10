@@ -1,5 +1,6 @@
 # /CityOfBinds/__init__.py
 from ._version import __author__, __email__, __version__
+from .src.bfs.bind_file_system import BindFileSystem
 from .src.bfs.fixtures.changeling_binds import (
     ChangelingRotatingBindWS,
     ChangelingRotatingPB,
@@ -24,6 +25,7 @@ from .src.core.game_content.macros.macro_image import MacroImage
 from .src.core.game_content.macros.macro_slot import MacroSlot
 
 __all__ = [
+    "BindFileSystem",
     "Bind",
     "WASDBind",
     "iWASDBind",
