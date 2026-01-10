@@ -347,8 +347,8 @@ All built in rotating binds allow extracting the underlying BindFileGraph to hel
     # file indexes 0, 1, 2 from spanish_bfg auto increment to 4, 5, 6 in bfg
 
     # Add custom links to make everything work together
-    bfg.link(0, 1, trigger_conditions={on_trigger:"F1"}) # link language switch to english hello
-    bfg.link(0, 4, trigger_conditions={on_trigger:"F2"}) # link language switch to spanish hola
+    bfg.link(0, 1, load_conditions={on_trigger:"F1"}) # link language switch to english hello
+    bfg.link(0, 4, load_conditions={on_trigger:"F2"}) # link language switch to spanish hola
 
     # Publish the bind files
     publisher = BGFPublisher(bfg)
