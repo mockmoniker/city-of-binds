@@ -1,0 +1,428 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>City of Binds &mdash; CityOfBinds 0.1.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=360bc84d"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="CityOfBinds" href="source/modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            CityOfBinds
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="source/modules.html">CityOfBinds</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">CityOfBinds</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">City of Binds</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="city-of-binds">
+<h1>City of Binds<a class="headerlink" href="#city-of-binds" title="Link to this heading"></a></h1>
+<p>A Python library for creating advanced key binds and macros for City of Heroes.</p>
+<p><strong>Main Features</strong></p>
+<ul class="simple">
+<li><p>Bind, Macro, and CommandGroup classes for structured creation of their in-game counterparts</p></li>
+<li><p>BindFile class to manage collections of binds and more as well as file publishing</p></li>
+<li><p>Template based classes for the above to assist in content generation</p></li>
+<li><p>Common rotating bind classes for easy setup of complex bind file structures</p></li>
+</ul>
+<p><strong>Advanced Features</strong></p>
+<ul class="simple">
+<li><p>BindFileGraph class for custom bind file networks</p></li>
+<li><p>BGFPublisher for publishing complex bind file graphs</p></li>
+</ul>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p>Install from PyPI using pip:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>CityOfBinds
+</pre></div>
+</div>
+</section>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading"></a></h2>
+<p>City of Heroes uses a powerful slash command system for most of its in-game operations. Things like targeting an enemy, activating a power, or even just moving can all be executed by their slash command counterparts.</p>
+<p>While slash commands are typically ran in the chat window, they can also be bound to physical keys and in-game buttons. Respectively these would be known as binds (aka keybinds) and macros.</p>
+<p>One of the slash commands available to users is the <code class="docutils literal notranslate"><span class="pre">/bindloadfile</span></code> command. This command allows users to load a file (called a bind file) containing multiple binds and macros all at once. Upon loading, these new binds would be immediately active in the game.</p>
+<p>As more than one command can be bound to a key or button, these binds and macros can perform an action, and at the same time load a bind file to rebind that very same key or button! This is what is known as a rotating bind.</p>
+<p>You can do some very cool things with rotating binds, whether it be for play optimization (e.g., set multiple powers on auto cast just by moving around) or roleplay (think casting a power and yelling a rotating catch phrase)!</p>
+<p>No matter what you can think of yourself, this library can help you create the binds and files needed to bring your ideas to life in City of Heroes.</p>
+<p><strong>Additional Resources</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://homecoming.wiki/wiki/Binds">Binds Wiki Page</a></p></li>
+<li><p><a class="reference external" href="https://homecoming.wiki/wiki/List_of_Slash_Commands">List of Slash Commands</a></p></li>
+</ul>
+</section>
+<section id="walkthrough">
+<h2>Walkthrough<a class="headerlink" href="#walkthrough" title="Link to this heading"></a></h2>
+<p><strong>Basic Game Components</strong></p>
+<p>The basic building blocks of this library are: Bind, Macro, and CommandGroup.</p>
+<p>We can initialize a Bind by specifyin a trigger (aka the key on your keyboard) and optionally the commands we’d like to exectute when that trigger is pressed. For now let’s just create a blank bind bound to the H key.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">CityOfBinds</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bind</span>
+
+<span class="c1"># Create a bind on the H key</span>
+<span class="n">h_bind</span> <span class="o">=</span> <span class="n">Bind</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;H&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we can call one of the Bind’s methods to add commands. Let’s make it so hasten is activated when we press H.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add the hasten power command</span>
+<span class="n">h_bind</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_power</span><span class="p">(</span><span class="s2">&quot;hasten&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Bind supports many different types of methods including toggling on, off, and location based execution of powers. For a full list of methods see the Bind class documentation.</p>
+<p>If we were to print the string representation of this bind, we’d get the formatted bind as it’d be used in a bind file, and via the game_str method, we can even get the exact command we’d use in-game to execute this bind.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">h_bind</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
+<span class="c1"># H &quot;powexecname hasten&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">h_bind</span><span class="o">.</span><span class="n">game_str</span><span class="p">())</span>
+<span class="c1"># /bind H &quot;powexecname hasten&quot;</span>
+</pre></div>
+</div>
+<p>Very rarely do we want to just execute hasten alone. More often we’d like to auto cast that it to keep it always active. Let’s create a new bind that does just that.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a bind on the H key</span>
+<span class="n">new_h_bind</span> <span class="o">=</span> <span class="n">Bind</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;H&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add the auto power command for hasten</span>
+<span class="n">new_h_bind</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_auto_power</span><span class="p">(</span><span class="s2">&quot;hasten&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">new_h_bind</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
+<span class="c1"># H &quot;powexecauto hasten&quot;</span>
+</pre></div>
+</div>
+<p>But of course we already have a bind on the H key! Let’s instead add a modifier to the trigger so we can use both binds independently.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_h_bind</span><span class="o">.</span><span class="n">trigger</span><span class="o">.</span><span class="n">modifier</span> <span class="o">=</span> <span class="s2">&quot;SHIFT&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">new_h_bind</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
+<span class="c1"># SHIFT+H &quot;powexecauto hasten&quot;</span>
+</pre></div>
+</div>
+<p>There we go! We can always access the trigger property of the bind to customize the key and modifier that make up the overall trigger. Note that we also could have just specified the modifier when we first created the bind (e.g., Bind(“SHIFT+H”)).</p>
+<p>So far we’ve only added single commands to our binds, let’s try adding more to make this bind more interesting.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add more commands to the bind</span>
+<span class="n">new_h_bind</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="s2">&quot;say It&#39;s time for speed!&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">new_h_bind</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
+<span class="c1"># SHIFT+H &quot;powexecauto hasten$$say It&#39;s time for speed!&quot;</span>
+</pre></div>
+</div>
+<p>And just like that we get a bind with multiple commands, automatically separated by the proper in-game command separator ($$).</p>
+<p>We can similarly create objects via the Macro class just as above, however instead of their commands being bound to a key, they’d be bound to an automatically created in-game button. Optionally, we can create MacroSlot objects which will create their macro button at a specific slot, or MacroImage objects which create macros with a custom icon.</p>
+<p>The CommandGroup class is also available to create objects that just help group multiple slash commands. Think of these as just a bind without the trigger part. While they may not be used as much as binds or macros, they do have interesting use in bind files.</p>
+<p><strong>Bind Files</strong></p>
+<p>Getting back to our example, while we could just call each bind’s game_str method to get the command to load the new binds, let’s instead move on to the BindFile class which can help us manage and publish our binds. We can define a blank bind file like so:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">CityOfBinds</span><span class="w"> </span><span class="kn">import</span> <span class="n">BindFile</span>
+
+<span class="c1"># Create a blank bind file</span>
+<span class="n">bind_file</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Just like we added commands to our binds, we can add binds to our bind file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add binds to the bind file</span>
+<span class="n">bind_file</span><span class="o">.</span><span class="n">add_bind</span><span class="p">(</span><span class="n">h_bind</span><span class="p">)</span>
+<span class="n">bind_file</span><span class="o">.</span><span class="n">add_bind</span><span class="p">(</span><span class="n">new_h_bind</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">bind_file</span><span class="o">.</span><span class="n">preview</span><span class="p">())</span>
+<span class="c1"># H &quot;powexecname hasten&quot;</span>
+<span class="c1"># SHIFT+H &quot;powexecauto hasten$$say It&#39;s time for speed!&quot;</span>
+</pre></div>
+</div>
+<p>As we can see by printing out the preview, both binds are now part of the bind file. We can now write this bind file to disk so we can load it in-game.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Write bind file to disk</span>
+<span class="n">bind_file</span><span class="o">.</span><span class="n">write_to_file</span><span class="p">(</span><span class="s2">&quot;C:/path/to/Homecoming/settings/live/hasten_binds.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We now have a bind file written to our city of heroes default folder! If you’re not familiar with the default folder go ahead and readup up on it as it’ll make future file management easier. <a class="reference external" href="https://homecoming.wiki/wiki/Default_Folder">Default Folder</a></p>
+<p>Now in game we can just enter <code class="docutils literal notranslate"><span class="pre">/bindloadfile</span> <span class="pre">hasten_binds.txt</span></code> into the chat window and our new binds will be loaded and ready to use! Note that if you specificed a different path other than the default folder, you’d have to bindloadfile that entire path to that the file.</p>
+<p>BindFile also supports adding Macros and CommandGroups, so feel free to explore those as well! In the case of loading macros, unless it’s a MacroSlot object, every time the bind file is loaded, the macros will be added to the first available slot in your power tray.</p>
+<p>In the case of CommandGroups, this allows arbitrary command execution when loading a bind file.</p>
+<p><strong>Custom Rotating Binds</strong></p>
+<p>The bind file we created in the previous example, while nice, is limited in scope in what we can actually do with binds. Let’s get into more advanced tools to create a rotating bind that allows us to automatically put multiple powers on auto cast as we just move around in the game.</p>
+<p>As we will be creating binds on the traditional movement keys (WASD), we can use a special bind class called WASDBind to help manage the actual movement slash commands that are needed to move the character around. We can define a WASDBind like so:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">CityOfBinds</span><span class="w"> </span><span class="kn">import</span> <span class="n">WASDBind</span>
+
+<span class="c1"># Create a WASD bind system</span>
+<span class="n">w_hasten_bind</span> <span class="o">=</span> <span class="n">WASDBind</span><span class="p">(</span><span class="s2">&quot;W&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">w_hasten_bind</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
+<span class="c1"># W &quot;+forward&quot;</span>
+</pre></div>
+</div>
+<p>As we can see, the WASDBind automatically adds the proper movement command for the W key. We can add more commands to it just as before:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add the auto power command for hasten</span>
+<span class="n">w_hasten_bind</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_auto_power</span><span class="p">(</span><span class="s2">&quot;hasten&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">w_hasten_bind</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
+<span class="c1"># W &quot;+forward$$powexecauto hasten&quot;</span>
+</pre></div>
+</div>
+<p>Now this bind will not only move the character forward, it’ll also ensure hasten is on auto cast! Talk about set and forget! But we can go even further, let’s go ahead and create a few more auto case W binds, as well as add each bind to its own bind file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">CityOfBinds</span><span class="w"> </span><span class="kn">import</span> <span class="n">BindFile</span>
+
+<span class="c1"># Create more WASD binds with different auto powers</span>
+<span class="n">w_insp_bind</span> <span class="o">=</span> <span class="n">WASDBind</span><span class="p">(</span><span class="s2">&quot;W&quot;</span><span class="p">)</span>
+<span class="n">w_insp_bind</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_auto_power</span><span class="p">(</span><span class="s2">&quot;inner inspiration&quot;</span><span class="p">)</span>
+
+<span class="n">w_domination_bind</span> <span class="o">=</span> <span class="n">WASDBind</span><span class="p">(</span><span class="s2">&quot;W&quot;</span><span class="p">)</span>
+<span class="n">w_domination_bind</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_auto_power</span><span class="p">(</span><span class="s2">&quot;domination&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">w_insp_bind</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
+<span class="c1"># W &quot;+forward$$powexecauto inner inspiration&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">w_domination_bind</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
+<span class="c1"># W &quot;+forward$$powexecauto domination&quot;</span>
+
+<span class="n">hasten_bf</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">()</span><span class="o">.</span><span class="n">add_bind</span><span class="p">(</span><span class="n">w_hasten_bind</span><span class="p">)</span>
+<span class="n">insp_bf</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">()</span><span class="o">.</span><span class="n">add_bind</span><span class="p">(</span><span class="n">w_insp_bind</span><span class="p">)</span>
+<span class="n">domination_bf</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">()</span><span class="o">.</span><span class="n">add_bind</span><span class="p">(</span><span class="n">w_domination_bind</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Our three bind files will now allow us to put multiple powers on auto cast, however only one of the W binds will be active at one time. We need a way to make it so pressing W we will also load the new bind for W to enable auto casting of the next power.</p>
+<p>We can always just use the add_command method to add a hard coded bindloadfile command to each bind, however, you’d have to keep track of file names and paths yourself. Instead let’s use a special class called BindFileGraph to logically link the bind files:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">CityOfBinds</span><span class="w"> </span><span class="kn">import</span> <span class="n">BindFileGraph</span>
+
+<span class="c1"># Create a bind file graph to manage the rotation</span>
+<span class="n">bfg</span> <span class="o">=</span> <span class="n">BindFileGraph</span><span class="p">()</span>
+
+<span class="c1"># Add bind files to the graph</span>
+<span class="n">bfg</span><span class="o">.</span><span class="n">add_bind_file</span><span class="p">(</span><span class="n">hasten_bf</span><span class="p">)</span> <span class="c1"># assigned index 0</span>
+<span class="n">bfg</span><span class="o">.</span><span class="n">add_bind_file</span><span class="p">(</span><span class="n">insp_bf</span><span class="p">)</span> <span class="c1"># assigned index 1</span>
+<span class="n">bfg</span><span class="o">.</span><span class="n">add_bind_file</span><span class="p">(</span><span class="n">domination_bf</span><span class="p">)</span> <span class="c1"># assigned index 2</span>
+
+<span class="c1"># Link the bind files in a rotation</span>
+<span class="n">bfg</span><span class="o">.</span><span class="n">loop</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="c1"># Creates a logical connection between files:</span>
+<span class="c1"># 0 -&gt; 1 -&gt; 2 -&gt; 0</span>
+</pre></div>
+</div>
+<p>The above code shows how to add bind files to the bind file graph, as well as a special linking method to create a logical loop between the list of file indexes. Note that when files are added to the bind file graph, they are automatically assigned an index which we can reference for linking purposes.</p>
+<p>Once the logical links are created, we can now publish the bind files using a publishing class called BGFPublisher. This class will take care of adding the proper bindloadfile commands to each bind based on the logical links we created in the bind file graph.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">CityOfBinds</span><span class="w"> </span><span class="kn">import</span> <span class="n">BGFPublisher</span>
+
+<span class="c1"># Create a publisher for the bind file graph</span>
+<span class="n">publisher</span> <span class="o">=</span> <span class="n">BGFPublisher</span><span class="p">(</span><span class="n">bfg</span><span class="p">)</span>
+
+<span class="c1"># Publish the bind files to disk</span>
+<span class="n">publisher</span><span class="o">.</span><span class="n">publish_bind_files</span><span class="p">(</span>
+    <span class="n">parent_folder_name</span><span class="o">=</span><span class="s2">&quot;auto_powers&quot;</span><span class="p">,</span>
+    <span class="n">directory</span><span class="o">=</span><span class="s2">&quot;C:/path/to/Homecoming/settings/live&quot;</span>
+<span class="p">)</span>
+<span class="c1"># C:/path/to/Homecoming/settings/live/auto_powers/0.txt</span>
+<span class="c1">#   W &quot;+forward$$powexecauto hasten$$bindloadfilesilent auto_powers/1.txt&quot;</span>
+<span class="c1"># C:/path/to/Homecoming/settings/live/auto_powers/1.txt</span>
+<span class="c1">#   W &quot;+forward$$powexecauto inner inspiration$$bindloadfilesilent auto_powers/2.txt&quot;</span>
+<span class="c1"># C:/path/to/Homecoming/settings/live/auto_powers/2.txt</span>
+<span class="c1">#   W &quot;+forward$$powexecauto domination$$bindloadfilesilent auto_powers/0.txt&quot;</span>
+</pre></div>
+</div>
+<p>And just like before we can go in-game and load the first bind file with <code class="docutils literal notranslate"><span class="pre">/bindloadfile</span> <span class="pre">auto_powers/0.txt</span></code>. From there on out, as we move forward with the W key, the bind files will automatically rotate and ensure all powers will cycle between auto cast!</p>
+<p><strong>Built In Rotating Binds</strong></p>
+<p>Everything we’ve done up till now was to show how the core components of the library work together to create complex rotating binds. However, to make things easier, there are built in rotating bind classes that take care of the bind file graph and publisher for you.</p>
+<p>Let’s again create a bind system to auto cast multiple powers, but let’s instead enable this on all WASD movement keys this time, as well as add even more powers. We can use the WASDRotatingBind class to help us with this.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">CityOfBinds</span><span class="w"> </span><span class="kn">import</span> <span class="n">WASDRotatingBind</span>
+
+<span class="c1"># Create a rotating bind system</span>
+<span class="n">wasd_bind</span> <span class="o">=</span> <span class="n">WASDRotatingBind</span><span class="p">()</span>
+
+<span class="c1"># Add powers you want automatically turned on</span>
+<span class="n">wasd_bind</span><span class="o">.</span><span class="n">wasd_bind_template</span><span class="o">.</span><span class="n">add_auto_power_pool</span><span class="p">([</span>
+    <span class="s2">&quot;hasten&quot;</span><span class="p">,</span> <span class="s2">&quot;inner inspiration&quot;</span><span class="p">,</span> <span class="s2">&quot;domination&quot;</span><span class="p">,</span> <span class="s2">&quot;mutation&quot;</span><span class="p">,</span> <span class="s2">&quot;ageless core epiphany&quot;</span>
+<span class="p">])</span>
+
+<span class="c1"># Generate the bind files</span>
+<span class="n">wasd_bind</span><span class="o">.</span><span class="n">publish_bind_files</span><span class="p">(</span>
+    <span class="n">parent_folder_name</span><span class="o">=</span><span class="s2">&quot;better_auto_powers&quot;</span><span class="p">,</span>
+    <span class="n">directory</span><span class="o">=</span><span class="s2">&quot;C:/path/to/Homecoming/settings/live&quot;</span>
+<span class="p">)</span>
+<span class="c1"># C:/path/to/Homecoming/settings/live/better_auto_powers/0.txt</span>
+<span class="c1">#   W &quot;+forward$$powexecauto hasten$$bindloadfilesilent better_auto_powers/1.txt&quot;</span>
+<span class="c1">#   A &quot;+left$$powexecauto hasten$$bindloadfilesilent better_auto_powers/1.txt&quot;</span>
+<span class="c1">#   S &quot;+right$$powexecauto hasten$$bindloadfilesilent better_auto_powers/1.txt&quot;</span>
+<span class="c1">#   D &quot;+backward$$powexecauto hasten$$bindloadfilesilent better_auto_powers/1.txt&quot;</span>
+<span class="c1"># C:/path/to/Homecoming/settings/live/better_auto_powers/1.txt</span>
+<span class="c1">#   W &quot;+forward$$powexecauto inner inspiration$$bindloadfilesilent better_auto_powers/2.txt&quot;</span>
+<span class="c1">#   A &quot;+left$$powexecauto inner inspiration$$bindloadfilesilent better_auto_powers/2.txt&quot;</span>
+<span class="c1">#   S &quot;+right$$powexecauto inner inspiration$$bindloadfilesilent better_auto_powers/2.txt&quot;</span>
+<span class="c1">#   D &quot;+backward$$powexecauto inner inspiration$$bindloadfilesilent better_auto_powers/2.txt&quot;</span>
+<span class="c1"># C:/path/to/Homecoming/settings/live/better_auto_powers/2.txt</span>
+<span class="c1">#   W &quot;+forward$$powexecauto domination$$bindloadfilesilent better_auto_powers/3.txt&quot;</span>
+<span class="c1">#   A &quot;+left$$powexecauto domination$$bindloadfilesilent better_auto_powers/3.txt&quot;</span>
+<span class="c1">#   S &quot;+right$$powexecauto domination$$bindloadfilesilent better_auto_powers/3.txt&quot;</span>
+<span class="c1">#   D &quot;+backward$$powexecauto domination$$bindloadfilesilent better_auto_powers/3.txt&quot;</span>
+<span class="c1"># C:/path/to/Homecoming/settings/live/better_auto_powers/3.txt</span>
+<span class="c1">#   W &quot;+forward$$powexecauto mutation$$bindloadfilesilent better_auto_powers/4.txt&quot;</span>
+<span class="c1">#   A &quot;+left$$powexecauto mutation$$bindloadfilesilent better_auto_powers/4.txt&quot;</span>
+<span class="c1">#   S &quot;+right$$powexecauto mutation$$bindloadfilesilent better_auto_powers/4.txt&quot;</span>
+<span class="c1">#   D &quot;+backward$$powexecauto mutation$$bindloadfilesilent better_auto_powers/4.txt&quot;</span>
+<span class="c1"># C:/path/to/Homecoming/settings/live/better_auto_powers/4.txt</span>
+<span class="c1">#   W &quot;+forward$$powexecauto ageless core epiphany$$bindloadfilesilent better_auto_powers/0.txt&quot;</span>
+<span class="c1">#   A &quot;+left$$powexecauto ageless core epiphany$$bindloadfilesilent better_auto_powers/0.txt&quot;</span>
+<span class="c1">#   S &quot;+right$$powexecauto ageless core epiphany$$bindloadfilesilent better_auto_powers/0.txt&quot;</span>
+<span class="c1">#   D &quot;+backward$$powexecauto ageless core epiphany$$bindloadfilesilent better_auto_powers/0.txt&quot;</span>
+</pre></div>
+</div>
+<p>And in just a few lines of code, we have a full WASD rotating bind system that will auto cast multiple powers as we move around Paragon City!</p>
+<p>I’ve tried to add a lot of useful rotating bind classes to help with common use cases. Feel free to explore the documentation for more features!</p>
+<p><strong>Advanced Rotating Bind Customization</strong></p>
+<p>If any of the built in rotating bind classes don’t fit your needs, you can of course always generate any type of custom rotating bind using the BindFileGraph and BGFPublisher classes as shown in the previous section.</p>
+<p>All built in rotating binds allow extracting the underlying BindFileGraph to help with any customizations you may need. From there you can extend the graph as needed before publishing. For example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">CityOfBinds</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bind</span><span class="p">,</span> <span class="n">BindFile</span><span class="p">,</span> <span class="n">RotatingBind</span><span class="p">,</span> <span class="n">BindFileGraph</span><span class="p">,</span> <span class="n">BGFPublisher</span>
+
+<span class="c1"># Create a bind file to switch languages with relevant binds</span>
+<span class="n">language_switcher</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">()</span>
+<span class="n">language_switcher</span><span class="o">.</span><span class="n">add_bind</span><span class="p">(</span>
+    <span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="s2">&quot;say Switching to English!&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">language_switcher</span><span class="o">.</span><span class="n">add_bind</span><span class="p">(</span>
+    <span class="n">Bind</span><span class="p">(</span><span class="s2">&quot;F2&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="s2">&quot;say Cambiando a Español!&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Create a bind file graph and add our language switcher</span>
+<span class="n">bfg</span> <span class="o">=</span> <span class="n">BindFileGraph</span><span class="p">()</span>
+<span class="n">bfg</span><span class="o">.</span><span class="n">add_bind_file</span><span class="p">(</span><span class="n">language_switcher</span><span class="p">)</span> <span class="c1"># assigned index 0</span>
+
+<span class="c1"># Create two rotating bind systems for different languages</span>
+<span class="n">english_hello</span> <span class="o">=</span> <span class="n">RotatingBind</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">add_command_arguments_pool</span><span class="p">([</span>
+    <span class="s2">&quot;say&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Hello!&quot;</span><span class="p">,</span> <span class="s2">&quot;Hi!&quot;</span><span class="p">,</span> <span class="s2">&quot;What&#39;s up?&quot;</span><span class="p">]</span>
+<span class="p">])</span>
+<span class="n">spanish_hello</span> <span class="o">=</span> <span class="n">RotatingBind</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">add_command_arguments_pool</span><span class="p">([</span>
+    <span class="s2">&quot;say&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Hola!&quot;</span><span class="p">,</span> <span class="s2">&quot;Buenos días!&quot;</span><span class="p">,</span> <span class="s2">&quot;¿Qué tal?&quot;</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="c1"># Get the underlying bind file graphs</span>
+<span class="n">english_bfg</span> <span class="o">=</span> <span class="n">english_hello</span><span class="o">.</span><span class="n">get_bind_file_graph</span><span class="p">()</span>
+<span class="n">spanish_bfg</span> <span class="o">=</span> <span class="n">spanish_hello</span><span class="o">.</span><span class="n">get_bind_file_graph</span><span class="p">()</span>
+
+<span class="c1"># Extend the rotating bind created bind file graphs onto the main graph</span>
+<span class="n">bfg</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">english_bfg</span><span class="p">)</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">spanish_bfg</span><span class="p">)</span>
+<span class="c1"># file indexes 0, 1, 2 from english_bfg auto increment to 1, 2, 3 in bfg</span>
+<span class="c1"># file indexes 0, 1, 2 from spanish_bfg auto increment to 4, 5, 6 in bfg</span>
+
+<span class="c1"># Add custom links to make everything work together</span>
+<span class="n">bfg</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">load_conditions</span><span class="o">=</span><span class="p">{</span><span class="n">on_trigger</span><span class="p">:</span><span class="s2">&quot;F1&quot;</span><span class="p">})</span> <span class="c1"># link language switch to english hello</span>
+<span class="n">bfg</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">load_conditions</span><span class="o">=</span><span class="p">{</span><span class="n">on_trigger</span><span class="p">:</span><span class="s2">&quot;F2&quot;</span><span class="p">})</span> <span class="c1"># link language switch to spanish hola</span>
+
+<span class="c1"># Publish the bind files</span>
+<span class="n">publisher</span> <span class="o">=</span> <span class="n">BGFPublisher</span><span class="p">(</span><span class="n">bfg</span><span class="p">)</span>
+<span class="n">publisher</span><span class="o">.</span><span class="n">publish_bind_files</span><span class="p">(</span>
+    <span class="n">parent_folder_name</span><span class="o">=</span><span class="s2">&quot;language_hello_binds&quot;</span><span class="p">,</span>
+    <span class="n">directory</span><span class="o">=</span><span class="s2">&quot;C:/path/to/Homecoming/settings/live&quot;</span>
+<span class="p">)</span>
+<span class="c1"># /bindloadfile language_hello_binds/0.txt to load the language switcher</span>
+</pre></div>
+</div>
+<p>While there is a lot more going on in this example, this shows how one might leverage the built in rotating bind classes to form a bind system which allows your character to cycle greetings by pressing the H key with the additional functionality of changing those greetings’ languages via the F1 and F2 keys.</p>
+</section>
+<section id="development-setup">
+<h2>🔧 Development Setup<a class="headerlink" href="#development-setup" title="Link to this heading"></a></h2>
+<p>If you want to contribute or modify the library:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/yourusername/city-of-binds.git
+<span class="nb">cd</span><span class="w"> </span>city-of-binds
+
+<span class="c1"># Install in development mode with dev dependencies</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
+
+<span class="c1"># Run tests</span>
+pytest
+
+<span class="c1"># Format code</span>
+black<span class="w"> </span>.
+isort<span class="w"> </span>.
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="source/modules.html">CityOfBinds</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="source/CityOfBinds.html">CityOfBinds package</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="source/modules.html" class="btn btn-neutral float-right" title="CityOfBinds" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, brandon wade.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

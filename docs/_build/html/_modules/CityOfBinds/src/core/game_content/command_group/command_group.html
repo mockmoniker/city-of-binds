@@ -1,0 +1,975 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CityOfBinds.src.core.game_content.command_group.command_group &mdash; CityOfBinds 0.1.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../../../_static/documentation_options.js?v=360bc84d"></script>
+      <script src="../../../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../../index.html" class="icon icon-home">
+            CityOfBinds
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../source/modules.html">CityOfBinds</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">CityOfBinds</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">CityOfBinds.src.core.game_content.command_group.command_group</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for CityOfBinds.src.core.game_content.command_group.command_group</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Self</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">...._configs.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">GameConstants</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...._configs.maps</span><span class="w"> </span><span class="kn">import</span> <span class="n">MovementMaps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils.game_strings</span><span class="w"> </span><span class="kn">import</span> <span class="n">_CommandString</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils.power</span><span class="w"> </span><span class="kn">import</span> <span class="n">_Power</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils.slash_command</span><span class="w"> </span><span class="kn">import</span> <span class="n">_SlashCommand</span>
+
+
+<div class="viewcode-block" id="CommandGroup">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CommandGroup</span><span class="p">(</span><span class="n">_CommandString</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manages an ordered collection of slash commands for City of Heroes/Villains binds.</span>
+
+<span class="sd">    A CommandGroup provides a fluent interface for building sequences of game commands</span>
+<span class="sd">    that can be executed together in binds. It supports power commands, movement commands,</span>
+<span class="sd">    bind file operations, emotes, and arbitrary slash commands.</span>
+
+<span class="sd">    The CommandGroup automatically handles command formatting, validation, and provides</span>
+<span class="sd">    convenient methods for common command patterns. All commands are stored as _Command</span>
+<span class="sd">    objects internally and can be inserted at any position using optional index parameters.</span>
+
+<span class="sd">    Key Features:</span>
+<span class="sd">        - Fluent interface with method chaining</span>
+<span class="sd">        - Optional index parameter for precise command positioning</span>
+<span class="sd">        - Automatic power name validation and formatting</span>
+<span class="sd">        - Support for all major command categories</span>
+<span class="sd">        - String representation ready for bind files</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; cmd_group = CommandGroup()</span>
+<span class="sd">        &gt;&gt;&gt; cmd_group.add_power(&quot;hasten&quot;).add_emote(&quot;thumbsup&quot;).add_command(&quot;say ready!&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; str(cmd_group)  # &#39;&quot;powexecname hasten$$e thumbsup$$say ready!&quot;&#39;</span>
+
+<span class="sd">    Common Patterns:</span>
+<span class="sd">        - Power rotation: Multiple power commands in sequence</span>
+<span class="sd">        - Error handling: Save current, execute, restore on failure</span>
+<span class="sd">        - Complex macros: Mix powers, emotes, and chat commands</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="CommandGroup.__init__">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commands</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a new CommandGroup with optional starting commands.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            commands: Optional list of command strings to initialize with.</span>
+<span class="sd">                     Each string will be wrapped in a _Command object.</span>
+<span class="sd">            use_shortcuts: If True, generates command strings using shortcuts.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; # Empty command group</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group = CommandGroup()</span>
+<span class="sd">            &gt;&gt;&gt; # Pre-populated command group</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group = CommandGroup([&quot;say hello&quot;, &quot;powexecname hasten&quot;])</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_commands</span> <span class="o">=</span> <span class="p">[</span><span class="n">_SlashCommand</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">]</span> <span class="k">if</span> <span class="n">commands</span> <span class="k">else</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_shortcuts</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+    <span class="c1"># region Core Command Management Methods</span>
+<div class="viewcode-block" id="CommandGroup.add_command">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_command">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a slash command to the command group.</span>
+
+<span class="sd">        This is the fundamental method that all other add_* methods build upon.</span>
+<span class="sd">        Commands are added as strings and automatically wrapped in _Command objects.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            command_string: The slash command to add (with or without leading slash)</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+<span class="sd">                   Use 0 to prepend, len(commands) to append, or any valid index.</span>
+<span class="sd">                   Negative indices work according to Python list behavior.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If command_string is invalid</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group = CommandGroup()</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_command(&quot;say hello&quot;)           # Append (default)</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_command(&quot;say first&quot;, index=0)  # Prepend</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_command(&quot;say middle&quot;, index=1) # Insert at position 1</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_do_list_method</span><span class="p">(</span><span class="s2">&quot;append&quot;</span><span class="p">,</span> <span class="n">command_string</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_do_list_method</span><span class="p">(</span><span class="s2">&quot;insert&quot;</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">command_string</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommandGroup.remove_command">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.remove_command">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove a command from the command group by index.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index: Position of the command to remove. Supports negative indexing.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group = CommandGroup([&quot;say hello&quot;, &quot;say world&quot;])</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.remove_command(0)</span>
+<span class="sd">            &gt;&gt;&gt; len(cmd_group)  # 1</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_do_list_method</span><span class="p">(</span><span class="s2">&quot;pop&quot;</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommandGroup.clear_commands">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.clear_commands">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove all commands from the command group.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group = CommandGroup([&quot;say hello&quot;, &quot;say world&quot;])</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.clear_commands()</span>
+<span class="sd">            &gt;&gt;&gt; len(cmd_group)  # 0</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_do_list_method</span><span class="p">(</span><span class="s2">&quot;clear&quot;</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_do_list_method</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">list_method_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">command_string</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal helper to perform list operations on the command collection.</span>
+
+<span class="sd">        This method provides a unified interface for list modifications, handling</span>
+<span class="sd">        both operations that require command wrapping (insert, append) and those</span>
+<span class="sd">        that don&#39;t (clear).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            list_method_name: Name of the list method to invoke (&#39;append&#39;, &#39;insert&#39;, &#39;clear&#39;)</span>
+<span class="sd">            *args: Positional arguments to pass to the list method</span>
+<span class="sd">            command_string: Command string to wrap in _Command (if applicable)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            This is an internal method used by public command management methods.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_commands</span><span class="p">,</span> <span class="n">list_method_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">command_string</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">method</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">_SlashCommand</span><span class="p">(</span><span class="n">command_string</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">method</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1"># endregion</span>
+
+    <span class="c1"># region Power Command Methods</span>
+<div class="viewcode-block" id="CommandGroup.add_power">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_power">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">power_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a standard power execution command (powexecname).</span>
+
+<span class="sd">        Creates a command that activates a power by name. This is the most common</span>
+<span class="sd">        power execution method in City of Heroes/Villains.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            power_string: Name of the power to execute (spaces allowed)</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If power_string is invalid (non-alphabetic characters, etc.)</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_power(&quot;hasten&quot;)        # &quot;powexecname hasten&quot;</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_power(&quot;build up&quot;)      # &quot;powexecname build up&quot;</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_power(&quot;heal&quot;, index=0) # Prepend heal command</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_power_command</span><span class="p">(</span>
+            <span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">POWEXEC_NAME</span><span class="p">,</span> <span class="n">power_string</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommandGroup.add_toggle_on_power">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_toggle_on_power">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_toggle_on_power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">power_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a toggle power activation command (powexectoggleon).</span>
+
+<span class="sd">        Creates a command that specifically turns ON a toggle power. Useful for</span>
+<span class="sd">        ensuring toggle powers are in the correct state.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            power_string: Name of the toggle power to turn on</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_toggle_on_power(&quot;stealth&quot;)    # &quot;powexectoggleon stealth&quot;</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_toggle_on_power(&quot;dark nova&quot;)  # &quot;powexectoggleon dark nova&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_power_command</span><span class="p">(</span>
+            <span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">POWEXEC_TOGGLE_ON</span><span class="p">,</span> <span class="n">power_string</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommandGroup.add_toggle_off_power">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_toggle_off_power">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_toggle_off_power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">power_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a toggle power deactivation command (powexectoggleoff).</span>
+
+<span class="sd">        Creates a command that specifically turns OFF a toggle power. Useful for</span>
+<span class="sd">        power rotations and ensuring mutually exclusive toggles.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            power_string: Name of the toggle power to turn off</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_toggle_off_power(&quot;stealth&quot;)     # &quot;powexectoggleoff stealth&quot;</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_toggle_off_power(&quot;black dwarf&quot;) # &quot;powexectoggleoff black dwarf&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_power_command</span><span class="p">(</span>
+            <span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">POWEXEC_TOGGLE_OFF</span><span class="p">,</span> <span class="n">power_string</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommandGroup.add_auto_power">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_auto_power">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_auto_power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">power_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an auto power execution command (powexecauto).</span>
+
+<span class="sd">        Creates a command that sets a power to automatically execute when available.</span>
+<span class="sd">        Commonly used for passive powers or powers you want to fire continuously.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            power_string: Name of the power to set as auto-executing</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_auto_power(&quot;hasten&quot;)      # &quot;powexecauto hasten&quot;</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_auto_power(&quot;dark blast&quot;)  # &quot;powexecauto dark blast&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_power_command</span><span class="p">(</span>
+            <span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">POWEXEC_AUTO</span><span class="p">,</span> <span class="n">power_string</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommandGroup.add_loc_self_power">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_loc_self_power">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_loc_self_power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">power_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a locational power command targeting self (powexeclocation me).</span>
+
+<span class="sd">        Creates a command that executes a power at your own character&#39;s location.</span>
+<span class="sd">        Useful for area-effect powers, teleportation, or self-targeted abilities.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            power_string: Name of the power to execute at self location</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_loc_self_power(&quot;teleport&quot;)     # &quot;powexeclocation me teleport&quot;</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_loc_self_power(&quot;rain of fire&quot;) # &quot;powexeclocation me rain of fire&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_power_command</span><span class="p">(</span>
+            <span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">POWEXEC_LOCATION</span><span class="p">,</span>
+            <span class="n">power_string</span><span class="p">,</span>
+            <span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">LOCATION_SELF</span><span class="p">,</span>
+            <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommandGroup.add_loc_target_power">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_loc_target_power">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_loc_target_power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">power_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a locational power command targeting current target (powexeclocation target).</span>
+
+<span class="sd">        Creates a command that executes a power at your current target&#39;s location.</span>
+<span class="sd">        Useful for area-effect powers centered on enemies or allies.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            power_string: Name of the power to execute at target location</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_loc_target_power(&quot;teleport&quot;)  # &quot;powexeclocation target teleport&quot;</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_loc_target_power(&quot;rain of fire&quot;)    # &quot;powexeclocation target rain of fire&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_power_command</span><span class="p">(</span>
+            <span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">POWEXEC_LOCATION</span><span class="p">,</span>
+            <span class="n">power_string</span><span class="p">,</span>
+            <span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">LOCATION_TARGET</span><span class="p">,</span>
+            <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommandGroup.add_loc_cursor_power">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_loc_cursor_power">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_loc_cursor_power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">power_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a locational power command targeting cursor position (powexeclocation cursor).</span>
+
+<span class="sd">        Creates a command that executes a power at the current cursor/mouse location.</span>
+<span class="sd">        Provides precise targeting for area-effect abilities and teleportation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            power_string: Name of the power to execute at cursor location</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_loc_cursor_power(&quot;teleport&quot;)      # &quot;powexeclocation cursor teleport&quot;</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_loc_cursor_power(&quot;rain of fire&quot;)     # &quot;powexeclocation cursor rain of fire&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_power_command</span><span class="p">(</span>
+            <span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">POWEXEC_LOCATION</span><span class="p">,</span>
+            <span class="n">power_string</span><span class="p">,</span>
+            <span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">LOCATION_CURSOR</span><span class="p">,</span>
+            <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_power_command</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">powexec_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">power_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">location_arg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal helper method to construct and add power commands.</span>
+
+<span class="sd">        This method centralizes power command creation, handling validation,</span>
+<span class="sd">        formatting, and insertion for all power-related methods.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            powexec_type: The power execution command type (e.g., &quot;powexecname&quot;)</span>
+<span class="sd">            power_string: Name of the power to execute</span>
+<span class="sd">            location_arg: Optional location argument for locational powers</span>
+<span class="sd">            index: Optional position to insert at</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            This is an internal method used by public power command methods.</span>
+<span class="sd">            Power strings are validated through the _Power class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">command_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_power_command_string</span><span class="p">(</span>
+            <span class="n">powexec_type</span><span class="p">,</span> <span class="n">power_string</span><span class="p">,</span> <span class="n">location_arg</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">command_string</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_power_command_string</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">powexec_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">power_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">argument</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal helper method to construct power command strings.</span>
+
+<span class="sd">        Validates power names and formats them into proper command syntax.</span>
+<span class="sd">        Handles both simple power commands and locational power commands.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            powexec_type: The power execution command type</span>
+<span class="sd">            power_string: Name of the power (validated through _Power)</span>
+<span class="sd">            argument: Optional argument (e.g., location for locational powers)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Properly formatted power command string</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; _build_power_command_string(&quot;powexecname&quot;, &quot;hasten&quot;)</span>
+<span class="sd">            # &quot;powexecname hasten&quot;</span>
+<span class="sd">            &gt;&gt;&gt; _build_power_command_string(&quot;powexeclocation&quot;, &quot;teleport&quot;, &quot;me&quot;)</span>
+<span class="sd">            # &quot;powexeclocation me teleport&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">power</span> <span class="o">=</span> <span class="n">_Power</span><span class="p">(</span><span class="n">power_string</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">argument</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">powexec_type</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">argument</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">power</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">powexec_type</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">power</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="c1"># endregion</span>
+
+    <span class="c1"># region Movement Command Methods</span>
+<div class="viewcode-block" id="CommandGroup.add_movement">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_movement">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_movement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a movement command for character direction control.</span>
+
+<span class="sd">        Creates movement commands that control character movement in various directions.</span>
+<span class="sd">        These are typically bound to WASD keys for standard movement controls.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            direction_string: Direction to move - &quot;forward&quot;, &quot;backward&quot;, &quot;left&quot;, &quot;right&quot;, or &quot;up&quot;</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If direction_string is not a valid movement direction</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_movement(&quot;forward&quot;)    # &quot;+forward&quot;</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_movement(&quot;left&quot;)       # &quot;+left&quot;</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_movement(&quot;up&quot;)         # &quot;+up&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_movement_command</span><span class="p">(</span><span class="n">direction_string</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_movement_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal helper method to add movement commands.</span>
+
+<span class="sd">        Validates the direction string and constructs the appropriate movement command.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            direction_string: Direction to move</span>
+<span class="sd">            index: Optional position to insert at</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            This is an internal method used by add_movement().</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">command_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_movement_command_string</span><span class="p">(</span><span class="n">direction_string</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">command_string</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_movement_command_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal helper method to construct movement command strings.</span>
+
+<span class="sd">        Validates direction string against supported directions and returns</span>
+<span class="sd">        the corresponding movement command.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            direction_string: Direction to validate and convert</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Formatted movement command (e.g., &quot;+forward&quot;, &quot;+left&quot;)</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If direction is not supported</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            Direction matching is case-insensitive.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">direction</span> <span class="o">=</span> <span class="n">direction_string</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_throw_error_if_wrong_direction</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">MovementMaps</span><span class="o">.</span><span class="n">DIRECTION_TO_MOVEMENT_MAP</span><span class="p">[</span><span class="n">direction</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_throw_error_if_wrong_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate movement direction string.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">direction_string</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">MovementMaps</span><span class="o">.</span><span class="n">DIRECTION_TO_MOVEMENT_MAP</span><span class="p">:</span>
+            <span class="n">valid_directions</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">MovementMaps</span><span class="o">.</span><span class="n">DIRECTION_TO_MOVEMENT_MAP</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid movement direction: &#39;</span><span class="si">{</span><span class="n">direction_string</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Valid directions are: </span><span class="si">{</span><span class="n">valid_directions</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+    <span class="c1"># endregion</span>
+
+    <span class="c1"># region Bind File Command Methods</span>
+<div class="viewcode-block" id="CommandGroup.add_bind_load">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_bind_load">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_bind_load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a bind load command to reload all current binds.</span>
+
+<span class="sd">        Creates a command that reloads the character&#39;s current bind configuration.</span>
+<span class="sd">        Useful for refreshing binds after making changes.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_bind_load()  # &quot;bindload&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">BIND_LOAD</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommandGroup.add_bind_load_file">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_bind_load_file">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_bind_load_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a bind load file command to load binds from a specific file.</span>
+
+<span class="sd">        Creates a command that loads bind configurations from the specified file.</span>
+<span class="sd">        File path should be relative to the game&#39;s bind directory.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            file_path: Path to the bind file to load (relative to bind directory)</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_bind_load_file(&quot;combat.txt&quot;)    # &quot;bindloadfile combat.txt&quot;</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_bind_load_file(&quot;pvp/arena.txt&quot;) # &quot;bindloadfile pvp/arena.txt&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_bind_file_command</span><span class="p">(</span>
+            <span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">BIND_LOAD_FILE</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">index</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommandGroup.add_bind_load_file_silent">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_bind_load_file_silent">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_bind_load_file_silent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a silent bind load file command (no chat feedback).</span>
+
+<span class="sd">        Creates a command that loads bind configurations from the specified file</span>
+<span class="sd">        without displaying confirmation messages in the chat window.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            file_path: Path to the bind file to load (relative to bind directory)</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_bind_load_file_silent(&quot;stealth.txt&quot;)  # &quot;bindloadfilesilent stealth.txt&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_bind_file_command</span><span class="p">(</span>
+            <span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">BIND_LOAD_FILE_SILENT</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">index</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommandGroup.add_bind_save">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_bind_save">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_bind_save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a bind save command to save current binds.</span>
+
+<span class="sd">        Creates a command that saves the character&#39;s current bind configuration</span>
+<span class="sd">        to the default location.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_bind_save()  # &quot;bindsave&quot;</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            This command may need verification for current game compatibility.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">BIND_SAVE</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommandGroup.add_bind_save_file">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_bind_save_file">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_bind_save_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a bind save file command to save binds to a specific file.</span>
+
+<span class="sd">        Creates a command that saves the current bind configuration to the</span>
+<span class="sd">        specified file path.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            file_path: Path where the bind file should be saved (relative to bind directory)</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_bind_save_file(&quot;backup.txt&quot;)     # &quot;bindsavefile backup.txt&quot;</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_bind_save_file(&quot;builds/tank.txt&quot;) # &quot;bindsavefile builds/tank.txt&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_bind_file_command</span><span class="p">(</span>
+            <span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">BIND_SAVE_FILE</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">index</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommandGroup.add_bind_save_file_silent">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_bind_save_file_silent">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_bind_save_file_silent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a silent bind save file command (no chat feedback).</span>
+
+<span class="sd">        Creates a command that saves the current bind configuration to the</span>
+<span class="sd">        specified file without displaying confirmation messages in chat.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            file_path: Path where the bind file should be saved (relative to bind directory)</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_bind_save_file_silent(&quot;auto_backup.txt&quot;)  # &quot;bindsavefilesilent auto_backup.txt&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_bind_file_command</span><span class="p">(</span>
+            <span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">BIND_SAVE_FILE_SILENT</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">index</span>
+        <span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_bind_file_command</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">bind_file_command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">bind_file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal helper method to construct and add bind file commands.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            bind_file_command: The bind file command type</span>
+<span class="sd">            bind_file_path: Path to the bind file</span>
+<span class="sd">            index: Optional position to insert at</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            This is an internal method used by public bind file command methods.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">command_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_bind_file_command_string</span><span class="p">(</span>
+            <span class="n">bind_file_command</span><span class="p">,</span> <span class="n">bind_file_path</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">command_string</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_bind_file_command_string</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">bind_file_command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">bind_file_path</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal helper method to construct bind file command strings.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            bind_file_command: The command type (e.g., &quot;bindloadfile&quot;)</span>
+<span class="sd">            bind_file_path: The file path argument</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Formatted bind file command string</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; _build_bind_file_command_string(&quot;bindloadfile&quot;, &quot;combat.txt&quot;)</span>
+<span class="sd">            # &quot;bindloadfile combat.txt&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">bind_file_command</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">bind_file_path</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="c1"># endregion</span>
+
+    <span class="c1"># region Emote Command Methods</span>
+<div class="viewcode-block" id="CommandGroup.add_emote">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_emote">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_emote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">emote_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an emote command to make the character perform an emote.</span>
+
+<span class="sd">        Creates a command that triggers character emotes/animations. Emotes are</span>
+<span class="sd">        visual expressions that can enhance role-playing and communication.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            emote_string: Name of the emote to perform (e.g., &quot;wave&quot;, &quot;dance&quot;, &quot;bow&quot;)</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_emote(&quot;wave&quot;)      # &quot;e wave&quot;</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_emote(&quot;eat&quot;)       # &quot;e eat&quot;</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_emote(&quot;dance&quot;)     # &quot;e dance&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">EMOTE</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">emote_string</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommandGroup.add_cc_emote">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.add_cc_emote">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_cc_emote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">emote_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cc_slot</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a costume change emote command.</span>
+
+<span class="sd">        Creates a command that performs a costume change with an accompanying emote.</span>
+<span class="sd">        Allows characters to switch between different costume slots while performing</span>
+<span class="sd">        a visual animation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            emote_string: Name of the emote to perform during costume change</span>
+<span class="sd">            cc_slot: Costume slot number to change to (0-9)</span>
+<span class="sd">            index: Optional position to insert at. If None, appends to end.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Self for method chaining</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If cc_slot is not between 0 and 9</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_cc_emote(&quot;spin&quot;, 1)      # &quot;cce 1 spin&quot;</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group.add_cc_emote(&quot;backflip&quot;, 2)  # &quot;cce 2 backflip&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">cc_slot</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">cc_slot</span> <span class="o">&gt;</span> <span class="mi">9</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;CC slot must be between 0 and 9.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">CommandGroupConstants</span><span class="o">.</span><span class="n">CC_EMOTE</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">cc_slot</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">emote_string</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">index</span>
+        <span class="p">)</span></div>
+
+
+    <span class="c1"># endregion</span>
+
+    <span class="c1"># region String Building and Output Methods</span>
+<div class="viewcode-block" id="CommandGroup.get_str">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.CommandGroup.get_str">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the command string ready for use in bind files.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_command_string</span><span class="p">()</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_command_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the command string ready for use in bind files.</span>
+
+<span class="sd">        This is the primary output method that produces the formatted command string</span>
+<span class="sd">        suitable for use in City of Heroes/Villains bind files.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Formatted command string in quotes with $$ separators</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; cmd_group = CommandGroup([&quot;say hello&quot;, &quot;powexecname hasten&quot;])</span>
+<span class="sd">            &gt;&gt;&gt; str(cmd_group)  # &#39;&quot;say hello$$powexecname hasten&quot;&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_command_string_from_components</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_commands</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_command_string_from_components</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">commands</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">_SlashCommand</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_shortcuts</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">GameConstants</span><span class="o">.</span><span class="n">COMMANDS_DELIM</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">get_short_str</span><span class="p">()</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">cmd</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">commands</span><span class="p">)</span><span class="si">}</span><span class="s1">&quot;&#39;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">GameConstants</span><span class="o">.</span><span class="n">COMMANDS_DELIM</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">cmd</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">commands</span><span class="p">)</span><span class="si">}</span><span class="s1">&quot;&#39;</span>
+
+    <span class="c1"># endregion</span>
+
+    <span class="c1"># region Magic Methods and Collection Interface</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Enable iteration over commands.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_commands</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Enable index-based access to commands.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_commands</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Enable index-based assignment of commands.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_commands</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">_SlashCommand</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return number of commands.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_commands</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;CommandGroup&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Enable concatenation of CommandGroups using the + operator.</span>
+
+<span class="sd">        Creates a new CommandGroup containing commands from both groups.</span>
+<span class="sd">        The original CommandGroups are not modified.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            other: Another CommandGroup to concatenate with</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            New CommandGroup containing commands from both groups</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; group1 = CommandGroup([&quot;say hello&quot;])</span>
+<span class="sd">            &gt;&gt;&gt; group2 = CommandGroup([&quot;say world&quot;])</span>
+<span class="sd">            &gt;&gt;&gt; combined = group1 + group2</span>
+<span class="sd">            &gt;&gt;&gt; len(combined)  # 2</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">new_command_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">()</span>  <span class="c1"># Creates same type as caller</span>
+        <span class="n">new_command_group</span><span class="o">.</span><span class="n">_commands</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_commands</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">_commands</span>
+        <span class="k">return</span> <span class="n">new_command_group</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a developer-friendly string representation of the CommandGroup.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            String showing class name and internal command list</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; group = CommandGroup([&quot;say hello&quot;])</span>
+<span class="sd">            &gt;&gt;&gt; repr(group)  # &quot;_CommandGroup(commands=[_Command(&#39;say hello&#39;)])&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(commands=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_commands</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+
+
+    <span class="c1"># endregion</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">CommandGroupConstants</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constants defining slash commands and mappings for City of Heroes/Villains.</span>
+
+<span class="sd">    This class centralizes all command strings, arguments, and mappings used by</span>
+<span class="sd">    CommandGroup to ensure consistency and provide a single point of maintenance</span>
+<span class="sd">    for game command syntax.</span>
+
+<span class="sd">    Categories:</span>
+<span class="sd">        - Power execution commands (powexecname, powexectoggleon, etc.)</span>
+<span class="sd">        - Location power arguments (me, target, cursor)</span>
+<span class="sd">        - Bind file management commands (bindload, bindsave, etc.)</span>
+<span class="sd">        - Emote commands (e, cce)</span>
+<span class="sd">        - Movement direction mappings (forward -&gt; +forward, etc.)</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        These constants reflect City of Heroes/Villains command syntax as of</span>
+<span class="sd">        the game&#39;s current state. Some commands may need verification for</span>
+<span class="sd">        compatibility with different server implementations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Power execution commands</span>
+    <span class="n">POWEXEC_NAME</span> <span class="o">=</span> <span class="s2">&quot;powexecname&quot;</span>  <span class="c1"># Standard power activation</span>
+    <span class="n">POWEXEC_TOGGLE_OFF</span> <span class="o">=</span> <span class="s2">&quot;powexectoggleoff&quot;</span>  <span class="c1"># Explicitly turn OFF toggle powers</span>
+    <span class="n">POWEXEC_TOGGLE_ON</span> <span class="o">=</span> <span class="s2">&quot;powexectoggleon&quot;</span>  <span class="c1"># Explicitly turn ON toggle powers</span>
+    <span class="n">POWEXEC_AUTO</span> <span class="o">=</span> <span class="s2">&quot;powexecauto&quot;</span>  <span class="c1"># Set power to auto-execute</span>
+    <span class="n">POWEXEC_LOCATION</span> <span class="o">=</span> <span class="s2">&quot;powexeclocation&quot;</span>  <span class="c1"># Execute power at specific location</span>
+
+    <span class="c1"># Location power arguments</span>
+    <span class="n">LOCATION_SELF</span> <span class="o">=</span> <span class="s2">&quot;me&quot;</span>  <span class="c1"># Target self location</span>
+    <span class="n">LOCATION_TARGET</span> <span class="o">=</span> <span class="s2">&quot;target&quot;</span>  <span class="c1"># Target current target&#39;s location</span>
+    <span class="n">LOCATION_CURSOR</span> <span class="o">=</span> <span class="s2">&quot;cursor&quot;</span>  <span class="c1"># Target cursor/mouse position</span>
+
+    <span class="c1"># Bind file commands</span>
+    <span class="n">BIND_LOAD</span> <span class="o">=</span> <span class="s2">&quot;bindload&quot;</span>  <span class="c1"># Reload current binds</span>
+    <span class="n">BIND_LOAD_FILE</span> <span class="o">=</span> <span class="s2">&quot;bindloadfile&quot;</span>  <span class="c1"># Load binds from file</span>
+    <span class="n">BIND_LOAD_FILE_SILENT</span> <span class="o">=</span> <span class="s2">&quot;bindloadfilesilent&quot;</span>  <span class="c1"># Load binds silently</span>
+    <span class="n">BIND_SAVE</span> <span class="o">=</span> <span class="s2">&quot;bindsave&quot;</span>  <span class="c1"># TODO: verify if these commands still work. Should be show_bind_file? (2025/11/28)</span>
+    <span class="n">BIND_SAVE_FILE</span> <span class="o">=</span> <span class="s2">&quot;bindsavefile&quot;</span>  <span class="c1"># Save binds to file</span>
+    <span class="n">BIND_SAVE_FILE_SILENT</span> <span class="o">=</span> <span class="s2">&quot;bindsavefilesilent&quot;</span>  <span class="c1"># Save binds silently</span>
+
+    <span class="c1"># Emote commands</span>
+    <span class="n">EMOTE</span> <span class="o">=</span> <span class="s2">&quot;e&quot;</span>  <span class="c1"># Standard emote command</span>
+    <span class="n">CC_EMOTE</span> <span class="o">=</span> <span class="s2">&quot;cce&quot;</span>  <span class="c1"># Costume change emote command</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, brandon wade.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
