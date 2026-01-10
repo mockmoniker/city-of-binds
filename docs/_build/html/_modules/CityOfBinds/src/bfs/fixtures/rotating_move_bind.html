@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CityOfBinds.src.bfs.fixtures.rotating_move_bind &mdash; CityOfBinds 0.5.1 documentation</title>
+  <title>CityOfBinds.src.bfs.fixtures.rotating_move_bind &mdash; CityOfBinds 0.5.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../../../_static/documentation_options.js?v=b9afe91b"></script>
+      <script src="../../../../../_static/documentation_options.js?v=8e576371"></script>
       <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../_static/js/theme.js"></script>
@@ -75,7 +75,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">...core.content_managers.utils.commands_template</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">_CommandsTemplate</span><span class="p">,</span>  <span class="c1"># TODO: implement base wasd bind to use commandstemplate (2025/12/27)</span>
 <span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">...core.game_content.binds.move_binds.wasd_bind</span><span class="w"> </span><span class="kn">import</span> <span class="n">WASDBind</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">...core.game_content.binds.move_binds.move_bind</span><span class="w"> </span><span class="kn">import</span> <span class="n">MoveBind</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.rotating_bind</span><span class="w"> </span><span class="kn">import</span> <span class="n">RotatingBind</span>
 
 
@@ -129,7 +129,14 @@
         <span class="p">]</span>
         <span class="c1"># TODO: add kwags for support of other MoveBinds (2026/01/08)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">move_bind_template</span> <span class="o">=</span> <span class="n">BindTemplate</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">movement_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bind_type</span><span class="o">=</span><span class="n">WASDBind</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">movement_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">bind_type</span><span class="o">=</span><span class="n">MoveBind</span><span class="p">,</span>
+            <span class="n">forward_key</span><span class="o">=</span><span class="n">forward_key</span><span class="p">,</span>
+            <span class="n">left_key</span><span class="o">=</span><span class="n">left_key</span><span class="p">,</span>
+            <span class="n">backward_key</span><span class="o">=</span><span class="n">backward_key</span><span class="p">,</span>
+            <span class="n">right_key</span><span class="o">=</span><span class="n">right_key</span><span class="p">,</span>
+            <span class="n">jump_key</span><span class="o">=</span><span class="n">jump_key</span><span class="p">,</span>
+            <span class="n">down_key</span><span class="o">=</span><span class="n">down_key</span><span class="p">,</span>
         <span class="p">)</span></div>
 
 
