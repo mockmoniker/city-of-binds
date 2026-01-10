@@ -5,7 +5,8 @@ from .src.bfs.fixtures.changeling_binds import (
     ChangelingRotatingPB,
 )
 from .src.bfs.fixtures.persistent_autos import PersistentAutos
-from .src.bfs.fixtures.random_binds import RandomBinds, RandomWalk
+from .src.bfs.fixtures.random_binds import RandomBinds
+from .src.bfs.fixtures.random_walk import RandomWalk
 from .src.bfs.fixtures.rotating_bind import RotatingBind
 from .src.bfs.fixtures.rotating_move_bind import RotatingMoveBind
 from .src.core.content_managers.graph.bind_file_graph import BindFileGraph

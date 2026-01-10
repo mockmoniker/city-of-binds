@@ -1,10 +1,12 @@
+from ..._configs.constants import BFGConstants
+from ...core.content_managers.graph.bind_file_graph import BindFileGraph
+from .generic_bfs_fixture import _RandomOrder
 from .rotating_move_bind import RotatingMoveBind
 
 
-class PersistentToggles(RotatingMoveBind):
+class RandomWalk(_RandomOrder, RotatingMoveBind):
     def __init__(
         self,
-        toggle_powers: list[str],
         forward_key: str = "W",
         left_key: str = "A",
         backward_key: str = "S",
@@ -19,7 +21,7 @@ class PersistentToggles(RotatingMoveBind):
         exclude_down: bool = False,
         is_silent: bool = True,
         absolute_path_links: bool = False,
-        loop_delay: int = 0,
+        random_factor: int = 1,
     ):
         RotatingMoveBind.__init__(
             self,
@@ -37,23 +39,27 @@ class PersistentToggles(RotatingMoveBind):
             exclude_down=exclude_down,
             is_silent=is_silent,
             absolute_path_links=absolute_path_links,
-            loop_delay=loop_delay,
+            loop_delay=0,
         )
-        self._toggle_powers = toggle_powers
-        for power in reversed(toggle_powers):
-            self.move_bind_template.add_toggle_on_power([power])
+        _RandomOrder.__init__(self, random_factor=random_factor)
 
-    def publish_bind_files(self, parent_folder_name="", directory="."):
-        non_priority_powers = []
-        priority_powers = self._toggle_powers[::-1]
-        while len(non_priority_powers) != len(self._toggle_powers):
-            try:
-                return super().publish_bind_files(parent_folder_name, directory)
-            except ValueError as ve:
-                non_priority_powers.append(priority_powers.pop())
-                # TODO: write a clear command for bind template (2026/01/10)
-                self.move_bind_template.template = []
-                self.move_bind_template.add_toggle_on_power_pool(non_priority_powers)
-                for priority_power in priority_powers:
-                    self.move_bind_template.add_toggle_on_power([priority_power])
-        return super().publish_bind_files(parent_folder_name, directory)
+    def _connect_bind_file_graph(
+        self, bfg: BindFileGraph, bind_file_indexes: list[int], load_conditions: dict
+    ):
+        bfg.make_k_regular(
+            bind_file_indexes,
+            k=len(self.movement_keys),
+            load_conditions=load_conditions,
+        )
+        self._set_wasd_load_conditions(bfg, bind_file_indexes)
+
+    def _set_wasd_load_conditions(
+        self, bfg: BindFileGraph, bind_file_indexes: list[int]
+    ):
+        for file_index in bind_file_indexes:
+            edges = list(bfg.edges(file_index))
+
+            for (source, target), trigger in zip(edges, self.movement_keys):
+                bfg.edges[source, target][BFGConstants.EDGE_DATA_KEY] = {
+                    BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY: [trigger]
+                }

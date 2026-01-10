@@ -34,6 +34,11 @@ class _SlashCommand(_StringThing):
         self._slash_command = self._normalize_and_validate_slash_command(slash_command)
 
     @property
+    def shortcut(self) -> str:
+        """Return the shortest version of the command."""
+        return VALID_SLASH_COMMANDS[self._slash_command]
+
+    @property
     def args(self) -> str:
         return self._args
 
@@ -46,13 +51,23 @@ class _SlashCommand(_StringThing):
 
     def get_str(self) -> str:
         """Return the command string ready for use in bind files."""
-        return self._build_command_string()
+        return self._build_command_string_from_components(
+            self.prefix, self.slash_command, self.args
+        )
 
-    def _build_command_string(self) -> str:
-        if self.args:
-            return f"{self.prefix}{self.slash_command} {self.args}"
+    def get_short_str(self) -> str:
+        """Return the shortest version of the command string."""
+        return self._build_command_string_from_components(
+            self.prefix, self.shortcut, self.args
+        )
+
+    def _build_command_string_from_components(
+        self, prefix: str, slash_command: str, args: str
+    ) -> str:
+        if args:
+            return f"{prefix}{slash_command} {args}"
         else:
-            return f"{self.prefix}{self.slash_command}"
+            return f"{prefix}{slash_command}"
 
     # endregion
 

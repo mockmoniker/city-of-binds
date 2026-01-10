@@ -21,6 +21,14 @@ class _CommandsMixin:
         else:
             self._throw_set_commands_type_error(value)
 
+    @property
+    def use_shortcuts(self) -> bool:
+        return self._commands.use_shortcuts
+
+    @use_shortcuts.setter
+    def use_shortcuts(self, value: bool):
+        self._commands.use_shortcuts = value
+
     def _throw_set_commands_type_error(self, value):
         raise TypeError(
             f"Invalid type '{type(value)}'. Commands must be set using a list of strings or a CommandGroup instance."

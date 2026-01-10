@@ -44,6 +44,7 @@ class CommandGroup(_CommandString):
         Args:
             commands: Optional list of command strings to initialize with.
                      Each string will be wrapped in a _Command object.
+            use_shortcuts: If True, generates command strings using shortcuts.
 
         Example:
             >>> # Empty command group
@@ -52,6 +53,7 @@ class CommandGroup(_CommandString):
             >>> cmd_group = CommandGroup(["say hello", "powexecname hasten"])
         """
         self._commands = [_SlashCommand(cmd) for cmd in commands] if commands else []
+        self.use_shortcuts = False
 
     # region Core Command Management Methods
     def add_command(self, command_string: str, index: int = None) -> Self:
@@ -698,6 +700,8 @@ class CommandGroup(_CommandString):
     def _build_command_string_from_components(
         self, commands: list[_SlashCommand]
     ) -> str:
+        if self.use_shortcuts:
+            return f'"{GameConstants.COMMANDS_DELIM.join(cmd.get_short_str() for cmd in commands)}"'
         return f'"{GameConstants.COMMANDS_DELIM.join(str(cmd) for cmd in commands)}"'
 
     # endregion
