@@ -81,7 +81,7 @@ class TestBindFileGraphLinking:
         bf2 = BindFile([Bind("F2", ["say two"])])
         graph.add_bind_file(bf1).add_bind_file(bf2)
         # act
-        graph.link(0, 1)
+        graph.connect(0, 1)
         # assert
         assert len(graph.edges) == 1
         assert (0, 1) in graph.edges
@@ -94,7 +94,7 @@ class TestBindFileGraphLinking:
         graph.add_bind_file(bf1).add_bind_file(bf2)
         conditions = {"on_triggers": "SPACE"}
         # act
-        graph.link(0, 1, load_conditions=conditions)
+        graph.connect(0, 1, load_conditions=conditions)
         # assert
         stored_conditions = graph.get_load_conditions(0, 1)
         assert stored_conditions == conditions
@@ -105,10 +105,10 @@ class TestBindFileGraphLinking:
         for i in range(4):
             graph.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
         # act
-        graph.link(0, 1).link(0, 2).link(0, 3)
+        graph.connect(0, 1).connect(0, 2).connect(0, 3)
         # assert
         assert len(graph.edges) == 3
-        outgoing = graph.get_outgoing_links(0)
+        outgoing = graph.get_outgoing_connections(0)
         assert set(outgoing) == {1, 2, 3}
 
     def test_multiple_links_to_one_node(self):
@@ -117,10 +117,10 @@ class TestBindFileGraphLinking:
         for i in range(4):
             graph.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
         # act
-        graph.link(0, 3).link(1, 3).link(2, 3)
+        graph.connect(0, 3).connect(1, 3).connect(2, 3)
         # assert
         assert len(graph.edges) == 3
-        incoming = graph.get_incoming_links(3)
+        incoming = graph.get_incoming_connections(3)
         assert set(incoming) == {0, 1, 2}
 
     def test_link_with_delay(self):
@@ -130,7 +130,7 @@ class TestBindFileGraphLinking:
         bf2 = BindFile([Bind("F2", ["say two"])])
         graph.add_bind_file(bf1).add_bind_file(bf2)
         # act
-        graph.link(0, 1, delay=2)
+        graph.connect(0, 1, delay=2)
         # assert
         assert len(graph.nodes) == 4  # 2 original + 2 delay nodes
         assert (0, 1) not in graph.edges  # Direct link removed
@@ -149,7 +149,7 @@ class TestBindFileGraphAdvancedLinking:
         for i in range(4):
             graph.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
         # act
-        graph.chain([0, 1, 2, 3])
+        graph.path([0, 1, 2, 3])
         # assert
         # Should create: 0->1, 1->2, 2->3
         assert len(graph.edges) == 3
@@ -166,7 +166,7 @@ class TestBindFileGraphAdvancedLinking:
             graph.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
         conditions = {"on_triggers": "SPACE"}
         # act
-        graph.chain([0, 1, 2], load_conditions=conditions)
+        graph.path([0, 1, 2], load_conditions=conditions)
         # assert
         assert graph.get_load_conditions(0, 1) == conditions
         assert graph.get_load_conditions(1, 2) == conditions
@@ -177,7 +177,7 @@ class TestBindFileGraphAdvancedLinking:
         for i in range(3):
             graph.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
         # act
-        graph.chain([0, 1, 2], delay=1)
+        graph.path([0, 1, 2], delay=1)
         # assert
         # Should have 3 original + 2 delay = 5 nodes
         assert len(graph.nodes) == 5
@@ -193,7 +193,7 @@ class TestBindFileGraphAdvancedLinking:
         for i in range(4):
             graph.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
         # act
-        graph.loop([0, 1, 2, 3])
+        graph.cycle([0, 1, 2, 3])
         # assert
         # Should create: 0->1, 1->2, 2->3, 3->0 (circular)
         assert len(graph.edges) == 4
@@ -209,7 +209,7 @@ class TestBindFileGraphAdvancedLinking:
             graph.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
         conditions = {"on_triggers": "SPACE"}
         # act
-        graph.loop([0, 1, 2], load_conditions=conditions)
+        graph.cycle([0, 1, 2], load_conditions=conditions)
         # assert
         assert graph.get_load_conditions(0, 1) == conditions
         assert graph.get_load_conditions(1, 2) == conditions
@@ -221,7 +221,7 @@ class TestBindFileGraphAdvancedLinking:
         for i in range(3):
             graph.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
         # act
-        graph.loop([0, 1, 2], delay=1)
+        graph.cycle([0, 1, 2], delay=1)
         # assert
         # Should have 3 original + 3 delay = 6 nodes
         assert len(graph.nodes) == 6
@@ -238,7 +238,7 @@ class TestBindFileGraphAdvancedLinking:
         graph = BindFileGraph()
         graph.add_bind_file(BindFile([Bind("F1", ["say loop"])]))
         # act
-        graph.loop([0])
+        graph.cycle([0])
         # assert
         assert len(graph.edges) == 1
         assert (0, 0) in graph.edges  # Self-loop
@@ -254,7 +254,7 @@ class TestBindFileGraphAdvancedLinking:
         # Each node should have exactly 2 outgoing connections
         assert len(graph.edges) == 10  # 5 nodes * 2 connections each
         for i in range(5):
-            outgoing = graph.get_outgoing_links(i)
+            outgoing = graph.get_outgoing_connections(i)
             assert len(outgoing) == 2
 
     def test_k_regular_connections(self):
@@ -266,10 +266,10 @@ class TestBindFileGraphAdvancedLinking:
         graph.make_k_regular([0, 1, 2, 3], k=2)
         # assert
         # Check specific connections for k=2
-        assert set(graph.get_outgoing_links(0)) == {1, 2}  # next 2
-        assert set(graph.get_outgoing_links(1)) == {2, 3}  # next 2
-        assert set(graph.get_outgoing_links(2)) == {3, 0}  # next 2 (wrapping)
-        assert set(graph.get_outgoing_links(3)) == {0, 1}  # next 2 (wrapping)
+        assert set(graph.get_outgoing_connections(0)) == {1, 2}  # next 2
+        assert set(graph.get_outgoing_connections(1)) == {2, 3}  # next 2
+        assert set(graph.get_outgoing_connections(2)) == {3, 0}  # next 2 (wrapping)
+        assert set(graph.get_outgoing_connections(3)) == {0, 1}  # next 2 (wrapping)
 
     def test_k_regular_with_conditions(self):
         """Should apply conditions to all k-regular links."""
@@ -281,7 +281,7 @@ class TestBindFileGraphAdvancedLinking:
         graph.make_k_regular([0, 1, 2, 3], k=2, load_conditions=conditions)
         # assert
         for i in range(4):
-            for target in graph.get_outgoing_links(i):
+            for target in graph.get_outgoing_connections(i):
                 assert graph.get_load_conditions(i, target) == conditions
 
     def test_k_regular_with_delay(self):
@@ -295,15 +295,29 @@ class TestBindFileGraphAdvancedLinking:
         # Each of the 4 original nodes should have 2 outgoing connections via delay nodes
         assert len(graph.nodes) == 12  # 4 original + 8 delay nodes
         for i in range(4):
-            outgoing = graph.get_outgoing_links(i)
+            outgoing = graph.get_outgoing_connections(i)
             assert len(outgoing) == 2
         for i in range(5, 12):
             # Delay nodes should each have exactly 1 outgoing connection
-            assert len(graph.get_outgoing_links(i)) == 1
+            assert len(graph.get_outgoing_connections(i)) == 1
         assert (0, 4) in graph.edges and (4, 1) in graph.edges  # 0 -> delay1 -> 1
         assert (0, 5) in graph.edges and (5, 2) in graph.edges  # 0 -> delay2 -> 2
         assert (3, 10) in graph.edges and (10, 0) in graph.edges  # 3 -> delay7 -> 0
         assert (3, 11) in graph.edges and (11, 1) in graph.edges  # 3 -> delay8 -> 1
+
+    def test_k_random(self):
+        """Should create k-random graph structure."""
+        graph = BindFileGraph()
+        for i in range(10):
+            graph.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
+        # act
+        graph.make_k_random([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], k=3)
+        # assert
+        # Each node should have exactly 2 outgoing connections
+        assert len(graph.edges) == 30  # 10 nodes * 3 connections each
+        for i in range(10):
+            outgoing = graph.get_outgoing_connections(i)
+            assert len(outgoing) == 3
 
 
 class TestBindFileGraphDelayOperations:
@@ -315,7 +329,7 @@ class TestBindFileGraphDelayOperations:
         bf1 = BindFile([Bind("F1", ["say start"])])
         bf2 = BindFile([Bind("F2", ["say end"])])
         graph.add_bind_file(bf1).add_bind_file(bf2)
-        graph.link(0, 1)
+        graph.connect(0, 1)
         # act
         graph.add_delay(0, 1, steps=1)
         # assert
@@ -331,7 +345,7 @@ class TestBindFileGraphDelayOperations:
         bf1 = BindFile([Bind("F1", ["say start"])])
         bf2 = BindFile([Bind("F2", ["say end"])])
         graph.add_bind_file(bf1).add_bind_file(bf2)
-        graph.link(0, 1)
+        graph.connect(0, 1)
         # act
         graph.add_delay(0, 1, steps=3)
         # assert
@@ -350,7 +364,7 @@ class TestBindFileGraphDelayOperations:
         bf2 = BindFile([Bind("F2", ["say end"])])
         graph.add_bind_file(bf1).add_bind_file(bf2)
         conditions = {"on_triggers": "SPACE"}
-        graph.link(0, 1, load_conditions=conditions)
+        graph.connect(0, 1, load_conditions=conditions)
         # act
         graph.add_delay(0, 1, steps=1)
         # assert
@@ -363,11 +377,11 @@ class TestBindFileGraphDelayOperations:
         bf1 = BindFile([Bind("F1", ["say original"])])
         bf2 = BindFile([Bind("F2", ["say target"])])
         graph.add_bind_file(bf1).add_bind_file(bf2)
-        graph.link(0, 1)
+        graph.connect(0, 1)
 
         graph.add_delay(0, 1, steps=1)
 
-        outgoing_from_0 = graph.get_outgoing_links(0)
+        outgoing_from_0 = graph.get_outgoing_connections(0)
         delay_node = outgoing_from_0[0]
         delay_bind_file = graph.get_bind_file(delay_node)
         original_bind_file = graph.get_bind_file(0)
@@ -399,7 +413,7 @@ class TestBindFileGraphQueries:
         bf2 = BindFile([Bind("F2", ["say two"])])
         graph.add_bind_file(bf1).add_bind_file(bf2)
         conditions = {"on_triggers": "SPACE", "timing": "instant"}
-        graph.link(0, 1, load_conditions=conditions)
+        graph.connect(0, 1, load_conditions=conditions)
         # act
         result = graph.get_load_conditions(0, 1)
         # assert
@@ -411,7 +425,7 @@ class TestBindFileGraphQueries:
         bf1 = BindFile([Bind("F1", ["say one"])])
         bf2 = BindFile([Bind("F2", ["say two"])])
         graph.add_bind_file(bf1).add_bind_file(bf2)
-        graph.link(0, 1)  # No conditions
+        graph.connect(0, 1)  # No conditions
         # act
         result = graph.get_load_conditions(0, 1)
         # assert
@@ -423,12 +437,12 @@ class TestBindFileGraphQueries:
         for i in range(4):
             graph.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
 
-        graph.link(0, 1).link(0, 2).link(1, 3)
+        graph.connect(0, 1).connect(0, 2).connect(1, 3)
 
-        assert set(graph.get_outgoing_links(0)) == {1, 2}
-        assert set(graph.get_outgoing_links(1)) == {3}
-        assert set(graph.get_outgoing_links(2)) == set()  # No outgoing links
-        assert set(graph.get_outgoing_links(3)) == set()  # No outgoing links
+        assert set(graph.get_outgoing_connections(0)) == {1, 2}
+        assert set(graph.get_outgoing_connections(1)) == {3}
+        assert set(graph.get_outgoing_connections(2)) == set()  # No outgoing links
+        assert set(graph.get_outgoing_connections(3)) == set()  # No outgoing links
 
     def test_get_incoming_links(self):
         """Should return all nodes that link to this node."""
@@ -436,12 +450,12 @@ class TestBindFileGraphQueries:
         for i in range(4):
             graph.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
 
-        graph.link(0, 2).link(1, 2).link(2, 3)
+        graph.connect(0, 2).connect(1, 2).connect(2, 3)
 
-        assert set(graph.get_incoming_links(0)) == set()  # No incoming links
-        assert set(graph.get_incoming_links(1)) == set()  # No incoming links
-        assert set(graph.get_incoming_links(2)) == {0, 1}
-        assert set(graph.get_incoming_links(3)) == {2}
+        assert set(graph.get_incoming_connections(0)) == set()  # No incoming links
+        assert set(graph.get_incoming_connections(1)) == set()  # No incoming links
+        assert set(graph.get_incoming_connections(2)) == {0, 1}
+        assert set(graph.get_incoming_connections(3)) == {2}
 
 
 class TestBindFileGraphValidation:
@@ -482,14 +496,14 @@ class TestBindFileGraphExtend:
         bf1 = BindFile([Bind("F1", ["say one"])])
         bf2 = BindFile([Bind("F2", ["say two"])])
         bfg1.add_bind_file(bf1).add_bind_file(bf2)
-        bfg1.link(0, 1)
+        bfg1.connect(0, 1)
 
         # Setup second graph
         bfg2 = BindFileGraph()
         bf3 = BindFile([Bind("F3", ["say three"])])
         bf4 = BindFile([Bind("F4", ["say four"])])
         bfg2.add_bind_file(bf3).add_bind_file(bf4)
-        bfg2.link(0, 1)
+        bfg2.connect(0, 1)
 
         # act
         bfg1.extend(bfg2)
@@ -508,14 +522,14 @@ class TestBindFileGraphExtend:
         bf1 = BindFile([Bind("F1", ["say one"])])
         bf2 = BindFile([Bind("F2", ["say two"])])
         bfg1.add_bind_file(bf1).add_bind_file(bf2)
-        bfg1.link(0, 1)
+        bfg1.connect(0, 1)
 
         # Setup second graph
         bfg2 = BindFileGraph()
         bf3 = BindFile([Bind("F2", ["say two"])])
         bf4 = BindFile([Bind("F3", ["say three"])])
         bfg2.add_bind_file(bf3).add_bind_file(bf4)
-        bfg2.link(0, 1)
+        bfg2.connect(0, 1)
 
         # act - merge node 1 from bfg1 with node 0 from bfg2
         bfg1.extend(bfg2, merge_on=[(1, 0)])
@@ -535,7 +549,7 @@ class TestBindFileGraphExtend:
         bf2 = BindFile([Bind("F2", ["say two"])])
         bfg1.add_bind_file(bf1).add_bind_file(bf2)
         conditions1 = {"on_triggers": "F1"}
-        bfg1.link(0, 1, load_conditions=conditions1)
+        bfg1.connect(0, 1, load_conditions=conditions1)
 
         # Setup second graph with different conditions
         bfg2 = BindFileGraph()
@@ -543,7 +557,7 @@ class TestBindFileGraphExtend:
         bf4 = BindFile([Bind("F4", ["say four"])])
         bfg2.add_bind_file(bf3).add_bind_file(bf4)
         conditions2 = {"on_triggers": "SPACE"}
-        bfg2.link(0, 1, load_conditions=conditions2)
+        bfg2.connect(0, 1, load_conditions=conditions2)
 
         # act
         bfg1.extend(bfg2)
@@ -558,13 +572,13 @@ class TestBindFileGraphExtend:
         bfg1 = BindFileGraph()
         for i in range(3):
             bfg1.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
-        bfg1.loop([0, 1, 2])  # 0->1->2->0
+        bfg1.cycle([0, 1, 2])  # 0->1->2->0
 
         # Setup second graph with 3 nodes
         bfg2 = BindFileGraph()
         for i in range(3):
             bfg2.add_bind_file(BindFile([Bind(f"{i+1}", [f"say g{i+1}"])]))
-        bfg2.chain([0, 1, 2])  # 0->1->2
+        bfg2.path([0, 1, 2])  # 0->1->2
 
         # act - merge (1,0) and (2,1)
         bfg1.extend(bfg2, merge_on=[(1, 0), (2, 1)])
@@ -623,7 +637,7 @@ class TestBindFileGraphExtend:
         bf1 = BindFile([Bind("F1", ["say hello"])])
         bf2 = BindFile([Bind("F2", ["say world"])])
         bfg2.add_bind_file(bf1).add_bind_file(bf2)
-        bfg2.link(0, 1)
+        bfg2.connect(0, 1)
 
         # act
         bfg1.extend(bfg2)
@@ -645,7 +659,7 @@ class TestBindFileGraphExtend:
         bfg2 = BindFileGraph()
         for i in range(3):
             bfg2.add_bind_file(BindFile([Bind(f"{i+1}", [f"say g{i+1}"])]))
-        bfg2.loop([0, 1, 2])
+        bfg2.cycle([0, 1, 2])
 
         # act
         bfg1.extend(bfg2)
@@ -655,11 +669,11 @@ class TestBindFileGraphExtend:
         assert len(bfg1.edges) == 11  # 8 (k-regular) + 3 (loop)
         # Check that k-regular structure is preserved
         for i in range(4):
-            assert len(bfg1.get_outgoing_links(i)) == 2
+            assert len(bfg1.get_outgoing_connections(i)) == 2
         # Check that loop structure is preserved (with offset)
-        assert set(bfg1.get_outgoing_links(4)) == {5}  # 0+4 -> 1+4
-        assert set(bfg1.get_outgoing_links(5)) == {6}  # 1+4 -> 2+4
-        assert set(bfg1.get_outgoing_links(6)) == {4}  # 2+4 -> 0+4
+        assert set(bfg1.get_outgoing_connections(4)) == {5}  # 0+4 -> 1+4
+        assert set(bfg1.get_outgoing_connections(5)) == {6}  # 1+4 -> 2+4
+        assert set(bfg1.get_outgoing_connections(6)) == {4}  # 2+4 -> 0+4
 
     def test_extend_chain_returns_self(self):
         """Should return self for method chaining."""

@@ -135,7 +135,7 @@ class BFGPublisher(_FileGraphPublisher):
         load_index: int,
         unload_index: int,
     ):
-        file_graph.link(
+        file_graph.connect(
             install_index,
             load_index,
             load_conditions={
@@ -144,7 +144,7 @@ class BFGPublisher(_FileGraphPublisher):
                 ]
             },
         )
-        file_graph.link(
+        file_graph.connect(
             install_index,
             unload_index,
             load_conditions={

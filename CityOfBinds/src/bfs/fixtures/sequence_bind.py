@@ -17,7 +17,7 @@ class SequenceBind(_GenericBFSFixture):
     def _connect_bind_file_graph(
         self, bfg: BindFileGraph, bind_file_indexes: list[int], load_conditions: dict
     ):
-        bfg.chain(
+        bfg.path(
             bind_file_indexes,
             load_conditions=load_conditions,
             delay=self.loop_delay,

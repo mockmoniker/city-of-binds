@@ -1,4 +1,5 @@
 import copy
+import random
 
 import networkx as nx
 
@@ -57,7 +58,7 @@ class BindFileGraph(nx.DiGraph):
             super().add_node(self.number_of_nodes(), bind_file=bind_file)
         return self
 
-    def link(
+    def connect(
         self,
         source_bind_file_index: int,
         target_bind_file_index: int,
@@ -92,7 +93,7 @@ class BindFileGraph(nx.DiGraph):
             self.add_delay(source_bind_file_index, target_bind_file_index, delay)
         return self
 
-    def chain(
+    def path(
         self,
         bind_file_indexes: list[int],
         load_conditions: dict = None,
@@ -115,10 +116,65 @@ class BindFileGraph(nx.DiGraph):
         """
         # Link each consecutive pair in the sequence
         for i in bind_file_indexes[:-1]:
-            self.link(i, i + 1, load_conditions=load_conditions, delay=delay)
+            self.connect(i, i + 1, load_conditions=load_conditions, delay=delay)
         return self
 
-    def loop(
+    def path_random(
+        self,
+        bind_file_indexes: list[int],
+        load_conditions: dict = None,
+        delay: int = 0,
+    ) -> "BindFileGraph":
+        """
+        Create a linear chain of bind files in random order.
+
+        Args:
+            bind_file_indexes: List of node indexes to chain in random order
+            load_conditions: Conditions applied to all links in the chain
+            delay: Delay applied to all links in the chain
+
+        Returns:
+            Self for method chaining
+        """
+        randomized_indexes = random.sample(bind_file_indexes, len(bind_file_indexes))
+        return self.path(
+            randomized_indexes,
+            load_conditions=load_conditions,
+            delay=delay,
+        )
+
+    def path_with_return(
+        self,
+        bind_file_indexes: list[int],
+        return_conditions: dict = None,
+        return_delay: int = 0,
+        load_conditions: dict = None,
+        delay: int = 0,
+    ) -> "BindFileGraph":
+        """
+        Paths bind_file_indexes in sequence, and adds a reset condition to connect every node to the beginning of the path.
+
+        Args:
+            bind_file_indexes: List of node indexes to reset in the chain
+            reset_conditions: Conditions applied to all reset links in the chain
+            load_conditions: Conditions applied to all links in the chain
+            delay: Delay applied to all links in the chain
+
+        Returns:
+            Self for method chaining
+        """
+        # Remove existing links
+        self.path(bind_file_indexes, load_conditions=load_conditions, delay=delay)
+        for i in bind_file_indexes:
+            self.connect(
+                i,
+                bind_file_indexes[0],
+                load_conditions=return_conditions,
+                delay=return_delay,
+            )
+        return self
+
+    def cycle(
         self,
         bind_file_indexes: list[int],
         load_conditions: dict = None,
@@ -144,15 +200,39 @@ class BindFileGraph(nx.DiGraph):
             return self
 
         # Create the chain first
-        self.chain(bind_file_indexes, load_conditions=load_conditions, delay=delay)
+        self.path(bind_file_indexes, load_conditions=load_conditions, delay=delay)
         # Connect the last back to the first to complete the loop
-        self.link(
+        self.connect(
             bind_file_indexes[-1],
             bind_file_indexes[0],
             load_conditions=load_conditions,
             delay=delay,
         )
         return self
+
+    def cycle_random(
+        self,
+        bind_file_indexes: list[int],
+        load_conditions: dict = None,
+        delay: int = 0,
+    ) -> "BindFileGraph":
+        """
+        Create a circular loop connecting bind files in random order, with last linking back to first.
+
+        Args:
+            bind_file_indexes: List of node indexes to connect in a random loop
+            load_conditions: Conditions applied to all links in the loop
+            delay: Delay applied to all links in the loop
+
+        Returns:
+            Self for method chaining
+        """
+        randomized_indexes = random.sample(bind_file_indexes, len(bind_file_indexes))
+        return self.cycle(
+            randomized_indexes,
+            load_conditions=load_conditions,
+            delay=delay,
+        )
 
     def make_k_regular(
         self,
@@ -196,13 +276,48 @@ class BindFileGraph(nx.DiGraph):
         for i in range(n):
             for j in range(1, k + 1):
                 target_index = (i + j) % n  # Wrap around using modulo
-                self.link(
+                self.connect(
                     bind_file_indexes[i],
                     bind_file_indexes[target_index],
                     load_conditions=load_conditions,
                     delay=delay,
                 )
         return self
+
+    def make_k_random(
+        self,
+        bind_file_indexes: list[int],
+        k: int,
+        load_conditions: dict = None,
+        delay: int = 0,
+    ) -> "BindFileGraph":
+        """
+        Create a strongly connected k-random graph where each node has exactly k outgoing edges.
+
+        Creates a k-regular graph with randomized connections by shuffling node order
+        then applying the k-regular pattern. This ensures strong connectivity, exact
+        k-regularity (k in, k out), and even distribution of edges.
+
+        Args:
+            bind_file_indexes: List of node indexes to make k-random
+            k: Number of outgoing connections each node should have
+            load_conditions: Conditions applied to all links
+            delay: Delay applied to all links
+
+        Returns:
+            Self for method chaining
+
+        Raises:
+            ValueError: If k >= number of bind files (impossible without self-loops)
+
+        Example:
+            >>> graph.make_k_random([0, 1, 2, 3], k=2)
+            # Randomizes order, then creates k-regular pattern
+            # Result: strongly connected, k in/out for each node
+        """
+        # Randomize order, then use k-regular pattern for guaranteed properties
+        randomized = random.sample(bind_file_indexes, len(bind_file_indexes))
+        return self.make_k_regular(randomized, k, load_conditions, delay)
 
     def _subdivide_edge(
         self,
@@ -324,23 +439,21 @@ class BindFileGraph(nx.DiGraph):
             or {}
         )
 
-    def get_outgoing_links(self, bind_file_index: int) -> list[int]:
+    def get_outgoing_connections(self, bind_file_index: int) -> list[int]:
         """Get all node indexes that this bind file links to.
 
         Args:
-            bind_file_index: Node index to get outgoing links for
-
+            bind_file_index: Node index to get outgoing connections for
         Returns:
             List of target node indexes
         """
         return list(self.successors(bind_file_index))
 
-    def get_incoming_links(self, bind_file_index: int) -> list[int]:
+    def get_incoming_connections(self, bind_file_index: int) -> list[int]:
         """Get all node indexes that link to this bind file.
 
         Args:
-            bind_file_index: Node index to get incoming links for
-
+            bind_file_index: Node index to get incoming connections for
         Returns:
             List of source node indexes
         """

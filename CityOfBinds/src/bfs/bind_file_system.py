@@ -30,7 +30,7 @@ class BindFileSystem:
         delay: int = 0,
     ) -> "BindFileSystem":
         """Create a directed link from source to target bind file."""
-        self._bfg.link(
+        self._bfg.connect(
             source_bind_file_index, target_bind_file_index, load_conditions, delay
         )
         return self
@@ -42,7 +42,7 @@ class BindFileSystem:
         delay: int = 0,
     ) -> "BindFileSystem":
         """Create a linear chain of bind files in sequence."""
-        self._bfg.chain(bind_file_indexes, load_conditions, delay)
+        self._bfg.path(bind_file_indexes, load_conditions, delay)
         return self
 
     def loop(
@@ -52,7 +52,7 @@ class BindFileSystem:
         delay: int = 0,
     ) -> "BindFileSystem":
         """Create a circular loop connecting bind files in list order."""
-        self._bfg.loop(bind_file_indexes, load_conditions, delay)
+        self._bfg.cycle(bind_file_indexes, load_conditions, delay)
         return self
 
     def make_k_regular(
@@ -83,11 +83,11 @@ class BindFileSystem:
 
     def get_outgoing_links(self, bind_file_index: int) -> list[int]:
         """Get all node indexes that this bind file links to."""
-        return self._bfg.get_outgoing_links(bind_file_index)
+        return self._bfg.get_outgoing_connections(bind_file_index)
 
     def get_incoming_links(self, bind_file_index: int) -> list[int]:
         """Get all node indexes that link to this bind file."""
-        return self._bfg.get_incoming_links(bind_file_index)
+        return self._bfg.get_incoming_connections(bind_file_index)
 
     def get_bind_file(self, bind_file_index: int) -> BindFile:
         """Retrieve the BindFile object stored at a specific node."""
