@@ -1,7 +1,7 @@
 from .rotating_move_bind import RotatingMoveBind
 
 
-class PersistentAutos(RotatingMoveBind):
+class PersistentToggles(RotatingMoveBind):
     def __init__(
         self,
         auto_powers: list[str],

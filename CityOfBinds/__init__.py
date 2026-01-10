@@ -4,6 +4,7 @@ from .src.bfs.fixtures.changeling_binds import (
     ChangelingRotatingBindWS,
     ChangelingRotatingPB,
 )
+from .src.bfs.fixtures.persistent_autos import PersistentAutos
 from .src.bfs.fixtures.random_binds import RandomBinds, RandomWalk
 from .src.bfs.fixtures.rotating_bind import RotatingBind
 from .src.bfs.fixtures.rotating_move_bind import RotatingMoveBind
@@ -33,6 +34,7 @@ __all__ = [
     "Comment",
     "CommentBanner",
     "RotatingBind",
+    "PersistentAutos",
     "RandomBinds",
     "RandomWalk",
     "RotatingMoveBind",

@@ -1,10 +1,9 @@
 from .rotating_move_bind import RotatingMoveBind
 
 
-class PersistentAutos(RotatingMoveBind):
+class CombatMode(RotatingMoveBind):
     def __init__(
         self,
-        auto_powers: list[str],
         forward_key: str = "W",
         left_key: str = "A",
         backward_key: str = "S",
@@ -39,4 +38,3 @@ class PersistentAutos(RotatingMoveBind):
             absolute_path_links=absolute_path_links,
             loop_delay=loop_delay,
         )
-        self.wasd_bind_template.add_auto_power_pool(auto_powers)

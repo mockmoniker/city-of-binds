@@ -11,7 +11,18 @@ from .rotating_bind import RotatingBind
 class RotatingMoveBind(RotatingBind):
     def __init__(
         self,
-        include_jump: bool = False,
+        forward_key: str = "W",
+        left_key: str = "A",
+        backward_key: str = "S",
+        right_key: str = "D",
+        jump_key: str = "SPACE",
+        down_key: str = "X",
+        exclude_forward: bool = False,
+        exclude_left: bool = False,
+        exclude_backward: bool = False,
+        exclude_right: bool = False,
+        exclude_jump: bool = False,
+        exclude_down: bool = False,
         is_silent: bool = True,
         absolute_path_links: bool = False,
         loop_delay: int = 0,
@@ -22,11 +33,28 @@ class RotatingMoveBind(RotatingBind):
             absolute_path_links=absolute_path_links,
             loop_delay=loop_delay,
         )
-        self.direction_keys = ["W", "A", "S", "D"]
-        if include_jump:
-            self.direction_keys.append("SPACE")
+        direction_keys = [
+            forward_key,
+            left_key,
+            backward_key,
+            right_key,
+            jump_key,
+            down_key,
+        ]
+        exclude_flags = [
+            exclude_forward,
+            exclude_left,
+            exclude_backward,
+            exclude_right,
+            exclude_jump,
+            exclude_down,
+        ]
+        self.movement_keys = [
+            key for key, exclude in zip(direction_keys, exclude_flags) if not exclude
+        ]
+        # TODO: add kwags for support of other MoveBinds (2026/01/08)
         self.wasd_bind_template = BindTemplate(
-            self.direction_keys[0], bind_type=WASDBind
+            self.movement_keys[0], bind_type=WASDBind
         )
 
     def _build_bind_files(self):
@@ -34,7 +62,7 @@ class RotatingMoveBind(RotatingBind):
         return super()._build_bind_files()
 
     def _append_wasd_binds(self):
-        for direction in self.direction_keys:
+        for direction in self.movement_keys:
             direction_template = copy.deepcopy(self.wasd_bind_template)
             direction_template.trigger = direction
             self.add_bind_template(direction_template)

@@ -5,7 +5,7 @@ from CityOfBinds import RandomWalk
 
 def test_random_costumes(in_tmp_dir):
 
-    rw = RandomWalk()
+    rw = RandomWalk(exclude_jump=True, exclude_down=True)
     rw.wasd_bind_template.add_command_arguments_pool("cc", list(range(5)))
 
     # Debug: Check the unique count
