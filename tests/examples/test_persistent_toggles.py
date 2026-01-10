@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from CityOfBinds import WASDRotatingBind
+from CityOfBinds import RotatingMoveBind
 
 
 def test_keep_powers_perstent_via_wasd_rotating_bind(in_tmp_dir):
@@ -43,11 +43,11 @@ def test_keep_powers_perstent_via_wasd_rotating_bind(in_tmp_dir):
 
     # region setup
     # initialize the WASDRotatingBind with jump included
-    wasd_rotating_bind = WASDRotatingBind()
+    wasd_rotating_bind = RotatingMoveBind()
 
     # add various persistent toggle and auto power pools to the built in wasd_bind_template
     (
-        wasd_rotating_bind.wasd_bind_template.add_toggle_off_power("dark nova")
+        wasd_rotating_bind.move_bind_template.add_toggle_off_power("dark nova")
         .add_toggle_off_power("black dwarf")
         .add_toggle_on_power_pool(
             ["gravity shield", "penumbral shield", "twilight shield", "shadow cloak"]

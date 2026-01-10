@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>City of Binds &mdash; CityOfBinds 0.1.3 documentation</title>
+  <title>City of Binds &mdash; CityOfBinds 0.5.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=360bc84d"></script>
+      <script src="_static/documentation_options.js?v=b9afe91b"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
@@ -124,7 +124,7 @@
 </div>
 <p>Bind supports many different types of methods including toggling on, off, and location based execution of powers. For a full list of methods see the Bind class documentation.</p>
 <p>If we were to print the string representation of this bind, we’d get the formatted bind as it’d be used in a bind file, and via the game_str method, we can even get the exact command we’d use in-game to execute this bind.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">h_bind</span><span class="o">.</span><span class="n">str</span><span class="p">())</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">h_bind</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
 <span class="c1"># H &quot;powexecname hasten&quot;</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">h_bind</span><span class="o">.</span><span class="n">game_str</span><span class="p">())</span>
@@ -138,14 +138,14 @@
 <span class="c1"># Add the auto power command for hasten</span>
 <span class="n">new_h_bind</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_auto_power</span><span class="p">(</span><span class="s2">&quot;hasten&quot;</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">new_h_bind</span><span class="o">.</span><span class="n">str</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_h_bind</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
 <span class="c1"># H &quot;powexecauto hasten&quot;</span>
 </pre></div>
 </div>
 <p>But of course we already have a bind on the H key! Let’s instead add a modifier to the trigger so we can use both binds independently.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_h_bind</span><span class="o">.</span><span class="n">trigger</span><span class="o">.</span><span class="n">modifier</span> <span class="o">=</span> <span class="s2">&quot;SHIFT&quot;</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">new_h_bind</span><span class="o">.</span><span class="n">str</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_h_bind</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
 <span class="c1"># SHIFT+H &quot;powexecauto hasten&quot;</span>
 </pre></div>
 </div>
@@ -154,7 +154,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add more commands to the bind</span>
 <span class="n">new_h_bind</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="s2">&quot;say It&#39;s time for speed!&quot;</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">new_h_bind</span><span class="o">.</span><span class="n">str</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_h_bind</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
 <span class="c1"># SHIFT+H &quot;powexecauto hasten$$say It&#39;s time for speed!&quot;</span>
 </pre></div>
 </div>
@@ -196,7 +196,7 @@
 <span class="c1"># Create a WASD bind system</span>
 <span class="n">w_hasten_bind</span> <span class="o">=</span> <span class="n">WASDBind</span><span class="p">(</span><span class="s2">&quot;W&quot;</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">w_hasten_bind</span><span class="o">.</span><span class="n">str</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">w_hasten_bind</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
 <span class="c1"># W &quot;+forward&quot;</span>
 </pre></div>
 </div>
@@ -204,7 +204,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add the auto power command for hasten</span>
 <span class="n">w_hasten_bind</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_auto_power</span><span class="p">(</span><span class="s2">&quot;hasten&quot;</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">w_hasten_bind</span><span class="o">.</span><span class="n">str</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">w_hasten_bind</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
 <span class="c1"># W &quot;+forward$$powexecauto hasten&quot;</span>
 </pre></div>
 </div>
@@ -218,10 +218,10 @@
 <span class="n">w_domination_bind</span> <span class="o">=</span> <span class="n">WASDBind</span><span class="p">(</span><span class="s2">&quot;W&quot;</span><span class="p">)</span>
 <span class="n">w_domination_bind</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">add_auto_power</span><span class="p">(</span><span class="s2">&quot;domination&quot;</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">w_insp_bind</span><span class="o">.</span><span class="n">str</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">w_insp_bind</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
 <span class="c1"># W &quot;+forward$$powexecauto inner inspiration&quot;</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">w_domination_bind</span><span class="o">.</span><span class="n">str</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">w_domination_bind</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
 <span class="c1"># W &quot;+forward$$powexecauto domination&quot;</span>
 
 <span class="n">hasten_bf</span> <span class="o">=</span> <span class="n">BindFile</span><span class="p">()</span><span class="o">.</span><span class="n">add_bind</span><span class="p">(</span><span class="n">w_hasten_bind</span><span class="p">)</span>
@@ -351,8 +351,8 @@
 <span class="c1"># file indexes 0, 1, 2 from spanish_bfg auto increment to 4, 5, 6 in bfg</span>
 
 <span class="c1"># Add custom links to make everything work together</span>
-<span class="n">bfg</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">trigger_conditions</span><span class="o">=</span><span class="p">{</span><span class="n">on_trigger</span><span class="p">:</span><span class="s2">&quot;F1&quot;</span><span class="p">})</span> <span class="c1"># link language switch to english hello</span>
-<span class="n">bfg</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">trigger_conditions</span><span class="o">=</span><span class="p">{</span><span class="n">on_trigger</span><span class="p">:</span><span class="s2">&quot;F2&quot;</span><span class="p">})</span> <span class="c1"># link language switch to spanish hola</span>
+<span class="n">bfg</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">load_conditions</span><span class="o">=</span><span class="p">{</span><span class="n">on_trigger</span><span class="p">:</span><span class="s2">&quot;F1&quot;</span><span class="p">})</span> <span class="c1"># link language switch to english hello</span>
+<span class="n">bfg</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">load_conditions</span><span class="o">=</span><span class="p">{</span><span class="n">on_trigger</span><span class="p">:</span><span class="s2">&quot;F2&quot;</span><span class="p">})</span> <span class="c1"># link language switch to spanish hola</span>
 
 <span class="c1"># Publish the bind files</span>
 <span class="n">publisher</span> <span class="o">=</span> <span class="n">BGFPublisher</span><span class="p">(</span><span class="n">bfg</span><span class="p">)</span>

@@ -2,7 +2,6 @@ import zipfile
 from pathlib import Path
 
 from CityOfBinds import BindTemplate, RotatingBind
-from CityOfBinds.src.content_managers.templates.bind_file_template import RotationPolicy
 
 
 class TestFileCreation:
@@ -106,7 +105,7 @@ class TestFileCreation:
         # assemble
         rotating_bind = (
             RotatingBind()
-            .add_bind_template(
+            .add_exclusive_loading_bind_template(
                 BindTemplate("Q")
                 .add_toggle_off_power("super speed")
                 .add_toggle_off_power("sprint")
@@ -114,8 +113,7 @@ class TestFileCreation:
                 .add_power_pool(
                     ["dark nova blast", "dark Nova bolt", "dark nova emmanation"]
                 )
-                .add_toggle_off_power("dark nova"),
-                RotationPolicy.ON_THIS_TRIGGER,
+                .add_toggle_off_power("dark nova")
             )
             .add_bind_template(
                 BindTemplate("E").add_power_pool(["kick", "box", "brawl"])
@@ -168,9 +166,8 @@ class TestFileCreation:
                 )
                 .add_toggle_off_power("dark nova")
             )
-            .add_bind_template(
+            .add_non_loading_bind_template(
                 BindTemplate("E").add_power_pool(["kick", "box", "brawl"]),
-                RotationPolicy.NOT_ON_THIS_TRIGGER,
             )
         )
         # act

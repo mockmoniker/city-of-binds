@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from CityOfBinds import WASDRotatingBind
+from CityOfBinds import RotatingMoveBind
 
 
 def test_set_multiple_powers_on_auto_via_wasd_rotating_bind(in_tmp_dir):
@@ -39,10 +39,10 @@ def test_set_multiple_powers_on_auto_via_wasd_rotating_bind(in_tmp_dir):
 
     # region setup
     # initialize the WASDRotatingBind with jump included
-    wasd_rotating_bind = WASDRotatingBind(include_jump=True)
+    wasd_rotating_bind = RotatingMoveBind(exclude_down=True)
 
     # add auto power pool to the built in wasd_bind_template
-    wasd_rotating_bind.wasd_bind_template.add_auto_power_pool(
+    wasd_rotating_bind.move_bind_template.add_auto_power_pool(
         ["hasten", "domination", "inner inspiration"]
     )
 

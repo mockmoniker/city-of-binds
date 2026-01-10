@@ -1,0 +1,287 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CityOfBinds.src.core.game_content.binds.bind &mdash; CityOfBinds 0.5.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../../../_static/documentation_options.js?v=b9afe91b"></script>
+      <script src="../../../../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../../index.html" class="icon icon-home">
+            CityOfBinds
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../source/modules.html">CityOfBinds</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">CityOfBinds</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">CityOfBinds.src.core.game_content.binds.bind</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for CityOfBinds.src.core.game_content.binds.bind</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">...._configs.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">GameConstants</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..command_group.command_group</span><span class="w"> </span><span class="kn">import</span> <span class="n">CommandGroup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..command_group.commands_mixin</span><span class="w"> </span><span class="kn">import</span> <span class="n">_CommandsMixin</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils.game_strings</span><span class="w"> </span><span class="kn">import</span> <span class="n">_BindString</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils.triggers.trigger</span><span class="w"> </span><span class="kn">import</span> <span class="n">_Trigger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils.triggers.trigger_mixin</span><span class="w"> </span><span class="kn">import</span> <span class="n">_TriggerEnjoyer</span>
+
+
+<div class="viewcode-block" id="Bind">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.Bind">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Bind</span><span class="p">(</span><span class="n">_TriggerEnjoyer</span><span class="p">,</span> <span class="n">_CommandsMixin</span><span class="p">,</span> <span class="n">_BindString</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a game bind that maps a trigger (key + optional modifier) to one or more commands.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; bind = Bind(&quot;F1&quot;, [&quot;powexecname heal other&quot;, &quot;say healing!&quot;])</span>
+<span class="sd">        &gt;&gt;&gt; str(bind)  # &#39;F1 &quot;powexecname heal other$$say healing!&quot;&#39;</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        on_key_up: When true, allows the bind to activate on key release in addition to key press.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Bind.__init__">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.Bind.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">trigger</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">commands</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">on_key_up</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a new Bind with a trigger and optional commands.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            trigger: Key and optional modifier string (e.g., &quot;F1&quot;, &quot;SHIFT+F1&quot;, &quot;Q&quot;)</span>
+<span class="sd">            commands: List of slash command strings to execute when triggered</span>
+<span class="sd">            on_key_up: If true, bind activates on key release as well as key press</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_TriggerEnjoyer</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trigger</span><span class="p">)</span>
+        <span class="n">_CommandsMixin</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commands</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_key_up</span> <span class="o">=</span> <span class="n">on_key_up</span></div>
+
+
+    <span class="c1"># region Bind Properties</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bind_length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the character length of the slash commands string.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Number of characters in the complete slash commands string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_str</span><span class="p">())</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_key_up</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A property to set whether the bind activates on key release.</span>
+
+<span class="sd">        When True, the bind will execute commands both when the key is pressed down</span>
+<span class="sd">        and when it&#39;s released.</span>
+
+<span class="sd">        When False, the bind will execute commands only when the key is pressed down.</span>
+
+<span class="sd">        Specifically, this adds a &#39;+&#39; prefix to the front of the command string if</span>
+<span class="sd">        there is not already one there.</span>
+
+<span class="sd">        Note: If the first command would already contain a &#39;+&#39; prefix, this property</span>
+<span class="sd">        has no effect.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_key_up</span>
+
+    <span class="nd">@on_key_up</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_key_up</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set whether the bind activates on key release.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_on_key_up</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="c1"># endregion</span>
+
+    <span class="c1"># region Bind Methods</span>
+<div class="viewcode-block" id="Bind.get_str">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.Bind.get_str">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the complete bind string.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_bind_string</span><span class="p">()</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_bind_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Build complete bind string, handling key-up triggers.&quot;&quot;&quot;</span>
+        <span class="n">commands</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">commands</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_key_up</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">commands</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">prefix</span><span class="p">:</span>
+            <span class="n">commands</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_key_up_prefix</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_bind_string_from_components</span><span class="p">(</span>
+            <span class="n">trigger</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trigger</span><span class="p">,</span> <span class="n">commands</span><span class="o">=</span><span class="n">commands</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="Bind.validate">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.Bind.validate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validate the bind for common issues.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If bind is empty or exceeds maximum length</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_throw_error_if_empty_bind</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_throw_error_if_bind_too_long</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Bind.is_valid">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.Bind.is_valid">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if the bind is valid without raising exceptions.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            True if bind has commands and is within length limits</span>
+<span class="sd">            False if bind has no commands or exceeds length limits</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_empty</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_over_bind_length</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Bind.is_empty">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.Bind.is_empty">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if the bind has no commands.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            True if the bind has no commands, False otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">commands</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="Bind.is_over_bind_length">
+<a class="viewcode-back" href="../../../../../../source/CityOfBinds.html#CityOfBinds.Bind.is_over_bind_length">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_over_bind_length</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if the bind string exceeds the maximum allowed length.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            True if bind string is too long, False otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bind_length</span> <span class="o">&gt;</span> <span class="n">GameConstants</span><span class="o">.</span><span class="n">MAX_BIND_LENGTH</span></div>
+
+
+    <span class="c1"># endregion</span>
+
+    <span class="c1"># region Helper Methods</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_key_up_prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">commands</span><span class="p">:</span> <span class="n">CommandGroup</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CommandGroup</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds a &#39;+&#39; to beginning of commands list to enable key-up triggering.&quot;&quot;&quot;</span>
+        <span class="n">prefix_only_command</span> <span class="o">=</span> <span class="n">CommandGroup</span><span class="p">(</span><span class="n">GameConstants</span><span class="o">.</span><span class="n">ENABLE_KEY_UP_PREFIX</span><span class="p">)</span>
+        <span class="n">commands</span> <span class="o">=</span> <span class="n">prefix_only_command</span> <span class="o">+</span> <span class="n">commands</span>
+        <span class="k">return</span> <span class="n">commands</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_bind_string_from_components</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">trigger</span><span class="p">:</span> <span class="n">_Trigger</span><span class="p">,</span> <span class="n">commands</span><span class="p">:</span> <span class="n">CommandGroup</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Combine trigger and commands into formatted bind string.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">trigger</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="c1"># endregion</span>
+
+    <span class="c1"># region Error Checking Methods</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_throw_error_if_empty_bind</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Raise ValueError if bind has no commands.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Bind must contain one or more commands.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_throw_error_if_bind_too_long</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Raise ValueError if bind exceeds maximum length.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_over_bind_length</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Bind exceeds maximum length of </span><span class="si">{</span><span class="n">GameConstants</span><span class="o">.</span><span class="n">MAX_BIND_LENGTH</span><span class="si">}</span><span class="s2"> characters. Current length is &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">bind_length</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+            <span class="p">)</span>
+
+    <span class="c1"># endregion</span>
+
+    <span class="c1"># region Dunder Methods</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a detailed string representation for debugging.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            String showing class name, trigger, and commands</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(trigger=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trigger</span><span class="si">}</span><span class="s2">, commands=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">commands</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+
+
+    <span class="c1"># endregion</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, brandon wade.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

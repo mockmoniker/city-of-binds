@@ -5,14 +5,14 @@ from CityOfBinds import RandomWalk
 
 def test_random_costumes(in_tmp_dir):
 
-    rw = RandomWalk()
-    rw.wasd_bind_template.add_command_arguments_pool("cc", list(range(5)))
+    rw = RandomWalk(exclude_jump=True, exclude_down=True)
+    rw.move_bind_template.add_command_arguments_pool("cc", list(range(5)))
 
     # Debug: Check the unique count
     print(
-        f"DEBUG: wasd_bind_template unique_count = {rw.wasd_bind_template.unique_count}"
+        f"DEBUG: wasd_bind_template unique_count = {rw.move_bind_template.unique_count}"
     )
-    print(f"DEBUG: wasd_bind_template pools = {len(rw.wasd_bind_template.pools)}")
+    print(f"DEBUG: wasd_bind_template pools = {len(rw.move_bind_template.pools)}")
 
     rw.publish_bind_files(
         parent_folder_name="random_costumes", directory="binds_folder"

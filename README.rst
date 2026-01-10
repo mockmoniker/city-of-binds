@@ -74,7 +74,7 @@ If we were to print the string representation of this bind, we'd get the formatt
 
 .. code-block:: python
 
-    print(h_bind.str())
+    print(h_bind.get_str())
     # H "powexecname hasten"
 
     print(h_bind.game_str())
@@ -90,7 +90,7 @@ Very rarely do we want to just execute hasten alone. More often we'd like to aut
     # Add the auto power command for hasten
     new_h_bind.commands.add_auto_power("hasten")
 
-    print(new_h_bind.str())
+    print(new_h_bind.get_str())
     # H "powexecauto hasten"
 
 But of course we already have a bind on the H key! Let's instead add a modifier to the trigger so we can use both binds independently.
@@ -99,7 +99,7 @@ But of course we already have a bind on the H key! Let's instead add a modifier 
 
     new_h_bind.trigger.modifier = "SHIFT"
 
-    print(new_h_bind.str())
+    print(new_h_bind.get_str())
     # SHIFT+H "powexecauto hasten"
 
 There we go! We can always access the trigger property of the bind to customize the key and modifier that make up the overall trigger. Note that we also could have just specified the modifier when we first created the bind (e.g., Bind("SHIFT+H")).
@@ -111,7 +111,7 @@ So far we've only added single commands to our binds, let's try adding more to m
     # Add more commands to the bind
     new_h_bind.commands.add_command("say It's time for speed!")
 
-    print(new_h_bind.str())
+    print(new_h_bind.get_str())
     # SHIFT+H "powexecauto hasten$$say It's time for speed!"
 
 And just like that we get a bind with multiple commands, automatically separated by the proper in-game command separator ($$).
@@ -171,7 +171,7 @@ As we will be creating binds on the traditional movement keys (WASD), we can use
     # Create a WASD bind system
     w_hasten_bind = WASDBind("W")
 
-    print(w_hasten_bind.str())
+    print(w_hasten_bind.get_str())
     # W "+forward"
 
 As we can see, the WASDBind automatically adds the proper movement command for the W key. We can add more commands to it just as before:
@@ -181,7 +181,7 @@ As we can see, the WASDBind automatically adds the proper movement command for t
     # Add the auto power command for hasten
     w_hasten_bind.commands.add_auto_power("hasten")
 
-    print(w_hasten_bind.str())
+    print(w_hasten_bind.get_str())
     # W "+forward$$powexecauto hasten"
 
 Now this bind will not only move the character forward, it'll also ensure hasten is on auto cast! Talk about set and forget! But we can go even further, let's go ahead and create a few more auto case W binds, as well as add each bind to its own bind file.
@@ -197,10 +197,10 @@ Now this bind will not only move the character forward, it'll also ensure hasten
     w_domination_bind = WASDBind("W")
     w_domination_bind.commands.add_auto_power("domination")
 
-    print(w_insp_bind.str())
+    print(w_insp_bind.get_str())
     # W "+forward$$powexecauto inner inspiration"
 
-    print(w_domination_bind.str())
+    print(w_domination_bind.get_str())
     # W "+forward$$powexecauto domination"
 
     hasten_bf = BindFile().add_bind(w_hasten_bind)
@@ -347,8 +347,8 @@ All built in rotating binds allow extracting the underlying BindFileGraph to hel
     # file indexes 0, 1, 2 from spanish_bfg auto increment to 4, 5, 6 in bfg
 
     # Add custom links to make everything work together
-    bfg.link(0, 1, trigger_conditions={on_trigger:"F1"}) # link language switch to english hello
-    bfg.link(0, 4, trigger_conditions={on_trigger:"F2"}) # link language switch to spanish hola
+    bfg.link(0, 1, load_conditions={on_trigger:"F1"}) # link language switch to english hello
+    bfg.link(0, 4, load_conditions={on_trigger:"F2"}) # link language switch to spanish hola
 
     # Publish the bind files
     publisher = BGFPublisher(bfg)

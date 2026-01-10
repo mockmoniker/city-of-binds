@@ -1,10 +1,9 @@
 import pytest
 
-from CityOfBinds.src.game.utils.triggers.trigger import _Trigger
-from CityOfBinds.src.game.utils.triggers.wasd_trigger import _WASDTrigger
+from CityOfBinds.src.core.game_content.utils.triggers.trigger import _Trigger
 
 
-@pytest.fixture(params=[_Trigger, _WASDTrigger])
+@pytest.fixture(params=[_Trigger])
 def TriggerUnderTest(request):
     return request.param
 

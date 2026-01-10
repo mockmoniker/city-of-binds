@@ -79,7 +79,7 @@ class TestWASDBindRepresentation:
     def test_key_up_does_nothing(self):
         """Key-up trigger should not alter WASD command."""
         bind = WASDBind("W", ["powexectoggleon super speed"])
-        bind.trigger_on_key_up = True
+        bind.on_key_up = True
         bind_str = str(bind)
         assert bind_str == 'W "+forward$$powexectoggleon super speed"'
 
@@ -90,7 +90,7 @@ class TestWASDBindValidation:
     @pytest.mark.parametrize("invalid_key", ["F", "Q", "E", "R", "T", "F1", "NUMPAD1"])
     def test_rejects_non_wasd_keys(self, invalid_key):
         """Should reject non-WASD keys."""
-        with pytest.raises(ValueError, match="Unknown trigger key"):
+        with pytest.raises(ValueError, match="not allowed"):
             WASDBind(invalid_key)
 
 

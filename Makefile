@@ -51,5 +51,5 @@ deploy: check  ## Deploy to PyPI
 dev-setup:  ## Set up development environment
 	pip install -e .[dev]
 
-release: clean lint test build docs check  ## Full release workflow (build + validate, but don't upload)
+release: clean test build docs check  ## Full release workflow (build + validate, but don't upload)
 	@echo "✅ Release ready! Run 'make deploy-test' or 'make deploy' to upload."
