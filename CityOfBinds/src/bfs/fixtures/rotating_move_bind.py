@@ -4,7 +4,7 @@ from ...core.content_managers.templates.bind_template import BindTemplate
 from ...core.content_managers.utils.commands_template import (
     _CommandsTemplate,  # TODO: implement base wasd bind to use commandstemplate (2025/12/27)
 )
-from ...core.game_content.binds.move_binds.wasd_bind import WASDBind
+from ...core.game_content.binds.move_binds.move_bind import MoveBind
 from .rotating_bind import RotatingBind
 
 
@@ -54,7 +54,14 @@ class RotatingMoveBind(RotatingBind):
         ]
         # TODO: add kwags for support of other MoveBinds (2026/01/08)
         self.move_bind_template = BindTemplate(
-            self.movement_keys[0], bind_type=WASDBind
+            self.movement_keys[0],
+            bind_type=MoveBind,
+            forward_key=forward_key,
+            left_key=left_key,
+            backward_key=backward_key,
+            right_key=right_key,
+            jump_key=jump_key,
+            down_key=down_key,
         )
 
     def _build_bind_files(self):
