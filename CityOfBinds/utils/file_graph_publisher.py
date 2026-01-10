@@ -97,7 +97,10 @@ class _FileGraphPublisher(ABC):
     def _has_file_path_override(
         self, file_graph: FileGraphProtocol, node_id: int
     ) -> bool:
-        return self._file_path_override_key in file_graph.nodes[node_id]
+        return (
+            self._file_path_override_key in file_graph.nodes[node_id]
+            and file_graph.nodes[node_id][self._file_path_override_key]
+        )
 
     def _link_files(
         self,

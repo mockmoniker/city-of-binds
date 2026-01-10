@@ -31,7 +31,7 @@ class BindFileGraph(nx.DiGraph):
         self, bind_file: BindFile, file_path_override: str = None
     ) -> "BindFileGraph":
         """
-        Add a copy of a BindFile as a new node in the graph.
+        Add BindFile as a new node in the graph.
 
         Args:
             bind_file: The BindFile to add to the graph
@@ -45,17 +45,14 @@ class BindFileGraph(nx.DiGraph):
             >>> graph.add_bind_file(bf1)  # Node 0
             >>> len(graph.nodes)  # 1
         """
-        # Use deep copy to prevent mutating original BindFile during graph operations
-        if file_path_override is not None:
-            super().add_node(
-                self.number_of_nodes(),
-                **{
-                    BFGConstants.NODE_DATA_KEY: bind_file,
-                    BFGConstants.FILE_PATH_OVERRIDE_KEY: file_path_override,
-                },
-            )
-        else:
-            super().add_node(self.number_of_nodes(), bind_file=bind_file)
+
+        super().add_node(
+            self.number_of_nodes(),
+            **{
+                BFGConstants.NODE_DATA_KEY: bind_file,
+                BFGConstants.FILE_PATH_OVERRIDE_KEY: file_path_override,
+            },
+        )
         return self
 
     def connect(
