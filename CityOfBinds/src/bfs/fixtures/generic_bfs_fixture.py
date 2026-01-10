@@ -70,8 +70,10 @@ class _GenericBFSFixture(ABC):
 
     def get_bfs(self) -> BindFileSystem:
         indexed_bind_files = self._create_indexed_bind_files()
-        trigger_conditions = self._get_trigger_conditions()
-        bfs = self._create_bfs(indexed_bind_files, trigger_conditions)
+        load_conditions = self._get_load_conditions()
+        # TODO: put "quick triggers" here, along with other params you think of (2026/01/09)
+        load_parameters = self._get_load_parameters()
+        bfs = self._create_bfs(indexed_bind_files, load_conditions)
         return bfs
 
     def _build_bind_files(self) -> list[BindFile]:
@@ -85,15 +87,15 @@ class _GenericBFSFixture(ABC):
     def _index_bind_files(self, bind_files: list[BindFile]):
         pass
 
-    def _get_trigger_conditions(self) -> dict:
+    def _get_load_conditions(self) -> dict:
         conditions = {}
-        if self._bind_file_template.include_triggers:
+        if self._bind_file_template.exclusive_load_triggers:
             conditions[BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY] = (
-                self._bind_file_template.include_triggers
+                self._bind_file_template.exclusive_load_triggers
             )
-        if self._bind_file_template.exclude_triggers:
+        if self._bind_file_template.non_load_triggers:
             conditions[BFGConstants.NON_LOADING_TRIGGERS_KEY] = (
-                self._bind_file_template.exclude_triggers
+                self._bind_file_template.non_load_triggers
             )
         if self._bind_file_template.quick_triggers:
             conditions[BFGConstants.QUICK_TRIGGER_KEY] = (
@@ -101,13 +103,16 @@ class _GenericBFSFixture(ABC):
             )
         return conditions
 
+    def _get_load_parameters(self) -> dict:
+        return {}
+
     def _create_bfs(
-        self, indexed_bind_files: list[BindFile], trigger_conditions: dict
+        self, indexed_bind_files: list[BindFile], load_conditions: dict
     ) -> BindFileSystem:
         bfs = BindFileSystem(self.use_silent_loads, self.use_abs_path_loads)
         self._add_bind_files_to_graph(bfs.bfg, indexed_bind_files)
         self._connect_bind_file_graph(
-            bfs.bfg, range(len(indexed_bind_files)), trigger_conditions
+            bfs.bfg, range(len(indexed_bind_files)), load_conditions
         )
         return bfs
 

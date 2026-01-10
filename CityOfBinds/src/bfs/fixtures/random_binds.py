@@ -63,16 +63,16 @@ class RandomWalk(_RandomOrder, RotatingMoveBind):
         _RandomOrder.__init__(self, random_factor=random_factor)
 
     def _connect_bind_file_graph(
-        self, bfg: BindFileGraph, bind_file_indexes: list[int], trigger_conditions: dict
+        self, bfg: BindFileGraph, bind_file_indexes: list[int], load_conditions: dict
     ):
         bfg.make_k_regular(
             bind_file_indexes,
             k=len(self.movement_keys),
-            trigger_conditions=trigger_conditions,
+            load_conditions=load_conditions,
         )
-        self._set_wasd_trigger_conditions(bfg, bind_file_indexes)
+        self._set_wasd_load_conditions(bfg, bind_file_indexes)
 
-    def _set_wasd_trigger_conditions(
+    def _set_wasd_load_conditions(
         self, bfg: BindFileGraph, bind_file_indexes: list[int]
     ):
         for file_index in bind_file_indexes:

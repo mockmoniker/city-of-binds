@@ -56,10 +56,10 @@ class BindFileTemplate(ListTemplate):
             >>> len(template.quick_triggers)    # 0 - no key up press triggers
         """
         ListTemplate.__init__(self, [])
-        self.include_triggers = (
-            []
-        )  # Triggers that exclusively advance to next bind file
-        self.exclude_triggers = []  # Triggers that will NOT advance to next bind file
+        self.exclusive_load_triggers = []
+        self.exclusive_load_macros = []
+        self.non_load_triggers = []
+        self.non_load_macros = []
         self.quick_triggers = []  # Triggers that activate on key up press
 
     # region Bind Template Management Methods
@@ -106,7 +106,7 @@ class BindFileTemplate(ListTemplate):
         """
         # Apply rotation policy to trigger management
         if not loads_next_file:
-            self.exclude_triggers.append(bind_template.trigger)
+            self.non_load_triggers.append(bind_template.trigger)
 
         # Enable key up press activation if requested
         if execute_on_up_press:
@@ -145,7 +145,7 @@ class BindFileTemplate(ListTemplate):
         bind_template,
         execute_on_up_press: bool = False,
     ) -> Self:
-        self.include_triggers.append(bind_template.trigger)
+        self.exclusive_load_triggers.append(bind_template.trigger)
         return self.add_bind_template(
             bind_template,
             loads_next_file=True,

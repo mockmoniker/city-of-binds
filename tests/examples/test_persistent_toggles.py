@@ -47,7 +47,7 @@ def test_keep_powers_perstent_via_wasd_rotating_bind(in_tmp_dir):
 
     # add various persistent toggle and auto power pools to the built in wasd_bind_template
     (
-        wasd_rotating_bind.wasd_bind_template.add_toggle_off_power("dark nova")
+        wasd_rotating_bind.move_bind_template.add_toggle_off_power("dark nova")
         .add_toggle_off_power("black dwarf")
         .add_toggle_on_power_pool(
             ["gravity shield", "penumbral shield", "twilight shield", "shadow cloak"]

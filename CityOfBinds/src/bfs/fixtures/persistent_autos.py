@@ -39,4 +39,4 @@ class PersistentAutos(RotatingMoveBind):
             absolute_path_links=absolute_path_links,
             loop_delay=loop_delay,
         )
-        self.wasd_bind_template.add_auto_power_pool(auto_powers)
+        self.move_bind_template.add_auto_power_pool(auto_powers)

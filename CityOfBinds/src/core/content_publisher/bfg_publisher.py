@@ -138,7 +138,7 @@ class BFGPublisher(_FileGraphPublisher):
         file_graph.link(
             install_index,
             load_index,
-            trigger_conditions={
+            load_conditions={
                 BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY: [
                     SafeInstallValues.LOAD_MACRO_NAME
                 ]
@@ -147,7 +147,7 @@ class BFGPublisher(_FileGraphPublisher):
         file_graph.link(
             install_index,
             unload_index,
-            trigger_conditions={
+            load_conditions={
                 BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY: [
                     SafeInstallValues.UNLOAD_MACRO_NAME
                 ]
@@ -168,46 +168,46 @@ class BFGPublisher(_FileGraphPublisher):
         edge_data: dict,
     ):
         """Link two bind files by updating source with load commands and target with key up settings."""
-        trigger_conditions = edge_data[BFGConstants.EDGE_DATA_KEY]
+        load_conditions = edge_data[BFGConstants.EDGE_DATA_KEY]
         self._update_source_bind_file(
             source_bind_file,
             target_file_path,
-            trigger_conditions,
+            load_conditions,
         )
-        self._update_target_bind_file(target_bind_file, trigger_conditions)
+        self._update_target_bind_file(target_bind_file, load_conditions)
 
     def _update_source_bind_file(
         self,
         source_bind_file: BindFile,
         target_file_path: Path,
-        trigger_conditions: dict[str, list[str]],
+        load_conditions: dict[str, list[str]],
     ):
         """Add bind_load_file commands to qualifying binds in source file."""
         for bind in source_bind_file.binds:
-            if self._should_link_bind(bind, trigger_conditions):
+            if self._should_link_bind(bind, load_conditions):
                 self._link_bind(bind, target_file_path)
 
         for macro in source_bind_file.macros:
-            if self._should_link_macro(macro, trigger_conditions):
+            if self._should_link_macro(macro, load_conditions):
                 self._link_macro(macro, target_file_path)
 
     def _should_link_bind(
-        self, bind: Bind, trigger_conditions: dict[str, list[str]]
+        self, bind: Bind, load_conditions: dict[str, list[str]]
     ) -> bool:
         """Check if bind qualifies for file linking based on inclusion/exclusion conditions."""
-        if trigger_conditions is None:
+        if load_conditions is None:
             return True
 
-        if BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY in trigger_conditions:
+        if BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY in load_conditions:
             return (
                 bind.trigger
-                in trigger_conditions[BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY]
+                in load_conditions[BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY]
             )
 
-        if BFGConstants.NON_LOADING_TRIGGERS_KEY in trigger_conditions:
+        if BFGConstants.NON_LOADING_TRIGGERS_KEY in load_conditions:
             return (
                 bind.trigger
-                not in trigger_conditions[BFGConstants.NON_LOADING_TRIGGERS_KEY]
+                not in load_conditions[BFGConstants.NON_LOADING_TRIGGERS_KEY]
             )
 
         return True
@@ -220,22 +220,21 @@ class BFGPublisher(_FileGraphPublisher):
             bind.commands.add_bind_load_file(target_file_path)
 
     def _should_link_macro(
-        self, macro: Macro, trigger_conditions: dict[str, list[str]]
+        self, macro: Macro, load_conditions: dict[str, list[str]]
     ) -> bool:
         """Check if macro qualifies for file linking based on inclusion/exclusion conditions."""
-        if trigger_conditions is None:
+        if load_conditions is None:
             return True
 
-        if BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY in trigger_conditions:
+        if BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY in load_conditions:
             return (
                 macro.name
-                in trigger_conditions[BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY]
+                in load_conditions[BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY]
             )
 
-        if BFGConstants.NON_LOADING_TRIGGERS_KEY in trigger_conditions:
+        if BFGConstants.NON_LOADING_TRIGGERS_KEY in load_conditions:
             return (
-                macro.name
-                not in trigger_conditions[BFGConstants.NON_LOADING_TRIGGERS_KEY]
+                macro.name not in load_conditions[BFGConstants.NON_LOADING_TRIGGERS_KEY]
             )
 
         return True
@@ -248,17 +247,17 @@ class BFGPublisher(_FileGraphPublisher):
             macro.commands.add_bind_load_file(target_file_path)
 
     def _update_target_bind_file(
-        self, target_bind_file: BindFile, trigger_conditions: dict[str, list[str]]
+        self, target_bind_file: BindFile, load_conditions: dict[str, list[str]]
     ):
         """Enable key up press activation for specified quick triggers."""
         if (
-            BFGConstants.QUICK_TRIGGER_KEY not in trigger_conditions
-            or not trigger_conditions[BFGConstants.QUICK_TRIGGER_KEY]
+            BFGConstants.QUICK_TRIGGER_KEY not in load_conditions
+            or not load_conditions[BFGConstants.QUICK_TRIGGER_KEY]
         ):
             return
 
         for bind in target_bind_file.binds:
-            if bind.trigger in trigger_conditions[BFGConstants.QUICK_TRIGGER_KEY]:
+            if bind.trigger in load_conditions[BFGConstants.QUICK_TRIGGER_KEY]:
                 bind.on_key_up = True
 
     # endregion

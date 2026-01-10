@@ -26,44 +26,44 @@ class BindFileSystem:
         self,
         source_bind_file_index: int,
         target_bind_file_index: int,
-        trigger_conditions: dict = None,
+        load_conditions: dict = None,
         delay: int = 0,
     ) -> "BindFileSystem":
         """Create a directed link from source to target bind file."""
         self._bfg.link(
-            source_bind_file_index, target_bind_file_index, trigger_conditions, delay
+            source_bind_file_index, target_bind_file_index, load_conditions, delay
         )
         return self
 
     def chain(
         self,
         bind_file_indexes: list[int],
-        trigger_conditions: dict = None,
+        load_conditions: dict = None,
         delay: int = 0,
     ) -> "BindFileSystem":
         """Create a linear chain of bind files in sequence."""
-        self._bfg.chain(bind_file_indexes, trigger_conditions, delay)
+        self._bfg.chain(bind_file_indexes, load_conditions, delay)
         return self
 
     def loop(
         self,
         bind_file_indexes: list[int],
-        trigger_conditions: dict = None,
+        load_conditions: dict = None,
         delay: int = 0,
     ) -> "BindFileSystem":
         """Create a circular loop connecting bind files in list order."""
-        self._bfg.loop(bind_file_indexes, trigger_conditions, delay)
+        self._bfg.loop(bind_file_indexes, load_conditions, delay)
         return self
 
     def make_k_regular(
         self,
         bind_file_indexes: list[int],
         k: int,
-        trigger_conditions: dict = None,
+        load_conditions: dict = None,
         delay: int = 0,
     ) -> "BindFileSystem":
         """Create a k-regular graph where each bind file connects to exactly k others."""
-        self._bfg.make_k_regular(bind_file_indexes, k, trigger_conditions, delay)
+        self._bfg.make_k_regular(bind_file_indexes, k, load_conditions, delay)
         return self
 
     def add_delay(
@@ -73,11 +73,11 @@ class BindFileSystem:
         self._bfg.add_delay(source_bind_file_index, target_bind_file_index, steps)
         return self
 
-    def get_trigger_conditions(
+    def get_load_conditions(
         self, source_bind_file_index: int, target_bind_file_index: int
     ) -> dict:
         """Get the trigger conditions for a specific edge."""
-        return self._bfg.get_trigger_conditions(
+        return self._bfg.get_load_conditions(
             source_bind_file_index, target_bind_file_index
         )
 

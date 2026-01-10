@@ -61,7 +61,7 @@ class BindFileGraph(nx.DiGraph):
         self,
         source_bind_file_index: int,
         target_bind_file_index: int,
-        trigger_conditions: dict = None,
+        load_conditions: dict = None,
         delay: int = 0,
     ) -> "BindFileGraph":
         """
@@ -70,7 +70,7 @@ class BindFileGraph(nx.DiGraph):
         Args:
             source_bind_file_index: Index of the source bind file
             target_bind_file_index: Index of the target bind file
-            trigger_conditions: Optional conditions for what triggers this link
+            load_conditions: Optional conditions for what triggers this link
             delay: Number of copies of source node and intermediate links to insert as delay
 
         Returns:
@@ -85,7 +85,7 @@ class BindFileGraph(nx.DiGraph):
         super().add_edge(
             source_bind_file_index,
             target_bind_file_index,
-            **{BFGConstants.EDGE_DATA_KEY: trigger_conditions} or {},
+            **{BFGConstants.EDGE_DATA_KEY: load_conditions} or {},
         )
         # Insert delay nodes if requested
         if delay > 0:
@@ -95,7 +95,7 @@ class BindFileGraph(nx.DiGraph):
     def chain(
         self,
         bind_file_indexes: list[int],
-        trigger_conditions: dict = None,
+        load_conditions: dict = None,
         delay: int = 0,
     ) -> "BindFileGraph":
         """
@@ -103,7 +103,7 @@ class BindFileGraph(nx.DiGraph):
 
         Args:
             bind_file_indexes: List of node indexes to chain in list order
-            trigger_conditions: Conditions applied to all links in the chain
+            load_conditions: Conditions applied to all links in the chain
             delay: Delay applied to all links in the chain
 
         Returns:
@@ -115,13 +115,13 @@ class BindFileGraph(nx.DiGraph):
         """
         # Link each consecutive pair in the sequence
         for i in bind_file_indexes[:-1]:
-            self.link(i, i + 1, trigger_conditions=trigger_conditions, delay=delay)
+            self.link(i, i + 1, load_conditions=load_conditions, delay=delay)
         return self
 
     def loop(
         self,
         bind_file_indexes: list[int],
-        trigger_conditions: dict = None,
+        load_conditions: dict = None,
         delay: int = 0,
     ) -> "BindFileGraph":
         """
@@ -129,7 +129,7 @@ class BindFileGraph(nx.DiGraph):
 
         Args:
             bind_file_indexes: List of node indexes to connect in a loop
-            trigger_conditions: Conditions applied to all links in the loop
+            load_conditions: Conditions applied to all links in the loop
             delay: Delay applied to all links in the loop
 
         Returns:
@@ -144,14 +144,12 @@ class BindFileGraph(nx.DiGraph):
             return self
 
         # Create the chain first
-        self.chain(
-            bind_file_indexes, trigger_conditions=trigger_conditions, delay=delay
-        )
+        self.chain(bind_file_indexes, load_conditions=load_conditions, delay=delay)
         # Connect the last back to the first to complete the loop
         self.link(
             bind_file_indexes[-1],
             bind_file_indexes[0],
-            trigger_conditions=trigger_conditions,
+            load_conditions=load_conditions,
             delay=delay,
         )
         return self
@@ -160,7 +158,7 @@ class BindFileGraph(nx.DiGraph):
         self,
         bind_file_indexes: list[int],
         k: int,
-        trigger_conditions: dict = None,
+        load_conditions: dict = None,
         delay: int = 0,
     ) -> "BindFileGraph":
         """
@@ -172,7 +170,7 @@ class BindFileGraph(nx.DiGraph):
         Args:
             bind_file_indexes: List of node indexes to make k-regular
             k: Number of outgoing connections each node should have
-            trigger_conditions: Conditions applied to all links
+            load_conditions: Conditions applied to all links
             delay: Delay applied to all links
 
         Returns:
@@ -201,7 +199,7 @@ class BindFileGraph(nx.DiGraph):
                 self.link(
                     bind_file_indexes[i],
                     bind_file_indexes[target_index],
-                    trigger_conditions=trigger_conditions,
+                    load_conditions=load_conditions,
                     delay=delay,
                 )
         return self
@@ -287,7 +285,7 @@ class BindFileGraph(nx.DiGraph):
             >>> graph.add_delay(0, 1, 2)  # bf0 -> copy(bf0) -> copy(bf0) -> bf1
         """
         # Preserve the original connection conditions
-        original_trigger_conditions = self.get_trigger_conditions(
+        original_load_conditions = self.get_load_conditions(
             source_bind_file_index, target_bind_file_index
         )
         original_bind_file = self.get_bind_file(source_bind_file_index)
@@ -299,15 +297,15 @@ class BindFileGraph(nx.DiGraph):
                 source_bind_file_index,
                 target_bind_file_index,
                 copy.deepcopy(original_bind_file),
-                first_condition=original_trigger_conditions,
-                second_condition=original_trigger_conditions,
+                first_condition=original_load_conditions,
+                second_condition=original_load_conditions,
             )
             # Update source for next iteration (chaining delays)
             source_bind_file_index = new_delay_bind_file_index
 
         return self
 
-    def get_trigger_conditions(
+    def get_load_conditions(
         self, source_bind_file_index: int, target_bind_file_index: int
     ) -> dict:
         """Get the trigger conditions for a specific edge.
@@ -419,13 +417,13 @@ class BindFileGraph(nx.DiGraph):
             mapped_target = node_id_mapping[target]
 
             # Add edge with preserved edge data
-            trigger_conditions = edge_data.get(BFGConstants.EDGE_DATA_KEY)
+            load_conditions = edge_data.get(BFGConstants.EDGE_DATA_KEY)
             self.add_edge(
                 mapped_source,
                 mapped_target,
                 **(
-                    {BFGConstants.EDGE_DATA_KEY: trigger_conditions}
-                    if trigger_conditions
+                    {BFGConstants.EDGE_DATA_KEY: load_conditions}
+                    if load_conditions
                     else {}
                 ),
             )

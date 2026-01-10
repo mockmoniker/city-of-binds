@@ -86,7 +86,7 @@ class TestBindFileGraphLinking:
         assert len(graph.edges) == 1
         assert (0, 1) in graph.edges
 
-    def test_link_with_trigger_conditions(self):
+    def test_link_with_load_conditions(self):
         """Should create link with trigger conditions metadata."""
         graph = BindFileGraph()
         bf1 = BindFile([Bind("F1", ["say one"])])
@@ -94,9 +94,9 @@ class TestBindFileGraphLinking:
         graph.add_bind_file(bf1).add_bind_file(bf2)
         conditions = {"on_triggers": "SPACE"}
         # act
-        graph.link(0, 1, trigger_conditions=conditions)
+        graph.link(0, 1, load_conditions=conditions)
         # assert
-        stored_conditions = graph.get_trigger_conditions(0, 1)
+        stored_conditions = graph.get_load_conditions(0, 1)
         assert stored_conditions == conditions
 
     def test_multiple_links_from_one_node(self):
@@ -166,10 +166,10 @@ class TestBindFileGraphAdvancedLinking:
             graph.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
         conditions = {"on_triggers": "SPACE"}
         # act
-        graph.chain([0, 1, 2], trigger_conditions=conditions)
+        graph.chain([0, 1, 2], load_conditions=conditions)
         # assert
-        assert graph.get_trigger_conditions(0, 1) == conditions
-        assert graph.get_trigger_conditions(1, 2) == conditions
+        assert graph.get_load_conditions(0, 1) == conditions
+        assert graph.get_load_conditions(1, 2) == conditions
 
     def test_chain_with_delay(self):
         """Should insert delay nodes between chain links."""
@@ -209,11 +209,11 @@ class TestBindFileGraphAdvancedLinking:
             graph.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
         conditions = {"on_triggers": "SPACE"}
         # act
-        graph.loop([0, 1, 2], trigger_conditions=conditions)
+        graph.loop([0, 1, 2], load_conditions=conditions)
         # assert
-        assert graph.get_trigger_conditions(0, 1) == conditions
-        assert graph.get_trigger_conditions(1, 2) == conditions
-        assert graph.get_trigger_conditions(2, 0) == conditions
+        assert graph.get_load_conditions(0, 1) == conditions
+        assert graph.get_load_conditions(1, 2) == conditions
+        assert graph.get_load_conditions(2, 0) == conditions
 
     def test_loop_with_delay(self):
         """Should insert delay nodes between loop links."""
@@ -278,11 +278,11 @@ class TestBindFileGraphAdvancedLinking:
             graph.add_bind_file(BindFile([Bind(f"F{i+1}", [f"say {i+1}"])]))
         conditions = {"on_triggers": "SPACE"}
         # act
-        graph.make_k_regular([0, 1, 2, 3], k=2, trigger_conditions=conditions)
+        graph.make_k_regular([0, 1, 2, 3], k=2, load_conditions=conditions)
         # assert
         for i in range(4):
             for target in graph.get_outgoing_links(i):
-                assert graph.get_trigger_conditions(i, target) == conditions
+                assert graph.get_load_conditions(i, target) == conditions
 
     def test_k_regular_with_delay(self):
         """Should insert delay nodes between k-regular links."""
@@ -343,19 +343,19 @@ class TestBindFileGraphDelayOperations:
         assert (3, 4) in graph.edges
         assert (4, 1) in graph.edges
 
-    def test_delay_preserves_trigger_conditions(self):
+    def test_delay_preserves_load_conditions(self):
         """Should preserve trigger conditions through delay nodes."""
         graph = BindFileGraph()
         bf1 = BindFile([Bind("F1", ["say start"])])
         bf2 = BindFile([Bind("F2", ["say end"])])
         graph.add_bind_file(bf1).add_bind_file(bf2)
         conditions = {"on_triggers": "SPACE"}
-        graph.link(0, 1, trigger_conditions=conditions)
+        graph.link(0, 1, load_conditions=conditions)
         # act
         graph.add_delay(0, 1, steps=1)
         # assert
-        assert graph.get_trigger_conditions(0, 2) == conditions
-        assert graph.get_trigger_conditions(2, 1) == conditions
+        assert graph.get_load_conditions(0, 2) == conditions
+        assert graph.get_load_conditions(2, 1) == conditions
 
     def test_delay_uses_source_bind_file_copy(self):
         """Should use copy of source bind file for delay nodes."""
@@ -392,20 +392,20 @@ class TestBindFileGraphQueries:
         assert len(retrieved_bf.binds) == 1
         assert str(retrieved_bf.binds[0]) == 'F1 "say hello"'
 
-    def test_get_trigger_conditions_exists(self):
+    def test_get_load_conditions_exists(self):
         """Should return trigger conditions when they exist."""
         graph = BindFileGraph()
         bf1 = BindFile([Bind("F1", ["say one"])])
         bf2 = BindFile([Bind("F2", ["say two"])])
         graph.add_bind_file(bf1).add_bind_file(bf2)
         conditions = {"on_triggers": "SPACE", "timing": "instant"}
-        graph.link(0, 1, trigger_conditions=conditions)
+        graph.link(0, 1, load_conditions=conditions)
         # act
-        result = graph.get_trigger_conditions(0, 1)
+        result = graph.get_load_conditions(0, 1)
         # assert
         assert result == conditions
 
-    def test_get_trigger_conditions_empty(self):
+    def test_get_load_conditions_empty(self):
         """Should return empty dict when no conditions set."""
         graph = BindFileGraph()
         bf1 = BindFile([Bind("F1", ["say one"])])
@@ -413,7 +413,7 @@ class TestBindFileGraphQueries:
         graph.add_bind_file(bf1).add_bind_file(bf2)
         graph.link(0, 1)  # No conditions
         # act
-        result = graph.get_trigger_conditions(0, 1)
+        result = graph.get_load_conditions(0, 1)
         # assert
         assert result == {}
 
@@ -527,7 +527,7 @@ class TestBindFileGraphExtend:
         assert (0, 1) in bfg1.edges  # Original edge preserved
         assert (1, 2) in bfg1.edges  # Extended edge now points from merged node
 
-    def test_extend_preserves_trigger_conditions(self):
+    def test_extend_preserves_load_conditions(self):
         """Should preserve trigger conditions during extend."""
         # Setup first graph
         bfg1 = BindFileGraph()
@@ -535,7 +535,7 @@ class TestBindFileGraphExtend:
         bf2 = BindFile([Bind("F2", ["say two"])])
         bfg1.add_bind_file(bf1).add_bind_file(bf2)
         conditions1 = {"on_triggers": "F1"}
-        bfg1.link(0, 1, trigger_conditions=conditions1)
+        bfg1.link(0, 1, load_conditions=conditions1)
 
         # Setup second graph with different conditions
         bfg2 = BindFileGraph()
@@ -543,14 +543,14 @@ class TestBindFileGraphExtend:
         bf4 = BindFile([Bind("F4", ["say four"])])
         bfg2.add_bind_file(bf3).add_bind_file(bf4)
         conditions2 = {"on_triggers": "SPACE"}
-        bfg2.link(0, 1, trigger_conditions=conditions2)
+        bfg2.link(0, 1, load_conditions=conditions2)
 
         # act
         bfg1.extend(bfg2)
 
         # assert
-        assert bfg1.get_trigger_conditions(0, 1) == conditions1
-        assert bfg1.get_trigger_conditions(2, 3) == conditions2
+        assert bfg1.get_load_conditions(0, 1) == conditions1
+        assert bfg1.get_load_conditions(2, 3) == conditions2
 
     def test_extend_with_multiple_merges(self):
         """Should handle multiple node merges correctly."""

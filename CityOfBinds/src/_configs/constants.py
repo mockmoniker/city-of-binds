@@ -21,7 +21,7 @@ class BindFileConstants:
 
 class BFGConstants:
     NODE_DATA_KEY = "bind_file"
-    EDGE_DATA_KEY = "trigger_conditions"
+    EDGE_DATA_KEY = "load_conditions"
     EXCLUSIVE_LOADING_TRIGGERS_KEY = "only_on_triggers"
     NON_LOADING_TRIGGERS_KEY = "not_on_triggers"
     QUICK_TRIGGER_KEY = "quick_triggers"

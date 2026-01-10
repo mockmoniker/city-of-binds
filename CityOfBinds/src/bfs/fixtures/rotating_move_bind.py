@@ -53,7 +53,7 @@ class RotatingMoveBind(RotatingBind):
             key for key, exclude in zip(direction_keys, exclude_flags) if not exclude
         ]
         # TODO: add kwags for support of other MoveBinds (2026/01/08)
-        self.wasd_bind_template = BindTemplate(
+        self.move_bind_template = BindTemplate(
             self.movement_keys[0], bind_type=WASDBind
         )
 
@@ -63,6 +63,6 @@ class RotatingMoveBind(RotatingBind):
 
     def _append_wasd_binds(self):
         for direction in self.movement_keys:
-            direction_template = copy.deepcopy(self.wasd_bind_template)
+            direction_template = copy.deepcopy(self.move_bind_template)
             direction_template.trigger = direction
             self.add_bind_template(direction_template)
