@@ -4,7 +4,7 @@ from .rotating_move_bind import RotatingMoveBind
 class PersistentToggles(RotatingMoveBind):
     def __init__(
         self,
-        auto_powers: list[str],
+        toggle_powers: list[str],
         forward_key: str = "W",
         left_key: str = "A",
         backward_key: str = "S",
@@ -39,4 +39,21 @@ class PersistentToggles(RotatingMoveBind):
             absolute_path_links=absolute_path_links,
             loop_delay=loop_delay,
         )
-        self.move_bind_template.add_auto_power_pool(auto_powers)
+        self._toggle_powers = toggle_powers
+        for power in reversed(toggle_powers):
+            self.move_bind_template.add_toggle_on_power([power])
+
+    def publish_bind_files(self, parent_folder_name="", directory="."):
+        non_priority_powers = []
+        priority_powers = self._toggle_powers.copy()
+        while len(non_priority_powers) != len(self._toggle_powers):
+            try:
+                return super().publish_bind_files(parent_folder_name, directory)
+            except ValueError as ve:
+                non_priority_powers.append(priority_powers.pop(-1))
+                # TODO: write a clear command for bind template (2026/01/10) 
+                self.move_bind_template.template = []
+                self.move_bind_template.add_toggle_on_power_pool(non_priority_powers)
+                for priority_power in priority_powers:
+                    self.move_bind_template.add_toggle_on_power([priority_power])
+        return super().publish_bind_files(parent_folder_name, directory)

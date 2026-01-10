@@ -269,13 +269,15 @@ class BFGPublisher(_FileGraphPublisher):
 
     # endregion
 
-    # TODO: resolve how I want to pass paths/nodemap (2026/01/04)
-    def _post_link_files(self, file_graph, node_to_paths_id, directory, file_paths):
+    def _post_link_files(
+        self, file_graph: BindFileGraph, node_to_paths_id, directory, file_paths
+    ):
         for node_id in file_graph.nodes():
             self._resolve_side_effects(
-                file_graph.nodes[node_id][self._file_graph_key],
+                file_graph.get_bind_file(node_id),
                 file_graph.nodes[node_id],
             )
+            file_graph.get_bind_file(node_id).validate
 
     def _resolve_side_effects(
         self, source_bind_file: BindFile, source_node_attributes: dict
