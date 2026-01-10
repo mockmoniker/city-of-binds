@@ -1,3 +1,4 @@
+import copy
 import random
 from abc import ABC, abstractmethod
 
@@ -126,5 +127,9 @@ class _RandomOrder:
         self.random_factor = random_factor
 
     def _index_bind_files(self, bind_files: list[BindFile]):
-        bind_files.extend(bind_files * (self.random_factor - 1))
+        original_files = bind_files[:]
+        for _ in range(self.random_factor - 1):
+            bind_files.extend(copy.deepcopy(original_files))
+
+        # bind_files.extend(copy.deebind_files * (self.random_factor - 1))
         random.shuffle(bind_files)
