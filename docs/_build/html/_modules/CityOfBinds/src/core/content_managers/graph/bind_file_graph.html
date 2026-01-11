@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CityOfBinds.src.core.content_managers.graph.bind_file_graph &mdash; CityOfBinds 0.5.5 documentation</title>
+  <title>CityOfBinds.src.core.content_managers.graph.bind_file_graph &mdash; CityOfBinds 0.5.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../../../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../../../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../../../../_static/documentation_options.js?v=45def3bc"></script>
+      <script src="../../../../../../_static/documentation_options.js?v=722679d6"></script>
       <script src="../../../../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../../../../_static/js/theme.js"></script>
@@ -161,7 +161,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span>
             <span class="n">source_bind_file_index</span><span class="p">,</span>
             <span class="n">target_bind_file_index</span><span class="p">,</span>
-            <span class="o">**</span><span class="p">{</span><span class="n">BFGConstants</span><span class="o">.</span><span class="n">EDGE_DATA_KEY</span><span class="p">:</span> <span class="n">load_conditions</span><span class="p">}</span> <span class="ow">or</span> <span class="p">{},</span>
+            <span class="o">**</span><span class="p">{</span><span class="n">BFGConstants</span><span class="o">.</span><span class="n">EDGE_DATA_KEY</span><span class="p">:</span> <span class="n">load_conditions</span><span class="p">},</span>
         <span class="p">)</span>
         <span class="c1"># Insert delay nodes if requested</span>
         <span class="k">if</span> <span class="n">delay</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -459,18 +459,12 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span>
             <span class="n">source_bind_file_index</span><span class="p">,</span>
             <span class="n">new_bind_file_index</span><span class="p">,</span>
-            <span class="o">**</span><span class="p">(</span>
-                <span class="p">{</span><span class="n">BFGConstants</span><span class="o">.</span><span class="n">EDGE_DATA_KEY</span><span class="p">:</span> <span class="n">first_condition</span><span class="p">}</span> <span class="k">if</span> <span class="n">first_condition</span> <span class="k">else</span> <span class="p">{}</span>
-            <span class="p">),</span>
+            <span class="o">**</span><span class="p">({</span><span class="n">BFGConstants</span><span class="o">.</span><span class="n">EDGE_DATA_KEY</span><span class="p">:</span> <span class="n">first_condition</span><span class="p">}),</span>
         <span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span>
             <span class="n">new_bind_file_index</span><span class="p">,</span>
             <span class="n">target_bind_file_index</span><span class="p">,</span>
-            <span class="o">**</span><span class="p">(</span>
-                <span class="p">{</span><span class="n">BFGConstants</span><span class="o">.</span><span class="n">EDGE_DATA_KEY</span><span class="p">:</span> <span class="n">second_condition</span><span class="p">}</span>
-                <span class="k">if</span> <span class="n">second_condition</span>
-                <span class="k">else</span> <span class="p">{}</span>
-            <span class="p">),</span>
+            <span class="o">**</span><span class="p">({</span><span class="n">BFGConstants</span><span class="o">.</span><span class="n">EDGE_DATA_KEY</span><span class="p">:</span> <span class="n">second_condition</span><span class="p">}),</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span>

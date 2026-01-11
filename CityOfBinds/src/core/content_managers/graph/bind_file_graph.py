@@ -83,7 +83,7 @@ class BindFileGraph(nx.DiGraph):
         super().add_edge(
             source_bind_file_index,
             target_bind_file_index,
-            **{BFGConstants.EDGE_DATA_KEY: load_conditions} or {},
+            **{BFGConstants.EDGE_DATA_KEY: load_conditions},
         )
         # Insert delay nodes if requested
         if delay > 0:
@@ -359,18 +359,12 @@ class BindFileGraph(nx.DiGraph):
         super().add_edge(
             source_bind_file_index,
             new_bind_file_index,
-            **(
-                {BFGConstants.EDGE_DATA_KEY: first_condition} if first_condition else {}
-            ),
+            **({BFGConstants.EDGE_DATA_KEY: first_condition}),
         )
         super().add_edge(
             new_bind_file_index,
             target_bind_file_index,
-            **(
-                {BFGConstants.EDGE_DATA_KEY: second_condition}
-                if second_condition
-                else {}
-            ),
+            **({BFGConstants.EDGE_DATA_KEY: second_condition}),
         )
 
         return self
