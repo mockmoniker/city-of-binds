@@ -1,5 +1,5 @@
 """Version information for CityOfBinds."""
 
-__version__ = "0.5.6"
+__version__ = "0.5.7"
 __author__ = "brandon wade"
 __email__ = "bwade.dev@gmail.com"

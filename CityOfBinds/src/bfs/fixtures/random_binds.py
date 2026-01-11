@@ -6,7 +6,7 @@ from .rotating_bind import RotatingBind
 from .rotating_move_bind import RotatingMoveBind
 
 
-class RandomBinds(RotatingBind, _RandomOrder):
+class RandomBinds(_RandomOrder, RotatingBind):
     def __init__(
         self,
         random_factor: int = 10,
