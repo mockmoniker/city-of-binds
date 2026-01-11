@@ -22,6 +22,7 @@ class RandomWalk(_RandomOrder, RotatingMoveBind):
         is_silent: bool = True,
         absolute_path_links: bool = False,
         random_factor: int = 1,
+        delay: int = 0,
     ):
         RotatingMoveBind.__init__(
             self,
@@ -42,6 +43,7 @@ class RandomWalk(_RandomOrder, RotatingMoveBind):
             loop_delay=0,
         )
         _RandomOrder.__init__(self, random_factor=random_factor)
+        self.delay = delay
 
     def _connect_bind_file_graph(
         self, bfg: BindFileGraph, bind_file_indexes: list[int], load_conditions: dict
@@ -50,6 +52,7 @@ class RandomWalk(_RandomOrder, RotatingMoveBind):
             bind_file_indexes,
             k=len(self.movement_keys),
             load_conditions=load_conditions,
+            delay=self.delay,
         )
         self._set_wasd_load_conditions(bfg, bind_file_indexes)
 
