@@ -41,6 +41,10 @@ dev = [
     "pytest",
     "isort",
     "mypy",
+    "sphinx",
+    "sphinx-rtd-theme",
+    "build",
+    "twine",
 ]
 
 [tool.setuptools.packages.find]

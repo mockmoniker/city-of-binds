@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CityOfBinds package &mdash; CityOfBinds 0.5.7 documentation</title>
+  <title>CityOfBinds package &mdash; CityOfBinds 0.5.8 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=d65efdcf"></script>
+      <script src="../_static/documentation_options.js?v=3e445e0d"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/js/theme.js"></script>
@@ -164,6 +164,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileGraph.to_undirected"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.to_undirected()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileGraph.to_undirected_class"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.to_undirected_class()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileGraph.update"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#CityOfBinds.BindFileGraph.weave"><code class="docutils literal notranslate"><span class="pre">BindFileGraph.weave()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#CityOfBinds.BindFileSystem"><code class="docutils literal notranslate"><span class="pre">BindFileSystem</span></code></a><ul>
@@ -1097,7 +1098,7 @@ binds before writing.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="CityOfBinds.BindFileGraph">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.</span></span><span class="sig-name descname"><span class="pre">BindFileGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">incoming_graph_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">attr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/core/content_managers/graph/bind_file_graph.html#BindFileGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFileGraph" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">CityOfBinds.</span></span><span class="sig-name descname"><span class="pre">BindFileGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/CityOfBinds/src/core/content_managers/graph/bind_file_graph.html#BindFileGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFileGraph" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">DiGraph</span></code></p>
 <p>A wrapper around NetworkX DiGraph for managing logical connections between BindFile objects.</p>
 <p>This class enables the creation of complex rotating bind patterns by establishing directed
@@ -3249,6 +3250,35 @@ be slightly different and require tweaks of these examples:</p>
 <dt><a class="reference internal" href="#CityOfBinds.BindFileGraph.add_nodes_from" title="CityOfBinds.BindFileGraph.add_nodes_from"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_nodes_from</span></code></a></dt><dd><p>add multiple nodes to a graph</p>
 </dd>
 </dl>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CityOfBinds.BindFileGraph.weave">
+<span class="sig-name descname"><span class="pre">weave</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bind_file_index_lists</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cycle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_conditions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#CityOfBinds.BindFileGraph" title="CityOfBinds.src.core.content_managers.graph.bind_file_graph.BindFileGraph"><span class="pre">BindFileGraph</span></a></span></span><a class="reference internal" href="../_modules/CityOfBinds/src/core/content_managers/graph/bind_file_graph.html#BindFileGraph.weave"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#CityOfBinds.BindFileGraph.weave" title="Link to this definition"></a></dt>
+<dd><p>Create interleaved paths from multiple lists of bind file indexes.</p>
+<p>Shorter lists are extended by adding new nodes (copies of their bind files,
+cycling through the original list) until all lists match the longest length.
+This avoids multiple incoming edges to the same node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bind_file_index_lists</strong> – List of lists of node indexes to interleave</p></li>
+<li><p><strong>load_conditions</strong> – Conditions applied to all links</p></li>
+<li><p><strong>delay</strong> – Delay applied to all links</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Self for method chaining</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">weave</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]])</span>
+<span class="go"># Creates: bf0 -&gt; bf3 -&gt; bf1 -&gt; bf4 -&gt; bf2 -&gt; bf5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="o">.</span><span class="n">weave</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]])</span>
+<span class="go"># Extends [5,6] with new nodes 7,8,9 (copies of bf5,bf6,bf5)</span>
+<span class="go"># Creates: bf0 -&gt; bf5 -&gt; bf1 -&gt; bf6 -&gt; bf2 -&gt; bf7 -&gt; bf3 -&gt; bf8 -&gt; bf4 -&gt; bf9</span>
+</pre></div>
 </div>
 </dd></dl>
 

@@ -316,6 +316,57 @@ class BindFileGraph(nx.DiGraph):
         randomized = random.sample(bind_file_indexes, len(bind_file_indexes))
         return self.make_k_regular(randomized, k, load_conditions, delay)
 
+    def weave(
+        self,
+        bind_file_index_lists: list[list[int]],
+        cycle: bool = False,
+        load_conditions: dict = None,
+        delay: int = 0,
+    ) -> "BindFileGraph":
+        """
+        Create interleaved paths from multiple lists of bind file indexes.
+
+        Shorter lists are extended by adding new nodes (copies of their bind files,
+        cycling through the original list) until all lists match the longest length.
+        This avoids multiple incoming edges to the same node.
+
+        Args:
+            bind_file_index_lists: List of lists of node indexes to interleave
+            load_conditions: Conditions applied to all links
+            delay: Delay applied to all links
+        Returns:
+            Self for method chaining
+        Example:
+            >>> graph.weave([[0,1,2], [3,4,5]])
+            # Creates: bf0 -> bf3 -> bf1 -> bf4 -> bf2 -> bf5
+            >>> graph.weave([[0,1,2,3,4], [5,6]])
+            # Extends [5,6] with new nodes 7,8,9 (copies of bf5,bf6,bf5)
+            # Creates: bf0 -> bf5 -> bf1 -> bf6 -> bf2 -> bf7 -> bf3 -> bf8 -> bf4 -> bf9
+        """
+        max_len = max(len(lst) for lst in bind_file_index_lists)
+
+        # Extend shorter lists by adding new nodes with copies of their bind files
+        extended_lists = []
+        for lst in bind_file_index_lists:
+            extended = list(lst)
+            for i in range(len(lst), max_len):
+                original_index = lst[i % len(lst)]
+                original_bind_file = self.get_bind_file(original_index)
+                new_index = self.number_of_nodes()
+                self.add_bind_file(copy.deepcopy(original_bind_file))
+                extended.append(new_index)
+            extended_lists.append(extended)
+
+        # Interleave the now-equal-length lists
+        interleaved = []
+        for i in range(max_len):
+            for lst in extended_lists:
+                interleaved.append(lst[i])
+
+        if cycle:
+            return self.cycle(interleaved, load_conditions=load_conditions, delay=delay)
+        return self.path(interleaved, load_conditions=load_conditions, delay=delay)
+
     def _subdivide_edge(
         self,
         source_bind_file_index: int,
