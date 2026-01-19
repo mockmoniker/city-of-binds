@@ -38,6 +38,7 @@ class ChangelingMaps:
         "strike": "black dwarf",
         "smite": "black dwarf",
         "antagonize": "black dwarf",
+        "mire": "black dwarf",
         "drain": "black dwarf",
     }
 
