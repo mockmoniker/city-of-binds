@@ -69,20 +69,21 @@
            <div itemprop="articleBody">
              
   <h1>Source code for CityOfBinds.src.bfs.fixtures.changeling_binds</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Self</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">..._configs.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChangelingConstants</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">..._configs.maps</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChangelingMaps</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">...core.content_managers.templates.bind_template</span><span class="w"> </span><span class="kn">import</span> <span class="n">BindTemplate</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">...core.game_content.utils.triggers.trigger_mixin</span><span class="w"> </span><span class="kn">import</span> <span class="n">_TriggerEnjoyer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.rotating_bind</span><span class="w"> </span><span class="kn">import</span> <span class="n">RotatingBind</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">_ChangelingRotatingBind</span><span class="p">(</span><span class="n">_TriggerEnjoyer</span><span class="p">,</span> <span class="n">RotatingBind</span><span class="p">):</span>
-    <span class="n">NOVA_FORM</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">DWARF_FORM</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">FORM</span><span class="p">:</span> <span class="nb">dict</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">trigger</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">absolute_path_links</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">trigger</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">power_rotation</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">is_silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">absolute_path_links</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="n">_TriggerEnjoyer</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trigger</span><span class="p">)</span>
         <span class="n">RotatingBind</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
@@ -91,122 +92,47 @@
             <span class="n">absolute_path_links</span><span class="o">=</span><span class="n">absolute_path_links</span><span class="p">,</span>
             <span class="n">loop_delay</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_form_changes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_form_powers</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">changeling_bind_template</span><span class="p">:</span> <span class="n">BindTemplate</span> <span class="o">=</span> <span class="n">BindTemplate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trigger</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_bolt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_nova_power</span><span class="p">(</span><span class="n">ChangelingConstants</span><span class="o">.</span><span class="n">BOLT</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_blast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_nova_power</span><span class="p">(</span><span class="n">ChangelingConstants</span><span class="o">.</span><span class="n">BLAST</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_detonation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_nova_power</span><span class="p">(</span><span class="n">ChangelingConstants</span><span class="o">.</span><span class="n">DETONATION</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_strike</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_dwarf_power</span><span class="p">(</span><span class="n">ChangelingConstants</span><span class="o">.</span><span class="n">STRIKE</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_smite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_dwarf_power</span><span class="p">(</span><span class="n">ChangelingConstants</span><span class="o">.</span><span class="n">SMITE</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_antagonize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_dwarf_power</span><span class="p">(</span><span class="n">ChangelingConstants</span><span class="o">.</span><span class="n">ANTAGONIZE</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">power_rotation</span> <span class="o">=</span> <span class="n">power_rotation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">changeling_template</span><span class="p">:</span> <span class="n">BindTemplate</span> <span class="o">=</span> <span class="n">BindTemplate</span><span class="p">(</span><span class="n">trigger</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_build_bind_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_build_changeling_bind_template</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">changeling_bind_template</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_bind_file_template</span><span class="o">.</span><span class="n">add_bind_template</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">changeling_bind_template</span><span class="p">,</span> <span class="n">execute_on_up_press</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_build_changeling_bind_template</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">changeling_template</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_bind_template</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">changeling_template</span><span class="p">,</span> <span class="n">execute_on_up_press</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_build_bind_files</span><span class="p">()</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_add_nova_power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">power</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_form_power</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">NOVA_FORM</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_add_dwarf_power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">power</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_form_power</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DWARF_FORM</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_add_form_power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">power</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_form_changes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_form_powers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">form</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">power</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span>
-
     <span class="k">def</span><span class="w"> </span><span class="nf">_build_changeling_bind_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template</span><span class="p">:</span> <span class="n">BindTemplate</span><span class="p">):</span>
-        <span class="n">template</span><span class="o">.</span><span class="n">add_toggle_on_power_pool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_form_changes</span><span class="p">)</span>
-        <span class="n">template</span><span class="o">.</span><span class="n">add_power_pool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_form_powers</span><span class="p">)</span>
-        <span class="n">template</span><span class="o">.</span><span class="n">add_toggle_off_power_pool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_form_changes</span><span class="p">)</span>
+        <span class="n">form_list</span><span class="p">,</span> <span class="n">power_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_changeling_lists</span><span class="p">()</span>
+        <span class="n">template</span><span class="o">.</span><span class="n">add_toggle_off_power_pool</span><span class="p">(</span><span class="n">form_list</span><span class="p">)</span>
+        <span class="n">template</span><span class="o">.</span><span class="n">add_toggle_on_power_pool</span><span class="p">(</span><span class="n">form_list</span><span class="p">)</span>
+        <span class="n">template</span><span class="o">.</span><span class="n">add_power_pool</span><span class="p">(</span><span class="n">power_list</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_changeling_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">form_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">power_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">power</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">power_rotation</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">throw_error_if_unknown_form_power</span><span class="p">(</span><span class="n">power</span><span class="p">)</span>
+            <span class="n">form_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">FORM</span><span class="p">[</span><span class="n">power</span><span class="p">])</span>
+            <span class="n">power_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">FORM</span><span class="p">[</span><span class="n">power</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">power</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">form_list</span><span class="p">,</span> <span class="n">power_list</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">throw_error_if_unknown_form_power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">power</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">power</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">FORM</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unknown kheldian power: &#39;</span><span class="si">{</span><span class="n">power</span><span class="si">}</span><span class="s2">&#39;, valid powers: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">FORM</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
 
 
-<div class="viewcode-block" id="ChangelingRotatingBindWS">
-<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.ChangelingRotatingBindWS">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">ChangelingRotatingBindWS</span><span class="p">(</span><span class="n">_ChangelingRotatingBind</span><span class="p">):</span>
-    <span class="n">NOVA_FORM</span> <span class="o">=</span> <span class="n">ChangelingConstants</span><span class="o">.</span><span class="n">DARK_NOVA</span>
-    <span class="n">DWARF_FORM</span> <span class="o">=</span> <span class="n">ChangelingConstants</span><span class="o">.</span><span class="n">BLACK_DWARF</span>
-
-<div class="viewcode-block" id="ChangelingRotatingBindWS.__init__">
-<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.ChangelingRotatingBindWS.__init__">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">trigger</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">absolute_path_links</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">trigger</span><span class="p">,</span> <span class="n">is_silent</span><span class="o">=</span><span class="n">is_silent</span><span class="p">,</span> <span class="n">absolute_path_links</span><span class="o">=</span><span class="n">absolute_path_links</span>
-        <span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="ChangelingRotatingBindWS.add_emmanation">
-<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.ChangelingRotatingBindWS.add_emmanation">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_emmanation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_nova_power</span><span class="p">(</span><span class="n">ChangelingConstants</span><span class="o">.</span><span class="n">EMMANATION</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="ChangelingRotatingBindWS.add_drain">
-<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.ChangelingRotatingBindWS.add_drain">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_drain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_dwarf_power</span><span class="p">(</span><span class="n">ChangelingConstants</span><span class="o">.</span><span class="n">DRAIN</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="ChangelingRotatingBindWS.add_mire">
-<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.ChangelingRotatingBindWS.add_mire">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_mire</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_dwarf_power</span><span class="p">(</span><span class="n">ChangelingConstants</span><span class="o">.</span><span class="n">MIRE</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span></div>
-</div>
+<div class="viewcode-block" id="ChangelingWarshade">
+<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.ChangelingWarshade">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ChangelingWarshade</span><span class="p">(</span><span class="n">_ChangelingRotatingBind</span><span class="p">):</span>
+    <span class="n">FORM</span> <span class="o">=</span> <span class="n">ChangelingMaps</span><span class="o">.</span><span class="n">WS_FORMS</span></div>
 
 
 
-<div class="viewcode-block" id="ChangelingRotatingPB">
-<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.ChangelingRotatingPB">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">ChangelingRotatingPB</span><span class="p">(</span><span class="n">_ChangelingRotatingBind</span><span class="p">):</span>
-    <span class="n">NOVA_FORM</span> <span class="o">=</span> <span class="n">ChangelingConstants</span><span class="o">.</span><span class="n">BRIGHT_NOVA</span>
-    <span class="n">DWARF_FORM</span> <span class="o">=</span> <span class="n">ChangelingConstants</span><span class="o">.</span><span class="n">WHITE_DWARF</span>
-
-<div class="viewcode-block" id="ChangelingRotatingPB.__init__">
-<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.ChangelingRotatingPB.__init__">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">trigger</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">is_silent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">absolute_path_links</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">trigger</span><span class="p">,</span> <span class="n">is_silent</span><span class="o">=</span><span class="n">is_silent</span><span class="p">,</span> <span class="n">absolute_path_links</span><span class="o">=</span><span class="n">absolute_path_links</span>
-        <span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="ChangelingRotatingPB.add_scatter">
-<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.ChangelingRotatingPB.add_scatter">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_scatter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_nova_power</span><span class="p">(</span><span class="n">ChangelingConstants</span><span class="o">.</span><span class="n">SCATTER</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="ChangelingRotatingPB.add_flare">
-<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.ChangelingRotatingPB.add_flare">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_flare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_dwarf_power</span><span class="p">(</span><span class="n">ChangelingConstants</span><span class="o">.</span><span class="n">FLARE</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="ChangelingRotatingPB.add_sublimation">
-<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.ChangelingRotatingPB.add_sublimation">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_sublimation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_dwarf_power</span><span class="p">(</span><span class="n">ChangelingConstants</span><span class="o">.</span><span class="n">SUBLIMATION</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span></div>
-</div>
+<div class="viewcode-block" id="ChangelingPeaceBringer">
+<a class="viewcode-back" href="../../../../../source/CityOfBinds.html#CityOfBinds.ChangelingPeaceBringer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ChangelingPeaceBringer</span><span class="p">(</span><span class="n">_ChangelingRotatingBind</span><span class="p">):</span>
+    <span class="n">FORM</span> <span class="o">=</span> <span class="n">ChangelingMaps</span><span class="o">.</span><span class="n">PB_FORMS</span></div>
 
 </pre></div>
 

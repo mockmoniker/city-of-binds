@@ -2,8 +2,8 @@
 from ._version import __author__, __email__, __version__
 from .src.bfs.bind_file_system import BindFileSystem
 from .src.bfs.fixtures.changeling_binds import (
-    ChangelingRotatingBindWS,
-    ChangelingRotatingPB,
+    ChangelingPeaceBringer,
+    ChangelingWarshade,
 )
 from .src.bfs.fixtures.persistent_autos import PersistentAutos
 from .src.bfs.fixtures.random_binds import RandomBinds
@@ -45,6 +45,6 @@ __all__ = [
     "BindFileTemplate",
     "BindFileGraph",
     "BFGPublisher",
-    "ChangelingRotatingBindWS",
-    "ChangelingRotatingPB",
+    "ChangelingWarshade",
+    "ChangelingPeaceBringer",
 ]

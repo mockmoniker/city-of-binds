@@ -1,17 +1,18 @@
-from typing import Self
-
-from ..._configs.constants import ChangelingConstants
+from ..._configs.maps import ChangelingMaps
 from ...core.content_managers.templates.bind_template import BindTemplate
 from ...core.game_content.utils.triggers.trigger_mixin import _TriggerEnjoyer
 from .rotating_bind import RotatingBind
 
 
 class _ChangelingRotatingBind(_TriggerEnjoyer, RotatingBind):
-    NOVA_FORM: str
-    DWARF_FORM: str
+    FORM: dict
 
     def __init__(
-        self, trigger: str, is_silent: bool = True, absolute_path_links: bool = False
+        self,
+        trigger: str,
+        power_rotation: list[str],
+        is_silent: bool = True,
+        absolute_path_links: bool = False,
     ):
         _TriggerEnjoyer.__init__(self, trigger)
         RotatingBind.__init__(
@@ -20,90 +21,39 @@ class _ChangelingRotatingBind(_TriggerEnjoyer, RotatingBind):
             absolute_path_links=absolute_path_links,
             loop_delay=1,
         )
-        self._form_changes: list[str] = []
-        self._form_powers: list[str] = []
-        self.changeling_bind_template: BindTemplate = BindTemplate(self.trigger)
-
-    def add_bolt(self, count: int = 1) -> Self:
-        return self._add_nova_power(ChangelingConstants.BOLT, count)
-
-    def add_blast(self, count: int = 1) -> Self:
-        return self._add_nova_power(ChangelingConstants.BLAST, count)
-
-    def add_detonation(self, count: int = 1) -> Self:
-        return self._add_nova_power(ChangelingConstants.DETONATION, count)
-
-    def add_strike(self, count: int = 1) -> Self:
-        return self._add_dwarf_power(ChangelingConstants.STRIKE, count)
-
-    def add_smite(self, count: int = 1) -> Self:
-        return self._add_dwarf_power(ChangelingConstants.SMITE, count)
-
-    def add_antagonize(self, count: int = 1) -> Self:
-        return self._add_dwarf_power(ChangelingConstants.ANTAGONIZE, count)
+        self.power_rotation = power_rotation
+        self.changeling_template: BindTemplate = BindTemplate(trigger)
 
     def _build_bind_files(self):
-        self._build_changeling_bind_template(self.changeling_bind_template)
-        self._bind_file_template.add_bind_template(
-            self.changeling_bind_template, execute_on_up_press=True
-        )
+        self._build_changeling_bind_template(self.changeling_template)
+        self.add_bind_template(self.changeling_template, execute_on_up_press=True)
         return super()._build_bind_files()
 
-    def _add_nova_power(self, power: str, count: int = 1) -> Self:
-        return self._add_form_power(self.NOVA_FORM, power, count)
-
-    def _add_dwarf_power(self, power: str, count: int = 1) -> Self:
-        return self._add_form_power(self.DWARF_FORM, power, count)
-
-    def _add_form_power(self, form: str, power: str, count: int = 1) -> Self:
-        for _ in range(count):
-            self._form_changes.append(form)
-            self._form_powers.append(f"{form} {power}")
-        return self
-
     def _build_changeling_bind_template(self, template: BindTemplate):
-        template.add_toggle_on_power_pool(self._form_changes)
-        template.add_power_pool(self._form_powers)
-        template.add_toggle_off_power_pool(self._form_changes)
+        form_list, power_list = self._get_changeling_lists()
+        template.add_toggle_off_power_pool(form_list)
+        template.add_toggle_on_power_pool(form_list)
+        template.add_power_pool(power_list)
+
+    def _get_changeling_lists(self):
+        form_list = []
+        power_list = []
+        for power in self.power_rotation:
+            self.throw_error_if_unknown_form_power(power)
+            form_list.append(self.FORM[power])
+            power_list.append(f"{self.FORM[power]} {power}")
+        return form_list, power_list
+
+    def throw_error_if_unknown_form_power(self, power: str):
+        if power.lower().strip() not in self.FORM:
+            raise ValueError(
+                f"Unknown kheldian power: '{power}', valid powers: {list(self.FORM.keys())}"
+            )
 
 
-class ChangelingRotatingBindWS(_ChangelingRotatingBind):
-    NOVA_FORM = ChangelingConstants.DARK_NOVA
-    DWARF_FORM = ChangelingConstants.BLACK_DWARF
-
-    def __init__(
-        self, trigger: str, is_silent: bool = True, absolute_path_links: bool = False
-    ):
-        super().__init__(
-            trigger, is_silent=is_silent, absolute_path_links=absolute_path_links
-        )
-
-    def add_emmanation(self, count: int = 1) -> Self:
-        return self._add_nova_power(ChangelingConstants.EMMANATION, count)
-
-    def add_drain(self, count: int = 1) -> Self:
-        return self._add_dwarf_power(ChangelingConstants.DRAIN, count)
-
-    def add_mire(self, count: int = 1) -> Self:
-        return self._add_dwarf_power(ChangelingConstants.MIRE, count)
+class ChangelingWarshade(_ChangelingRotatingBind):
+    FORM = ChangelingMaps.WS_FORMS
 
 
-class ChangelingRotatingPB(_ChangelingRotatingBind):
-    NOVA_FORM = ChangelingConstants.BRIGHT_NOVA
-    DWARF_FORM = ChangelingConstants.WHITE_DWARF
-
-    def __init__(
-        self, trigger: str, is_silent: bool = True, absolute_path_links: bool = False
-    ):
-        super().__init__(
-            trigger, is_silent=is_silent, absolute_path_links=absolute_path_links
-        )
-
-    def add_scatter(self, count: int = 1) -> Self:
-        return self._add_nova_power(ChangelingConstants.SCATTER, count)
-
-    def add_flare(self, count: int = 1) -> Self:
-        return self._add_dwarf_power(ChangelingConstants.FLARE, count)
-
-    def add_sublimation(self, count: int = 1) -> Self:
-        return self._add_dwarf_power(ChangelingConstants.SUBLIMATION, count)
+class ChangelingPeaceBringer(_ChangelingRotatingBind):
+    FORM = ChangelingMaps.PB_FORMS

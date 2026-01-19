@@ -31,25 +31,6 @@ class BFGConstants:
     FILE_PATH_OVERRIDE_KEY = "use_bind_file_path"
 
 
-class ChangelingConstants:
-    DARK_NOVA = "dark nova"
-    BLACK_DWARF = "black dwarf"
-    BRIGHT_NOVA = "bright nova"
-    WHITE_DWARF = "white dwarf"
-    BOLT = "bolt"
-    BLAST = "blast"
-    DETONATION = "detonation"
-    STRIKE = "strike"
-    SMITE = "smite"
-    ANTAGONIZE = "antagonize"
-    EMMANATION = "emmanation"
-    DRAIN = "drain"
-    MIRE = "mire"
-    SCATTER = "scatter"
-    FLARE = "flare"
-    SUBLIMATION = "sublimation"
-
-
 class MacroCommands:
     MACRO = "macro"
     MACRO_SLOT = "macroslot"

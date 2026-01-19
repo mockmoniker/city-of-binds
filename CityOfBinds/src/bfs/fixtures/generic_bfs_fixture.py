@@ -13,7 +13,7 @@ from ..bind_file_system import BindFileSystem
 
 class _GenericBFSFixture(ABC):
     def __init__(self, is_silent: bool = True, absolute_path_links: bool = False):
-        self._bind_file_template: BindFileTemplate = BindFileTemplate()
+        self._base_bft: BindFileTemplate = BindFileTemplate()
         self.use_silent_loads = is_silent
         self.use_abs_path_loads = absolute_path_links
 
@@ -44,7 +44,7 @@ class _GenericBFSFixture(ABC):
         loads_next_file: bool = True,
         execute_on_up_press: bool = False,
     ):
-        self._bind_file_template.add_bind_template(
+        self._base_bft.add_bind_template(
             bind_template, loads_next_file, execute_on_up_press
         )
         return self
@@ -54,9 +54,7 @@ class _GenericBFSFixture(ABC):
         bind_template: BindTemplate,
         execute_on_up_press: bool = False,
     ):
-        self._bind_file_template.add_non_loading_bind_template(
-            bind_template, execute_on_up_press
-        )
+        self._base_bft.add_non_loading_bind_template(bind_template, execute_on_up_press)
         return self
 
     def add_exclusive_loading_bind_template(
@@ -64,7 +62,7 @@ class _GenericBFSFixture(ABC):
         bind_template: BindTemplate,
         execute_on_up_press: bool = False,
     ):
-        self._bind_file_template.add_exclusive_loading_bind_template(
+        self._base_bft.add_exclusive_loading_bind_template(
             bind_template, execute_on_up_press
         )
         return self
@@ -78,7 +76,7 @@ class _GenericBFSFixture(ABC):
         return bfs
 
     def _build_bind_files(self) -> list[BindFile]:
-        return self._bind_file_template.build_all()
+        return self._base_bft.build_all()
 
     def _create_indexed_bind_files(self) -> list[BindFile]:
         bind_files = self._build_bind_files()
@@ -90,18 +88,16 @@ class _GenericBFSFixture(ABC):
 
     def _get_load_conditions(self) -> dict:
         conditions = {}
-        if self._bind_file_template.exclusive_load_triggers:
+        if self._base_bft.exclusive_load_triggers:
             conditions[BFGConstants.EXCLUSIVE_LOADING_TRIGGERS_KEY] = (
-                self._bind_file_template.exclusive_load_triggers
+                self._base_bft.exclusive_load_triggers
             )
-        if self._bind_file_template.non_load_triggers:
+        if self._base_bft.non_load_triggers:
             conditions[BFGConstants.NON_LOADING_TRIGGERS_KEY] = (
-                self._bind_file_template.non_load_triggers
+                self._base_bft.non_load_triggers
             )
-        if self._bind_file_template.quick_triggers:
-            conditions[BFGConstants.QUICK_TRIGGER_KEY] = (
-                self._bind_file_template.quick_triggers
-            )
+        if self._base_bft.quick_triggers:
+            conditions[BFGConstants.QUICK_TRIGGER_KEY] = self._base_bft.quick_triggers
         return conditions
 
     def _get_load_parameters(self) -> dict:
