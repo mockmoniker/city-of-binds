@@ -27,3 +27,28 @@ class MovementMaps:
         "up": "up",
         "down": "down",
     }
+
+
+class ChangelingMaps:
+    WS_FORMS = {
+        "bolt": "dark nova",
+        "blast": "dark nova",
+        "detonation": "dark nova",
+        "emanation": "dark nova",
+        "strike": "black dwarf",
+        "smite": "black dwarf",
+        "antagonize": "black dwarf",
+        "drain": "black dwarf",
+    }
+
+    PB_FORMS = {
+        "bolt": "bright nova",
+        "blast": "bright nova",
+        "detonation": "bright nova",
+        "scatter": "bright nova",
+        "strike": "white dwarf",
+        "smite": "white dwarf",
+        "antagonize": "white dwarf",
+        "flare": "white dwarf",
+        "sublimation": "white dwarf",
+    }
